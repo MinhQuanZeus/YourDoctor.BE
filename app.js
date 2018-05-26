@@ -1,0 +1,54 @@
+require('./config/config');     //instantiate configuration variables
+require('./global_functions');  //instantiate global functions
+
+console.log("Environment:", CONFIG.app)
+
+const express = require('express');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
+const passport = require('passport');
+
+var indexRouter = require('./routes/index');
+var apiRouter = require('./routes/api');
+
+const app = express();
+
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+//Passport
+app.use(passport.initialize());
+
+//DATABASE
+const models = require("./models");
+
+// CORS
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization, Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
+
+app.use('/api', apiRouter);
+app.use('/', indexRouter);
+
+
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+// error handler
+app.use(function (err, req, res, next) {
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    res.status(err.status || 500);
+    next(err);
+});
+
+module.exports = app;
