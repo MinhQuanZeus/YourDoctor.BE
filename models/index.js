@@ -16,7 +16,7 @@ if (CONFIG.db_host !== '') {
         });
 
     mongoose.Promise = global.Promise;
-    const mongo_location = 'mongodb://' + CONFIG.db_host + ':' + CONFIG.db_port + '/' + CONFIG.db_name;
+    const mongo_location = 'mongodb://' + CONFIG.db_user + ':' + CONFIG.db_password + '@' + CONFIG.db_host + ':' + CONFIG.db_port + '/' + CONFIG.db_name + '?ssl=true';
 
     mongoose.connect(mongo_location).catch((err) => {
         console.log('*** Can Not Connect to Mongo Server:', mongo_location)

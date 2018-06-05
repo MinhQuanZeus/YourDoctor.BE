@@ -5,17 +5,22 @@ console.log("Environment:", CONFIG.app)
 
 const express = require('express');
 const logger = require('morgan');
+var cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('passport');
+var path = require('path');
 
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
 
 const app = express();
 
+app.set('view engine', 'html');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
 //Passport
 app.use(passport.initialize());
