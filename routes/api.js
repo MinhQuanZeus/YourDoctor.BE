@@ -5,6 +5,10 @@ const UserController = require('./../controllers/UserController');
 const PhoneController = require('./../controllers/PhoneController');
 const AuthController = require('./../controllers/AuthController');
 
+const ReportController = require('../controllers/ReportController');
+const SpecialistController = require('../controllers/SpecialistController');
+const RatingController = require('../controllers/RatingController');
+const Type_advisoriesController = require('../controllers/Type_advisoriesController');
 const passport = require('passport');
 const path = require('path');
 
@@ -40,4 +44,26 @@ router.delete('/users', passport.authenticate('jwt', {
 router.post('/phone/sms', PhoneController.sendPhoneVerifyCode);
 router.post('/phone/verify', PhoneController.verifyPhoneVerifyCode);
 
+//--------------- Report
+router.post('/reports', ReportController.create);
+router.get('/reports', ReportController.get);
+router.delete('/reports', ReportController.remove);
+
+
+//--------------- Specialist
+router.post('/specialists', SpecialistController.create);
+router.get('/specialists', SpecialistController.get);
+router.put('/specialists', SpecialistController.update);
+router.delete('/specialists', SpecialistController.remove);
+
+//--------------- Rating
+router.post('/ratings', RatingController.create);
+router.put('/ratings', RatingController.update);
+
+//--------------- Type_advisories
+router.post('/type_advisoriess', Type_advisoriesController.create);
+router.get('/type_advisoriess', Type_advisoriesController.get_all_type);
+router.get('/type_advisoriess/:id', Type_advisoriesController.get_by_id);
+router.put('/type_advisoriess', Type_advisoriesController.update);
+router.delete('/type_advisoriess', Type_advisoriesController.remove);
 module.exports = router;
