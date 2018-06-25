@@ -4,10 +4,10 @@ const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
     if(!body.id_reporter){
-        return ReE(res, 'Báo cáo không thành công');
+        return ReE(res, 'Báo cáo không thành công',400);
     }
     else if(!body.id_person_being_reported){
-        return ReE(res, 'Báo cáo không thành công');
+        return ReE(res, 'Báo cáo không thành công',400);
     }else {
         var report = new Report({
             id_reporter: body.id_reporter,
@@ -15,9 +15,7 @@ const create = async function (req, res) {
             reason: body.reason,
             time_create: body.time_create
         })
-        await  report.save()
-        res.json(report)
-        return ReS(res, {message: 'Gửi báo cáo thành công'}, 204);
+        return ReS(report, {message: 'Gửi báo cáo thành công',report:report }, 200);
     }
 
 
@@ -26,13 +24,12 @@ const create = async function (req, res) {
 module.exports.create = create;
 
 const get = async function (req, res) {
-    Report.find({}, function (err, report) {
+    Report.find({}, function (err, list_report) {
         if(err){
             res.send('Có lỗi khi load dữ liệu');
             next();
         }
-        console.log(report);
-        res.json(report);
+        return ReS(list_report, {message: 'Tải danh sách báo cáo thành công',list_report:list_report }, 200);
     });
 };
 

@@ -7,7 +7,8 @@ const validate = require('mongoose-validator');
 let Type_acvisoriesSchema = mongoose.Schema({
     name: {type: String},
     price: {type: Number},
-    limit_number_records: {type: Number}
+    limit_number_records: {type: Number},
+    description:{type: String}
 });
 
 let Type_advisories = module.exports = mongoose.model('Type_advisories', Type_acvisoriesSchema);

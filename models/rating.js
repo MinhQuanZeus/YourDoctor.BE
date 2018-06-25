@@ -7,7 +7,7 @@ const validate = require('mongoose-validator');
 let RatingSchema = mongoose.Schema({
     patient_id: {type: String},
     doctor_id: {type: String},
-    rating: {type: Number},
+    rating: {type: Number, default:0},
     time: {type: Date}
 });
 

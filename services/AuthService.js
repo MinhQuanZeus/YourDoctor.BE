@@ -89,3 +89,4 @@ const authUser = async (userInfo) => { //returns token
 
 }
 module.exports.authUser = authUser;
+

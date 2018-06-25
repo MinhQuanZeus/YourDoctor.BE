@@ -9,6 +9,10 @@ const ReportController = require('../controllers/ReportController');
 const SpecialistController = require('../controllers/SpecialistController');
 const RatingController = require('../controllers/RatingController');
 const Type_advisoriesController = require('../controllers/Type_advisoriesController');
+const Banking_historyController = require('../controllers/Banking_historyController');
+const DoctorController = require('../controllers/DoctorController');
+const PatientsController = require('../controllers/PatientsController');
+const AccountsController = require('../controllers/AccountsController');
 const passport = require('passport');
 const path = require('path');
 
@@ -66,4 +70,34 @@ router.get('/type_advisoriess', Type_advisoriesController.get_all_type);
 router.get('/type_advisoriess/:id', Type_advisoriesController.get_by_id);
 router.put('/type_advisoriess', Type_advisoriesController.update);
 router.delete('/type_advisoriess', Type_advisoriesController.remove);
+
+//---------------Banking_history
+router.post('/banking_historys', Banking_historyController.create);
+router.get('/banking_historys', Banking_historyController.get_history);
+router.get('/banking_historys/:id', Banking_historyController.get_detail_history_by_id);
+router.delete('/banking_historys/:id', Banking_historyController.remove_logic);
+
+//---------------Doctor
+router.post('/doctors', DoctorController.create);
+router.get('/doctors', DoctorController.get_doctor);
+router.get('/doctors/:doctor_id', DoctorController.get_infor_doctor_by_id);
+router.get('/doctors/get_list_specialist_doctor/:specialist_id', DoctorController.get_list_specialist_doctor);
+router.put('/doctors', DoctorController.update);
+router.delete('/doctors', DoctorController.remove);
+
+
+//-----------Patient
+router.post('/patientss', PatientsController.create);
+router.get('/patientss', PatientsController.get_patients);
+router.get('/patientss/:patient_id', PatientsController.get_infor_patient_by_id);
+router.put('/patientss', PatientsController.update);
+router.delete('/patientss', PatientsController.remove);
+
+//---------------Account
+router.post('/accountss', AccountsController.create);                                                    // C
+router.get('/accountss', passport.authenticate('jwt', {session: false}), AccountsController.get);        // R
+router.put('/accountss', passport.authenticate('jwt', {session: false}), AccountsController.update);     // U
+router.delete('/accountss', passport.authenticate('jwt', {session: false}), AccountsController.remove);  // D
+router.post('/accountss/login', AccountsController.login);
+
 module.exports = router;
