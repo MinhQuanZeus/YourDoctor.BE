@@ -3,10 +3,10 @@ const Rating = require('../models').Rating;
 const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
-    if(!body.patient_id){
+    if(!body.patientId){
         return ReE(res, '');
     }
-    else if(!body.doctor_id){
+    else if(!body.doctorId){
         return ReE(res, '');
     }
     else if(!body.rating){
@@ -14,8 +14,8 @@ const create = async function (req, res) {
     }
     else {
         var rating = new Rating({
-            patient_id: body.patient_id,
-            doctor_id: body.doctor_id,
+            patientId: body.patientId,
+            doctorId: body.doctorId,
             rating: body.rating,
             time: body.time
         })
@@ -30,14 +30,14 @@ module.exports.create = create;
 const update = async function (req, res) {
     let data = req.body;
     if(!data) return ReS(res, 'ERROR0010', 400);
-    Rating.findByIdAndUpdate({patient_id:data.patient_id,doctor_id:data.doctor_id}, function (err, update_rating) {
+    Rating.findByIdAndUpdate({patientId:data.patientId,doctorId:data.doctorId}, function (err, updateRating) {
         if (err) TE(err.message);
-        if(!update_rating) return ReS(res, 'ERROR0013', 404);
-        update_rating.set(data)
-        update_rating.save(function (err, update_rating) {
+        if(!updateRating) return ReS(res, 'ERROR0013', 404);
+        updateRating.set(data)
+        updateRating.save(function (err, updateRating) {
             if (err) TE(err.message);
             // TODO
-            //return ReS(res, {message: 'Cập nhật đánh giá bác sỹ thành công', update_rating : update_rating}, 200);
+            console.log(updateRating);
         });
     });
 };

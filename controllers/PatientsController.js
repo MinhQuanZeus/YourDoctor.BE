@@ -6,18 +6,16 @@ const create = async function (req, res) {
         return ReE(res, 'ERROR0017',400);
     }
     else {
-        Patients.findOne({patient_id:body.patient_id},function (err, dupplcatePatient) {
-           if(dupplcatePatient) {
+        Patients.findOne({patientId:body.patientId},function (err, duplicatePatient) {
+           if(duplicatePatient) {
                return ReE(res, 'ERROR0018',409);
            }
     });
     }
     var patient = new Patients({
-        patient_id:body.patient_id,
-        favorite_doctors: body.favorite_doctors,
-        create_time:body.create_time,
-        update_time:body.update_time,
-        deletion_flag:body.deletion_flag
+        patientId:body.patientId,
+        favoriteDoctors: body.favoriteDoctors,
+        deletionFlag:body.deletionFlag
     });
 
     await  patient.save();
@@ -27,46 +25,47 @@ const create = async function (req, res) {
 module.exports.create = create;
 
 // admin get all patients to view
-const get_patients = async function (req, res) {
+const getPatients = async function (req, res) {
     // get all patients nếu không có param truyền lên
     // get all patients nếu có param truyền lên ( chỉ dùng để get all patients chưa bị xóa logic)
     let query = {}
-    if ( req.query.deletion_flag) query.deletion_flag = req.query.deletion_flag
+    if ( req.query.deletionFlag) query.deletionFlag = req.query.deletionFlag
     console.log(query);
-    Patients.find(query, function (err, get_patient) {
+    Patients.find(query, function (err, getPatient) {
         if(err){
             if (err) return ReE(res, "ERROR0016", 404);
             next();
         }
-        return ReS(res, {message: 'Tải danh sách bệnh nhân thành công', get_patient : get_patient}, 200);
+        return ReS(res, {message: 'Tải danh sách bệnh nhân thành công', getPatient : getPatient}, 200);
     });
 };
-module.exports.get_patients = get_patients;
+module.exports.getPatients = getPatients;
 
 
 // get patient to view
-const get_infor_patient_by_id = async function(req, res){
-    if(!req.patient_id){
+const getInformationPatientById = async function(req, res){
+    if(!req.patientId){
         return ReE(res, "ERROR0010", 400);
     }
-    Patients.findOne({patient_id:req.params.patient_id},function (err, infor_patient){
+    // Todo - get information patients
+    Patients.findOne({patientId:req.params.patientId},function (err, inforPatient){
         if (err) ReE(res, "ERROR0016", 404);
-        return ReS(res, {message: 'Tải thông tin bệnh nhân thành công', infor_patient : infor_patient}, 200);
+        return ReS(res, {message: 'Tải thông tin bệnh nhân thành công', inforPatient : inforPatient}, 200);
     });
 }
-module.exports.get_infor_patient_by_id = get_infor_patient_by_id;
+module.exports.getInformationPatientById = getInformationPatientById;
 
 
 const update = async function (req, res) {
     let data;
     data = req.body;
     if(!data) return ReE(res, "ERROR0010", 400);
-    Patients.findOne({patient_id:data.patient_id}, function (err, patient_update) {
-        if(!patient_update) return ReE(res, "ERROR0016", 404);
+    Patients.findOne({patientId:data.patientId}, function (err, patientUpdate) {
+        if(!patientUpdate) return ReE(res, "ERROR0016", 404);
         if (err) return handleError(err);
-        patient_update.set(data);
+        patientUpdate.set(data);
 
-        patient_update.save(function (err, updatedPatients) {
+        patientUpdate.save(function (err, updatedPatients) {
             if (err) return handleError(err);
             res.send(updatedPatients);
         });

@@ -5,11 +5,10 @@ const jwt = require('jsonwebtoken');
 const validate = require('mongoose-validator');
 
 let ReportSchema = mongoose.Schema({
-    id_reporter: {type: String},
-    id_person_being_reported: {type: String},
+    idReporter: {type: String},
+    idPersonBeingReported: {type: String},
     reason: {type: String},
-    time_create: {type: Date}
-
-});
+    timeCreate: {type: Date}
+}, {timestamps: true});
 
 let Report = module.exports = mongoose.model('Report', ReportSchema);

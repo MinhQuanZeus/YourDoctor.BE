@@ -40,9 +40,9 @@ const update = async function (req, res) {
         if (err) TE(err.message);
         if(!updateSpecialist) return ReE(res, 'ERROR0015', 404);
         updateSpecialist.set(data);
-        updateSpecialist.save(function (err, updated_Doctor){
+        updateSpecialist.save(function (err, updateSpecialist){
             if (err) TE(err.message);
-            return ReS(res, {message: 'Cập nhật chuyên khoa thành công', updated_Doctor : updated_Doctor}, 200);
+            return ReS(res, {message: 'Cập nhật chuyên khoa thành công', updateSpecialist : updateSpecialist}, 200);
         });
     });
 };

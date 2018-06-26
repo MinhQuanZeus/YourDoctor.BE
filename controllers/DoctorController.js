@@ -1,14 +1,15 @@
 const Doctors = require('../models').Doctors;
 const Patients = require('../models').Patients;
-const Accounts = require('../models').Accounts;
+const Users = require('../models').Users;
+const mongoose = require('mongoose')
 const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
-    if (!body.doctor_id) {
+    if (!body.doctorId) {
         return ReE(res, 'ERROR0008', 400);
     }
     else {
-        Doctors.findOne({doctor_id: body.doctor_id}, function (err, dupplicateDoctor) {
+        Doctors.findOne({doctorId: body.doctorId}, function (err, dupplicateDoctor) {
             // handle
             if (dupplicateDoctor) {
                 return ReE(res, 'ERROR0008', 409);
@@ -16,16 +17,14 @@ const create = async function (req, res) {
         });
     }
     var doctor = new Doctors({
-        doctor_id: body.doctor_id,
-        current_rating: body.current_rating,
+        doctorId: body.doctorId,
+        currentRating: body.currentRating,
         certificates: body.certificates,
-        id_specialist: body.id_specialist,
-        university_graduate: body.university_graduate,
-        year_graduate: body.year_graduate,
-        place_working: body.place_working,
-        create_time: body.create_time,
-        update_time: body.update_time,
-        deletion_flag: body.deletion_flag
+        idSpecialist: body.idSpecialist,
+        universityGraduate: body.universityGraduate,
+        yearGraduate: body.yearGraduate,
+        placeWorking: body.placeWorking,
+        deletionFlag: body.deletionFlag
     });
     await  doctor.save();
     return ReS(res, {message: 'Tạo thông tin bác sỹ thành công', doctor: doctor}, 200);
@@ -35,48 +34,64 @@ module.exports.create = create;
 
 
 // admin get all doctor to view
-const get_doctor = async function (req, res) {
+const getDoctor = async function (req, res) {
     // get all doctor nếu không có param truyền lên
     // get all doctor nếu có param truyền lên ( chỉ dùng để get all doctor chưa bị xóa logic)
     let query = {}
-    if (req.query.deletion_flag) query.deletion_flag = req.query.deletion_flag
+    if (req.query.deletionFlag) query.deletionFlag = req.query.deletionFlag
     console.log(query);
-    Doctors.find(query, function (err, get_doctor) {
+    Doctors.find(query, function (err, getDoctor) {
         if (err) {
             if (err) return ReE(res, "ERROR0009", 404);
             next();
         }
-        console.log(get_doctor);
-        res.json(get_doctor);
+        console.log(getDoctor);
+        res.json(getDoctor);
     });
 };
-module.exports.get_doctor = get_doctor;
+module.exports.getDoctor = getDoctor;
 
 
 // user get doctor to view
-const get_infor_doctor_by_id = async function (req, res) {
-    if (!req.doctor_id) {
-        return ReE(res, "ERROR0010", 400);
-    }
-    Doctors.findOne({doctor_id: req.params.doctor_id}, function (err, infor_doctor) {
-        if (err) return ReE(res, "ERROR0009", 404);
-        res.send(infor_doctor);
-    });
+const getInformationDoctorById = async function (req, res) {
+    console.log(req.params.doctorId)
+    var ObjectId = require('mongoose').Types.ObjectId;
+    var query = {doctorId: new ObjectId.fromString(req.params.doctorId)}
+    console.log(query)
+    // if (req.params.doctorId) {
+    //      console.log(req.params.doctorId);
+    // }
+    // else {
+    //     return ReE(res, "ERROR0010", 400);
+    // }
+    Doctors.find(
+        query
+        // {'id':req.params.id}
+        )
+        .populate(
+            {
+                path: 'doctorId'
+            }
+        )
+        .exec(function (err, informationDoctor) {
+            if (err) TE(err.message);
+            return ReS(res, {message: 'Lấy thông tin bác sỹ thành công', informationDoctor: informationDoctor}, 200);
+        });
 }
-module.exports.get_infor_doctor_by_id = get_infor_doctor_by_id;
+module.exports.getInformationDoctorById = getInformationDoctorById;
 
 
 const update = async function (req, res) {
     let data;
     data = req.body;
     if (!data) return ReE(res, "ERROR0010", 400);
-
-    Doctors.findOne({doctor_id: data.doctor_id}, function (err, doctor_update) {
+    console.log(data);
+    Doctors.findOne({doctorId: data.doctorId}, function (err, doctorUpdate) {
         if (err) TE(err.message);
-        if (!doctor_update) return ReE(res, "ERROR0009", 404);
-        doctor_update.set(data);
+        if (!doctorUpdate) return ReE(res, "ERROR0009", 404);
+        doctorUpdate.set(data);
 
-        doctor_update.save(function (err, updatedDoctor) {
+        doctorUpdate.save(function (err, updatedDoctor) {
             if (err) TE(err.message);
             res.send(updatedDoctor);
         });
@@ -94,7 +109,7 @@ const remove = async function (req, res) {
 
 module.exports.remove = remove;
 
-const get_list_specialist_doctor = async function (req, res) {
+const getListSpecialistDoctor = async function (req, res) {
     // query - get params
     let query = {}
     if (req.query.perPage) {
@@ -119,29 +134,29 @@ const get_list_specialist_doctor = async function (req, res) {
 
     // TODO get list doctor
     Doctors.find({
-        'id_specialist': {
+        'idSpecialist': {
             '$elemMatch': {
-                'specialist_id': req.params.specialist_id
+                'specialistId': req.params.specialistId
             }
         },
-        'current_rating': {
+        'currentRating': {
             $gte: 3
         }
     })
-        .select('current_rating -_id')
-        .sort([['current_rating', 'descending']])
+        .select('currentRating -_id')
+        .sort([['currentRating', 'descending']])
         .limit(1 * perPage)
         .skip(1 * perPage * page)
         .populate({
-            path: 'doctor_id',
-            select: 'first_name last_name'
+            path: 'doctorId',
+            select: 'firstName middleName lastName'
         })
-        .exec(function (err, list_id_doctor) {
+        .exec(function (err, listDoctor) {
             if (err) TE(err.message);
-            return ReS(res, {message: 'Tạo danh sách bác sỹ thành công', list_id_doctor: list_id_doctor}, 200);
+            return ReS(res, {message: 'Tạo danh sách bác sỹ thành công', listDoctor: listDoctor}, 200);
         });
 }
 
-module.exports.get_list_specialist_doctor = get_list_specialist_doctor;
+module.exports.getListSpecialistDoctor = getListSpecialistDoctor;
 
 

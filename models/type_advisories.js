@@ -4,11 +4,11 @@ const bcrypt_p = require('bcrypt-promise');
 const jwt = require('jsonwebtoken');
 const validate = require('mongoose-validator');
 
-let Type_acvisoriesSchema = mongoose.Schema({
+let TypeAdvisoriesSchema = mongoose.Schema({
     name: {type: String},
     price: {type: Number},
-    limit_number_records: {type: Number},
+    limitNumberRecords: {type: Number},
     description:{type: String}
-});
+}, {timestamps: true});
 
-let Type_advisories = module.exports = mongoose.model('Type_advisories', Type_acvisoriesSchema);
+let TypeAdvisories = module.exports = mongoose.model('TypeAdvisories', TypeAdvisoriesSchema);
