@@ -44,14 +44,23 @@ module.exports.getPatients = getPatients;
 
 // get patient to view
 const getInformationPatientById = async function(req, res){
-    if(!req.patientId){
+    if(!req.params.patientId){
         return ReE(res, "ERROR0010", 400);
     }
-    // Todo - get information patients
-    Patients.findOne({patientId:req.params.patientId},function (err, inforPatient){
-        if (err) ReE(res, "ERROR0016", 404);
-        return ReS(res, {message: 'Tải thông tin bệnh nhân thành công', inforPatient : inforPatient}, 200);
-    });
+    var query = {patientId:req.params.patientId}
+    console.log(query)
+    Patients.find(
+        query
+    )
+        .populate(
+            {
+                path: 'patientID'
+            }
+        )
+        .exec(function (err, informationPatient) {
+            if (err) TE(err.message);
+            return ReS(res, {message: 'Lấy thông tin bệnh nhân thành công', informationPatient: informationPatient}, 200);
+        });
 }
 module.exports.getInformationPatientById = getInformationPatientById;
 

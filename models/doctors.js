@@ -15,7 +15,7 @@ let childSpecialist = mongoose.Schema({
 });
 
 let DoctorSchema = mongoose.Schema({
-    doctorId: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    doctorId: {type: String, ref: 'User'},
     currentRating: {type: Number},
     certificates: [childCertificate],
     idSpecialist: [childSpecialist],

@@ -54,19 +54,13 @@ module.exports.getDoctor = getDoctor;
 
 // user get doctor to view
 const getInformationDoctorById = async function (req, res) {
-    console.log(req.params.doctorId)
-    var ObjectId = require('mongoose').Types.ObjectId;
-    var query = {doctorId: new ObjectId.fromString(req.params.doctorId)}
+    if (!req.params.doctorId) {
+        return ReE(res, "ERROR0010", 400);
+    }
+    var query = {doctorId: req.params.doctorId}
     console.log(query)
-    // if (req.params.doctorId) {
-    //      console.log(req.params.doctorId);
-    // }
-    // else {
-    //     return ReE(res, "ERROR0010", 400);
-    // }
     Doctors.find(
         query
-        // {'id':req.params.id}
         )
         .populate(
             {
