@@ -1,44 +1,48 @@
 const User = require('./../models').User;
+const Patient = require('./../models').Patient;
 const validator = require('validator');
+const constants = require('./../constants');
 
-const getUniqueKeyFromBody = function (body) {
-    let unique_key = null;
-    if (typeof body.email !== 'undefined') {
-        unique_key = body.email
-    } else if (typeof body.phone !== 'undefined') {
-        unique_key = body.phone
-    } else {
-        unique_key = null;
-    }
-    return unique_key;
-}
-module.exports.getUniqueKeyFromBody = getUniqueKeyFromBody;
-
-const createUser = async function (userInfo) {
-    let unique_key, auth_info, err;
+const createUser = async (userInfo) => {
+    let auth_info, err;
     auth_info = {}
     auth_info.status = 'create';
+    console.log(userInfo);
+    if (!userInfo.role) {
+        return TE('ERROR0026');
+    }
+    if (!userInfo.phoneNumber) {
+        return TE('ERROR0027');
+    }
+    if (!userInfo.firstName || !userInfo.lastName) {
+        return TE('ERROR0025');
+    }
+    if (!userInfo.password) {
+        return TE('ERROR0024');
+    }
 
-    unique_key = getUniqueKeyFromBody(userInfo);
-    console.log(unique_key);
-    if (!unique_key) TE('An email or phone number was not entered.');
-
-    if (validator.isEmail(unique_key)) {
-        auth_info.method = 'email';
-        userInfo.email = unique_key;
-
-        [err, user] = await to(User.create(userInfo));
-        if (err) TE('user already exists with that email');
-
-        return user;
-
-    } else if (validator.isMobilePhone(unique_key, 'any')) {//checks if only phone number was sent
+    if (validator.isMobilePhone(userInfo.phoneNumber, 'any')) {
         auth_info.method = 'phone';
-        userInfo.phone = unique_key;
-
         [err, user] = await to(User.create(userInfo));
-        if (err) TE('user already exists with that phone number');
+        if (err) TE('ERROR0023');
+        if (user.role == constants.ROLE_PATIENT) {
+            const pat = new Patient({
+                patientID: user._id,
+                favoriteDoctors: [],
+                deletionFlag: constants.NOT_DELETED_ENTITY
+            })
+            let error, patient;
+            [error, patient] = await to(Patient.create(pat));
+            if (error) {
+                TE('error save patient');
+            }
+        }
+        if (user.role == constants.ROLE_DOCTOR) {
 
+        }
+        if (user.role == constants.ROLE_STAFF) {
+
+        }
         return user;
     } else {
         TE('A valid email or phone number was not entered.');
@@ -46,39 +50,28 @@ const createUser = async function (userInfo) {
 }
 module.exports.createUser = createUser;
 
-const authUser = async function (userInfo) {//returns token
-    let unique_key;
+const authUser = async (userInfo) => { //returns token
     let auth_info = {};
     auth_info.status = 'login';
-    unique_key = getUniqueKeyFromBody(userInfo);
-
-    if (!unique_key) TE('Please enter an email or phone number to login');
-
-
-    if (!userInfo.password) TE('Please enter a password to login');
+    if (!userInfo.phoneNumber || !userInfo.password) TE('ERROR0021');
 
     let user;
-    if (validator.isEmail(unique_key)) {
-        auth_info.method = 'email';
-
-        [err, user] = await to(User.findOne({email: unique_key}));
-        if (err) TE(err.message);
-
-    } else if (validator.isMobilePhone(unique_key, 'any')) {//checks if only phone number was sent
+    if (validator.isMobilePhone(userInfo.phoneNumber, 'any')) { //checks if only phone number was sent
         auth_info.method = 'phone';
-
-        [err, user] = await to(User.findOne({phone: unique_key}));
+        [err, user] = await to(User.findOne({
+            phoneNumber: userInfo.phoneNumber
+        }));
         if (err) TE(err.message);
 
     } else {
-        TE('A valid email or phone number was not entered');
+        TE('ERROR0001');
     }
-
-    if (!user) TE('Not registered');
-
+    if (!user) TE('ERROR0020');
+    console.log(user);
+    console.log(user.full_name);
     [err, user] = await to(user.comparePassword(userInfo.password));
 
-    if (err) TE(err.message);
+    if (err) TE('ERROR0022');
 
     return user;
 

@@ -16,16 +16,16 @@ if (CONFIG.db_host !== '') {
         });
 
     mongoose.Promise = global.Promise;
-    const mongo_location = 'mongodb://' + CONFIG.db_user + ':' + CONFIG.db_password + '@' + CONFIG.db_host + ':' + CONFIG.db_port + '/' + CONFIG.db_name + '?ssl=true';
+    const mongoLocation = 'mongodb://' + CONFIG.db_user + ':' + CONFIG.db_password + '@' + CONFIG.db_host + ':' + CONFIG.db_port + '/' + CONFIG.db_name + '?ssl=true';
 
-    mongoose.connect(mongo_location).catch((err) => {
-        console.log('*** Can Not Connect to Mongo Server:', mongo_location)
+    mongoose.connect(mongoLocation).catch((err) => {
+        console.log('*** Can Not Connect to Mongo Server:', mongoLocation)
     })
 
     let db = mongoose.connection;
     module.exports = db;
     db.once('open', () => {
-        console.log('Connected to mongo at ' + mongo_location);
+        console.log('Connected to mongo at ' + mongoLocation);
     })
     db.on('error', (error) => {
         console.log("error", error);
