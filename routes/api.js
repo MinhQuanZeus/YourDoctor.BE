@@ -65,8 +65,8 @@ router.put('/ratings', RatingController.update);
 
 //--------------- Type_advisories
 router.post('/type_advisoriess', Type_advisoriesController.create);
-router.get('/type_advisoriess', Type_advisoriesController.getAllTypeAdvisories);
-router.get('/type_advisoriess/:id', Type_advisoriesController.getTypeAdvisoriesById);
+router.get('/type_advisoriess/getAllTypeAdvisories', Type_advisoriesController.getAllTypeAdvisories);
+router.get('/type_advisoriess/getTypeAdvisoriesById/:id', Type_advisoriesController.getTypeAdvisoriesById);
 router.put('/type_advisoriess', Type_advisoriesController.update);
 router.delete('/type_advisoriess', Type_advisoriesController.remove);
 
@@ -87,8 +87,8 @@ router.delete('/doctors', DoctorController.remove);
 
 //-----------Patient
 router.post('/patientss', PatientsController.create);
-router.get('/patientss', PatientsController.getPatients);
-router.get('/patientss/:patientId', PatientsController.getInformationPatientById);
+router.get('/patientss/getPatients', PatientsController.getPatients);
+router.get('/patientss/getInformationPatientById/:patientId', PatientsController.getInformationPatientById);
 router.put('/patientss', PatientsController.update);
 router.delete('/patientss', PatientsController.remove);
 

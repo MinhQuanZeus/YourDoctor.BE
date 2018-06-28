@@ -17,8 +17,6 @@ const create = async function (req, res) {
         })
         return ReS(report, {message: 'Gửi báo cáo thành công',report:report }, 200);
     }
-
-
 }
 
 module.exports.create = create;

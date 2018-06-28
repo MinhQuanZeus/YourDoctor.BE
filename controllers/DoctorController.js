@@ -8,14 +8,10 @@ const create = async function (req, res) {
     if (!body.doctorId) {
         return ReE(res, 'ERROR0008', 400);
     }
-    else {
-        Doctors.findOne({doctorId: body.doctorId}, function (err, dupplicateDoctor) {
-            // handle
-            if (dupplicateDoctor) {
-                return ReE(res, 'ERROR0008', 409);
-            }
-        });
-    }
+    let dupplicateDoctor = await Doctors.findOne({doctorId: body.doctorId});
+
+    if (dupplicateDoctor) return ReE(res, 'ERROR0008', 409);
+
     var doctor = new Doctors({
         doctorId: body.doctorId,
         currentRating: body.currentRating,
@@ -61,10 +57,11 @@ const getInformationDoctorById = async function (req, res) {
     console.log(query)
     Doctors.find(
         query
-        )
+    )
         .populate(
             {
-                path: 'doctorId'
+                path: 'doctorId',
+                select: '-password'
             }
         )
         .exec(function (err, informationDoctor) {
@@ -87,7 +84,7 @@ const update = async function (req, res) {
 
         doctorUpdate.save(function (err, updatedDoctor) {
             if (err) TE(err.message);
-            res.send(updatedDoctor);
+            return ReS(res, {message: 'Update thông tin bác sỹ thành công', updatedDoctor: updatedDoctor}, 200);
         });
     });
 }

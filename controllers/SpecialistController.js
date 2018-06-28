@@ -6,12 +6,10 @@ const create = async function (req, res) {
     if(!body.name){
         return ReE(res, 'ERROR0014', 400);
     }
-    Specialist.findOne({name:body.name}, function (err, dupplicateSpecialist) {
-        // handle
-        if(dupplicateSpecialist) {
-            return ReE(res, 'ERROR0014',409);
-        }
-    });
+    let dupplicateSpecialist = await Specialist.findOne({name:body.name})
+
+    if(dupplicateSpecialist) return ReE(res, 'ERROR0014',409);
+
     var specialist = new Specialist({
         name: body.name,
     })
@@ -35,15 +33,12 @@ const get = async function (req, res) {
 module.exports.get = get;
 
 const update = async function (req, res) {
-    const body = req.body;
-    Specialist.findByIdAndUpdate({id:body.id}, function (err, updateSpecialist) {
+    let data = req.body;
+    console.log(req.body);
+    Specialist.findByIdAndUpdate(data.id,{ $set: { name: data.name }}, { new: true }, function (err, updateSpecialist) {
+
         if (err) TE(err.message);
-        if(!updateSpecialist) return ReE(res, 'ERROR0015', 404);
-        updateSpecialist.set(data);
-        updateSpecialist.save(function (err, updateSpecialist){
-            if (err) TE(err.message);
-            return ReS(res, {message: 'Cập nhật chuyên khoa thành công', updateSpecialist : updateSpecialist}, 200);
-        });
+        return ReS(res, {message: 'Cập nhật chuyên khoa thành công', updateSpecialist : updateSpecialist}, 200);
     });
 };
 

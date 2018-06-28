@@ -11,4 +11,4 @@ let TypeAdvisoriesSchema = mongoose.Schema({
     description:{type: String}
 }, {timestamps: true});
 
-let TypeAdvisories = module.exports = mongoose.model('TypeAdvisories', TypeAdvisoriesSchema);
+let Type_advisories = module.exports = mongoose.model('Type_advisories', TypeAdvisoriesSchema);

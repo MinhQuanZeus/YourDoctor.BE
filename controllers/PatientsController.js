@@ -2,22 +2,18 @@ const Patients = require('../models').Patients;
 const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
-    if(!body.patient_id){
+    if(!body.patientId){
         return ReE(res, 'ERROR0017',400);
     }
-    else {
-        Patients.findOne({patientId:body.patientId},function (err, duplicatePatient) {
+    let duplicatePatient = await Patients.findOne({patientId:body.patientId});
            if(duplicatePatient) {
                return ReE(res, 'ERROR0018',409);
-           }
-    });
     }
     var patient = new Patients({
         patientId:body.patientId,
         favoriteDoctors: body.favoriteDoctors,
         deletionFlag:body.deletionFlag
     });
-
     await  patient.save();
     return ReS(res, {message: 'Tạo thông tin bác sỹ thành công', patient : patient}, 200);
 }
@@ -54,7 +50,8 @@ const getInformationPatientById = async function(req, res){
     )
         .populate(
             {
-                path: 'patientID'
+                path: 'patientId',
+                select: '-password'
             }
         )
         .exec(function (err, informationPatient) {
@@ -71,11 +68,11 @@ const update = async function (req, res) {
     if(!data) return ReE(res, "ERROR0010", 400);
     Patients.findOne({patientId:data.patientId}, function (err, patientUpdate) {
         if(!patientUpdate) return ReE(res, "ERROR0016", 404);
-        if (err) return handleError(err);
+        if (err) TE(err.message);
         patientUpdate.set(data);
 
         patientUpdate.save(function (err, updatedPatients) {
-            if (err) return handleError(err);
+            if (err) TE(err.message);
             res.send(updatedPatients);
         });
     });
@@ -85,7 +82,7 @@ module.exports.update = update;
 const remove = async function (req, res) {
     const body = req.body;
     Patients.findByIdAndRemove(body.id, function (err, patient) {
-        if (err) return handleError(err);
+        if (err) TE(err.message);
         return ReS(res, {message: 'Delete success'}, 204);
     });
 };
