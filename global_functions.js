@@ -32,6 +32,7 @@ ReS = function (res, data, code) { // Success Web Response
 
     if (typeof data == 'object') {
         send_data = Object.assign(data, send_data);
+        console.log(send_data);
     }
 
     if (typeof code !== 'undefined') res.statusCode = code;

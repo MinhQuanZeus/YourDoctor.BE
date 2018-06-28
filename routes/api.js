@@ -5,6 +5,13 @@ const UserController = require('./../controllers/UserController');
 const PhoneController = require('./../controllers/PhoneController');
 const AuthController = require('./../controllers/AuthController');
 
+const ReportController = require('../controllers/ReportController');
+const SpecialistController = require('../controllers/SpecialistController');
+const RatingController = require('../controllers/RatingController');
+const TypeAdvisoriesController = require('../controllers/TypeAdvisoriesController');
+const BankingHistoryController = require('../controllers/BankingHistoryController');
+const DoctorController = require('../controllers/DoctorController');
+const PatientsController = require('../controllers/PatientsController');
 const passport = require('passport');
 const path = require('path');
 
@@ -39,5 +46,51 @@ router.delete('/users', passport.authenticate('jwt', {
 //Phone
 router.post('/phone/sms', PhoneController.sendPhoneVerifyCode);
 router.post('/phone/verify', PhoneController.verifyPhoneVerifyCode);
+
+//--------------- Report
+router.post('/reports', ReportController.create);
+router.get('/reports', ReportController.get);
+router.delete('/reports', ReportController.remove);
+
+
+//--------------- Specialist
+router.post('/specialists', SpecialistController.create);
+router.get('/specialists', SpecialistController.get);
+router.put('/specialists', SpecialistController.update);
+router.delete('/specialists', SpecialistController.remove);
+
+//--------------- Rating
+router.post('/ratings', RatingController.create);
+router.put('/ratings', RatingController.update);
+
+//--------------- Type_advisories
+router.post('/typeadvisorys', TypeAdvisoriesController.create);
+router.get('/typeadvisorys/getAllTypeAdvisories', TypeAdvisoriesController.getAllTypeAdvisories);
+router.get('/typeadvisorys/getTypeAdvisoriesById/:id', TypeAdvisoriesController.getTypeAdvisoriesById);
+router.put('/typeadvisorys', TypeAdvisoriesController.update);
+router.delete('/typeadvisorys', TypeAdvisoriesController.remove);
+
+//---------------Banking_history
+router.post('/bankinghistorys', BankingHistoryController.create);
+router.get('/bankinghistorys', BankingHistoryController.getAllHistoryBanking);
+router.get('/bankinghistorys/:id', BankingHistoryController.getDetailHistoryById);
+router.delete('/bankinghistorys/:id', BankingHistoryController.removeLogic);
+
+//---------------Doctor
+router.post('/doctors', DoctorController.create);
+router.get('/doctors', DoctorController.getDoctor);
+router.get('/doctors/getInformationDoctorById/:doctorId', DoctorController.getInformationDoctorById);
+router.get('/doctors/getListSpecialistDoctor/:specialistId', DoctorController.getListSpecialistDoctor);
+router.put('/doctors', DoctorController.update);
+router.delete('/doctors', DoctorController.remove);
+
+
+//-----------Patient
+router.post('/patients', PatientsController.create);
+router.get('/patients/getPatients', PatientsController.getPatients);
+router.get('/patients/getInformationPatientById/:patientId', PatientsController.getInformationPatientById);
+router.put('/patients', PatientsController.update);
+router.delete('/patients', PatientsController.remove);
+
 
 module.exports = router;
