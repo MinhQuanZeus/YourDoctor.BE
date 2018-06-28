@@ -8,8 +8,8 @@ const AuthController = require('./../controllers/AuthController');
 const ReportController = require('../controllers/ReportController');
 const SpecialistController = require('../controllers/SpecialistController');
 const RatingController = require('../controllers/RatingController');
-const Type_advisoriesController = require('../controllers/Type_advisoriesController');
-const Banking_historyController = require('../controllers/Banking_historyController');
+const TypeAdvisoriesController = require('../controllers/TypeAdvisoriesController');
+const BankingHistoryController = require('../controllers/BankingHistoryController');
 const DoctorController = require('../controllers/DoctorController');
 const PatientsController = require('../controllers/PatientsController');
 const passport = require('passport');
@@ -64,17 +64,17 @@ router.post('/ratings', RatingController.create);
 router.put('/ratings', RatingController.update);
 
 //--------------- Type_advisories
-router.post('/typeadvisorys', Type_advisoriesController.create);
-router.get('/typeadvisorys/getAllTypeAdvisories', Type_advisoriesController.getAllTypeAdvisories);
-router.get('/typeadvisorys/getTypeAdvisoriesById/:id', Type_advisoriesController.getTypeAdvisoriesById);
-router.put('/typeadvisorys', Type_advisoriesController.update);
-router.delete('/typeadvisorys', Type_advisoriesController.remove);
+router.post('/typeadvisorys', TypeAdvisoriesController.create);
+router.get('/typeadvisorys/getAllTypeAdvisories', TypeAdvisoriesController.getAllTypeAdvisories);
+router.get('/typeadvisorys/getTypeAdvisoriesById/:id', TypeAdvisoriesController.getTypeAdvisoriesById);
+router.put('/typeadvisorys', TypeAdvisoriesController.update);
+router.delete('/typeadvisorys', TypeAdvisoriesController.remove);
 
 //---------------Banking_history
-router.post('/bankinghistorys', Banking_historyController.create);
-router.get('/bankinghistorys', Banking_historyController.get_history);
-router.get('/bankinghistorys/:id', Banking_historyController.get_detail_history_by_id);
-router.delete('/bankinghistorys/:id', Banking_historyController.remove_logic);
+router.post('/bankinghistorys', BankingHistoryController.create);
+router.get('/bankinghistorys', BankingHistoryController.getAllHistoryBanking);
+router.get('/bankinghistorys/:id', BankingHistoryController.getDetailHistoryById);
+router.delete('/bankinghistorys/:id', BankingHistoryController.removeLogic);
 
 //---------------Doctor
 router.post('/doctors', DoctorController.create);
