@@ -44,7 +44,7 @@ let UserSchema = mongoose.Schema({
     },
     deletionFlag: {
         type: Number,
-        default: 1
+        default: 0
     }
 }, {
     timestamps: true

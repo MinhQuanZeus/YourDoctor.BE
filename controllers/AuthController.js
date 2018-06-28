@@ -7,7 +7,6 @@ const register = async function (req, res) {
     
     let err, user;
     [err, user] = await to(authService.createUser(body));
-    console.log(err);
     if (err) return ReE(res, err, 422);
     return ReS(res, {
         message: 'Successfully created new user.',

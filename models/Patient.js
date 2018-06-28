@@ -12,7 +12,7 @@ let childFavariteDoctors = mongoose.Schema({
 
 let PatientSchema = mongoose.Schema({
     patientID: [{
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: 'User'
     }],
     favoriteDoctors: [childFavariteDoctors],

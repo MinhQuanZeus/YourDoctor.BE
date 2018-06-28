@@ -1,10 +1,6 @@
 const phoneService = require('./../services/PhoneService');
 const PhoneVerification = require("../models/PhoneVerification");
 const sendPhoneVerifyCode = async function (req, res) {
-    // return ReS(res, {
-    //     status: "success",
-    //     message: "INFO0001"
-    // }, 200);
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
     const vietnamesePhoneRegex = /(09|01[2|6|8|9])+([0-9]{8})\b/

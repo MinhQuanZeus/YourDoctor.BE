@@ -1,5 +1,6 @@
 const User = require('./../models').User;
 const Patient = require('./../models').Patient;
+const Doctor = require('./../models').Doctor;
 const validator = require('validator');
 const constants = require('./../constants');
 
@@ -7,7 +8,6 @@ const createUser = async (userInfo) => {
     let auth_info, err;
     auth_info = {}
     auth_info.status = 'create';
-    console.log(userInfo);
     if (!userInfo.role) {
         return TE('ERROR0026');
     }
@@ -20,7 +20,7 @@ const createUser = async (userInfo) => {
     if (!userInfo.password) {
         return TE('ERROR0024');
     }
-
+    console.log(userInfo);
     if (validator.isMobilePhone(userInfo.phoneNumber, 'any')) {
         auth_info.method = 'phone';
         [err, user] = await to(User.create(userInfo));
@@ -38,10 +38,24 @@ const createUser = async (userInfo) => {
             }
         }
         if (user.role == constants.ROLE_DOCTOR) {
-
+            var doctor = new Doctor({
+                doctorId: user._id,
+                currentRating: constants.FIRST_RATTING,
+                certificates: userInfo.certificates,
+                idSpecialist: userInfo.idSpecialist,
+                universityGraduate: userInfo.universityGraduate,
+                yearGraduate: userInfo.yearGraduate,
+                placeWorking: userInfo.placeWorking,
+                deletionFlag: constants.NOT_DELETED_ENTITY
+            });
+            let error, doc;
+            [error, doc] = await to(Doctor.create(doctor));
+            if (error) {
+                TE('error save doctor');
+            }
         }
         if (user.role == constants.ROLE_STAFF) {
-
+            //TODO save staff
         }
         return user;
     } else {
@@ -67,8 +81,6 @@ const authUser = async (userInfo) => { //returns token
         TE('ERROR0001');
     }
     if (!user) TE('ERROR0020');
-    console.log(user);
-    console.log(user.full_name);
     [err, user] = await to(user.comparePassword(userInfo.password));
 
     if (err) TE('ERROR0022');
