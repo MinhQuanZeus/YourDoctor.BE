@@ -1,18 +1,15 @@
-const Doctors = require('../models').Doctors;
-const Patients = require('../models').Patients;
-const Users = require('../models').Users;
-const mongoose = require('mongoose')
+const Doctor = require('../models').Doctor;
 const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
     if (!body.doctorId) {
         return ReE(res, 'ERROR0008', 400);
     }
-    let dupplicateDoctor = await Doctors.findOne({doctorId: body.doctorId});
+    let dupplicateDoctor = await Doctor.findOne({doctorId: body.doctorId});
 
     if (dupplicateDoctor) return ReE(res, 'ERROR0008', 409);
 
-    var doctor = new Doctors({
+    var doctor = new Doctor({
         doctorId: body.doctorId,
         currentRating: body.currentRating,
         certificates: body.certificates,
@@ -36,7 +33,7 @@ const getDoctor = async function (req, res) {
     let query = {}
     if (req.query.deletionFlag) query.deletionFlag = req.query.deletionFlag
     console.log(query);
-    Doctors.find(query, function (err, getDoctor) {
+    Doctor.find(query, function (err, getDoctor) {
         if (err) {
             if (err) return ReE(res, "ERROR0009", 404);
             next();
@@ -55,7 +52,7 @@ const getInformationDoctorById = async function (req, res) {
     }
     var query = {doctorId: req.params.doctorId}
     console.log(query)
-    Doctors.find(
+    Doctor.find(
         query
     )
         .populate(
@@ -77,7 +74,7 @@ const update = async function (req, res) {
     data = req.body;
     if (!data) return ReE(res, "ERROR0010", 400);
     console.log(data);
-    Doctors.findOne({doctorId: data.doctorId}, function (err, doctorUpdate) {
+    Doctor.findOne({doctorId: data.doctorId}, function (err, doctorUpdate) {
         if (err) TE(err.message);
         if (!doctorUpdate) return ReE(res, "ERROR0009", 404);
         doctorUpdate.set(data);
@@ -92,7 +89,7 @@ module.exports.update = update;
 
 const remove = async function (req, res) {
     const body = req.body;
-    Doctors.findByIdAndRemove(body.id, function (err, doctor) {
+    Doctor.findByIdAndRemove(body.id, function (err, doctor) {
         if (err) TE(err.message);
         return ReS(res, {message: 'Delete success'}, 204);
     });
@@ -124,7 +121,7 @@ const getListSpecialistDoctor = async function (req, res) {
     var page = parseInt(req.query.page);
 
     // TODO get list doctor
-    Doctors.find({
+    Doctor.find({
         'idSpecialist': {
             '$elemMatch': {
                 'specialistId': req.params.specialistId

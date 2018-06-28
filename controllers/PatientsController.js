@@ -1,15 +1,15 @@
-const Patients = require('../models').Patients;
+const Patient = require('../models').Patient;
 const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
     if(!body.patientId){
         return ReE(res, 'ERROR0017',400);
     }
-    let duplicatePatient = await Patients.findOne({patientId:body.patientId});
+    let duplicatePatient = await Patient.findOne({patientId:body.patientId});
            if(duplicatePatient) {
                return ReE(res, 'ERROR0018',409);
     }
-    var patient = new Patients({
+    var patient = new Patient({
         patientId:body.patientId,
         favoriteDoctors: body.favoriteDoctors,
         deletionFlag:body.deletionFlag
@@ -27,7 +27,7 @@ const getPatients = async function (req, res) {
     let query = {}
     if ( req.query.deletionFlag) query.deletionFlag = req.query.deletionFlag
     console.log(query);
-    Patients.find(query, function (err, getPatient) {
+    Patient.find(query, function (err, getPatient) {
         if(err){
             if (err) return ReE(res, "ERROR0016", 404);
             next();
@@ -45,7 +45,7 @@ const getInformationPatientById = async function(req, res){
     }
     var query = {patientId:req.params.patientId}
     console.log(query)
-    Patients.find(
+    Patient.find(
         query
     )
         .populate(
@@ -66,7 +66,7 @@ const update = async function (req, res) {
     let data;
     data = req.body;
     if(!data) return ReE(res, "ERROR0010", 400);
-    Patients.findOne({patientId:data.patientId}, function (err, patientUpdate) {
+    Patient.findOne({patientId:data.patientId}, function (err, patientUpdate) {
         if(!patientUpdate) return ReE(res, "ERROR0016", 404);
         if (err) TE(err.message);
         patientUpdate.set(data);
@@ -81,7 +81,7 @@ module.exports.update = update;
 
 const remove = async function (req, res) {
     const body = req.body;
-    Patients.findByIdAndRemove(body.id, function (err, patient) {
+    Patient.findByIdAndRemove(body.id, function (err, patient) {
         if (err) TE(err.message);
         return ReS(res, {message: 'Delete success'}, 204);
     });

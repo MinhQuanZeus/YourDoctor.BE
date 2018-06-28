@@ -64,17 +64,17 @@ router.post('/ratings', RatingController.create);
 router.put('/ratings', RatingController.update);
 
 //--------------- Type_advisories
-router.post('/type_advisoriess', Type_advisoriesController.create);
-router.get('/type_advisoriess/getAllTypeAdvisories', Type_advisoriesController.getAllTypeAdvisories);
-router.get('/type_advisoriess/getTypeAdvisoriesById/:id', Type_advisoriesController.getTypeAdvisoriesById);
-router.put('/type_advisoriess', Type_advisoriesController.update);
-router.delete('/type_advisoriess', Type_advisoriesController.remove);
+router.post('/typeadvisorys', Type_advisoriesController.create);
+router.get('/typeadvisorys/getAllTypeAdvisories', Type_advisoriesController.getAllTypeAdvisories);
+router.get('/typeadvisorys/getTypeAdvisoriesById/:id', Type_advisoriesController.getTypeAdvisoriesById);
+router.put('/typeadvisorys', Type_advisoriesController.update);
+router.delete('/typeadvisorys', Type_advisoriesController.remove);
 
 //---------------Banking_history
-router.post('/banking_historys', Banking_historyController.create);
-router.get('/banking_historys', Banking_historyController.get_history);
-router.get('/banking_historys/:id', Banking_historyController.get_detail_history_by_id);
-router.delete('/banking_historys/:id', Banking_historyController.remove_logic);
+router.post('/bankinghistorys', Banking_historyController.create);
+router.get('/bankinghistorys', Banking_historyController.get_history);
+router.get('/bankinghistorys/:id', Banking_historyController.get_detail_history_by_id);
+router.delete('/bankinghistorys/:id', Banking_historyController.remove_logic);
 
 //---------------Doctor
 router.post('/doctors', DoctorController.create);
@@ -86,11 +86,11 @@ router.delete('/doctors', DoctorController.remove);
 
 
 //-----------Patient
-router.post('/patientss', PatientsController.create);
-router.get('/patientss/getPatients', PatientsController.getPatients);
-router.get('/patientss/getInformationPatientById/:patientId', PatientsController.getInformationPatientById);
-router.put('/patientss', PatientsController.update);
-router.delete('/patientss', PatientsController.remove);
+router.post('/patients', PatientsController.create);
+router.get('/patients/getPatients', PatientsController.getPatients);
+router.get('/patients/getInformationPatientById/:patientId', PatientsController.getInformationPatientById);
+router.put('/patients', PatientsController.update);
+router.delete('/patients', PatientsController.remove);
 
 
 module.exports = router;

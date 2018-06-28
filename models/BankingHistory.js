@@ -17,4 +17,4 @@ let Banking_historySchema = mongoose.Schema({
     deletion_flag:{type: Number}
 });
 
-let Banking_history = module.exports = mongoose.model('Banking_history', Banking_historySchema);
+let BankingHistory = module.exports = mongoose.model('BankingHistory', Banking_historySchema);
