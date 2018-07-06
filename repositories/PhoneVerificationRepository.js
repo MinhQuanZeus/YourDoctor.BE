@@ -25,6 +25,5 @@ const savePhoneVerification = async (phoneNumber, code) => {
             });
         }
     });
-    console.log(status);
 }
 module.exports.savePhoneVerification = savePhoneVerification;

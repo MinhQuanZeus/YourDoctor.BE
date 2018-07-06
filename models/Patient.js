@@ -5,13 +5,22 @@ const jwt = require('jsonwebtoken');
 const validate = require('mongoose-validator');
 
 let childFavoriteDoctors = mongoose.Schema({
-    doctorId: {type: String, ref: 'User'}
+    doctorId: {
+        type: String,
+        ref: 'User'
+    }
 });
 
 let PatientsSchema = mongoose.Schema({
-    patientId:{type: String, ref: 'User'},
+    patientId: {
+        type: String,
+        ref: 'User'
+    },
     favoriteDoctors: [childFavoriteDoctors],
-    deletionFlag:{type: Number}
+    deletionFlag: {
+        type: Boolean,
+        default: false
+    }
 }, {
     timestamps: true
 });
