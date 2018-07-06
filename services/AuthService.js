@@ -4,7 +4,14 @@ const Doctor = require('./../models').Doctor;
 const validator = require('validator');
 const constants = require('./../constants');
 
-const createUser = async (userInfo) => {
+const createUser = async (userDetail, avatar) => {
+    let userInfo;
+    try {
+        userInfo = JSON.parse(userDetail);
+        userInfo.avatar = avatar;
+    }catch(e){
+        return TE('ERROR0026');
+    }
     let auth_info, err;
     auth_info = {}
     auth_info.status = 'create';
@@ -20,7 +27,6 @@ const createUser = async (userInfo) => {
     if (!userInfo.password) {
         return TE('ERROR0024');
     }
-    console.log(userInfo);
     if (validator.isMobilePhone(userInfo.phoneNumber, 'any')) {
         auth_info.method = 'phone';
         [err, user] = await to(User.create(userInfo));
@@ -67,6 +73,7 @@ module.exports.createUser = createUser;
 const authUser = async (userInfo) => { //returns token
     let auth_info = {};
     auth_info.status = 'login';
+    console.log(userInfo);
     if (!userInfo.phoneNumber || !userInfo.password) TE('ERROR0021');
 
     let user;

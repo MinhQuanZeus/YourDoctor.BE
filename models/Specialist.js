@@ -5,7 +5,9 @@ const jwt = require('jsonwebtoken');
 const validate = require('mongoose-validator');
 
 let SpecialistSchema = mongoose.Schema({
-    name: {type: String},
+    name: {
+        type: String
+    },
 });
 
 let Specialist = module.exports = mongoose.model('Specialist', SpecialistSchema);
