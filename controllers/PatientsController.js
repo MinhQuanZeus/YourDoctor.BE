@@ -88,3 +88,57 @@ const remove = async function (req, res) {
 };
 
 module.exports.remove = remove;
+
+const getListFavoriteDoctor = async function (req, res) {
+    if(!req.params.patientId) TE(err.message);
+        Patient.findOne(
+        {patientId:req.params.patientId}
+        )
+        .select('patientId -_id')
+        .populate({
+            path:'favoriteDoctors',
+            select:'firstName middleName lastName avatar'
+        })
+        .exec(function (err, listFavoriteDoctor) {
+            if (err) TE(err.message);
+            return ReS(res, {message: 'Tạo danh sách bác sỹ được yêu thích thành công', listFavoriteDoctor: listFavoriteDoctor}, 200);
+        });
+
+}
+module.exports.getListFavoriteDoctor = getListFavoriteDoctor;
+
+const addFavoriteDoctor = async function (req, res) {
+    let data = req.body
+    console.log(data)
+    try {
+        let objPatient = await Patient.findOne({patientId:data.patientId})
+        if(!objPatient) TE(err.message);
+        console.log(objPatient)
+        objPatient.favoriteDoctors.push(data.favoriteDoctors)
+        await objPatient.save(function (err,objPatientUpdate) {
+            if(err) TE(err.message)
+            return ReS(res, {message: 'Update bác sỹ yêu thích thành công', objPatientUpdate: objPatientUpdate}, 200);
+        })
+    }catch (e) {
+        console.log(e)
+    }
+}
+module.exports.addFavoriteDoctor = addFavoriteDoctor
+
+const removeFavoriteDoctor = async function (req, res) {
+    let data = req.body
+    console.log(data)
+    try {
+        let objPatient = await Patient.findOne({patientId:data.patientId})
+        if(!objPatient) TE(err.message);
+        console.log(objPatient)
+        objPatient.favoriteDoctors.pull(data.favoriteDoctors)
+        await objPatient.save(function (err) {
+            if(err) TE(err.message)
+            return ReS(res, {message: 'Xóa bác sỹ yêu thích thành công'}, 200);
+        })
+    }catch (e) {
+        console.log(e)
+    }
+}
+module.exports.removeFavoriteDoctor = removeFavoriteDoctor

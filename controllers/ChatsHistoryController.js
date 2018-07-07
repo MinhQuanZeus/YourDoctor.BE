@@ -1,5 +1,5 @@
 const ChatsHistory = require('../models').ChatsHistory;
-const User = require('../models').User;
+const constants = require('./../constants');
 
 const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
@@ -18,21 +18,24 @@ const create = async function (req, res) {
         timeReplyApproval: body.timeReplyApproval,
         typeAdvisoryID: body.typeAdvisoryID,
         paymentPatientID: body.paymentPatientID,
-        paymentDoctorID: body.paymentDoctorID
+        paymentDoctorID: body.paymentDoctorID,
+        deletionFlag:body.deletionFlag
     });
     await  chatHistory.save();
     return ReS(res, {message: 'Tạo cuộc tư vấn thành công', chatHistory: chatHistory}, 200);
 }
 
-module.export.create = create;
+module.exports.create = create;
 
 const updateRecord = async function (req, res) {
     let data = req.body;
     if (!data.id) TE(err.message);
     try {
-        ChatsHistory.findByIdAndUpdate(data.id, {$set: {records: data.records}}, {new: true}, function (err, updateRecordChat) {
-            if (err) TE(err.message)
-            return ReS(res, {message: 'Update record chat thành công', updateRecordChat: updateRecordChat}, 200);
+        let pushRecord = await ChatsHistory.findOne({_id:data.id})
+        pushRecord.records.push(data.records)
+        await pushRecord.save(function (err, pushRecord) {
+            if(err) TE(err.message);
+            return ReS(res, {message: 'Update tin nhắn thành công', pushRecord: pushRecord}, 200);
         })
     } catch (e) {
         console.log(e);
@@ -41,21 +44,17 @@ const updateRecord = async function (req, res) {
 
 module.exports.updateRecord = updateRecord;
 
-const getAllConversationByUser = async function (req, res) {
+
+const getAllConversationByPatient = async function (req, res) {
     //Todo get
     // sort status, time
-    let query = {};
-    if (req.params.patientId) {
-        query.patientId = req.params.patientId
-    }
-    let checkUser = await User.findOne({id:req.params.id})
-    if(checkUser.role)
     try {
         ChatsHistory.find({
-            query
+            patientId:req.params.patientId,
+            deletionFlag:{$ne:constants.CHAT_HISTORY_PATIENT_DELETE}
         })
-            .select('doctorId, records, status')
-            .sort([['status', 'ascending'], ['updatedAt', 'descending'], ['records.createTime', '1']])
+            .select('doctorId records status updatedAt deletionFlag')
+            .sort([['status', 'ascending'], ['updatedAt', -1]])
             .populate(
                 {
                     path: 'doctorId',
@@ -63,7 +62,7 @@ const getAllConversationByUser = async function (req, res) {
                 }
             ).exec(function (err, listChatsHistory) {
             if (err) TE(err.message);
-            return ReS(res, {message: 'Tạo list lịch sử chat thành công', listChatsHistory: listChatsHistory}, 200);
+            return ReS(res, {message: 'Tạo danh sách lịch sử chat thành công', listChatsHistory: listChatsHistory}, 200);
         });
     } catch (e) {
 
@@ -71,7 +70,34 @@ const getAllConversationByUser = async function (req, res) {
 
 }
 
-module.export.getAllConversationByUser = getAllConversationByUser;
+module.exports.getAllConversationByPatient = getAllConversationByPatient;
+
+const getAllConversationByDoctor = async function (req, res) {
+    //Todo get
+    // sort status, time
+    try {
+        ChatsHistory.find({
+            doctorId:req.params.doctorId,
+            deletionFlag:{$ne:constants.CHAT_HISTORY_DOCTOR_DELETE}
+        })
+            .select('patientId records status updatedAt deletionFlag')
+            .sort([['status', 'ascending'], ['updatedAt', -1]])
+            .populate(
+                {
+                    path: 'patientId',
+                    select: 'firstName middleName lastName'
+                }
+            ).exec(function (err, listChatsHistory) {
+            if (err) TE(err.message);
+            return ReS(res, {message: 'Tạo danh sách lịch sử chat thành công', listChatsHistory: listChatsHistory}, 200);
+        });
+    } catch (e) {
+
+    }
+
+}
+
+module.exports.getAllConversationByDoctor = getAllConversationByDoctor;
 
 const getConversationByID = async function (req, res) {
     let query = {};
@@ -86,13 +112,6 @@ const getConversationByID = async function (req, res) {
         //.sort([['status', 'ascending'],['updatedAt','descending'],['records.createTime','1']])
             .populate(
                 {
-                    path: 'doctorId',
-                    select: 'firstName middleName lastName avatar'
-                }
-            )
-            .populate(
-                {
-                    path: 'patientId',
                     select: 'firstName middleName lastName avatar'
                 }
             ).exec(function (err, listChatsHistory) {
@@ -105,4 +124,4 @@ const getConversationByID = async function (req, res) {
 
 }
 
-module.export.getConversationByID = getConversationByID;
+module.exports.getConversationByID = getConversationByID;

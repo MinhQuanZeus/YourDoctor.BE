@@ -12,6 +12,7 @@ const TypeAdvisoriesController = require('../controllers/TypeAdvisoriesControlle
 const BankingHistoryController = require('../controllers/BankingHistoryController');
 const DoctorController = require('../controllers/DoctorController');
 const PatientsController = require('../controllers/PatientsController');
+const ChatsHistoryController = require('../controllers/ChatsHistoryController');
 const passport = require('passport');
 const path = require('path');
 
@@ -89,8 +90,16 @@ router.delete('/doctors', DoctorController.remove);
 router.post('/patients', PatientsController.create);
 router.get('/patients/getPatients', PatientsController.getPatients);
 router.get('/patients/getInformationPatientById/:patientId', PatientsController.getInformationPatientById);
+router.get('/patients/getListFavoriteDoctor/:patientId', PatientsController.getListFavoriteDoctor);
 router.put('/patients', PatientsController.update);
+router.put('/patients/addFavoriteDoctor', PatientsController.addFavoriteDoctor);
+router.put('/patients/removeFavoriteDoctor', PatientsController.removeFavoriteDoctor);
 router.delete('/patients', PatientsController.remove);
 
-
+//-----------ChatsHistory
+router.post('/chatshistorys', ChatsHistoryController.create);
+router.put('/chatshistorys', ChatsHistoryController.updateRecord);
+router.get('/chatshistorys/getAllConversationByPatient/:patientId', ChatsHistoryController.getAllConversationByPatient);
+router.get('/chatshistorys/getAllConversationByDoctor/:doctorId', ChatsHistoryController.getAllConversationByDoctor);
+router.get('/chatshistorys/getConversationByID/:id', ChatsHistoryController.getConversationByID);
 module.exports = router;
