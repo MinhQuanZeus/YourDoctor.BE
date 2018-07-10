@@ -114,10 +114,10 @@ const addFavoriteDoctor = async function (req, res) {
         let objPatient = await Patient.findOne({patientId:data.patientId})
         if(!objPatient) TE(err.message);
         console.log(objPatient)
-        objPatient.favoriteDoctors.push(data.favoriteDoctors)
+        objPatient.favoriteDoctors.push(data.doctorId)
         await objPatient.save(function (err,objPatientUpdate) {
             if(err) TE(err.message)
-            return ReS(res, {message: 'Update bác sỹ yêu thích thành công', objPatientUpdate: objPatientUpdate}, 200);
+            return ReS(res, {message: 'Update bác sỹ yêu thích thành công', objPatientUpdate: objPatientUpdate.favoriteDoctors}, 200);
         })
     }catch (e) {
         console.log(e)
@@ -132,10 +132,10 @@ const removeFavoriteDoctor = async function (req, res) {
         let objPatient = await Patient.findOne({patientId:data.patientId})
         if(!objPatient) TE(err.message);
         console.log(objPatient)
-        objPatient.favoriteDoctors.pull(data.favoriteDoctors)
-        await objPatient.save(function (err) {
+        objPatient.favoriteDoctors.pull(data.doctorId)
+        await objPatient.save(function (err, objPatientUpdate) {
             if(err) TE(err.message)
-            return ReS(res, {message: 'Xóa bác sỹ yêu thích thành công'}, 200);
+            return ReS(res, {message: 'Xóa bác sỹ yêu thích thành công',objPatientUpdate: objPatientUpdate.favoriteDoctors}, 200);
         })
     }catch (e) {
         console.log(e)

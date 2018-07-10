@@ -12,12 +12,8 @@ let RatingSchema = mongoose.Schema({
         type: String
     },
     rating: {
-        type: Number,
-        default: 0
-    },
-    time: {
-        type: Date
+        type: Number
     }
-});
+},{timestamp:true});
 
 let Rating = module.exports = mongoose.model('Rating', RatingSchema);

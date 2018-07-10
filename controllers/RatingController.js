@@ -16,8 +16,7 @@ const create = async function (req, res) {
         var rating = new Rating({
             patientId: body.patientId,
             doctorId: body.doctorId,
-            rating: body.rating,
-            time: body.time
+            rating: body.rating
         })
         await  rating.save();
         return ReS(res, {message: 'Đánh giá bác sỹ thành công',rating:rating}, 204);
