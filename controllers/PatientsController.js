@@ -68,11 +68,11 @@ const update = async function (req, res) {
     if(!data) return ReE(res, "ERROR0010", 400);
     Patient.findOne({patientId:data.patientId}, function (err, patientUpdate) {
         if(!patientUpdate) return ReE(res, "ERROR0016", 404);
-        if (err) TE(err.message);
+        if (err) return ReE(res, "ERROR0029", 404);
         patientUpdate.set(data);
 
         patientUpdate.save(function (err, updatedPatients) {
-            if (err) TE(err.message);
+            if (err) return ReE(res, "ERROR0029", 404);
             res.send(updatedPatients);
         });
     });
@@ -82,7 +82,7 @@ module.exports.update = update;
 const remove = async function (req, res) {
     const body = req.body;
     Patient.findByIdAndRemove(body.id, function (err, patient) {
-        if (err) TE(err.message);
+        if (err) return ReE(res, "ERROR0030", 404);
         return ReS(res, {message: 'Delete success'}, 204);
     });
 };
@@ -90,7 +90,7 @@ const remove = async function (req, res) {
 module.exports.remove = remove;
 
 const getListFavoriteDoctor = async function (req, res) {
-    if(!req.params.patientId) TE(err.message);
+    if(!req.params.patientId) return ReE(res, "ERROR0031", 404);
         Patient.findOne(
         {patientId:req.params.patientId}
         )
@@ -100,7 +100,7 @@ const getListFavoriteDoctor = async function (req, res) {
             select:'firstName middleName lastName avatar'
         })
         .exec(function (err, listFavoriteDoctor) {
-            if (err) TE(err.message);
+            if (err) return ReE(res, "ERROR0031", 404);
             return ReS(res, {message: 'Tạo danh sách bác sỹ được yêu thích thành công', listFavoriteDoctor: listFavoriteDoctor}, 200);
         });
 
@@ -112,11 +112,11 @@ const addFavoriteDoctor = async function (req, res) {
     console.log(data)
     try {
         let objPatient = await Patient.findOne({patientId:data.patientId})
-        if(!objPatient) TE(err.message);
+        if(!objPatient) return ReE(res, "ERROR0032", 404);
         console.log(objPatient)
         objPatient.favoriteDoctors.push(data.doctorId)
         await objPatient.save(function (err,objPatientUpdate) {
-            if(err) TE(err.message)
+            if(err) return ReE(res, "ERROR0032", 400);
             return ReS(res, {message: 'Update bác sỹ yêu thích thành công', objPatientUpdate: objPatientUpdate.favoriteDoctors}, 200);
         })
     }catch (e) {
@@ -130,11 +130,11 @@ const removeFavoriteDoctor = async function (req, res) {
     console.log(data)
     try {
         let objPatient = await Patient.findOne({patientId:data.patientId})
-        if(!objPatient) TE(err.message);
+        if(!objPatient) return ReE(res, "ERROR0033", 404);
         console.log(objPatient)
         objPatient.favoriteDoctors.pull(data.doctorId)
         await objPatient.save(function (err, objPatientUpdate) {
-            if(err) TE(err.message)
+            if(err) return ReE(res, "ERROR0033", 400);
             return ReS(res, {message: 'Xóa bác sỹ yêu thích thành công',objPatientUpdate: objPatientUpdate.favoriteDoctors}, 200);
         })
     }catch (e) {
