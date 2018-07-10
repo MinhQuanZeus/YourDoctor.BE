@@ -34,7 +34,7 @@ const updateRecord = async function (req, res) {
         let pushRecord = await ChatsHistory.findOne({_id:data.id})
         pushRecord.records.push(data.records)
         await pushRecord.save(function (err, pushRecord) {
-            if(err) TE(err.message);
+            if(err) return ReE(res, "ERROR0030", 503);
             return ReS(res, {message: 'Update tin nhắn thành công', pushRecord: pushRecord}, 200);
         })
     } catch (e) {

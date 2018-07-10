@@ -62,7 +62,7 @@ const getInformationDoctorById = async function (req, res) {
             }
         )
         .exec(function (err, informationDoctor) {
-            if (err) TE(err.message);
+            if (err) return ReE(res, "ERROR0034", 503);
             return ReS(res, {message: 'Lấy thông tin bác sỹ thành công', informationDoctor: informationDoctor}, 200);
         });
 }
@@ -75,12 +75,11 @@ const update = async function (req, res) {
     if (!data) return ReE(res, "ERROR0010", 400);
     console.log(data);
     Doctor.findOne({doctorId: data.doctorId}, function (err, doctorUpdate) {
-        if (err) TE(err.message);
+        if (err) return ReE(res, "ERROR0035", 503);
         if (!doctorUpdate) return ReE(res, "ERROR0009", 404);
         doctorUpdate.set(data);
-
         doctorUpdate.save(function (err, updatedDoctor) {
-            if (err) TE(err.message);
+            if (err)return ReE(res, "ERROR0035", 503);
             return ReS(res, {message: 'Update thông tin bác sỹ thành công', updatedDoctor: updatedDoctor}, 200);
         });
     });
@@ -89,9 +88,10 @@ module.exports.update = update;
 
 const remove = async function (req, res) {
     const body = req.body;
+    if(!body) return ReE(res, "ERROR0010", 400);
     Doctor.findByIdAndRemove(body.id, function (err, doctor) {
-        if (err) TE(err.message);
-        return ReS(res, {message: 'Delete success'}, 204);
+        if (err) return ReE(res, "ERROR0036", 503);
+        return ReS(res, {message: 'Delete success'}, 200);
     });
 };
 
@@ -115,12 +115,14 @@ const getListSpecialistDoctor = async function (req, res) {
 
     console.log(req.query.page);
     console.log(req.query.perPage);
-
-    // convert to number
-    var perPage = parseInt(req.query.perPage);
-    var page = parseInt(req.query.page);
-
-    // TODO get list doctor
+    try {
+        // convert to number
+        var perPage = parseInt(req.query.perPage);
+        var page = parseInt(req.query.page);
+    }
+    catch (e) {
+        return ReE(res, "ERROR0037", 503);
+    }
     Doctor.find({
         'idSpecialist': {
             '$elemMatch': {
@@ -140,7 +142,7 @@ const getListSpecialistDoctor = async function (req, res) {
             select: 'firstName middleName lastName'
         })
         .exec(function (err, listDoctor) {
-            if (err) TE(err.message);
+            if (err) return ReE(res, "ERROR0037", 503);
             return ReS(res, {message: 'Tạo danh sách bác sỹ thành công', listDoctor: listDoctor}, 200);
         });
 }
