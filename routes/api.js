@@ -91,6 +91,7 @@ router.post('/patients', PatientsController.create);
 router.get('/patients/getPatients', PatientsController.getPatients);
 router.get('/patients/getInformationPatientById/:patientId', PatientsController.getInformationPatientById);
 router.get('/patients/getListFavoriteDoctor/:patientId', PatientsController.getListFavoriteDoctor);
+router.get('/patients/getListIDFavoriteDoctor/:patientId', PatientsController.getListIDFavoriteDoctor);
 router.put('/patients', PatientsController.update);
 router.put('/patients/addFavoriteDoctor', PatientsController.addFavoriteDoctor);
 router.put('/patients/removeFavoriteDoctor', PatientsController.removeFavoriteDoctor);

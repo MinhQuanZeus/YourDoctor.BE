@@ -118,27 +118,48 @@ const getListFavoriteDoctor = async function (req, res) {
     catch (e) {
         return ReE(res, "ERROR0037", 503);
     }
-    if(!req.params.patientId) return ReE(res, "ERROR0031", 404);
+    if (!req.params.patientId) return ReE(res, "ERROR0031", 404);
     try {
         Patient.findOne(
-            {patientId:req.params.patientId},
-            {"favoriteDoctors" : {$slice : slicePerPage}}
+            {patientId: req.params.patientId},
+            {"favoriteDoctors": {$slice: slicePerPage}}
         )
             .select('patientId -_id')
             .populate({
-                path:'favoriteDoctors',
-                select:'firstName middleName lastName avatar'
+                path: 'favoriteDoctors',
+                select: 'firstName middleName lastName avatar'
             })
             .exec(function (err, listFavoriteDoctor) {
                 if (err) return ReE(res, "ERROR0031", 404);
-                return ReS(res, {message: 'Tạo danh sách bác sỹ được yêu thích thành công', listFavoriteDoctor: listFavoriteDoctor}, 200);
+                return ReS(res, {
+                    message: 'Tạo danh sách bác sỹ được yêu thích thành công',
+                    listFavoriteDoctor: listFavoriteDoctor
+                }, 200);
             });
 
-    }catch (e) {
+    } catch (e) {
         return ReE(res, "ERROR0031", 404);
     }
 }
 module.exports.getListFavoriteDoctor = getListFavoriteDoctor;
+
+const getListIDFavoriteDoctor = async function (req, res) {
+    if (!req.params.patientId) return ReE(res, "ERROR0031", 404);
+    try {
+        Patient.findOne({patientId: req.params.patientId}, function (err, listIDFavoriteDoctor) {
+            console.log(listIDFavoriteDoctor)
+            if (err) TE(err);
+            return ReS(res, {
+                message: 'Tạo danh sách bác sỹ được yêu thích thành công',
+                listIDFavoriteDoctor: listIDFavoriteDoctor.favoriteDoctors
+            }, 200);
+
+        });
+    } catch (e) {
+        return ReE(res, "ERROR0031", 404);
+    }
+}
+module.exports.getListIDFavoriteDoctor = getListIDFavoriteDoctor;
 
 const addFavoriteDoctor = async function (req, res) {
     let data = req.body
