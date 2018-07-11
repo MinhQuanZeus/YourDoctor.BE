@@ -105,24 +105,24 @@ module.exports.remove = remove;
 const getListFavoriteDoctor = async function (req, res) {
     // query - get params
     let query = {}
-    if (req.query.slicePerPage) {
-        query.slicePerPage = req.query.slicePerPage
+    if (req.query.skip) {
+        query.skip = req.query.skip
     }
-    else {
-        query.slicePerPage = 5
+    if (req.query.pageSize) {
+        query.pageSize = req.query.pageSize
     }
     try {
         // convert to number
-        var slicePerPage = parseInt(query.slicePerPage)
-    }
-    catch (e) {
+        var s = parseInt(req.query.skip);
+        var p = parseInt(req.query.pageSize);
+    }catch (e) {
         return ReE(res, "ERROR0037", 503);
     }
     if (!req.params.patientId) return ReE(res, "ERROR0031", 404);
     try {
         Patient.findOne(
             {patientId: req.params.patientId},
-            {"favoriteDoctors": {$slice: slicePerPage}}
+            {"favoriteDoctors": {$slice: [s,p]}}
         )
             .select('patientId -_id')
             .populate({
