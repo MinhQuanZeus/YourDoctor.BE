@@ -163,7 +163,7 @@ module.exports.getListIDFavoriteDoctor = getListIDFavoriteDoctor;
 
 const addFavoriteDoctor = async function (req, res) {
     let data = req.body
-    if (!data.patientId || data.doctorId) return ReE(res, "ERROR0010", 400);
+    if (!data.patientId || !data.doctorId) return ReE(res, "ERROR0010", 400);
     try {
         let objPatient = await Patient.findOne({patientId: data.patientId})
         if (!objPatient) return ReE(res, "ERROR0032", 404);
@@ -172,7 +172,7 @@ const addFavoriteDoctor = async function (req, res) {
         await objPatient.save(function (err, objPatientUpdate) {
             if (err) return ReE(res, "ERROR0032", 503);
             return ReS(res, {
-                message: 'Update bác sỹ yêu thích thành công',
+                message: 'Thêm bác sỹ yêu thích thành công',
                 objPatientUpdate: objPatientUpdate.favoriteDoctors
             }, 200);
         })
@@ -184,7 +184,8 @@ module.exports.addFavoriteDoctor = addFavoriteDoctor
 
 const removeFavoriteDoctor = async function (req, res) {
     let data = req.body
-    if (!data.patientId || data.doctorId) return ReE(res, "ERROR0010", 400);
+
+    if (!data.patientId || !data.doctorId) return ReE(res, "ERROR0010", 400);
     try {
         let objPatient = await Patient.findOne({patientId: data.patientId})
         if (!objPatient) return ReE(res, "ERROR0033", 404);
