@@ -4,7 +4,7 @@ let childRecords = mongoose.Schema({
     recorderID: {type: String, ref: 'User'},
     type: {type: Number},
     value: {type: String},
-    created:{type:Date, default:Date.now}
+    created: {type: Date, default: Date.now}
 })
 
 let chatsHistorySchema = mongoose.Schema({
@@ -17,7 +17,7 @@ let chatsHistorySchema = mongoose.Schema({
     typeAdvisoryID: {type: String, ref: 'TypeAdvisories'},
     paymentPatientID: {type: String, ref: 'PaymentsHistory'},
     paymentDoctorID: {type: String, ref: 'PaymentsHistory'},
-    deletionFlag:{type:Number, default: 1}
+    deletionFlag: {type: Boolean, default: false}
 }, {timestamps: true});
 
 let ChatsHistory = module.exports = mongoose.model('ChatsHistory', chatsHistorySchema);

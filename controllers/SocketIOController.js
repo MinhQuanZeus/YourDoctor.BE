@@ -1,57 +1,70 @@
+var app = require('express')();
+var http = require('http').Server(app);
 const ChatsHistory = require('../models').ChatsHistory;
-var express = require("express");
-var app = express();
-app.use(express.static("public"));
-app.set("view engine", "ejs");
-app.set("views", "./views");
+app.get('/', function(req, res){
+    res.send('<h1>Hello world</h1>');
+});
 
-var server = require("http").Server(app);
-var io = require("socket.io")(server);
-server.listen(3000);
+http.listen(3000, function(){
+    console.log('listening on *:3000');
+});
+const
+    io = require("socket.io"),
+    server = io.listen(8000);
 
-    var sockets = {};
-    io.on('connection', function(socket){
+let
+    sequenceNumberByClient = new Map();
 
-        socket.on('checkData', function (objData) {
-            var data = JSON.parse(objData);
-            if(checkConversationID(data.conversationID)===true)
-            sockets[data.receiver] = socket;
-        });
-        socket.on('send message', function (data, to) {
-            sockets[to].emit(data.records);
-        });
-    });
-    function checkConversationID(conversationID){
-        var exists = false;
-        let conversation = ChatsHistory.findById(conversationID)
-        if (conversation) {
-            exists = true;
-        }
-        return exists;
-    }
-    // when the client emits 'typing', we broadcast it to others
-    socket.on('typing', () => {
-        socket.broadcast.emit('typing', {
-            username: socket.username
-        });
+// event fired every time a new client connects:
+server.on("connection", (socket) => {
+    // create room
+    socket.on('createRoom', function(room) {
+        socket.room = room;
+        // join room
+        socket.join(room);
+        console.log("User joined the room: "+socket.room);
     });
 
-    // when the client emits 'stop typing', we broadcast it to others
-    socket.on('stop typing', () => {
-        socket.broadcast.emit('stop typing', {
-            username: socket.username
-        });
+    socket.on('joinRoom', function (roomID) {
+        socket.join(roomID);
+    })
+
+    console.info('Client connected [id= ${socket.id}]');
+    // initialize this client's sequence number
+    // ng dung emit create add vao 1 map
+    socket.on('addUser',function(userID){
+        socket.id = userID;
+        console.log(userID);
+        sequenceNumberByClient.set(userID,socket);
     });
 
-    // when the user disconnects.. perform this
-    socket.on('disconnect', () => {
-        if (addedUser) {
-            --numUsers;
-
-            // echo globally that this client has left
-            socket.broadcast.emit('user left', {
-                username: socket.username,
-                numUsers: numUsers
-            });
-        }
+    socket.on('sendMessage',function(sender, receiver, data){
+        console.log('send',sender);
+        console.log('data',receiver);
+        var send = sequenceNumberByClient.get(sender);
+        var receive = sequenceNumberByClient.get(receiver);
+        console.log(send.id);
+        send.emit('newMessage',{msg:'xinchao',nick:send.id},data);
+        receive.emit('newMessage',{msg:'xinchao',nick:receive.id}, data);
     });
+
+    socket.on('switchRoom', function(newroom){
+        // leave the current room (stored in session)
+        socket.leave(socket.room);
+        // join new room, received as function parameter
+        socket.join(newroom);
+        socket.emit('updatechat', 'SERVER', 'you have connected to '+ newroom);
+        // sent message to OLD room
+        socket.broadcast.to(socket.room).emit('updatechat', 'SERVER', socket.id+' has left this room');
+        // update socket session room title
+        socket.room = newroom;
+        socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.id+' has joined this room');
+        socket.emit('updaterooms', rooms, newroom);
+    });
+
+    // when socket disconnects, remove it from the list:
+    socket.on("disconnect", () => {
+        sequenceNumberByClient.delete(socket);
+        console.info('Client gone [id=${socket.id}]');
+    });
+});
