@@ -9,21 +9,25 @@ const create = async function (req, res) {
         !body.paymentPatientID || !body.paymentDoctorID || !body.contentTopic) {
         return ReE(res, 'ERROR0028', 400);
     }
+    try{
+        var chatHistory = new ChatsHistory({
+            contentTopic: body.contentTopic,
+            patientId: body.patientId,
+            doctorId: body.doctorId,
+            records: body.records,
+            status: body.status,
+            timeReplyApproval: body.timeReplyApproval,
+            typeAdvisoryID: body.typeAdvisoryID,
+            paymentPatientID: body.paymentPatientID,
+            paymentDoctorID: body.paymentDoctorID,
+            deletionFlag: body.deletionFlag
+        });
+        await  chatHistory.save();
+        return ReS(res, {message: 'Tạo cuộc tư vấn thành công', chatHistory: chatHistory}, 200);
+    }catch (e) {
+        ReS(res, e.message, 503);
+    }
 
-    var chatHistory = new ChatsHistory({
-        contentTopic: body.contentTopic,
-        patientId: body.patientId,
-        doctorId: body.doctorId,
-        records: body.records,
-        status: body.status,
-        timeReplyApproval: body.timeReplyApproval,
-        typeAdvisoryID: body.typeAdvisoryID,
-        paymentPatientID: body.paymentPatientID,
-        paymentDoctorID: body.paymentDoctorID,
-        deletionFlag: body.deletionFlag
-    });
-    await  chatHistory.save();
-    return ReS(res, {message: 'Tạo cuộc tư vấn thành công', chatHistory: chatHistory}, 200);
 }
 
 module.exports.create = create;

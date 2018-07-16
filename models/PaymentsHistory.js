@@ -6,7 +6,7 @@ let PaymentsHistorySchema = mongoose.Schema({
     remainMoney:{type:Number},
     typeAdvisoryID:{type:String, ref:'TypeAdvisory'},
     status:{type:Number},
-    deletionFlag:{type:Number},
+    deletionFlag: {type: Boolean, default: false}
 },{timestamp:true});
 
 let PaymentsHistory = module.exports = mongoose.model('PaymentsHistory',PaymentsHistorySchema)

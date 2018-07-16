@@ -13,6 +13,7 @@ const BankingHistoryController = require('../controllers/BankingHistoryControlle
 const DoctorController = require('../controllers/DoctorController');
 const PatientsController = require('../controllers/PatientsController');
 const ChatsHistoryController = require('../controllers/ChatsHistoryController');
+const PaymentsHistoryController = require('../controllers/PaymentsHistoryController');
 const passport = require('passport');
 const path = require('path');
 
@@ -103,4 +104,7 @@ router.put('/chatshistorys', ChatsHistoryController.updateRecord);
 router.get('/chatshistorys/getAllConversationByPatient/:patientId', ChatsHistoryController.getAllConversationByPatient);
 router.get('/chatshistorys/getAllConversationByDoctor/:doctorId', ChatsHistoryController.getAllConversationByDoctor);
 router.get('/chatshistorys/getConversationByID/:id', ChatsHistoryController.getConversationByID);
+
+//----------PaymentHistory
+router.post('/paymentshistorys', PaymentsHistoryController.create);
 module.exports = router;
