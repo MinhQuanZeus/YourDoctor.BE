@@ -1,9 +1,10 @@
 module.exports = function (io) {
 
     var sequenceNumberByClient = new Map();
-    
+
 // event fired every time a new client connects:
     io.sockets.on("connection", (socket) => {
+        //let sender, conversationID, type, value;
         console.log("socket connect: " + socket.id);
         // create room
         socket.on('createRoom', function (room) {
@@ -30,16 +31,16 @@ module.exports = function (io) {
             sequenceNumberByClient.set(userID, socket);
         });
 
-        socket.on('sendMessage', function (sender, receiver) {
+        socket.on('sendMessage', function (reqSender, reqReceiver, reqConversationID, reqType, reqValue) {
 
-            console.log('send', sender);
-            console.log('data', receiver);
-
-            var send = sequenceNumberByClient.get(sender);
-            var receive = sequenceNumberByClient.get(receiver);
+            console.log(reqSender);
+            console.log(reqReceiver);
+            var send = sequenceNumberByClient.get(reqSender);
+            var receive = sequenceNumberByClient.get(reqReceiver);
             var megSender = {
-                senderid: sender,
-                mess: message
+                senderID: reqSender,
+                type: reqType,
+                value: reqValue
             };
 
             //console.log(send.id);
@@ -51,6 +52,24 @@ module.exports = function (io) {
             if (receive != null) {
                 receive.emit('newMessage', {data: JSON.stringify(megSender)});
                 console.log(JSON.stringify(megSender));
+            }
+
+            // collect data
+            var records = {
+                recorderID: reqSender,
+                type: reqType,
+                value: reqValue
+            }
+            var objectUpdate = {
+                id: reqConversationID,
+                records: records
+            }
+            console.log(objectUpdate)
+            if(!updateRecord(objectUpdate)){
+                if (send != null) {
+                    send.emit('errorUpdate', 'Gủi tin nhắn không thành công');
+                    console.log(JSON.stringify(megSender));
+                }
             }
         });
 
@@ -75,4 +94,40 @@ module.exports = function (io) {
             console.info("Client gone id" +socket.id);
         });
     });
+
+    /////////////////////////////////
+    const ChatsHistory = require('../models').ChatsHistory;
+    const TypeAdvisory = require('../models').TypeAdvisory;
+    async function updateRecord(data) {
+        let updateSuccess = true;
+        if (!data.id) updateSuccess = false;
+        try {
+            // check limit record
+            let pushRecord = await ChatsHistory.findOne({_id: data.id})
+            let objTypeAdvisory = await TypeAdvisory.findOne({_id: pushRecord.typeAdvisoryID});
+            if (!objTypeAdvisory) updateSuccess = false;
+            // loop check
+            let countRecord = 0;
+            for (var i = 0; i < pushRecord.records.length; i++) {
+
+                if (pushRecord.records[i].recorderID === pushRecord.patientId) {
+                    countRecord++;
+                }
+            }
+            if (countRecord >= (objTypeAdvisory.limitNumberRecords * 1)) {
+                updateSuccess = false;
+            }
+            else {
+                // update
+                pushRecord.records.push(data.records)
+                await pushRecord.save(function (err, pushRecord) {
+                    if (err) updateSuccess = false;
+                    updateSuccess = true;
+                });
+            }
+        } catch (e) {
+            console.log(e);
+        }
+        return updateSuccess;
+    }
 }
