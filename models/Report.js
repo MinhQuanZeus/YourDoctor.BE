@@ -6,10 +6,12 @@ const validate = require('mongoose-validator');
 
 let ReportSchema = mongoose.Schema({
     idReporter: {
-        type: String
+        type: String,
+        ref: 'User'
     },
     idPersonBeingReported: {
-        type: String
+        type: String,
+        ref: 'User'
     },
     reason: {
         type: String

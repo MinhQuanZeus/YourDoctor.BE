@@ -1,22 +1,13 @@
-var app = require('express')();
-var http = require('http').Server(app);
-const ChatsHistory = require('../models').ChatsHistory;
-app.get('/', function(req, res){
-    res.send('<h1>Hello world</h1>');
-});
+var express = require("express");
+var app = express();
+var server = require("http").createServer(app);
+var io = require("socket.io").listen(server);
 
-http.listen(3000, function(){
-    console.log('listening on *:3000');
-});
-const
-    io = require("socket.io"),
-    server = io.listen(8000);
-
-let
-    sequenceNumberByClient = new Map();
+var sequenceNumberByClient = new Map();
 
 // event fired every time a new client connects:
-server.on("connection", (socket) => {
+io.sockets.on("connection", (socket) => {
+    console.log("socket connect: "+socket.id);
     // create room
     socket.on('createRoom', function(room) {
         socket.room = room;
@@ -29,6 +20,10 @@ server.on("connection", (socket) => {
         socket.join(roomID);
     })
 
+    socket.on('leaveRoom', function (roomID) {
+        socket.leave(roomID);
+    })
+
     console.info('Client connected [id= ${socket.id}]');
     // initialize this client's sequence number
     // ng dung emit create add vao 1 map
@@ -38,15 +33,32 @@ server.on("connection", (socket) => {
         sequenceNumberByClient.set(userID,socket);
     });
 
-    socket.on('sendMessage',function(sender, receiver, data){
+    socket.on('sendMessage',function(sender, receiver, message){
+
         console.log('send',sender);
         console.log('data',receiver);
+
         var send = sequenceNumberByClient.get(sender);
         var receive = sequenceNumberByClient.get(receiver);
-        console.log(send.id);
-        send.emit('newMessage',{msg:'xinchao',nick:send.id},data);
-        receive.emit('newMessage',{msg:'xinchao',nick:receive.id}, data);
+        var megSender = {
+            senderid : sender,
+            mess : message
+        };
+
+        //console.log(send.id);
+        if(send != null){
+            send.emit('newMessage',{data: JSON.stringify(megSender)});
+            console.log(JSON.stringify(megSender));
+        }
+
+        if(receive != null){
+            receive.emit('newMessage',{data: JSON.stringify(megSender)});
+            console.log(JSON.stringify(megSender));
+        }
+
+
     });
+
 
     socket.on('switchRoom', function(newroom){
         // leave the current room (stored in session)
