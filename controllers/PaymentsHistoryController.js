@@ -4,8 +4,7 @@ const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     let body = req.body;
     console.log(body)
-    if (!body.userID || !body.amount || !body.remainMoney ||
-        !body.typeAdvisoryID || !body.status) {
+    if (!body.userID || !body.amount || !body.typeAdvisoryID) {
         return ReE(res, 'ERROR0028', 400);
     }
     try{
