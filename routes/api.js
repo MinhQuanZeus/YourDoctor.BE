@@ -14,6 +14,7 @@ const DoctorController = require('../controllers/DoctorController');
 const PatientsController = require('../controllers/PatientsController');
 const ChatsHistoryController = require('../controllers/ChatsHistoryController');
 const PaymentsHistoryController = require('../controllers/PaymentsHistoryController');
+const TokenNotificationController = require('../controllers/TokenNotificationController');
 const passport = require('passport');
 const path = require('path');
 
@@ -107,4 +108,8 @@ router.get('/chatshistorys/getConversationByID/:id', ChatsHistoryController.getC
 
 //----------PaymentHistory
 router.post('/paymentshistorys', PaymentsHistoryController.create);
+
+//----------TokenNotification
+router.post('/tokennotifications', TokenNotificationController.create);
+router.put('/tokennotifications', TokenNotificationController.update);
 module.exports = router;
