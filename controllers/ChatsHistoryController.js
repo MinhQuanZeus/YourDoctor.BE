@@ -6,7 +6,7 @@ const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
     if (!body.patientId || !body.doctorId || !body.typeAdvisoryID ||
-        !body.paymentPatientID || !body.paymentDoctorID || !body.contentTopic) {
+        !body.paymentPatientID || !body.contentTopic) {
         return ReE(res, 'ERROR0028', 400);
     }
     try{

@@ -73,7 +73,22 @@ module.exports = function (io) {
             }
         });
 
+        socket.on('doneConversation', function (reqSender, reqReceiver, reqConversationID) {
+            var send = sequenceNumberByClient.get(reqSender);
+            var receive = sequenceNumberByClient.get(reqReceiver);
+            if(createPaymentForDoctor(reqConversationID)){
+                if (send != null) {
+                    send.emit('finishConversation', 'Cuộc tư vấn đã kết thúc');
+                }
 
+                if (receive != null) {
+                    receive.emit('newMessage', 'Cuộc tư vấn đã kết thúc');
+                }
+            }
+            else {
+                // TODO notification to Admin
+            }
+        })
         socket.on('switchRoom', function (newroom) {
             // leave the current room (stored in session)
             socket.leave(socket.room);
@@ -94,40 +109,90 @@ module.exports = function (io) {
             console.info("Client gone id" +socket.id);
         });
     });
+}
+/////////////////////////////////
+const ChatsHistory = require('../models').ChatsHistory;
+const TypeAdvisory = require('../models').TypeAdvisory;
+const PaymentsHistory = require('../models').PaymentsHistory;
+const User = require('../models').User;
+const constants = require('./../constants');
+async function updateRecord(data) {
+    let updateSuccess = true;
+    if (!data.id) updateSuccess = false;
+    try {
+        // check limit record
+        let pushRecord = await ChatsHistory.findOne({_id: data.id})
+        let objTypeAdvisory = await TypeAdvisory.findOne({_id: pushRecord.typeAdvisoryID});
+        if (!objTypeAdvisory) updateSuccess = false;
+        // loop check
+        let countRecord = 0;
+        for (var i = 0; i < pushRecord.records.length; i++) {
 
-    /////////////////////////////////
-    const ChatsHistory = require('../models').ChatsHistory;
-    const TypeAdvisory = require('../models').TypeAdvisory;
-    async function updateRecord(data) {
-        let updateSuccess = true;
-        if (!data.id) updateSuccess = false;
-        try {
-            // check limit record
-            let pushRecord = await ChatsHistory.findOne({_id: data.id})
-            let objTypeAdvisory = await TypeAdvisory.findOne({_id: pushRecord.typeAdvisoryID});
-            if (!objTypeAdvisory) updateSuccess = false;
-            // loop check
-            let countRecord = 0;
-            for (var i = 0; i < pushRecord.records.length; i++) {
-
-                if (pushRecord.records[i].recorderID === pushRecord.patientId) {
-                    countRecord++;
-                }
+            if (pushRecord.records[i].recorderID === pushRecord.patientId) {
+                countRecord++;
             }
-            if (countRecord >= (objTypeAdvisory.limitNumberRecords * 1)) {
-                updateSuccess = false;
-            }
-            else {
-                // update
-                pushRecord.records.push(data.records)
-                await pushRecord.save(function (err, pushRecord) {
-                    if (err) updateSuccess = false;
-                    updateSuccess = true;
-                });
-            }
-        } catch (e) {
-            console.log(e);
         }
-        return updateSuccess;
+        if (countRecord >= (objTypeAdvisory.limitNumberRecords * 1)) {
+            updateSuccess = false;
+        }
+        else {
+            // update
+            pushRecord.records.push(data.records)
+            await pushRecord.save(function (err, pushRecord) {
+                if (err) updateSuccess = false;
+                updateSuccess = true;
+            });
+        }
+    } catch (e) {
+        console.log(e);
     }
+    return updateSuccess;
+}
+
+async function createPaymentForDoctor(conversationID) {
+    let success = false;
+    // get conversation
+    let objChatHistory = await ChatsHistory.findOne({id:conversationID})
+    if(objChatHistory){
+        // get amount of type advisory
+        let objTypeAdvisory = await TypeAdvisory.findOne({id:objChatHistory.typeAdvisoryID})
+        // get user
+        let objUser = await User.findOne({id:objChatHistory.doctorId})
+        // calculate remain money
+        var remainMoney = objUser.remainMoney*1+objTypeAdvisory.price*1;
+        try {
+            var objPaymentHistory = PaymentsHistory({
+                userID: objChatHistory.doctorId,
+                amount: objTypeAdvisory.price*1,
+                remainMoney: remainMoney,
+                typeAdvisoryID: objChatHistory.typeAdvisoryID,
+                status: constants.PAYMENT_SUCCESS
+            });
+            // save to payment table
+            await objPaymentHistory.save(function (err,objPaymentHistory) {
+                if(err){
+                    success = false;
+                    //TODO notification to Admin
+                }
+                else {
+                    success = true;
+                }
+            });
+
+            // update remain money to User
+            objUser.set({ remainMoney: remainMoney });
+            await objUser.save(function (err, objUser) {
+                if(err){
+                    success = false;
+                    //TODO notification to Admin
+                }
+                else {
+                    success = true;
+                }
+            })
+        }
+        catch (e) {
+        }
+    }
+    return success;
 }

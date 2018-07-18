@@ -4,6 +4,22 @@ const bcrypt_p = require('bcrypt-promise');
 const jwt = require('jsonwebtoken');
 const validate = require('mongoose-validator');
 let UserSchema = mongoose.Schema({
+        phoneNumber: {
+            type: String,
+                lowercase: true,
+                trim: true,
+                index: true,
+                unique: true,
+                sparse: true,
+                validate: [validate({
+                validator: 'isNumeric',
+                arguments: [7, 20],
+                message: 'Not a valid phone number.',
+            })]
+        },
+    password: {
+        type: String
+    },
     firstName: {
         type: String
     },
@@ -13,33 +29,23 @@ let UserSchema = mongoose.Schema({
     lastName: {
         type: String
     },
-    phoneNumber: {
-        type: String,
-        lowercase: true,
-        trim: true,
-        index: true,
-        unique: true,
-        sparse: true,
-        validate: [validate({
-            validator: 'isNumeric',
-            arguments: [7, 20],
-            message: 'Not a valid phone number.',
-        })]
-    },
-    avatar: {
-        type: String
-    },
     birthday: {
         type: String
     },
     address: {
         type: String
     },
-    password: {
+    avatar: {
         type: String
+    },
+    remainMoney:{
+        type: Number
     },
     role: {
         type: Number
+    },
+    gender:{
+         type:Number
     },
     deletionFlag: {
         type: Boolean,
