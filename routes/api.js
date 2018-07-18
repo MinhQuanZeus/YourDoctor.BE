@@ -110,6 +110,5 @@ router.get('/chatshistorys/getConversationByID/:id', ChatsHistoryController.getC
 router.post('/paymentshistorys', PaymentsHistoryController.create);
 
 //----------TokenNotification
-router.post('/tokennotifications', TokenNotificationController.create);
-router.put('/tokennotifications', TokenNotificationController.update);
+router.post('/tokennotifications', TokenNotificationController.createToken);
 module.exports = router;

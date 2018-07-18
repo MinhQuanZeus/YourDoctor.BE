@@ -2,7 +2,7 @@ const PaymentsHistory = require('../models').PaymentsHistory;
 
 const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    const body = req.body;
+    let body = req.body;
     console.log(body)
     if (!body.userID || !body.amount || !body.remainMoney ||
         !body.typeAdvisoryID || !body.status) {
