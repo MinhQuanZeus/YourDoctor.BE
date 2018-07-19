@@ -196,7 +196,7 @@ const getListSpecialistDoctor = async function (req, res) {
                 .sort([['currentRating', 'descending']])
                 .populate({
                     path: 'doctorId',
-                    select: 'firstName middleName lastName'
+                    select: 'firstName middleName lastName avatar'
                 })
             console.log(itemDoctor)
             if (itemDoctor) {
@@ -205,6 +205,7 @@ const getListSpecialistDoctor = async function (req, res) {
                     firstName: itemDoctor.doctorId.firstName,
                     middleName: itemDoctor.doctorId.middleName,
                     lastName: itemDoctor.doctorId.lastName,
+                    avatar:itemDoctor.doctorId.avatar,
                     currentRating: itemDoctor.currentRating
                 };
                 listDoctor.push(itemInfoDoctor)
