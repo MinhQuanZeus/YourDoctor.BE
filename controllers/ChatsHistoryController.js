@@ -9,7 +9,7 @@ const create = async function (req, res) {
         !body.paymentPatientID || !body.contentTopic) {
         return ReE(res, 'ERROR0028', 400);
     }
-    try{
+    try {
         var chatHistory = new ChatsHistory({
             contentTopic: body.contentTopic,
             patientId: body.patientId,
@@ -24,7 +24,7 @@ const create = async function (req, res) {
         });
         await  chatHistory.save();
         return ReS(res, {message: 'Tạo cuộc tư vấn thành công', chatHistory: chatHistory}, 200);
-    }catch (e) {
+    } catch (e) {
         ReS(res, e.message, 503);
     }
 
@@ -41,14 +41,14 @@ const updateRecord = async function (req, res) {
         let objTypeAdvisory = await TypeAdvisory.findOne({_id: pushRecord.typeAdvisoryID});
         if (!objTypeAdvisory) ReS(res, "Không tìm thấy type", 503);
         // loop check
-        let countRecord =0;
-        for(var i =0;i< pushRecord.records.length;i++){
+        let countRecord = 0;
+        for (var i = 0; i < pushRecord.records.length; i++) {
 
-            if(pushRecord.records[i].recorderID === pushRecord.patientId){
+            if (pushRecord.records[i].recorderID === pushRecord.patientId) {
                 countRecord++;
             }
         }
-        if(countRecord >= (objTypeAdvisory.limitNumberRecords*1)){
+        if (countRecord >= (objTypeAdvisory.limitNumberRecords * 1)) {
             return ReE(res, "ERROR0039", 503);
         }
         else {
@@ -127,28 +127,21 @@ const getAllConversationByDoctor = async function (req, res) {
 module.exports.getAllConversationByDoctor = getAllConversationByDoctor;
 
 const getConversationByID = async function (req, res) {
-    let query = {};
-    if (req.params.id) {
-        query.id = req.params.id
-    }
+    console.log(req.params.id)
     try {
-        ChatsHistory.find({
-            query
+        let objConversation = await ChatsHistory.findById({
+            _id: req.params.id
         })
-        //.select('doctorId, records, status')
-        //.sort([['status', 'ascending'],['updatedAt','descending'],['records.createTime','1']])
-            .populate(
-                {
-                    select: 'firstName middleName lastName avatar'
-                }
-            ).exec(function (err, listChatsHistory) {
-            if (err) TE(err.message);
-            return ReS(res, {message: 'Lấy thông tin cuộc tư vấn thành công', listChatsHistory: listChatsHistory}, 200);
-        });
+        // Todo populate get name patient and doctor
+        if (!objConversation) {
+            return ReE(res, "Không tìm thấy cuộc trò chuyện", 404);
+        }
+        else {
+            return ReS(res, {message: 'Lấy thông tin cuộc tư vấn thành công', objConversation: objConversation}, 200);
+        }
     } catch (e) {
-
+        console.log(e)
     }
-
 }
 
 module.exports.getConversationByID = getConversationByID;
