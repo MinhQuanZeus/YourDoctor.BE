@@ -131,6 +131,9 @@ const getConversationByID = async function (req, res) {
     try {
         let objConversation = await ChatsHistory.findById({
             _id: req.params.id
+        }).populate({
+            path: 'patientId doctorId',
+            select: 'firstName middleName lastName'
         })
         // Todo populate get name patient and doctor
         if (!objConversation) {
