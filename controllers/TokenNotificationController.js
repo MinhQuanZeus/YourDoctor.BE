@@ -34,3 +34,12 @@ const createToken = async function (req, res) {
 }
 
 module.exports.createToken = createToken;
+
+
+const getToken = async function (req, res) {
+    let objToken = await TokenNotification.findOne({userId:req.params.userId})
+    if(!objToken) return ReE(res, "ERROR0042", 404);
+    return ReS(res, {message: 'Tạo token device thành công', tokenDevice: objToken.tokenDevice}, 200);
+}
+
+module.exports.getToken = getToken;

@@ -51,6 +51,18 @@ module.exports = function (io) {
 
             if (receive != null) {
                 receive.emit('newMessage', {data: JSON.stringify(megSender)});
+                var tokenDevice = getToken(reqReceiver)
+                var payLoad = {
+                    data:{
+                        senderId: reqSender,
+                        receiveId: reqReceiver,
+                        type:constants.NOTIFICATION_TYPE_CHAT,
+                        storageId: reqConversationID,
+                        message: "Demo send notification",
+                        createTime: Date.now()
+                    }
+                }
+                SendNotification.sendNotification(tokenDevice,payLoad)
                 console.log(JSON.stringify(megSender));
             }
 
@@ -114,8 +126,18 @@ module.exports = function (io) {
 const ChatsHistory = require('../models').ChatsHistory;
 const TypeAdvisory = require('../models').TypeAdvisory;
 const PaymentsHistory = require('../models').PaymentsHistory;
+const TokenNotification = require('../models').TokenNotification;
+const SendNotification = require('./NotificationFCMController')
 const User = require('../models').User;
 const constants = require('./../constants');
+
+async function getToken(userId) {
+    var tokenDevice;
+    let objToken = await TokenNotification.findOne({userId:userId})
+    tokenDevice = objToken.tokenDevice
+    return tokenDevice
+}
+
 async function updateRecord(data) {
     let updateSuccess = true;
     if (!data.id) updateSuccess = false;

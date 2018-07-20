@@ -111,4 +111,5 @@ router.post('/paymentshistorys', PaymentsHistoryController.create);
 
 //----------TokenNotification
 router.post('/tokennotifications', TokenNotificationController.createToken);
+router.get('/tokennotifications/:userId', TokenNotificationController.getToken);
 module.exports = router;

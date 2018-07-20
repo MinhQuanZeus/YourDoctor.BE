@@ -135,7 +135,6 @@ const getConversationByID = async function (req, res) {
             path: 'patientId doctorId',
             select: 'firstName middleName lastName'
         })
-        // Todo populate get name patient and doctor
         if (!objConversation) {
             return ReE(res, "Không tìm thấy cuộc trò chuyện", 404);
         }
