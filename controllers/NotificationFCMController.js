@@ -7,28 +7,18 @@ admin.initializeApp({
     databaseURL: "https://yourdoctor7-2db28.firebaseio.com"
 });
 
-const sendNotification = function (deviceToken, payload) {
+const sendNotification = function (topicUserId, payload) {
+
     var options = {
         priority:"high",
         timeToLive: 60 * 60 *24 * 7
     };
-    admin.messaging().sendToDevice(deviceToken,payload,options).then(function (response) {
+    admin.messaging().sendToTopic(topicUserId,payload,options).then(function (response) {
         console.log("successfull", response)}).catch(function (error) {
         console.log("loi roi", error)
     });
 }
 
+
 module.exports.sendNotification = sendNotification;
-
-// sample data
-// var payload = {
-//     data : {
-//         senderId: "ID cua ng nguoi",
-//         type: "video call or chat",
-//         advisoryId: "id cua cuoc tu van chat hay video call",
-//         message: ""
-//     }
-// };
-
-
 
