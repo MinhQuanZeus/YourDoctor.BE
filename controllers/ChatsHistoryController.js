@@ -1,5 +1,6 @@
 const ChatsHistory = require('../models').ChatsHistory;
 const TypeAdvisory = require('../models').TypeAdvisory;
+const SendNotification = require('./NotificationFCMController')
 const constants = require('./../constants');
 
 const create = async function (req, res) {
@@ -23,6 +24,19 @@ const create = async function (req, res) {
             deletionFlag: body.deletionFlag
         });
         await  chatHistory.save();
+        var payLoad = {
+            data: {
+                senderId: chatHistory.patientId,
+                nameSender:"",
+                receiveId: chatHistory.doctorId,
+                type: constants.NOTIFICATION_TYPE_CHAT,
+                storageId: chatHistory.id,
+                message: "vừa tạo yêu cầu tư vấn chat với bạn",
+                createTime: Date.now().toString()
+            }
+        }
+        SendNotification.sendNotification(receiveId, payLoad)
+        console.log(JSON.stringify(megSender));
         return ReS(res, {message: 'Tạo cuộc tư vấn thành công', chatHistory: chatHistory}, 200);
     } catch (e) {
         ReS(res, e.message, 503);

@@ -47,12 +47,7 @@ module.exports = function (io) {
             if (send != null) {
                 send.emit('newMessage', {data: JSON.stringify(megSender)});
                 console.log(JSON.stringify(megSender));
-            }
-
-            if (receive != null) {
-                receive.emit('newMessage', {data: JSON.stringify(megSender)});
-                // var tokenDevice = getToken(reqReceiver)
-                //them name ng gui vao neu co
+            }else{
                 var payLoad = {
                     data: {
                         senderId: reqSender,
@@ -65,7 +60,28 @@ module.exports = function (io) {
                     }
                 }
                 SendNotification.sendNotification(reqReceiver, payLoad)
+            }
+
+            if (receive != null) {
+                receive.emit('newMessage', {data: JSON.stringify(megSender)});
+                // var tokenDevice = getToken(reqReceiver)
+                //them name ng gui vao neu co
+
+
                 console.log(JSON.stringify(megSender));
+            }else {
+                var payLoad = {
+                    data: {
+                        senderId: reqSender,
+                        nameSender:"",
+                        receiveId: reqReceiver,
+                        type: constants.NOTIFICATION_TYPE_CHAT,
+                        storageId: reqConversationID,
+                        message: "vừa nhắn tin cho bạn",
+                        createTime: Date.now().toString()
+                    }
+                }
+                SendNotification.sendNotification(reqReceiver, payLoad)
             }
 
             // collect data
@@ -90,13 +106,40 @@ module.exports = function (io) {
         socket.on('doneConversation', function (reqSender, reqReceiver, reqConversationID) {
             var send = sequenceNumberByClient.get(reqSender);
             var receive = sequenceNumberByClient.get(reqReceiver);
+            //Update status cua chat history là done (status : 2)
             if (createPaymentForDoctor(reqConversationID)) {
                 if (send != null) {
                     send.emit('finishConversation', 'Cuộc tư vấn đã kết thúc');
+                }else {
+                    var payLoad = {
+                        data: {
+                            senderId: reqSender,
+                            nameSender:"",
+                            receiveId: reqReceiver,
+                            type: constants.NOTIFICATION_TYPE_CHAT,
+                            storageId: reqConversationID,
+                            message: "cuộc trò chuyện đã hoàn thành",
+                            createTime: Date.now().toString()
+                        }
+                    }
+                    SendNotification.sendNotification(reqReceiver, payLoad)
                 }
 
                 if (receive != null) {
-                    receive.emit('newMessage', 'Cuộc tư vấn đã kết thúc');
+                    receive.emit('finishConversation', 'Cuộc tư vấn đã kết thúc');
+                }else {
+                    var payLoad = {
+                        data: {
+                            senderId: reqSender,
+                            nameSender:"",
+                            receiveId: reqReceiver,
+                            type: constants.NOTIFICATION_TYPE_CHAT,
+                            storageId: reqConversationID,
+                            message: "cuộc trò chuyện đã hoàn thành",
+                            createTime: Date.now().toString()
+                        }
+                    }
+                    SendNotification.sendNotification(reqReceiver, payLoad)
                 }
             }
             else {
