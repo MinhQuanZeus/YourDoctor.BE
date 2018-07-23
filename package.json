@@ -7,7 +7,7 @@
     "run": "node ./bin/www"
   },
   "dependencies": {
-    "aws-sdk": "^2.268.1",
+    "aws-sdk": "^2.279.1",
     "bcrypt": "^2.0.1",
     "bcrypt-promise": "^2.0.0",
     "body-parser": "~1.18.2",

@@ -17,8 +17,32 @@ const sendNotification = function (deviceToken, payload) {
         console.log("loi roi", error)
     });
 }
-
 module.exports.sendNotification = sendNotification;
+const demoSendNotification = function (req, res) {
+    let body = req.body;
+    var options = {
+        priority:"high",
+        timeToLive: 60 * 60 *24 * 7
+    };
+    console.log(body)
+    var deviceToken = body.deviceToken;
+    let payload ={
+        data:{
+            message: body.message
+        }
+    };
+    admin.messaging().sendToDevice(deviceToken,payload,options).then(function (response) {
+        console.log("successfull", response)
+        return ReS(res, {message: 'Send notification thành công', response: response}, 200);
+    }).catch(function (error) {
+        console.log("loi roi", error)
+    });
+
+}
+
+module.exports.demoSendNotification = demoSendNotification;
+
+
 
 // sample data
 // var payload = {

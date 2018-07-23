@@ -120,6 +120,50 @@ module.exports = function (io) {
             sequenceNumberByClient.delete(socket);
             console.info("Client gone id" +socket.id);
         });
+
+        /// upload image
+        //init socket io and whatever
+        var files = {},
+            struct = {
+                name: null,
+                type: null,
+                size: 0,
+                data: [],
+                slice: 0,
+            };
+
+        socket.on('sliceUpload', (data) => {
+            if (!files[data.name]) {
+                files[data.name] = Object.assign({}, struct, data);
+                files[data.name].data = [];
+            }
+
+            //convert the ArrayBuffer to Buffer
+            data.data = new Buffer(new Uint8Array(data.data));
+            //save the data
+            files[data.name].data.push(data.data);
+            files[data.name].slice++;
+
+            if (files[data.name].slice * 100000 >= files[data.name].size) {
+                //do something with the data
+                socket.emit('endUpload');
+                // storage
+                if (files[data.name].slice * 100000 >= files[data.name].size) {
+                    var fileBuffer = Buffer.concat(files[data.name].data);
+
+                    // storage in server side
+                    fs.write('/tmp/'+data.name, fileBuffer, (err) => {
+                        delete files[data.name];
+                        if (err) return socket.emit('uploadError');
+                        socket.emit('endUpload');
+                    });
+                }
+            } else {
+                socket.emit('requestSliceUpload', {
+                    currentSlice: files[data.name].slice
+                });
+            }
+        });
     });
 }
 /////////////////////////////////
