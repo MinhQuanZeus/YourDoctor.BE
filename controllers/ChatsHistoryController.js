@@ -11,14 +11,6 @@ const create = async function (req, res) {
         !body.paymentPatientID || !body.contentTopic) {
         return ReE(res, 'ERROR0028', 400);
     }
-    let objChatPending = await ChatsHistory.find({
-        'patientId':body.patientId,
-        'doctorId': body.doctorId,
-        'status': constants.STATUS_CONVERSATION_TALKING
-    });
-    if(objChatPending){
-        return ReE(res, 'Bạn đang có một cuộc tư vấn chưa hoàn thành với bác sỹ này', 400);
-    }
     try {
         var chatHistory = new ChatsHistory({
             contentTopic: body.contentTopic,
