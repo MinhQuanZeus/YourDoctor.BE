@@ -113,7 +113,4 @@ router.post('/paymentshistorys', PaymentsHistoryController.create);
 router.post('/tokennotifications', TokenNotificationController.createToken);
 router.get('/tokennotifications/:userId', TokenNotificationController.getToken);
 
-// demo send notifi
-const NotificationFCMController = require('../controllers/NotificationFCMController');
-router.post('/demosendnotifi', NotificationFCMController.demoSendNotification);
 module.exports = router;
