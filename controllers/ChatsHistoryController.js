@@ -31,6 +31,14 @@ const create = async function (req, res) {
         if(objUser) {
             fullName = " "+objUser.firstName+" "+objUser.middleName+" "+objUser.lastName+"";
         }
+        var d = new Date,
+            dformat =
+                [d.getHours(),
+                    d.getMinutes(),
+                    d.getSeconds()].join(':') + ' ' +
+                [d.getMonth() + 1,
+                    d.getDate(),
+                    d.getFullYear()].join('/');
         var payLoad = {
             data: {
                 senderId: chatHistory.patientId,
@@ -39,7 +47,7 @@ const create = async function (req, res) {
                 type: constants.NOTIFICATION_TYPE_CHAT,
                 storageId: chatHistory.id,
                 message: ""+fullName+" vừa tạo yêu cầu tư vấn qua nhắn tin với bạn",
-                createTime: Date.now().toString()
+                createTime: dformat.toString()
             }
         }
         await SendNotification.sendNotification(chatHistory.doctorId, payLoad)

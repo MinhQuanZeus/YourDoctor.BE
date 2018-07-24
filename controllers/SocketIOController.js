@@ -31,7 +31,7 @@ module.exports = function (io) {
                 sequenceNumberByClient.set(userID, socket);
             });
 
-            socket.on('sendMessage',async function (reqSender, reqReceiver, reqConversationID, reqType, reqValue) {
+            socket.on('sendMessage', async function (reqSender, reqReceiver, reqConversationID, reqType, reqValue) {
                 var send = sequenceNumberByClient.get(reqSender);
                 var receive = sequenceNumberByClient.get(reqReceiver);
                 var megSender = {
@@ -40,7 +40,7 @@ module.exports = function (io) {
                     value: reqValue
                 };
                 // check status
-                if(getStatus(reqConversationID)=== constants.STATUS_CONVERSATION_FINISH){
+                if (getStatus(reqConversationID) === constants.STATUS_CONVERSATION_FINISH) {
                     if (send != null) {
                         send.emit('conversationDone', 'Cuộc tư vấn đã kết thúc');
                         return;
@@ -74,7 +74,16 @@ module.exports = function (io) {
                 if (receive != null) {
                     receive.emit('newMessage', {data: JSON.stringify(megSender)});
                 } else {
+
                     let fullName = getUser(reqSender)
+                    var d = new Date,
+                        dformat =
+                            [d.getHours(),
+                                d.getMinutes(),
+                                d.getSeconds()].join(':') + ' ' +
+                            [d.getMonth() + 1,
+                                d.getDate(),
+                                d.getFullYear()].join('/');
                     let payLoad = {
                         data: {
                             senderId: reqSender,
@@ -82,8 +91,8 @@ module.exports = function (io) {
                             receiveId: reqReceiver,
                             type: constants.NOTIFICATION_TYPE_CHAT,
                             storageId: reqConversationID,
-                            message: ""+fullName+" vừa nhắn tin cho bạn",
-                            createTime: Date.now().toString()
+                            message: "" + fullName + " vừa nhắn tin cho bạn",
+                            createTime: dformat.toString()
                         }
                     }
                     console.log("ban notification for" + reqReceiver);
@@ -91,13 +100,13 @@ module.exports = function (io) {
                 }
             });
 
-            socket.on('doneConversation',async function (reqSender, reqReceiver, reqConversationID) {
+            socket.on('doneConversation', async function (reqSender, reqReceiver, reqConversationID) {
                 var send = sequenceNumberByClient.get(reqSender);
                 var receive = sequenceNumberByClient.get(reqReceiver);
 
                 //Update status cua chat history là done (status : 2)
 
-                if(updateStatus(reqConversationID)){
+                if (updateStatus(reqConversationID)) {
                     if (createPaymentForDoctor(reqConversationID)) {
                         // emit to sender
                         if (send != null) {
@@ -108,6 +117,15 @@ module.exports = function (io) {
                             receive.emit('finishConversation', 'Cuộc tư vấn đã kết thúc');
                         } else {
                             let fullName = getUser(reqSender)
+                            var d = new Date,
+                                dformat =
+                                    [d.getHours(),
+                                        d.getMinutes(),
+                                        d.getSeconds()].join(':') + ' ' +
+                                    [d.getMonth() + 1,
+                                        d.getDate(),
+                                        d.getFullYear()].join('/');
+
                             let payLoad = {
                                 data: {
                                     senderId: reqSender,
@@ -116,7 +134,7 @@ module.exports = function (io) {
                                     type: constants.NOTIFICATION_TYPE_CHAT,
                                     storageId: reqConversationID,
                                     message: "Cuộc tư vấn với " + fullName + " đã kết thúc",
-                                    createTime: Date.now().toString()
+                                    createTime: dformat.toString()
                                 }
                             }
                             // send notification
@@ -126,7 +144,7 @@ module.exports = function (io) {
                     else {
                         // TODO notification to Admin
                     }
-                }else {
+                } else {
                     // TODO notification to Admin
                 }
             })
@@ -201,32 +219,34 @@ module.exports = function (io) {
         }
         return updateSuccess;
     }
-async function updateStatus(reqConversationID) {
-    let success = false;
-    let objChatHistory = await ChatsHistory.findById({_id:reqConversationID})
-    if(objChatHistory){
-        objChatHistory.set({status:constants.STATUS_CONVERSATION_FINISH});
-        await objChatHistory.save(function (err, objUpdate) {
-            if(err){
-                console.log(e);
-                success = false;
-            }
-            else {
-                success = true;
-            }
-        });
+
+    async function updateStatus(reqConversationID) {
+        let success = false;
+        let objChatHistory = await ChatsHistory.findById({_id: reqConversationID})
+        if (objChatHistory) {
+            objChatHistory.set({status: constants.STATUS_CONVERSATION_FINISH});
+            await objChatHistory.save(function (err, objUpdate) {
+                if (err) {
+                    console.log(e);
+                    success = false;
+                }
+                else {
+                    success = true;
+                }
+            });
+        }
+        return success;
     }
-    return success;
-}
 
     async function getStatus(reqConversationID) {
         let status = 0;
-        let objChatHistory = await ChatsHistory.findById({_id:reqConversationID})
-        if(objChatHistory){
+        let objChatHistory = await ChatsHistory.findById({_id: reqConversationID})
+        if (objChatHistory) {
             status = objChatHistory.status * 1;
         }
         return status;
     }
+
     async function createPaymentForDoctor(conversationID) {
         let success = false;
         // get conversation
