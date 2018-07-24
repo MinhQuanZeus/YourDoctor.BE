@@ -59,6 +59,7 @@ module.exports = function (io) {
                         createTime: Date.now().toString()
                     }
                 }
+                console.log("ban notification for " + reqReceiver);
                 SendNotification.sendNotification(reqReceiver, payLoad)
             }
 
@@ -81,7 +82,8 @@ module.exports = function (io) {
                         createTime: Date.now().toString()
                     }
                 }
-                SendNotification.sendNotification(reqReceiver, payLoad)
+                console.log("ban notification for" + reqReceiver);
+                 SendNotification.sendNotification(reqReceiver, payLoad);
             }
 
             // collect data
@@ -162,12 +164,11 @@ module.exports = function (io) {
 
         // when socket disconnects, remove it from the list:
         socket.on("disconnect", () => {
-            sequenceNumberByClient.delete(socket);
+            sequenceNumberByClient.delete(socket.id);
             console.info("Client gone id" + socket.id);
+
         });
 
-        /// upload image
-        //init socket io and whatever
         var files = {},
             struct = {
                 name: null,
