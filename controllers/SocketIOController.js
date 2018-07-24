@@ -42,6 +42,7 @@ module.exports = function (io) {
                 if(getStatus(reqConversationID)=== constants.STATUS_CONVERSATION_FINISH){
                     if (send != null) {
                         send.emit('conversationDone', 'Cuộc tư vấn đã kết thúc');
+                        return;
                     }
                 }
                 //console.log(send.id);
