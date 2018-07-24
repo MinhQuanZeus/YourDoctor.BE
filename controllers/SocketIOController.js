@@ -113,14 +113,15 @@ module.exports = function (io) {
                 if (send != null) {
                     send.emit('finishConversation', 'Cuộc tư vấn đã kết thúc');
                 }else {
+                    let fullName = getUser(reqReceiver)
                     var payLoad = {
                         data: {
                             senderId: reqSender,
-                            nameSender:"",
+                            nameSender:fullName,
                             receiveId: reqReceiver,
                             type: constants.NOTIFICATION_TYPE_CHAT,
                             storageId: reqConversationID,
-                            message: "cuộc trò chuyện đã hoàn thành",
+                            message: "Cuộc tư vấn với "+fullName+" đã kết thúc",
                             createTime: Date.now().toString()
                         }
                     }
@@ -130,14 +131,15 @@ module.exports = function (io) {
                 if (receive != null) {
                     receive.emit('finishConversation', 'Cuộc tư vấn đã kết thúc');
                 }else {
+                    let fullName = getUser(reqReceiver)
                     var payLoad = {
                         data: {
                             senderId: reqSender,
-                            nameSender:"",
+                            nameSender:fullName,
                             receiveId: reqReceiver,
                             type: constants.NOTIFICATION_TYPE_CHAT,
                             storageId: reqConversationID,
-                            message: "cuộc trò chuyện đã hoàn thành",
+                            message: "Cuộc tư vấn với "+fullName+" đã kết thúc",
                             createTime: Date.now().toString()
                         }
                     }
@@ -220,12 +222,14 @@ const SendNotification = require('./NotificationFCMController')
 const User = require('../models').User;
 const constants = require('./../constants');
 
-// async function getToken(userId) {
-//     var tokenDevice;
-//     let objToken = await TokenNotification.findOne({userId: userId})
-//     tokenDevice = objToken.tokenDevice
-//     return tokenDevice
-// }
+async function getUser(userId) {
+    var fullName;
+    let objUser = await User.findById({_id: userId})
+    if(objUser){
+        fullName = " "+objUser.firstName+" "+objUser.middleName+" "+objUser.lastName+"";
+    }
+    return fullName
+}
 
 async function updateRecord(data) {
     let updateSuccess = true;
