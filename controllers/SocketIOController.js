@@ -31,10 +31,9 @@ module.exports = function (io) {
                 sequenceNumberByClient.set(userID, socket);
             });
 
-            socket.on('sendMessage', function (reqSender, reqReceiver, reqConversationID, reqType, reqValue) {
+            socket.on('sendMessage',async function (reqSender, reqReceiver, reqConversationID, reqType, reqValue) {
                 var send = sequenceNumberByClient.get(reqSender);
                 var receive = sequenceNumberByClient.get(reqReceiver);
-                let fullName = getUser(reqSender)
                 var megSender = {
                     senderID: reqSender,
                     type: reqType,
@@ -75,6 +74,7 @@ module.exports = function (io) {
                 if (receive != null) {
                     receive.emit('newMessage', {data: JSON.stringify(megSender)});
                 } else {
+                    let fullName = getUser(reqSender)
                     let payLoad = {
                         data: {
                             senderId: reqSender,
@@ -91,36 +91,23 @@ module.exports = function (io) {
                 }
             });
 
-            socket.on('doneConversation', function (reqSender, reqReceiver, reqConversationID) {
+            socket.on('doneConversation',async function (reqSender, reqReceiver, reqConversationID) {
                 var send = sequenceNumberByClient.get(reqSender);
                 var receive = sequenceNumberByClient.get(reqReceiver);
-                let fullName = getUser(reqSender)
+
                 //Update status cua chat history là done (status : 2)
 
                 if(updateStatus(reqConversationID)){
                     if (createPaymentForDoctor(reqConversationID)) {
+                        // emit to sender
                         if (send != null) {
                             send.emit('finishConversation', 'Cuộc tư vấn đã kết thúc');
                         }
-                        // else {
-                        //     let fullName = getUser(reqReceiver)
-                        //     let payLoad = {
-                        //         data: {
-                        //             senderId: reqSender,
-                        //             nameSender: fullName,
-                        //             receiveId: reqReceiver,
-                        //             type: constants.NOTIFICATION_TYPE_CHAT,
-                        //             storageId: reqConversationID,
-                        //             message: "Cuộc tư vấn với " + fullName + " đã kết thúc",
-                        //             createTime: Date.now().toString()
-                        //         }
-                        //     }
-                        //     SendNotification.sendNotification(reqReceiver, payLoad)
-                        // }
+                        // emit to receiver
                         if (receive != null) {
                             receive.emit('finishConversation', 'Cuộc tư vấn đã kết thúc');
                         } else {
-
+                            let fullName = getUser(reqSender)
                             let payLoad = {
                                 data: {
                                     senderId: reqSender,
@@ -132,6 +119,7 @@ module.exports = function (io) {
                                     createTime: Date.now().toString()
                                 }
                             }
+                            // send notification
                             SendNotification.sendNotification(reqReceiver, payLoad)
                         }
                     }
