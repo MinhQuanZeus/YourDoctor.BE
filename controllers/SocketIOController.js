@@ -34,10 +34,19 @@ module.exports = function (io) {
             socket.on('sendMessage', async function (reqSender, reqReceiver, reqConversationID, reqType, reqValue) {
                 var send = sequenceNumberByClient.get(reqSender);
                 var receive = sequenceNumberByClient.get(reqReceiver);
+                var d = new Date,
+                    dformat =
+                        [d.getHours(),
+                            d.getMinutes(),
+                            d.getSeconds()].join(':') + ' ' +
+                        [d.getMonth() + 1,
+                            d.getDate(),
+                            d.getFullYear()].join('/');
                 var megSender = {
                     senderID: reqSender,
                     type: reqType,
-                    value: reqValue
+                    value: reqValue,
+                    createTime: dformat.toString()
                 };
                 // check status
                 if (getStatus(reqConversationID) === constants.STATUS_CONVERSATION_FINISH) {
