@@ -39,32 +39,38 @@ module.exports = function (io) {
                     type: reqType,
                     value: reqValue
                 };
+                // check status
                 if(getStatus(reqConversationID)=== constants.STATUS_CONVERSATION_FINISH){
                     if (send != null) {
                         send.emit('conversationDone', 'Cuộc tư vấn đã kết thúc');
                         return;
                     }
+                } else {
+
+                    // collect data
+                    var records = {
+                        recorderID: reqSender,
+                        type: reqType,
+                        value: reqValue
+                    }
+                    var objectUpdate = {
+                        id: reqConversationID,
+                        records: records
+                    }
+                    // update record chat
+                    if (!updateRecord(objectUpdate)) {
+                        if (send != null) {
+                            send.emit('errorUpdate', 'Gủi tin nhắn không thành công');
+                        }
+                    }
                 }
-                //console.log(send.id);
+                // check sender
                 if (send != null) {
                     send.emit('newMessage', {data: JSON.stringify(megSender)});
                 } else {
-                    // let fullName = getUser(reqReceiver)
-                    // var payLoad = {
-                    //     data: {
-                    //         senderId: reqSender,
-                    //         nameSender: "",
-                    //         receiveId: reqReceiver,
-                    //         type: constants.NOTIFICATION_TYPE_CHAT,
-                    //         storageId: reqConversationID,
-                    //         message: "Demo send notification",
-                    //         createTime: Date.now().toString()
-                    //     }
-                    // }
-                    // console.log("ban notification for " + reqReceiver);
-                    // SendNotification.sendNotification(reqReceiver, payLoad)
-                }
 
+                }
+                // check receiver
                 if (receive != null) {
                     receive.emit('newMessage', {data: JSON.stringify(megSender)});
                 } else {
@@ -82,22 +88,6 @@ module.exports = function (io) {
                     }
                     console.log("ban notification for" + reqReceiver);
                     SendNotification.sendNotification(reqReceiver, payLoad);
-                }
-
-                // collect data
-                var records = {
-                    recorderID: reqSender,
-                    type: reqType,
-                    value: reqValue
-                }
-                var objectUpdate = {
-                    id: reqConversationID,
-                    records: records
-                }
-                if (!updateRecord(objectUpdate)) {
-                    if (send != null) {
-                        send.emit('errorUpdate', 'Gủi tin nhắn không thành công');
-                    }
                 }
             });
 
