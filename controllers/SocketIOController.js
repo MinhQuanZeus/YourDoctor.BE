@@ -32,7 +32,6 @@ module.exports = function (io) {
             });
 
             socket.on('sendMessage', function (reqSender, reqReceiver, reqConversationID, reqType, reqValue) {
-                // check user in room
                 var send = sequenceNumberByClient.get(reqSender);
                 var receive = sequenceNumberByClient.get(reqReceiver);
                 var megSender = {
@@ -40,6 +39,12 @@ module.exports = function (io) {
                     type: reqType,
                     value: reqValue
                 };
+                if(getStatus(reqConversationID)=== constants.STATUS_CONVERSATION_FINISH){
+                    if (send != null) {
+                        send.emit('conversationDone', 'Cuộc tư vấn đã kết thúc');
+                    }
+                }
+                //console.log(send.id);
                 if (send != null) {
                     send.emit('newMessage', {data: JSON.stringify(megSender)});
                     console.log(JSON.stringify(megSender));
@@ -55,12 +60,17 @@ module.exports = function (io) {
                             createTime: Date.now().toString()
                         }
                     }
-                    // send notification
+                    console.log("ban notification for " + reqReceiver);
                     SendNotification.sendNotification(reqReceiver, payLoad)
                 }
 
                 if (receive != null) {
                     receive.emit('newMessage', {data: JSON.stringify(megSender)});
+                    // var tokenDevice = getToken(reqReceiver)
+                    //them name ng gui vao neu co
+
+
+                    console.log(JSON.stringify(megSender));
                 } else {
                     var payLoad = {
                         data: {
@@ -73,8 +83,8 @@ module.exports = function (io) {
                             createTime: Date.now().toString()
                         }
                     }
-                    // send notification
-                    SendNotification.sendNotification(reqReceiver, payLoad)
+                    console.log("ban notification for" + reqReceiver);
+                    SendNotification.sendNotification(reqReceiver, payLoad);
                 }
 
                 // collect data
@@ -98,43 +108,47 @@ module.exports = function (io) {
                 var send = sequenceNumberByClient.get(reqSender);
                 var receive = sequenceNumberByClient.get(reqReceiver);
                 //Update status cua chat history là done (status : 2)
-                if (createPaymentForDoctor(reqConversationID)) {
-                    if (send != null) {
-                        send.emit('finishConversation', 'Cuộc tư vấn đã kết thúc');
-                    } else {
-                        let fullName = getUser(reqReceiver)
-                        var payLoad = {
-                            data: {
-                                senderId: reqSender,
-                                nameSender: fullName,
-                                receiveId: reqReceiver,
-                                type: constants.NOTIFICATION_TYPE_CHAT,
-                                storageId: reqConversationID,
-                                message: "Cuộc tư vấn với " + fullName + " đã kết thúc",
-                                createTime: Date.now().toString()
+                if(updateStatus(reqConversationID)){
+                    if (createPaymentForDoctor(reqConversationID)) {
+                        if (send != null) {
+                            send.emit('finishConversation', 'Cuộc tư vấn đã kết thúc');
+                        } else {
+                            let fullName = getUser(reqReceiver)
+                            var payLoad = {
+                                data: {
+                                    senderId: reqSender,
+                                    nameSender: fullName,
+                                    receiveId: reqReceiver,
+                                    type: constants.NOTIFICATION_TYPE_CHAT,
+                                    storageId: reqConversationID,
+                                    message: "Cuộc tư vấn với " + fullName + " đã kết thúc",
+                                    createTime: Date.now().toString()
+                                }
                             }
+                            SendNotification.sendNotification(reqReceiver, payLoad)
                         }
-                        SendNotification.sendNotification(reqReceiver, payLoad)
-                    }
-                    if (receive != null) {
-                        receive.emit('finishConversation', 'Cuộc tư vấn đã kết thúc');
-                    } else {
-                        let fullName = getUser(reqReceiver)
-                        var payLoad = {
-                            data: {
-                                senderId: reqSender,
-                                nameSender: fullName,
-                                receiveId: reqReceiver,
-                                type: constants.NOTIFICATION_TYPE_CHAT,
-                                storageId: reqConversationID,
-                                message: "Cuộc tư vấn với " + fullName + " đã kết thúc",
-                                createTime: Date.now().toString()
+                        if (receive != null) {
+                            receive.emit('finishConversation', 'Cuộc tư vấn đã kết thúc');
+                        } else {
+                            let fullName = getUser(reqReceiver)
+                            var payLoad = {
+                                data: {
+                                    senderId: reqSender,
+                                    nameSender: fullName,
+                                    receiveId: reqReceiver,
+                                    type: constants.NOTIFICATION_TYPE_CHAT,
+                                    storageId: reqConversationID,
+                                    message: "Cuộc tư vấn với " + fullName + " đã kết thúc",
+                                    createTime: Date.now().toString()
+                                }
                             }
+                            SendNotification.sendNotification(reqReceiver, payLoad)
                         }
-                        SendNotification.sendNotification(reqReceiver, payLoad)
                     }
-                }
-                else {
+                    else {
+                        // TODO notification to Admin
+                    }
+                }else {
                     // TODO notification to Admin
                 }
             })
@@ -154,7 +168,7 @@ module.exports = function (io) {
 
             // when socket disconnects, remove it from the list:
             socket.on("disconnect", () => {
-                sequenceNumberByClient.delete(socket);
+                sequenceNumberByClient.delete(socket.id);
                 console.info("Client gone id" + socket.id);
             });
         }
@@ -208,7 +222,31 @@ module.exports = function (io) {
         }
         return updateSuccess;
     }
+async function updateStatus(reqConversationID) {
+    let success = false;
+    let objChatHistory = await ChatsHistory.findById({_id:reqConversationID})
+    if(objChatHistory){
+        objChatHistory.set({status:constants.STATUS_CONVERSATION_FINISH});
+        await objChatHistory.save(function (err, objUpdate) {
+            if(err){
+                success = false;
+            }
+            else {
+                success = true;
+            }
+        });
+    }
+    return success;
+}
 
+    async function getStatus(reqConversationID) {
+        let status = 0;
+        let objChatHistory = await ChatsHistory.findById({_id:reqConversationID})
+        if(objChatHistory){
+            status = objChatHistory.status * 1;
+        }
+        return status;
+    }
     async function createPaymentForDoctor(conversationID) {
         let success = false;
         // get conversation
