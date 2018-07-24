@@ -1,5 +1,6 @@
 const ChatsHistory = require('../models').ChatsHistory;
 const TypeAdvisory = require('../models').TypeAdvisory;
+const PaymentsHistory = require('../models').PaymentsHistory;
 const User = require('../models').User;
 const SendNotification = require('./NotificationFCMController')
 const constants = require('./../constants');
@@ -25,8 +26,24 @@ const create = async function (req, res) {
             deletionFlag: body.deletionFlag
         });
         await  chatHistory.save();
-
+        // trừ tiền user
+        // get payment
         let objUser = await User.findById({_id:body.patientId})
+        let objPayment = await PaymentsHistory.findById({_id:chatHistory.paymentPatientID});
+        objPayment.set({status:constants.PAYMENT_SUCCESS});
+        await objPayment.save(function (err,success) {
+            if(err) {
+                ReE(res, err.toString(), 503);
+            }
+        });
+        // update remain money
+        objUser.set({remainMoney:objPayment.remainMoney});
+        await objUser.save(function (err,success) {
+            if(err) {
+                ReE(res, err.toString(), 503);
+            }
+        });
+
         var fullName;
         if(objUser) {
             fullName = " "+objUser.firstName+" "+objUser.middleName+" "+objUser.lastName+"";
@@ -167,6 +184,12 @@ const getConversationByID = async function (req, res) {
             return ReE(res, "Không tìm thấy cuộc trò chuyện", 404);
         }
         else {
+
+            // for(var i =0; i < objConversation.records.length;i++){
+            //     var a = new Date("'"+objConversation.records[i].created+"'");
+            //     console.log(a)
+            //     objConversation.records[i].created = a.getHours() + ":" + a.getMinutes() + ":" + a.getSeconds() + " " + a.getFullYear() + "/" + a.getMonth() + "/" + a.getDay();
+            // }
             return ReS(res, {message: 'Lấy thông tin cuộc tư vấn thành công', objConversation: objConversation}, 200);
         }
     } catch (e) {
