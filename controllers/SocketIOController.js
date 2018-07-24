@@ -34,6 +34,7 @@ module.exports = function (io) {
             socket.on('sendMessage', function (reqSender, reqReceiver, reqConversationID, reqType, reqValue) {
                 var send = sequenceNumberByClient.get(reqSender);
                 var receive = sequenceNumberByClient.get(reqReceiver);
+                let fullName = getUser(reqSender)
                 var megSender = {
                     senderID: reqSender,
                     type: reqType,
@@ -74,8 +75,7 @@ module.exports = function (io) {
                 if (receive != null) {
                     receive.emit('newMessage', {data: JSON.stringify(megSender)});
                 } else {
-                    let fullName = getUser(reqSender)
-                    var payLoad = {
+                    let payLoad = {
                         data: {
                             senderId: reqSender,
                             nameSender: fullName,
@@ -94,31 +94,34 @@ module.exports = function (io) {
             socket.on('doneConversation', function (reqSender, reqReceiver, reqConversationID) {
                 var send = sequenceNumberByClient.get(reqSender);
                 var receive = sequenceNumberByClient.get(reqReceiver);
+                let fullName = getUser(reqSender)
                 //Update status cua chat history là done (status : 2)
+
                 if(updateStatus(reqConversationID)){
                     if (createPaymentForDoctor(reqConversationID)) {
                         if (send != null) {
                             send.emit('finishConversation', 'Cuộc tư vấn đã kết thúc');
-                        } else {
-                            let fullName = getUser(reqReceiver)
-                            var payLoad = {
-                                data: {
-                                    senderId: reqSender,
-                                    nameSender: fullName,
-                                    receiveId: reqReceiver,
-                                    type: constants.NOTIFICATION_TYPE_CHAT,
-                                    storageId: reqConversationID,
-                                    message: "Cuộc tư vấn với " + fullName + " đã kết thúc",
-                                    createTime: Date.now().toString()
-                                }
-                            }
-                            SendNotification.sendNotification(reqReceiver, payLoad)
                         }
+                        // else {
+                        //     let fullName = getUser(reqReceiver)
+                        //     let payLoad = {
+                        //         data: {
+                        //             senderId: reqSender,
+                        //             nameSender: fullName,
+                        //             receiveId: reqReceiver,
+                        //             type: constants.NOTIFICATION_TYPE_CHAT,
+                        //             storageId: reqConversationID,
+                        //             message: "Cuộc tư vấn với " + fullName + " đã kết thúc",
+                        //             createTime: Date.now().toString()
+                        //         }
+                        //     }
+                        //     SendNotification.sendNotification(reqReceiver, payLoad)
+                        // }
                         if (receive != null) {
                             receive.emit('finishConversation', 'Cuộc tư vấn đã kết thúc');
                         } else {
-                            let fullName = getUser(reqReceiver)
-                            var payLoad = {
+
+                            let payLoad = {
                                 data: {
                                     senderId: reqSender,
                                     nameSender: fullName,
@@ -169,8 +172,9 @@ module.exports = function (io) {
     const constants = require('./../constants');
 
     async function getUser(userId) {
-        var fullName;
+        let fullName;
         let objUser = await User.findById({_id: userId})
+        console.log(objUser)
         if (objUser) {
             fullName = " " + objUser.firstName + " " + objUser.middleName + " " + objUser.lastName + "";
         }
@@ -178,7 +182,7 @@ module.exports = function (io) {
     }
 
     async function updateRecord(data) {
-        let updateSuccess = true;
+        let updateSuccess = false;
         if (!data.id) updateSuccess = false;
         try {
             // check limit record
@@ -216,6 +220,7 @@ async function updateStatus(reqConversationID) {
         objChatHistory.set({status:constants.STATUS_CONVERSATION_FINISH});
         await objChatHistory.save(function (err, objUpdate) {
             if(err){
+                console.log(e);
                 success = false;
             }
             else {
