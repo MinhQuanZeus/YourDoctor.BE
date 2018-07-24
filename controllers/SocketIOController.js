@@ -48,39 +48,35 @@ module.exports = function (io) {
                 //console.log(send.id);
                 if (send != null) {
                     send.emit('newMessage', {data: JSON.stringify(megSender)});
-                    console.log(JSON.stringify(megSender));
                 } else {
-                    var payLoad = {
-                        data: {
-                            senderId: reqSender,
-                            nameSender: "",
-                            receiveId: reqReceiver,
-                            type: constants.NOTIFICATION_TYPE_CHAT,
-                            storageId: reqConversationID,
-                            message: "Demo send notification",
-                            createTime: Date.now().toString()
-                        }
-                    }
-                    console.log("ban notification for " + reqReceiver);
-                    SendNotification.sendNotification(reqReceiver, payLoad)
+                    // let fullName = getUser(reqReceiver)
+                    // var payLoad = {
+                    //     data: {
+                    //         senderId: reqSender,
+                    //         nameSender: "",
+                    //         receiveId: reqReceiver,
+                    //         type: constants.NOTIFICATION_TYPE_CHAT,
+                    //         storageId: reqConversationID,
+                    //         message: "Demo send notification",
+                    //         createTime: Date.now().toString()
+                    //     }
+                    // }
+                    // console.log("ban notification for " + reqReceiver);
+                    // SendNotification.sendNotification(reqReceiver, payLoad)
                 }
 
                 if (receive != null) {
                     receive.emit('newMessage', {data: JSON.stringify(megSender)});
-                    // var tokenDevice = getToken(reqReceiver)
-                    //them name ng gui vao neu co
-
-
-                    console.log(JSON.stringify(megSender));
                 } else {
+                    let fullName = getUser(reqSender)
                     var payLoad = {
                         data: {
                             senderId: reqSender,
-                            nameSender: "",
+                            nameSender: fullName,
                             receiveId: reqReceiver,
                             type: constants.NOTIFICATION_TYPE_CHAT,
                             storageId: reqConversationID,
-                            message: "vừa nhắn tin cho bạn",
+                            message: ""+fullName+" vừa nhắn tin cho bạn",
                             createTime: Date.now().toString()
                         }
                     }
