@@ -73,7 +73,7 @@ module.exports = function (io) {
                             receive.emit('newMessage', {data: JSON.stringify(megSender)});
                         } else {
 
-                            let fullName = getUser(reqSender)
+                            let fullName = await getUser(reqSender)
                             let payLoad = {
                                 data: {
                                     senderId: reqSender,
@@ -91,8 +91,8 @@ module.exports = function (io) {
                     }
                     // update record chat failed do vượt quá giới hạn gói câu hỏi
                     else {
-                        let paymentIdDoctor = createPaymentForDoctor(reqConversationID);
-                        let objPaymentDoctor = PaymentsHistory.findById({_id:paymentIdDoctor})
+                        let paymentIdDoctor = await createPaymentForDoctor(reqConversationID);
+                        let objPaymentDoctor = await PaymentsHistory.findById({_id:paymentIdDoctor})
                         if (send != null) {
                             //
                             send.emit('errorUpdate', 'Số tin nhắn vượt qua giới hạn của gói tư vấn - Cuộc tư vấn đã kết thúc');
@@ -102,7 +102,7 @@ module.exports = function (io) {
                             receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc \n Bạn nhận được: "+objPaymentDoctor.amount +"\nSố tiền bạn có hiện tại: "+objPaymentDoctor.remainMoney);
                         }
                         else {
-                            let fullName = getUser(reqSender)
+                            let fullName = await getUser(reqSender)
                             // bạn nhận được xx tiền, số tiền hiện tại là xxxx
                             let payLoad = {
                                 data: {
@@ -130,7 +130,7 @@ module.exports = function (io) {
                 //Update status cua chat history là done (status : 2)
 
                 if (updateStatus(reqConversationID)) {
-                    let paymentIdDoctor = createPaymentForDoctor(reqConversationID)
+                    let paymentIdDoctor = await createPaymentForDoctor(reqConversationID)
                     if (paymentIdDoctor) {
                         // emit to sender
                         if (send != null) {
@@ -138,14 +138,14 @@ module.exports = function (io) {
                         }
                         // emit to receiver
                         if (receive != null) {
-                            let objPaymentDoctor = PaymentsHistory.findById({_id:paymentIdDoctor})
+                            let objPaymentDoctor = await PaymentsHistory.findById({_id:paymentIdDoctor})
                             // json: số tiền nhận được, số tiền hiện tại đang có
                             receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc \n Bạn nhận được: "+objPaymentDoctor.amount +"\nSố tiền bạn có hiện tại: "+objPaymentDoctor.remainMoney);
 
                         } else {
-                            let fullName = getUser(reqSender)
+                            let fullName = await getUser(reqSender)
                             // bạn nhận được xx tiền, số tiền hiện tại là xxxx
-                            let objPaymentDoctor = PaymentsHistory.findById({_id:paymentIdDoctor})
+                            let objPaymentDoctor = await PaymentsHistory.findById({_id:paymentIdDoctor})
                             let payLoad = {
                                 data: {
                                     senderId: reqSender,
@@ -314,4 +314,5 @@ module.exports = function (io) {
         }
         return paymentID;
     }
+
 }

@@ -12,6 +12,7 @@ const create = async function (req, res) {
 
     var specialist = new Specialist({
         name: body.name,
+        description: body.description
     })
     await  specialist.save()
     return ReS(res, {message: 'Tạo chuyên khoa thành công', specialist : specialist}, 200);
@@ -35,11 +36,13 @@ module.exports.get = get;
 const update = async function (req, res) {
     let data = req.body;
     console.log(req.body);
-    Specialist.findByIdAndUpdate(data.id,{ $set: { name: data.name }}, { new: true }, function (err, updateSpecialist) {
-
-        if (err) TE(err.message);
-        return ReS(res, {message: 'Cập nhật chuyên khoa thành công', updateSpecialist : updateSpecialist}, 200);
-    });
+    let objSpecialist = await Specialist.findById({_id:data.id})
+    if(!objSpecialist) return ReE(res, 'Not found', 400);
+    objSpecialist.set(data)
+    objSpecialist.save(function (err, updateSpecialistSuccess) {
+        if (err) return ReE(res, 'found', 503);
+        return ReS(res, {message: 'Cập nhật chuyên khoa thành công', updateSpecialistSuccess : updateSpecialistSuccess}, 200);
+    })
 };
 
 
