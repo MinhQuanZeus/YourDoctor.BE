@@ -129,7 +129,7 @@ module.exports = function (io) {
 
                 //Update status cua chat history là done (status : 2)
 
-                if (updateStatus(reqConversationID)) {
+                if (await updateStatus(reqConversationID)) {
                     let paymentIdDoctor = await createPaymentForDoctor(reqConversationID)
                     if (paymentIdDoctor) {
                         // emit to sender
