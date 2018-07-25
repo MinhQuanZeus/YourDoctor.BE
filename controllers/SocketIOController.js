@@ -40,7 +40,7 @@ module.exports = function (io) {
                     value: reqValue
                 };
                 // check status
-                if (getStatus(reqConversationID) === constants.STATUS_CONVERSATION_FINISH) {
+                if (await getStatus(reqConversationID) === constants.STATUS_CONVERSATION_FINISH) {
                     // cuộc tư vấn đã kết thúc
                     if (send != null) {
                         send.emit('conversationDone', 'Cuộc tư vấn đã kết thúc');
