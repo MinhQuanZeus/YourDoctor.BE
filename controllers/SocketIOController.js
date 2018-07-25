@@ -37,7 +37,8 @@ module.exports = function (io) {
                 var megSender = {
                     senderID: reqSender,
                     type: reqType,
-                    value: reqValue
+                    value: reqValue,
+                    createTime: Date.now().toString()
                 };
                 // check status
                 if (await getStatus(reqConversationID) === constants.STATUS_CONVERSATION_FINISH) {
@@ -61,12 +62,13 @@ module.exports = function (io) {
                         records: records
                     }
                     // update record chat success
-                    if (await updateRecord(objectUpdate)) {
+                    if (updateRecord(objectUpdate)) {
                         // check sender
                         if (send != null) {
+                            console.log(" emit for sender ");
                             send.emit('newMessage', {data: JSON.stringify(megSender)});
-                        } else {
-
+                        }else {
+                            console.log(" emit for sender is null");
                         }
                         // check receiver
                         if (receive != null) {
@@ -82,7 +84,7 @@ module.exports = function (io) {
                                     type: constants.NOTIFICATION_TYPE_CHAT,
                                     storageId: reqConversationID,
                                     message: "" + fullName + " vừa nhắn tin cho bạn",
-                                    createTime: Date.now()
+                                    createTime: Date.now().toString()
                                 }
                             }
                             console.log("ban notification for" + reqReceiver);
@@ -92,14 +94,14 @@ module.exports = function (io) {
                     // update record chat failed do vượt quá giới hạn gói câu hỏi
                     else {
                         let paymentIdDoctor = await createPaymentForDoctor(reqConversationID);
-                        let objPaymentDoctor = await PaymentsHistory.findById({_id:paymentIdDoctor})
+                        let objPaymentDoctor = await PaymentsHistory.findById({_id: paymentIdDoctor})
                         if (send != null) {
                             //
                             send.emit('errorUpdate', 'Số tin nhắn vượt qua giới hạn của gói tư vấn - Cuộc tư vấn đã kết thúc');
                         }
-                        if(receive!=null){
+                        if (receive != null) {
                             // json: số tiền nhận được, số tiền hiện tại đang có
-                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc \n Bạn nhận được: "+objPaymentDoctor.amount +"\nSố tiền bạn có hiện tại: "+objPaymentDoctor.remainMoney);
+                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc \n Bạn nhận được: " + objPaymentDoctor.amount + "\nSố tiền bạn có hiện tại: " + objPaymentDoctor.remainMoney);
                         }
                         else {
                             let fullName = await getUser(reqSender)
@@ -111,7 +113,7 @@ module.exports = function (io) {
                                     receiveId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
-                                    message: "Cuộc tư vấn với "+fullName+"đã kết thúc\n"+ "Bạn nhận được: "+objPaymentDoctor.amount+"VND\n" +"Số tiền bạn có hiện tại: "+objPaymentDoctor.remainMoney,
+                                    message: "Cuộc tư vấn với " + fullName + "đã kết thúc\n" + "Bạn nhận được: " + objPaymentDoctor.amount + "VND\n" + "Số tiền bạn có hiện tại: " + objPaymentDoctor.remainMoney,
                                     createTime: Date.now()
                                 }
                             }
@@ -124,13 +126,15 @@ module.exports = function (io) {
             });
 
             socket.on('doneConversation', async function (reqSender, reqReceiver, reqConversationID) {
+                console.log("chat id " + reqConversationID)
                 var send = sequenceNumberByClient.get(reqSender);
                 var receive = sequenceNumberByClient.get(reqReceiver);
 
                 //Update status cua chat history là done (status : 2)
 
-                if (await updateStatus(reqConversationID)) {
+                if (updateStatus(reqConversationID)) {
                     let paymentIdDoctor = await createPaymentForDoctor(reqConversationID)
+                    console.log("paymentIdDoctor " + paymentIdDoctor );
                     if (paymentIdDoctor) {
                         // emit to sender
                         if (send != null) {
@@ -138,14 +142,14 @@ module.exports = function (io) {
                         }
                         // emit to receiver
                         if (receive != null) {
-                            let objPaymentDoctor = await PaymentsHistory.findById({_id:paymentIdDoctor})
+                            let objPaymentDoctor = await PaymentsHistory.findById({_id: paymentIdDoctor})
                             // json: số tiền nhận được, số tiền hiện tại đang có
-                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc \n Bạn nhận được: "+objPaymentDoctor.amount +"\nSố tiền bạn có hiện tại: "+objPaymentDoctor.remainMoney);
+                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc \n Bạn nhận được: " + objPaymentDoctor.amount + "\nSố tiền bạn có hiện tại: " + objPaymentDoctor.remainMoney);
 
                         } else {
                             let fullName = await getUser(reqSender)
                             // bạn nhận được xx tiền, số tiền hiện tại là xxxx
-                            let objPaymentDoctor = await PaymentsHistory.findById({_id:paymentIdDoctor})
+                            let objPaymentDoctor = await PaymentsHistory.findById({_id: paymentIdDoctor})
                             let payLoad = {
                                 data: {
                                     senderId: reqSender,
@@ -153,7 +157,7 @@ module.exports = function (io) {
                                     receiveId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
-                                    message: "Cuộc tư vấn với "+fullName+"đã kết thúc\n"+ "Bạn nhận được: "+objPaymentDoctor.amount+"VND\n" +"Số tiền bạn có hiện tại: "+objPaymentDoctor.remainMoney,
+                                    message: "Cuộc tư vấn với " + fullName + "đã kết thúc\n" + "Bạn nhận được: " + objPaymentDoctor.amount + "VND\n" + "Số tiền bạn có hiện tại: " + objPaymentDoctor.remainMoney,
                                     createTime: Date.now()
                                 }
                             }
@@ -166,6 +170,7 @@ module.exports = function (io) {
                     }
                 } else {
                     // TODO notification to Admin
+                    console.log("update is failed")
                 }
             })
             /// socket upload image chat
@@ -212,13 +217,21 @@ module.exports = function (io) {
     }
 
     async function updateRecord(data) {
+        console.log(data)
         let updateSuccess = false;
-        if (!data.id) updateSuccess = false;
+        if (!data.id) {
+            updateSuccess = false
+            return updateSuccess;
+        }
+        ;
         try {
             // check limit record
-            let pushRecord = await ChatsHistory.findOne({_id: data.id})
-            let objTypeAdvisory = await TypeAdvisory.findOne({_id: pushRecord.typeAdvisoryID});
-            if (!objTypeAdvisory) updateSuccess = false;
+            let pushRecord = await ChatsHistory.findById({_id: data.id})
+            let objTypeAdvisory = await TypeAdvisory.findById({_id: pushRecord.typeAdvisoryID});
+            if (!objTypeAdvisory) {
+                updateSuccess = false
+                return updateSuccess;
+            };
             // loop check
             let countRecord = 0;
             for (var i = 0; i < pushRecord.records.length; i++) {
@@ -227,20 +240,28 @@ module.exports = function (io) {
                     countRecord++;
                 }
             }
+            console.log(countRecord)
+            console.log(objTypeAdvisory.limitNumberRecords * 1)
             if (countRecord >= (objTypeAdvisory.limitNumberRecords * 1)) {
-                updateSuccess = false;
+                 return updateSuccess = false;
             }
             else {
                 // update
                 pushRecord.records.push(data.records)
                 await pushRecord.save(function (err, pushRecord) {
-                    if (err) updateSuccess = false;
-                    updateSuccess = true;
+                    if (err) {
+                        return updateSuccess = false;
+                    }
+                    else {
+                        console.log(pushRecord)
+                        updateSuccess = true;
+                    }
                 });
             }
         } catch (e) {
             console.log(e);
         }
+        console.log(updateSuccess)
         return updateSuccess;
     }
 
@@ -272,14 +293,18 @@ module.exports = function (io) {
     }
 
     async function createPaymentForDoctor(conversationID) {
-        let paymentID = "";
+        console.log("conversationID: "+conversationID)
+        let paymentID = "abc";
         // get conversation
-        let objChatHistory = await ChatsHistory.findOne({id: conversationID})
+        let objChatHistory = await ChatsHistory.findById({_id: conversationID})
+        console.log(objChatHistory+"chat")
         if (objChatHistory) {
             // get amount of type advisory
-            let objTypeAdvisory = await TypeAdvisory.findOne({id: objChatHistory.typeAdvisoryID})
+            let objTypeAdvisory = await TypeAdvisory.findById({_id: objChatHistory.typeAdvisoryID})
+            console.log(objTypeAdvisory+"type")
             // get user
-            let objUser = await User.findOne({id: objChatHistory.doctorId})
+            let objUser = await User.findById({_id: objChatHistory.doctorId})
+            console.log(objUser+"user")
             // calculate remain money
             var remainMoney = objUser.remainMoney * 1 + objTypeAdvisory.price * 1 * constants.PERCENT_PAY_FOR_DOCTOR;
             try {
@@ -290,28 +315,33 @@ module.exports = function (io) {
                     typeAdvisoryID: objChatHistory.typeAdvisoryID,
                     status: constants.PAYMENT_SUCCESS
                 });
-                // save to payment table
-                await objPaymentHistory.save(function (err, objPaymentHistory) {
-                    if (err) {
-                        paymentID = null;
-                    }
-                    else {
-                        paymentID = objPaymentHistory.id;
-                    }
-                });
 
                 // update remain money to User
                 objUser.set({remainMoney: remainMoney});
                 await objUser.save(function (err, objUser) {
+                    console.log(objUser+"update User")
                     if (err) {
-                        TE(err);
-                        return
+                        console.log("loi update User")
                     }
-                })
+                });
+
+                // save to payment table
+                await objPaymentHistory.save(function (err, objPaymentHistory) {
+                    if (err) {
+                        paymentID = null;
+                        console.log("loi update")
+                    }
+                    else {
+                        console.log(objPaymentHistory+" update payment")
+                        paymentID = objPaymentHistory.id.toString();
+                        console.log(paymentID+"hehe")
+                    }
+                });
             }
             catch (e) {
             }
         }
+        console.log(paymentID)
         return paymentID;
     }
 
