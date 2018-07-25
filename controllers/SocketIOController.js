@@ -34,28 +34,22 @@ module.exports = function (io) {
             socket.on('sendMessage', async function (reqSender, reqReceiver, reqConversationID, reqType, reqValue) {
                 var send = sequenceNumberByClient.get(reqSender);
                 var receive = sequenceNumberByClient.get(reqReceiver);
-                var d = new Date,
-                    dformat =
-                        [d.getHours(),
-                            d.getMinutes(),
-                            d.getSeconds()].join(':') + ' ' +
-                        [d.getMonth() + 1,
-                            d.getDate(),
-                            d.getFullYear()].join('/');
                 var megSender = {
                     senderID: reqSender,
                     type: reqType,
-                    value: reqValue,
-                    createTime: dformat.toString()
+                    value: reqValue
                 };
                 // check status
                 if (getStatus(reqConversationID) === constants.STATUS_CONVERSATION_FINISH) {
+                    // cuộc tư vấn đã kết thúc
                     if (send != null) {
                         send.emit('conversationDone', 'Cuộc tư vấn đã kết thúc');
                         return;
                     }
-                } else {
-
+                }
+                // cuộc tư vấn chưa kết thúc
+                else {
+                    // case 1: tin nhắn trong giới hạn của gói câu hỏi: update success
                     // collect data
                     var records = {
                         recorderID: reqSender,
@@ -66,33 +60,50 @@ module.exports = function (io) {
                         id: reqConversationID,
                         records: records
                     }
-                    // update record chat
-                    if (!updateRecord(objectUpdate)) {
-                        let paymentDoctorID = createPaymentForDoctor(reqConversationID);
+                    // update record chat success
+                    if (updateRecord(objectUpdate)) {
+                        // check sender
+                        if (send != null) {
+                            send.emit('newMessage', {data: JSON.stringify(megSender)});
+                        } else {
+
+                        }
+                        // check receiver
+                        if (receive != null) {
+                            receive.emit('newMessage', {data: JSON.stringify(megSender)});
+                        } else {
+
+                            let fullName = getUser(reqSender)
+                            let payLoad = {
+                                data: {
+                                    senderId: reqSender,
+                                    nameSender: fullName,
+                                    receiveId: reqReceiver,
+                                    type: constants.NOTIFICATION_TYPE_CHAT,
+                                    storageId: reqConversationID,
+                                    message: "" + fullName + " vừa nhắn tin cho bạn",
+                                    createTime: Date.now()
+                                }
+                            }
+                            console.log("ban notification for" + reqReceiver);
+                            SendNotification.sendNotification(reqReceiver, payLoad);
+                        }
+                    }
+                    // update record chat failed do vượt quá giới hạn gói câu hỏi
+                    else {
+                        let paymentIdDoctor = createPaymentForDoctor(reqConversationID);
+                        let objPaymentDoctor = PaymentsHistory.findById({_id:paymentIdDoctor})
                         if (send != null) {
                             //
                             send.emit('errorUpdate', 'Số tin nhắn vượt qua giới hạn của gói tư vấn - Cuộc tư vấn đã kết thúc');
                         }
                         if(receive!=null){
-                            let paymentIdDoctor = createPaymentForDoctor(reqConversationID);
-                            let objPaymentDoctor = PaymentsHistory.findById({_id:paymentIdDoctor})
                             // json: số tiền nhận được, số tiền hiện tại đang có
                             receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc \n Bạn nhận được: "+objPaymentDoctor.amount +"\nSố tiền bạn có hiện tại: "+objPaymentDoctor.remainMoney);
-                            return;
                         }
                         else {
                             let fullName = getUser(reqSender)
-                            var d = new Date,
-                                dformat =
-                                    [d.getHours(),
-                                        d.getMinutes(),
-                                        d.getSeconds()].join(':') + ' ' +
-                                    [d.getMonth() + 1,
-                                        d.getDate(),
-                                        d.getFullYear()].join('/');
                             // bạn nhận được xx tiền, số tiền hiện tại là xxxx
-                            let paymentIdDoctor = createPaymentForDoctor(reqConversationID);
-                            let objPaymentDoctor = PaymentsHistory.findById({_id:paymentIdDoctor})
                             let payLoad = {
                                 data: {
                                     senderId: reqSender,
@@ -101,49 +112,15 @@ module.exports = function (io) {
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
                                     message: "Cuộc tư vấn với "+fullName+"đã kết thúc\n"+ "Bạn nhận được: "+objPaymentDoctor.amount+"VND\n" +"Số tiền bạn có hiện tại: "+objPaymentDoctor.remainMoney,
-                                    createTime: dformat.toString()
+                                    createTime: Date.now()
                                 }
                             }
                             // send notification
                             SendNotification.sendNotification(reqReceiver, payLoad)
                         }
-                        return;
                     }
                 }
-                // check sender
-                if (send != null) {
-                    send.emit('newMessage', {data: JSON.stringify(megSender)});
-                } else {
 
-                }
-                // check receiver
-                if (receive != null) {
-                    receive.emit('newMessage', {data: JSON.stringify(megSender)});
-                } else {
-
-                    let fullName = getUser(reqSender)
-                    var d = new Date,
-                        dformat =
-                            [d.getHours(),
-                                d.getMinutes(),
-                                d.getSeconds()].join(':') + ' ' +
-                            [d.getMonth() + 1,
-                                d.getDate(),
-                                d.getFullYear()].join('/');
-                    let payLoad = {
-                        data: {
-                            senderId: reqSender,
-                            nameSender: fullName,
-                            receiveId: reqReceiver,
-                            type: constants.NOTIFICATION_TYPE_CHAT,
-                            storageId: reqConversationID,
-                            message: "" + fullName + " vừa nhắn tin cho bạn",
-                            createTime: dformat.toString()
-                        }
-                    }
-                    console.log("ban notification for" + reqReceiver);
-                    SendNotification.sendNotification(reqReceiver, payLoad);
-                }
             });
 
             socket.on('doneConversation', async function (reqSender, reqReceiver, reqConversationID) {
@@ -153,30 +130,21 @@ module.exports = function (io) {
                 //Update status cua chat history là done (status : 2)
 
                 if (updateStatus(reqConversationID)) {
-                    if (createPaymentForDoctor(reqConversationID)!=null) {
+                    let paymentIdDoctor = createPaymentForDoctor(reqConversationID)
+                    if (paymentIdDoctor) {
                         // emit to sender
                         if (send != null) {
                             send.emit('finishConversation', 'Cuộc tư vấn đã kết thúc');
                         }
                         // emit to receiver
                         if (receive != null) {
-                            let paymentIdDoctor = createPaymentForDoctor(reqConversationID);
                             let objPaymentDoctor = PaymentsHistory.findById({_id:paymentIdDoctor})
                             // json: số tiền nhận được, số tiền hiện tại đang có
                             receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc \n Bạn nhận được: "+objPaymentDoctor.amount +"\nSố tiền bạn có hiện tại: "+objPaymentDoctor.remainMoney);
 
                         } else {
                             let fullName = getUser(reqSender)
-                            var d = new Date,
-                                dformat =
-                                    [d.getHours(),
-                                        d.getMinutes(),
-                                        d.getSeconds()].join(':') + ' ' +
-                                    [d.getMonth() + 1,
-                                        d.getDate(),
-                                        d.getFullYear()].join('/');
                             // bạn nhận được xx tiền, số tiền hiện tại là xxxx
-                            let paymentIdDoctor = createPaymentForDoctor(reqConversationID);
                             let objPaymentDoctor = PaymentsHistory.findById({_id:paymentIdDoctor})
                             let payLoad = {
                                 data: {
@@ -186,7 +154,7 @@ module.exports = function (io) {
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
                                     message: "Cuộc tư vấn với "+fullName+"đã kết thúc\n"+ "Bạn nhận được: "+objPaymentDoctor.amount+"VND\n" +"Số tiền bạn có hiện tại: "+objPaymentDoctor.remainMoney,
-                                    createTime: dformat.toString()
+                                    createTime: Date.now()
                                 }
                             }
                             // send notification
@@ -200,6 +168,9 @@ module.exports = function (io) {
                     // TODO notification to Admin
                 }
             })
+            /// socket upload image chat
+
+            ///
             socket.on('switchRoom', function (newroom) {
                 // leave the current room (stored in session)
                 socket.leave(socket.room);
@@ -227,6 +198,7 @@ module.exports = function (io) {
     const PaymentsHistory = require('../models').PaymentsHistory;
     const SendNotification = require('./NotificationFCMController')
     const User = require('../models').User;
+    const UploadImageChat = require('./UploadImageController');
     const constants = require('./../constants');
 
     async function getUser(userId) {
