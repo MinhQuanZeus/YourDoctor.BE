@@ -61,7 +61,7 @@ module.exports = function (io) {
                         records: records
                     }
                     // update record chat success
-                    if (updateRecord(objectUpdate)) {
+                    if (await updateRecord(objectUpdate)) {
                         // check sender
                         if (send != null) {
                             send.emit('newMessage', {data: JSON.stringify(megSender)});
