@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
 
-let notificationSchema = mongoose.Schema({
-    receiverId: {type: String, ref: 'User'},
+let NotificationSchema = mongoose.Schema({
     senderId: {type: String, ref: 'User'},
-    typeNotification: {type: Number},
-    ID: {type: String},
+    nameSender: {type: String},
+    receiverId: {type: String, ref: 'User'},
+    type: {type: Number},
+    storageId: {type: String},
+    message: {type: String},
     deletionFlag: {type: Boolean, default: false}
 }, {timestamps: true});
+
+let Notification = module.exports = mongoose.model('Notification', NotificationSchema);

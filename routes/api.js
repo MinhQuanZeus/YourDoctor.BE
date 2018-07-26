@@ -105,6 +105,7 @@ router.put('/chatshistorys', ChatsHistoryController.updateRecord);
 router.get('/chatshistorys/getAllConversationByPatient/:patientId', ChatsHistoryController.getAllConversationByPatient);
 router.get('/chatshistorys/getAllConversationByDoctor/:doctorId', ChatsHistoryController.getAllConversationByDoctor);
 router.get('/chatshistorys/getConversationByID/:id', ChatsHistoryController.getConversationByID);
+router.get('/chatshistorys/checkDoctorReply/:id', ChatsHistoryController.checkDoctorReply);
 
 //----------PaymentHistory
 router.post('/paymentshistorys', PaymentsHistoryController.create);
@@ -112,5 +113,10 @@ router.post('/paymentshistorys', PaymentsHistoryController.create);
 //----------TokenNotification
 router.post('/tokennotifications', TokenNotificationController.createToken);
 router.get('/tokennotifications/:userId', TokenNotificationController.getToken);
+
+
+// test insert notification
+const NotificationController = require('../controllers/NotificationController');
+router.post('/notifications', NotificationController.create);
 
 module.exports = router;

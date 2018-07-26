@@ -72,7 +72,6 @@ module.exports = function (io) {
                         if (receive != null) {
                             receive.emit('newMessage', {data: JSON.stringify(megSender)});
                         } else {
-
                             let fullName = await getUser(reqSender)
                             let payLoad = {
                                 data: {
@@ -81,12 +80,21 @@ module.exports = function (io) {
                                     receiveId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_CHAT,
                                     storageId: reqConversationID,
-                                    message: "" + fullName + " vừa nhắn tin cho bạn",
+                                    message: ""+ fullName +" vừa nhắn tin cho bạn",
                                     createTime: Date.now().toString()
                                 }
                             }
-                            console.log("ban notification for" + reqReceiver);
                             SendNotification.sendNotification(reqReceiver, payLoad);
+                            // save to notification table
+                            let objNotificationToSave = {
+                                senderId: reqSender,
+                                nameSender: fullName,
+                                receiverId: reqReceiver,
+                                type: constants.NOTIFICATION_TYPE_CHAT,
+                                storageId: reqConversationID,
+                                message: ""+ fullName +" vừa nhắn tin cho bạn",
+                            }
+                            CreateNotification.create(objNotificationToSave)
                         }
                     }
                     // update record chat failed do vượt quá giới hạn gói câu hỏi
@@ -96,12 +104,12 @@ module.exports = function (io) {
 
                         if (send != null) {
                             console.log("ng nhan tin" +send + "");
-                            send.emit('errorUpdate', 'Số tin nhắn vượt qua giới hạn của gói tư vấn - Cuộc tư vấn đã kết thúc');
+                            send.emit('errorUpdate', 'Số tin nhắn vượt qua giới hạn của gói tư vấn - Cuộc tư vấn đã kết thúc.');
                         }
                         if (receive != null) {
                             // json: số tiền nhận được, số tiền hiện tại đang có
                             console.log("ng nhan tin" +send + "");
-                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc \n Bạn nhận được: " + paymentIdDoctor.amount + "\nSố tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney);
+                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. \nBạn nhận được: " + paymentIdDoctor.amount + "VND\nSố tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND");
                         }
                         else {
                             let fullName = await getUser(reqSender)
@@ -113,12 +121,22 @@ module.exports = function (io) {
                                     receiveId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
-                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + " VND\n" + "Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney,
+                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + " VND\n" + "Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND",
                                     createTime: Date.now().toString()
                                 }
                             }
                             // send notification
                             SendNotification.sendNotification(reqReceiver, payLoad)
+                            // save to notification table
+                            let objNotificationToSave = {
+                                senderId: reqSender,
+                                nameSender: fullName,
+                                receiverId: reqReceiver,
+                                type: constants.NOTIFICATION_TYPE_PAYMENT,
+                                storageId: reqConversationID,
+                                message: "Bạn nhận được: " + paymentIdDoctor.amount + " VND\n" + "Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND",
+                            }
+                            CreateNotification.create(objNotificationToSave)
                         }
                     }
                 }
@@ -141,27 +159,35 @@ module.exports = function (io) {
                         }
                         // emit to receiver
                         if (receive != null) {
-                            //let objPaymentDoctor = await PaymentsHistory.findById({_id: paymentIdDoctor})
                             // json: số tiền nhận được, số tiền hiện tại đang có
-                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc \n Bạn nhận được: " + paymentIdDoctor.amount + "\nSố tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney);
+                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc \nBạn nhận được: " + paymentIdDoctor.amount + "+VND\nSố tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND");
 
                         } else {
                             let fullName = await getUser(reqSender)
                             // bạn nhận được xx tiền, số tiền hiện tại là xxxx
-                            //let objPaymentDoctor = await PaymentsHistory.findById({_id: paymentIdDoctor})
                             let payLoad = {
                                 data: {
-                                    senderId: reqSender,
-                                    nameSender: fullName,
+                                    senderId: constants.ID_ADMIN,
+                                    nameSender: constants.NAME_ADMIN,
                                     receiveId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
-                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + " VND\n" + "Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney,
+                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + " VND\n" + "Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney +"VND",
                                     createTime: Date.now().toString()
                                 }
                             }
                             // send notification
                             SendNotification.sendNotification(reqReceiver, payLoad)
+                            // save to notification table
+                            let objNotificationToSave = {
+                                senderId: constants.ID_ADMIN,
+                                nameSender: constants.NAME_ADMIN,
+                                receiverId: reqReceiver,
+                                type: constants.NOTIFICATION_TYPE_PAYMENT,
+                                storageId: reqConversationID,
+                                message: "Bạn nhận được: " + paymentIdDoctor.amount + " VND\n" + "Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND",
+                            }
+                            CreateNotification.create(objNotificationToSave)
                         }
                     }
                     else {
@@ -203,6 +229,7 @@ module.exports = function (io) {
     const SendNotification = require('./NotificationFCMController')
     const User = require('../models').User;
     const UploadImageChat = require('./UploadImageController');
+    const CreateNotification = require('./NotificationController');
     const constants = require('./../constants');
 
     async function getUser(userId) {
@@ -280,7 +307,7 @@ module.exports = function (io) {
             await objChatHistory.save(function (err, objUpdate) {
             });
 
-            if(await getStatus(reqConversationID)== 2){
+            if(await getStatus(reqConversationID)=== constants.STATUS_CONVERSATION_FINISH){
                 success = true;
             }
 
@@ -320,7 +347,6 @@ module.exports = function (io) {
                 // update remain money to User
                 objUser.set({remainMoney: remainMoney});
                 await objUser.save(function (err, objUser) {
-
                     if (err) {
 
                     }
@@ -337,5 +363,4 @@ module.exports = function (io) {
         console.log("su" + paymentID)
         return paymentID;
     }
-
 }

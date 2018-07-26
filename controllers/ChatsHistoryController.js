@@ -3,6 +3,7 @@ const TypeAdvisory = require('../models').TypeAdvisory;
 const PaymentsHistory = require('../models').PaymentsHistory;
 const User = require('../models').User;
 const SendNotification = require('./NotificationFCMController')
+const CreateNotification = require('./NotificationController')
 const constants = require('./../constants');
 
 const create = async function (req, res) {
@@ -13,13 +14,15 @@ const create = async function (req, res) {
         return ReE(res, 'ERROR0028', 400);
     }
     try {
+        var dateApproval = new Date();
+            dateApproval.setHours(dateApproval.getHours() + constants.DEADLINE_TIME_REPLY)
         var chatHistory = new ChatsHistory({
             contentTopic: body.contentTopic,
             patientId: body.patientId,
             doctorId: body.doctorId,
             records: body.records,
             status: body.status,
-            timeReplyApproval: body.timeReplyApproval,
+            timeReplyApproval: dateApproval,
             typeAdvisoryID: body.typeAdvisoryID,
             paymentPatientID: body.paymentPatientID,
             paymentDoctorID: body.paymentDoctorID,
@@ -48,14 +51,7 @@ const create = async function (req, res) {
         if(objUser) {
             fullName = " "+objUser.firstName+" "+objUser.middleName+" "+objUser.lastName+"";
         }
-        var d = new Date,
-            dformat =
-                [d.getHours(),
-                    d.getMinutes(),
-                    d.getSeconds()].join(':') + ' ' +
-                [d.getMonth() + 1,
-                    d.getDate(),
-                    d.getFullYear()].join('/');
+        // create data noti for doctor
         var payLoad = {
             data: {
                 senderId: chatHistory.patientId,
@@ -64,10 +60,46 @@ const create = async function (req, res) {
                 type: constants.NOTIFICATION_TYPE_CHAT,
                 storageId: chatHistory.id,
                 message: ""+fullName+" vừa tạo yêu cầu tư vấn qua nhắn tin với bạn",
-                createTime: dformat.toString()
+                createTime: Date.now().toString()
             }
         }
+        // send
         await SendNotification.sendNotification(chatHistory.doctorId, payLoad)
+        // save
+        var notiDoctor = {
+            senderId: chatHistory.patientId,
+            nameSender:fullName,
+            receiveId: chatHistory.doctorId,
+            type: constants.NOTIFICATION_TYPE_CHAT,
+            storageId: chatHistory.id,
+            message: ""+fullName+" vừa tạo yêu cầu tư vấn qua nhắn tin với bạn",
+        };
+        await CreateNotification.create(notiDoctor);
+
+        // create data noti for patients
+        var payLoadForPatient = {
+            data:{
+                senderId: constants.ID_ADMIN,
+                nameSender: constants.NAME_ADMIN,
+                receiveId: chatHistory.patientId,
+                type: constants.NOTIFICATION_TYPE_PAYMENT,
+                storageId: objPayment.id,
+                message: "Bạn vừa tạo một yêu cầu tư vấn.\nBạn đã thanh toán: " + objPayment.amount + "VND\nSố tiền bạn có hiện tại: " + objPayment.remainMoney+"VND",
+                createTime: Date.now().toString()
+            }
+        };
+        // send
+        await SendNotification.sendNotification(chatHistory.patientId, payLoadForPatient)
+        // save
+        var notipatient = {
+            senderId: constants.ID_ADMIN,
+            nameSender: constants.NAME_ADMIN,
+            receiveId: chatHistory.patientId,
+            type: constants.NOTIFICATION_TYPE_PAYMENT,
+            storageId: objPayment.id,
+            message: "Bạn vừa tạo một yêu cầu tư vấn. \nBạn đã thanh toán: " + objPayment.amount + "VND\nSố tiền bạn có hiện tại: " + objPayment.remainMoney+"VND"
+        };
+        CreateNotification.create(notipatient);
         return ReS(res, {message: 'Tạo cuộc tư vấn thành công', chatHistory: chatHistory}, 200);
     } catch (e) {
         ReS(res, e.message, 503);
@@ -184,12 +216,6 @@ const getConversationByID = async function (req, res) {
             return ReE(res, "Không tìm thấy cuộc trò chuyện", 404);
         }
         else {
-
-            // for(var i =0; i < objConversation.records.length;i++){
-            //     var a = new Date("'"+objConversation.records[i].created+"'");
-            //     console.log(a)
-            //     objConversation.records[i].created = a.getHours() + ":" + a.getMinutes() + ":" + a.getSeconds() + " " + a.getFullYear() + "/" + a.getMonth() + "/" + a.getDay();
-            // }
             return ReS(res, {message: 'Lấy thông tin cuộc tư vấn thành công', objConversation: objConversation}, 200);
         }
     } catch (e) {
@@ -198,3 +224,70 @@ const getConversationByID = async function (req, res) {
 }
 
 module.exports.getConversationByID = getConversationByID;
+
+const checkDoctorReply = async function (req, res) {
+    let doctorReply = false;
+    if(!req.params.id){
+        return ReE(res, "Bad request", 400);
+    }
+    let objChatHistory = await ChatsHistory.findById({_id:req.params.id})
+    if(!objChatHistory){
+        return ReE(res, "Not Found", 404);
+    }
+    for (var i = 0; i < objChatHistory.records.length; i++){
+        if(objChatHistory.records[i].recorderID !== objChatHistory.doctorId){
+            doctorReply = false;
+        }
+        else {
+            doctorReply = true;
+        }
+    }
+    if(doctorReply){
+        // đã trả lời
+        return ReS(res, {message: 'Kiểm tra bác sỹ đã trả lời tin nhắn hay chưa', doctorReply: doctorReply}, 200);
+    }
+    else {
+        // chưa trả lời
+        // get objPayment bệnh nhân
+        let objPaymentPatient = await PaymentsHistory.findById({_id:objChatHistory.paymentPatientID})
+        var amount = objPaymentPatient.amount *1;
+        var remain_money = objPaymentPatient.remainMoney * 1 + amount;
+        // get objUser bệnh nhân => trả lại tiền
+        let objUser = User.findById({_id:objChatHistory.patientId})
+        // update remain_money
+        objUser.set({remainMoney:remain_money});
+        await objUser.save();
+        // update payment history
+        objPaymentPatient.set({amount:0, remainMoney:remain_money})
+        await objPaymentPatient.save()
+        // xóa cuộc tư vấn
+        ChatsHistory.findByIdAndDelete({_id:req.params.id},function (err, success) {
+            if(err) return
+        });
+        // notification cho bác sỹ và bệnh nhân.
+        // get name doctor
+        let objDoctor = await User.findById({_id:objChatHistory.doctorId})
+        var fullNameDoctor;
+        if(objUser) {
+            fullNameDoctor = " "+objDoctor.firstName+" "+objDoctor.middleName+" "+objDoctor.lastName+"";
+        }
+        // create data noti for patients
+        var payLoadForPatient = {
+            data:{
+                senderId: constants.ID_ADMIN,
+                nameSender: constants.NAME_ADMIN,
+                receiveId: objChatHistory.patientId,
+                type: constants.NOTIFICATION_TYPE_PAYMENT,
+                storageId: objPaymentPatient.id,
+                message: "Cuộc tư vấn với bác sỹ "+fullNameDoctor+" đã bị hủy do quá thời gian trả lời.\nBạn được hoàn trả: " + amount + "VND\nSố tiền bạn có hiện tại: " + remain_money+"VND",
+                remain_money: remain_money,
+                createTime: Date.now().toString()
+            }
+        };
+        // send
+        await SendNotification.sendNotification(objChatHistory.patientId, payLoadForPatient)
+        return ReS(res, {message: 'Kiểm tra bác sỹ đã trả lời tin nhắn hay chưa', doctorReply: doctorReply}, 200);
+    }
+}
+
+module.exports.checkDoctorReply = checkDoctorReply;
