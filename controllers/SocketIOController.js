@@ -97,7 +97,7 @@ module.exports = function (io,redis) {
                                 storageId: reqConversationID,
                                 message: ""+ fullName +" vừa nhắn tin cho bạn",
                             }
-                            CreateNotification.create(objNotificationToSave)
+                            await CreateNotification.create(objNotificationToSave)
                         }
                     }
                     // update record chat failed do vượt quá giới hạn gói câu hỏi
@@ -139,7 +139,7 @@ module.exports = function (io,redis) {
                                 storageId: reqConversationID,
                                 message: "Bạn nhận được: " + paymentIdDoctor.amount + " VND\n" + "Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND",
                             }
-                            CreateNotification.create(objNotificationToSave)
+                            await CreateNotification.create(objNotificationToSave)
                         }
                     }
                 }
@@ -170,8 +170,8 @@ module.exports = function (io,redis) {
                             // bạn nhận được xx tiền, số tiền hiện tại là xxxx
                             let payLoad = {
                                 data: {
-                                    senderId: constants.ID_ADMIN,
-                                    nameSender: constants.NAME_ADMIN,
+                                    senderId: reqSender,
+                                    nameSender: fullName,
                                     receiveId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
@@ -183,14 +183,14 @@ module.exports = function (io,redis) {
                             SendNotification.sendNotification(reqReceiver, payLoad)
                             // save to notification table
                             let objNotificationToSave = {
-                                senderId: constants.ID_ADMIN,
-                                nameSender: constants.NAME_ADMIN,
+                                senderId: reqSender,
+                                nameSender: fullName,
                                 receiverId: reqReceiver,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: reqConversationID,
                                 message: "Bạn nhận được: " + paymentIdDoctor.amount + " VND\n" + "Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND",
                             }
-                            CreateNotification.create(objNotificationToSave)
+                            await CreateNotification.create(objNotificationToSave)
                         }
                     }
                     else {

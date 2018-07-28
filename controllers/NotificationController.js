@@ -7,7 +7,6 @@ const create = async function (req) {
     if(!body){
         return;
     }
-
         var notification = new Notification({
             senderId: body.senderId,
             nameSender: body.nameSender,
