@@ -4,7 +4,8 @@ const s3Client = new AWS.S3({
     secretAccessKey: CONFIG.AWS_S3_SECRET_ACCESS_KEY,
     signatureVersion: 'v2'
 });
-var wait = require('wait-for-stuff');
+let wait = require('wait-for-stuff');
+const multiparty = require('multiparty');
 const bucket = CONFIG.AWS_BUKET_PUBLIC;
 
 const uploadImageChat = async (part) => {
@@ -44,11 +45,12 @@ const upload = async function (req, res) {
     });
     form.on('close', async function () {
          filePath = CONFIG.AWS_S3_DOMAIN + CONFIG.AWS_BUKET_PUBLIC + "/" + filePart.filename;
+        return ReS(res, {message: 'Link ảnh chat', filePath: filePath}, 200);
     });
     form.on('error', function (err) {
         if (erro) return ReE(res, err, 422);
     });
     form.parse(req);
-    return ReS(res, {message: 'Link ảnh chat', filePath: filePath}, 200);
+
 };
 module.exports.upload = upload;
