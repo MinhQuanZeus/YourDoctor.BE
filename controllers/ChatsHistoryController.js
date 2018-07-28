@@ -253,7 +253,7 @@ const checkDoctorReply = async function (req, res) {
         var amount = objPaymentPatient.amount *1;
         var remain_money = objPaymentPatient.remainMoney * 1 + amount;
         // get objUser bệnh nhân => trả lại tiền
-        let objUser = User.findById({_id:objChatHistory.patientId})
+        let objUser = await User.findById({_id:objChatHistory.patientId})
         // update remain_money
         objUser.set({remainMoney:remain_money});
         await objUser.save();
