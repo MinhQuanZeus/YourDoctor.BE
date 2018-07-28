@@ -1,4 +1,5 @@
-module.exports = function (io) {
+module.exports = function (io,redis) {
+    let clientsOnline = {}
 
     var sequenceNumberByClient = new Map();
 
@@ -26,15 +27,17 @@ module.exports = function (io) {
             // initialize this client's sequence number
             // ng dung emit create add vao 1 map
             socket.on('addUser', function (userID) {
-                socket.id = userID;
+                // add id client online to array
+                clientsOnline[userID] = socket.id;
+                redis.set('userOnline', JSON.stringify(clientsOnline), redis.print);
                 console.log(userID);
-                sequenceNumberByClient.set(userID, socket);
+                sequenceNumberByClient.set(userID, socket.id);
             });
 
             socket.on('sendMessage', async function (reqSender, reqReceiver, reqConversationID, reqType, reqValue) {
-                var send = sequenceNumberByClient.get(reqSender);
-                var receive = sequenceNumberByClient.get(reqReceiver);
-                var megSender = {
+                let send = sequenceNumberByClient.get(reqSender);
+                let receive = sequenceNumberByClient.get(reqReceiver);
+                let megSender = {
                     senderID: reqSender,
                     type: reqType,
                     value: reqValue,
@@ -217,6 +220,11 @@ module.exports = function (io) {
 
             // when socket disconnects, remove it from the list:
             socket.on("disconnect", () => {
+                Object.keys(JSON.stringify(clientsOnline)).forEach(function(key){
+                    if(clientsOnline[key]===socket.id)
+                        delete clientsOnline[key];
+                });
+                redis.set('userOnline', JSON.stringify(clientsOnline), redis.print);
                 sequenceNumberByClient.delete(socket.id);
                 console.info("Client gone id" + socket.id);
             });
@@ -244,7 +252,7 @@ module.exports = function (io) {
 
     async function updateRecord(data) {
         console.log(data)
-        var updateSuccess = false;
+        let updateSuccess = false;
         if (!data.id) {
             console.log("data id is null");
             updateSuccess = false

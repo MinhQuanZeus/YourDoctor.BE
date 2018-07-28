@@ -291,3 +291,29 @@ const checkDoctorReply = async function (req, res) {
 }
 
 module.exports.checkDoctorReply = checkDoctorReply;
+
+const checkStatusChatsHistory = async function (req, res) {
+    let statusDone = false;
+    if(!req.params.id){
+        return ReE(res, "Bad request", 400);
+    }
+    else {
+        let objChatHistory = await ChatsHistory.findById({_id:req.params.id});
+        if(!objChatHistory) {
+            return ReE(res, "Not found", 404);
+        }
+        else {
+            if(objChatHistory.status*1 === constants.STATUS_CONVERSATION_FINISH){
+                statusDone = true;
+                return ReS(res, {message: 'Kiểm tra cuộc tư vấn đã kết thúc hay chưa', statusDone: statusDone}, 200);
+            }
+            else {
+                statusDone = false;
+                return ReS(res, {message: 'Kiểm tra cuộc tư vấn đã kết thúc hay chưa', statusDone: statusDone}, 200);
+            }
+        }
+    }
+}
+
+module.exports.checkStatusChatsHistory = checkStatusChatsHistory;
+

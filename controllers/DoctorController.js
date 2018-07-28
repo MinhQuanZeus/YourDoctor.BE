@@ -1,6 +1,7 @@
 const Doctor = require('../models').Doctor;
 const Patient = require('../models').Patient;
-const mongoose = require('mongoose');
+let redis = require('redis').createClient('redis://h:pfa32d86610f60f897ee0702482e41cc8ec66524df29453a1ab46fdbc2cf039da@ec2-107-23-150-142.compute-1.amazonaws.com:50419');
+//var redis = require('redis').createClient(50419, 'ec2-107-23-150-142.compute-1.amazonaws.com');
 const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
@@ -8,9 +9,9 @@ const create = async function (req, res) {
         return ReE(res, 'ERROR0008', 400);
     }
     try {
-        let dupplicateDoctor = await Doctor.findOne({doctorId: body.doctorId});
+        let duplicateDoctor = await Doctor.findOne({doctorId: body.doctorId});
 
-        if (dupplicateDoctor) return ReE(res, 'ERROR0008', 409);
+        if (duplicateDoctor) return ReE(res, 'ERROR0008', 409);
 
         var doctor = new Doctor({
             doctorId: body.doctorId,
@@ -127,6 +128,17 @@ const remove = async function (req, res) {
 module.exports.remove = remove;
 
 const getListSpecialistDoctor = async function (req, res) {
+    redis.get('userOnline', async function (error, result) {
+        if (error) {
+            console.log(error);
+            throw error;
+        }
+        else {
+            JSON.parse(result)
+        }
+        console.log('GET result ->' + result);
+
+
     // query - get params
     let arrayDoctor = [typeof String]
     try {
@@ -216,7 +228,9 @@ const getListSpecialistDoctor = async function (req, res) {
         console.log(e)
         return ReE(res, "ERROR0037", 503);
     }
+    });
 }
 
 module.exports.getListSpecialistDoctor = getListSpecialistDoctor;
+
 

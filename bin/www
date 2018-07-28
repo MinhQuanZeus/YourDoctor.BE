@@ -20,6 +20,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var redis = require('redis').createClient('redis://h:pfa32d86610f60f897ee0702482e41cc8ec66524df29453a1ab46fdbc2cf039da@ec2-107-23-150-142.compute-1.amazonaws.com:50419');
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -29,7 +30,7 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 var io = require('socket.io').listen(server);
-require('./../controllers/SocketIOController')(io);
+require('./../controllers/SocketIOController')(io,redis);
 /**
  * Normalize a port into a number, string, or false.
  */

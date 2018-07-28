@@ -106,6 +106,7 @@ router.get('/chatshistorys/getAllConversationByPatient/:patientId', ChatsHistory
 router.get('/chatshistorys/getAllConversationByDoctor/:doctorId', ChatsHistoryController.getAllConversationByDoctor);
 router.get('/chatshistorys/getConversationByID/:id', ChatsHistoryController.getConversationByID);
 router.get('/chatshistorys/checkDoctorReply/:id', ChatsHistoryController.checkDoctorReply);
+router.get('/chatshistorys/checkStatusChatsHistory/:id', ChatsHistoryController.checkStatusChatsHistory);
 
 //----------PaymentHistory
 router.post('/paymentshistorys', PaymentsHistoryController.create);
