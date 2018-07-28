@@ -280,7 +280,7 @@ const checkDoctorReply = async function (req, res) {
                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                 storageId: objPaymentPatient.id,
                 message: "Cuộc tư vấn với bác sỹ "+fullNameDoctor+" đã bị hủy do quá thời gian trả lời.\nBạn được hoàn trả: " + amount + "VND\nSố tiền bạn có hiện tại: " + remain_money+"VND",
-                remain_money: remain_money,
+                remain_money: remain_money+"",
                 createTime: Date.now().toString()
             }
         };
