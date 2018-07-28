@@ -14,9 +14,9 @@ const create = async function (req, res) {
         return ReE(res, 'ERROR0028', 400);
     }
     try {
-        var dateApproval = new Date();
-        dateApproval.setHours(dateApproval.getHours() + constants.DEADLINE_TIME_REPLY)
-        var chatHistory = new ChatsHistory({
+        let dateApproval = new Date();
+        dateApproval.setHours(dateApproval.getHours() + constants.DEADLINE_TIME_REPLY);
+        let chatHistory = new ChatsHistory({
             contentTopic: body.contentTopic,
             patientId: body.patientId,
             doctorId: body.doctorId,
@@ -31,7 +31,7 @@ const create = async function (req, res) {
         await  chatHistory.save();
         // trừ tiền user
         // get payment
-        let objUser = await User.findById({_id: body.patientId})
+        let objUser = await User.findById({_id: body.patientId});
         let objPayment = await PaymentsHistory.findById({_id: chatHistory.paymentPatientID});
         objPayment.set({status: constants.PAYMENT_SUCCESS});
         await objPayment.save(function (err, success) {
@@ -47,12 +47,12 @@ const create = async function (req, res) {
             }
         });
 
-        var fullName;
+        let fullName;
         if (objUser) {
             fullName = " " + objUser.firstName + " " + objUser.middleName + " " + objUser.lastName + "";
         }
         // create data noti for doctor
-        var payLoad = {
+        let payLoad = {
             data: {
                 senderId: chatHistory.patientId,
                 nameSender: fullName,
@@ -64,9 +64,9 @@ const create = async function (req, res) {
             }
         }
         // send
-        await SendNotification.sendNotification(chatHistory.doctorId, payLoad)
+        await SendNotification.sendNotification(chatHistory.doctorId, payLoad);
         // save
-        var notiDoctor = {
+        let notiDoctor = {
             senderId: chatHistory.patientId,
             nameSender: fullName,
             receiveId: chatHistory.doctorId,
@@ -77,7 +77,7 @@ const create = async function (req, res) {
         await CreateNotification.create(notiDoctor);
 
         // create data noti for patients
-        var payLoadForPatient = {
+        let payLoadForPatient = {
             data: {
                 senderId: constants.ID_ADMIN,
                 nameSender: constants.NAME_ADMIN,
@@ -89,9 +89,9 @@ const create = async function (req, res) {
             }
         };
         // send
-        await SendNotification.sendNotification(chatHistory.patientId, payLoadForPatient)
+        await SendNotification.sendNotification(chatHistory.patientId, payLoadForPatient);
         // save
-        var notipatient = {
+        let notificationPatient = {
             senderId: constants.ID_ADMIN,
             nameSender: constants.NAME_ADMIN,
             receiveId: chatHistory.patientId,
@@ -99,7 +99,7 @@ const create = async function (req, res) {
             storageId: objPayment.id,
             message: "Bạn vừa tạo một yêu cầu tư vấn. \nBạn đã thanh toán: " + objPayment.amount + "VND\nSố tiền bạn có hiện tại: " + objPayment.remainMoney + "VND"
         };
-        CreateNotification.create(notipatient);
+        await  createNotification(notificationPatient);
         return ReS(res, {message: 'Tạo cuộc tư vấn thành công', chatHistory: chatHistory}, 200);
     } catch (e) {
         ReS(res, e.message, 503);
@@ -114,12 +114,12 @@ const updateRecord = async function (req, res) {
     if (!data.id) TE(err.message);
     try {
         // check limit record
-        let pushRecord = await ChatsHistory.findOne({_id: data.id})
+        let pushRecord = await ChatsHistory.findOne({_id: data.id});
         let objTypeAdvisory = await TypeAdvisory.findOne({_id: pushRecord.typeAdvisoryID});
         if (!objTypeAdvisory) ReS(res, "Không tìm thấy type", 503);
         // loop check
         let countRecord = 0;
-        for (var i = 0; i < pushRecord.records.length; i++) {
+        for (let i = 0; i < pushRecord.records.length; i++) {
 
             if (pushRecord.records[i].recorderID === pushRecord.patientId) {
                 countRecord++;
@@ -130,7 +130,7 @@ const updateRecord = async function (req, res) {
         }
         else {
             // update
-            pushRecord.records.push(data.records)
+            pushRecord.records.push(data.records);
             await pushRecord.save(function (err, pushRecord) {
                 if (err) return ReE(res, "ERROR0030", 503);
                 return ReS(res, {message: 'Update tin nhắn thành công', pushRecord: pushRecord}, 200);
@@ -169,7 +169,7 @@ const getAllConversationByPatient = async function (req, res) {
 
     }
 
-}
+};
 
 module.exports.getAllConversationByPatient = getAllConversationByPatient;
 
@@ -199,19 +199,19 @@ const getAllConversationByDoctor = async function (req, res) {
 
     }
 
-}
+};
 
 module.exports.getAllConversationByDoctor = getAllConversationByDoctor;
 
 const getConversationByID = async function (req, res) {
-    console.log(req.params.id)
+    console.log(req.params.id);
     try {
         let objConversation = await ChatsHistory.findById({
             _id: req.params.id
         }).populate({
             path: 'patientId doctorId',
             select: 'firstName middleName lastName'
-        })
+        });
         if (!objConversation) {
             return ReE(res, "Không tìm thấy cuộc trò chuyện", 404);
         }
@@ -221,7 +221,7 @@ const getConversationByID = async function (req, res) {
     } catch (e) {
         console.log(e)
     }
-}
+};
 
 module.exports.getConversationByID = getConversationByID;
 
@@ -233,15 +233,17 @@ const checkDoctorReply = async function (req, res) {
     try {
         let arrayResultCheck = [];
         for (let k = 0; k < body.listId.length; k++) {
-            let objChatHistory = await ChatsHistory.findById({_id: body.listId[k]})
+            let objChatHistory = await ChatsHistory.findById({_id: body.listId[k]});
             console.log(objChatHistory)
             if (!objChatHistory) {
                 return ReE(res, "Not Found", 404);
             }
             if (objChatHistory.records.length <= 0) {
+
                 // chưa trả lời
                 // get objPayment bệnh nhân
                 let objPaymentPatient = await PaymentsHistory.findById({_id: objChatHistory.paymentPatientID});
+                console.log(objPaymentPatient)
                 // get objUser bệnh nhân => trả lại tiền
                 let objUser = await User.findById({_id: objChatHistory.patientId});
                 let amount = objPaymentPatient.amount * 1;
@@ -250,18 +252,25 @@ const checkDoctorReply = async function (req, res) {
                 objUser.set({remainMoney: remain_money});
                 await objUser.save();
                 // update payment history
-                objPaymentPatient.set({amount: 0, remainMoney: remain_money});
+                objPaymentPatient.set({amount: 0, remainMoney: remain_money, status:constants.PAYMENT_FAILED});
                 await objPaymentPatient.save();
                 // update status cuộc tư vấn
                 objChatHistory.set({status: constants.STATUS_CONVERSATION_FINISH});
                 await objChatHistory.save();
                 // notification cho bác sỹ và bệnh nhân.
                 // get name doctor
-                let objDoctor = await User.findById({_id: objChatHistory.doctorId});
-                let fullNameDoctor;
-                if (objUser) {
-                    fullNameDoctor = " " + objDoctor.firstName + " " + objDoctor.middleName + " " + objDoctor.lastName + "";
-                }
+                let fullNameDoctor = await getUser(objChatHistory.doctorId);
+                // save to notification
+                let objNotificationPatientToSave = {
+                    senderId: objChatHistory.doctorId,
+                    nameSender: fullNameDoctor,
+                    receiveId: objChatHistory.patientId,
+                    type: constants.NOTIFICATION_TYPE_PAYMENT,
+                    storageId: objPaymentPatient.id,
+                    message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + remain_money + "VND",
+                };
+                await createNotification(objNotificationPatientToSave);
+
                 // create data noti for patients
                 let payLoadForPatient = {
                     data: {
@@ -270,40 +279,28 @@ const checkDoctorReply = async function (req, res) {
                         receiveId: objChatHistory.patientId,
                         type: constants.NOTIFICATION_TYPE_PAYMENT,
                         storageId: objPaymentPatient.id,
-                        message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời.\nBạn được hoàn trả: " + amount + "VND\nSố tiền bạn có hiện tại: " + remain_money + "VND",
+                        message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + remain_money + "VND",
                         remain_money: remain_money + "",
                         createTime: Date.now().toString()
                     }
                 };
                 // send
-                await SendNotification.sendNotification(objChatHistory.patientId, payLoadForPatient)
-                // save to notification
-                let objNotificationPatientToSave = {
-                    senderId: objChatHistory.doctorId,
-                    nameSender: fullNameDoctor,
-                    receiveId: objChatHistory.patientId,
-                    type: constants.NOTIFICATION_TYPE_PAYMENT,
-                    storageId: objPaymentPatient.id,
-                    message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời.\nBạn được hoàn trả: " + amount + "VND\nSố tiền bạn có hiện tại: " + remain_money + "VND",
-                }
-                await createNotification(objNotificationPatientToSave)
+                await SendNotification.sendNotification(objChatHistory.patientId, payLoadForPatient);
                 //
                 let resultCheck = {
-                    ChatsHistoryID: ChatsHistory.id,
+                    ChatsHistoryID: objChatHistory.id,
                     DoctorReply: false,
-                    StatusChatHistory: constants.STATUS_CONVERSATION_TALKING,
-                    StatusUpdateFinish: true,
+                    StatusChatHistory: constants.STATUS_CONVERSATION_FINISH,
                     Message: "Hoàn trả tiền"
-                }
+                };
                 arrayResultCheck.push(resultCheck)
-                //return ReS(res, {message: 'Kiểm tra bác sỹ đã trả lời tin nhắn hay chưa', doctorReply: doctorReply}, 200);
             }
             else {
                 for (let i = 0; i < objChatHistory.records.length; i++) {
                     if (objChatHistory.records[i].recorderID !== objChatHistory.doctorId) {
                         // chưa trả lời
                         // get objPayment bệnh nhân
-                        let objPaymentPatient = await PaymentsHistory.findById({_id: objChatHistory.paymentPatientID})
+                        let objPaymentPatient = await PaymentsHistory.findById({_id: objChatHistory.paymentPatientID});
                         // get objUser bệnh nhân => trả lại tiền
                         let objUser = await User.findById({_id: objChatHistory.patientId});
                         let amount = objPaymentPatient.amount * 1;
@@ -312,53 +309,47 @@ const checkDoctorReply = async function (req, res) {
                         objUser.set({remainMoney: remain_money});
                         await objUser.save();
                         // update payment history
-                        objPaymentPatient.set({amount: 0, remainMoney: remain_money});
-                        await objPaymentPatient.save()
+                        objPaymentPatient.set({amount: 0, remainMoney: remain_money, status:constants.PAYMENT_FAILED});
+                        await objPaymentPatient.save();
                         // update status cuộc tư vấn
                         objChatHistory.set({status: constants.STATUS_CONVERSATION_FINISH});
                         await objChatHistory.save();
                         // notification cho bác sỹ và bệnh nhân.
                         // get name doctor
-                        let objDoctor = await User.findById({_id: objChatHistory.doctorId});
-                        let fullNameDoctor;
-                        if (objUser) {
-                            fullNameDoctor = " " + objDoctor.firstName + " " + objDoctor.middleName + " " + objDoctor.lastName + "";
-                        }
+                        let fullNameDoctor = await getUser(objChatHistory.doctorId);
                         // create data noti for patients
                         let payLoadForPatient = {
                             data: {
-                                senderId: constants.ID_ADMIN,
-                                nameSender: constants.NAME_ADMIN,
+                                senderId: objChatHistory.doctorId,
+                                nameSender: fullNameDoctor,
                                 receiveId: objChatHistory.patientId,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: objPaymentPatient.id,
-                                message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời.\nBạn được hoàn trả: " + amount + "VND\nSố tiền bạn có hiện tại: " + remain_money + "VND",
+                                message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + remain_money + "VND",
                                 remain_money: remain_money + "",
                                 createTime: Date.now().toString()
                             }
                         };
                         // send
-                        await SendNotification.sendNotification(objChatHistory.patientId, payLoadForPatient)
+                        await SendNotification.sendNotification(objChatHistory.patientId, payLoadForPatient);
                         // save to notification
                         let objNotificationPatientToSave = {
-                            senderId: constants.ID_ADMIN,
-                            nameSender: constants.NAME_ADMIN,
+                            senderId: objChatHistory.doctorId,
+                            nameSender: fullNameDoctor,
                             receiveId: objChatHistory.patientId,
                             type: constants.NOTIFICATION_TYPE_PAYMENT,
                             storageId: objPaymentPatient.id,
-                            message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời.\nBạn được hoàn trả: " + amount + "VND\nSố tiền bạn có hiện tại: " + remain_money + "VND",
-                        }
+                            message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + remain_money + "VND",
+                        };
                         await createNotification(objNotificationPatientToSave);
                         //
                         let resultCheck = {
                             ChatsHistoryID: ChatsHistory.id,
                             DoctorReply: false,
-                            StatusChatHistory: constants.STATUS_CONVERSATION_TALKING,
-                            StatusUpdateFinish: true,
+                            StatusChatHistory: constants.STATUS_CONVERSATION_FINISH,
                             Message: "Hoàn trả tiền"
-                        }
+                        };
                         arrayResultCheck.push(resultCheck)
-                        //return ReS(res, {message: 'Kiểm tra bác sỹ đã trả lời tin nhắn hay chưa', doctorReply: doctorReply}, 200);
                     }
                     else {
                         // bác sỹ có reply tin nhắn
@@ -369,79 +360,79 @@ const checkDoctorReply = async function (req, res) {
                                 DoctorReply: true,
                                 StatusChatHistory: constants.STATUS_CONVERSATION_FINISH,
                                 Message: "Đã thanh toán tiền cho bác sỹ"
-                            }
+                            };
                             arrayResultCheck.push(resultCheck)
                         }
                         else {
+                            // cuộc tư vấn chưa done
                             // Tạo payment cho bác sỹ, thanh toán cho bác sỹ
                             let paymentIdDoctor = await createPaymentForDoctor(objChatHistory.id);
                             console.log(paymentIdDoctor)
-                            if (paymentIdDoctor) {
-                                // thông báo notification cho bác sỹ
-                                let fullName = await getUser(objChatHistory.patientId);
-                                // bạn nhận được xx tiền, số tiền hiện tại là xxxx
-                                let objNotificationToSave = {
+                            // update status done cho cuộc tư vấn, update payment id doctor vào cuộc chat
+                            objChatHistory.set({status:constants.STATUS_CONVERSATION_FINISH, paymentDoctorID:paymentIdDoctor.id})
+                            await objChatHistory.save();
+                            //
+                            let fullName = await getUser(objChatHistory.patientId);
+                            // bạn nhận được xx tiền, số tiền hiện tại là xxxx
+                            let objNotificationToSave = {
+                                senderId: objChatHistory.patientId,
+                                nameSender: fullName,
+                                receiveId: objChatHistory.doctorId,
+                                type: constants.NOTIFICATION_TYPE_PAYMENT,
+                                storageId: objChatHistory.id,
+                                message: "Cuộc tư vấn với bệnh nhân " + fullName + " đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + " VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
+                            };
+                            console.log(objNotificationToSave);
+                            // save to notification table
+                            await createNotification(objNotificationToSave);
+
+                            let payLoad = {
+                                data: {
                                     senderId: objChatHistory.patientId,
                                     nameSender: fullName,
                                     receiveId: objChatHistory.doctorId,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
-                                    storageId: objChatHistory.id,
-                                    message: "Cuộc tư vấn với bệnh nhân " + fullName + "đã kết thúc.\nBạn nhận được: " + paymentIdDoctor.amount + " VND\n" + "Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
-                                };
-                                console.log(objNotificationToSave)
-                                // save to notification table
-                                await createNotification(objNotificationToSave);
-                                let payLoad = {
-                                    data: {
-                                        senderId: objChatHistory.patientId,
-                                        nameSender: fullName,
-                                        receiveId: objChatHistory.doctorId,
-                                        type: constants.NOTIFICATION_TYPE_PAYMENT,
-                                        storageId: ChatsHistory.id,
-                                        message: "Cuộc tư vấn với bệnh nhân " + fullName + "đã kết thúc.\nBạn nhận được: " + paymentIdDoctor.amount + " VND\n" + "Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
-                                        createTime: Date.now().toString()
-                                    }
-                                };
-                                // send notification
-                                await SendNotification.sendNotification(objChatHistory.doctorId, payLoad)
+                                    storageId: ChatsHistory.id,
+                                    message: "Cuộc tư vấn với bệnh nhân " + fullName + "đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + " VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
+                                    createTime: Date.now().toString()
+                                }
+                            };
+                            // send notification cho bác sỹ
+                            await SendNotification.sendNotification(objChatHistory.doctorId, payLoad);
 
-                                /// thông báo notification cho bệnh nhân
-
-                                let fullNameDoctor = await getUser(objChatHistory.doctorId);
-                                // bạn nhận được xx tiền, số tiền hiện tại là xxxx
-                                // save to notification table
-                                let objNotificationPatientToSave = {
+                            /// thông báo notification cho bệnh nhân
+                            let fullNameDoctor = await getUser(objChatHistory.doctorId);
+                            // save to notification table
+                            let objNotificationPatientToSave = {
+                                senderId: objChatHistory.doctorId,
+                                nameSender: fullNameDoctor,
+                                receiveId: objChatHistory.patientId,
+                                type: constants.NOTIFICATION_TYPE_PAYMENT,
+                                storageId: objChatHistory.id,
+                                message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã kết thúc.",
+                            };
+                            await createNotification(objNotificationPatientToSave);
+                            let payLoadPatient = {
+                                data: {
                                     senderId: objChatHistory.doctorId,
                                     nameSender: fullNameDoctor,
                                     receiveId: objChatHistory.patientId,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: objChatHistory.id,
                                     message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã kết thúc.",
+                                    createTime: Date.now().toString()
                                 }
-                                await createNotification(objNotificationPatientToSave);
-                                let payLoadPatient = {
-                                    data: {
-                                        senderId: objChatHistory.doctorId,
-                                        nameSender: fullNameDoctor,
-                                        receiveId: objChatHistory.patientId,
-                                        type: constants.NOTIFICATION_TYPE_PAYMENT,
-                                        storageId: objChatHistory.id,
-                                        message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã kết thúc.",
-                                        createTime: Date.now().toString()
-                                    }
-                                };
-                                // send notification
-                                await SendNotification.sendNotification(objChatHistory.doctorId, payLoadPatient);
-                                //
-                                let resultCheck = {
-                                    ChatsHistoryID: objChatHistory.id,
-                                    DoctorReply: true,
-                                    StatusChatHistory: constants.STATUS_CONVERSATION_FINISH,
-                                    Deletion: false,
-                                    Message: "Tạo payment thanh toán tiền cho bác sỹ."
-                                }
-                                arrayResultCheck.push(resultCheck);
-                            }
+                            };
+                            // send notification
+                            await SendNotification.sendNotification(objChatHistory.doctorId, payLoadPatient);
+                            //
+                            let resultCheck = {
+                                ChatsHistoryID: objChatHistory.id,
+                                DoctorReply: true,
+                                StatusChatHistory: constants.STATUS_CONVERSATION_FINISH,
+                                Message: "Tạo payment thanh toán tiền cho bác sỹ."
+                            };
+                            arrayResultCheck.push(resultCheck);
                         }
                     }
                 }
@@ -452,8 +443,9 @@ const checkDoctorReply = async function (req, res) {
     catch (e) {
 
     }
+};
 
-}
+module.exports.checkDoctorReply = checkDoctorReply;
 //
 const createNotification = async function (body) {
     try {
@@ -474,17 +466,19 @@ const createNotification = async function (body) {
     catch (e) {
         console.log(e)
     }
-}
+};
+
+
 ///
 async function createPaymentForDoctor(conversationID) {
     let paymentID;
     // get conversation
-    let objChatHistory = await ChatsHistory.findById({_id: conversationID})
+    let objChatHistory = await ChatsHistory.findById({_id: conversationID});
     if (objChatHistory) {
         // get amount of type advisory
-        let objTypeAdvisory = await TypeAdvisory.findById({_id: objChatHistory.typeAdvisoryID})
+        let objTypeAdvisory = await TypeAdvisory.findById({_id: objChatHistory.typeAdvisoryID});
         // get user
-        let objUser = await User.findById({_id: objChatHistory.doctorId})
+        let objUser = await User.findById({_id: objChatHistory.doctorId});
         // calculate remain money
         let remainMoney = objUser.remainMoney * 1 + objTypeAdvisory.price * 1 * constants.PERCENT_PAY_FOR_DOCTOR;
         try {
@@ -503,7 +497,6 @@ async function createPaymentForDoctor(conversationID) {
 
                 }
             });
-
             // save to payment table
             await objPaymentHistory.save(function (err, objPaymentHistory) {
             });
@@ -515,7 +508,16 @@ async function createPaymentForDoctor(conversationID) {
     return paymentID;
 }
 
-module.exports.checkDoctorReply = checkDoctorReply;
+async function getUser(userId) {
+    let fullName;
+    let objUser = await User.findById({_id: userId})
+    if (objUser) {
+        fullName = " " + objUser.firstName + " " + objUser.middleName + " " + objUser.lastName + "";
+    }
+    return fullName
+}
+
+
 
 const checkStatusChatsHistory = async function (req, res) {
     let statusDone = false;
@@ -538,7 +540,7 @@ const checkStatusChatsHistory = async function (req, res) {
             }
         }
     }
-}
+};
 
 module.exports.checkStatusChatsHistory = checkStatusChatsHistory;
 

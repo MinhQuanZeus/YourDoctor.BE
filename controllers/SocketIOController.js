@@ -1,5 +1,5 @@
 module.exports = function (io,redis) {
-    let clientsOnline = {}
+    let clientsOnline = {};
 
     var sequenceNumberByClient = new Map();
 
@@ -17,11 +17,11 @@ module.exports = function (io,redis) {
 
             socket.on('joinRoom', function (roomID) {
                 socket.join(roomID);
-            })
+            });
 
             socket.on('leaveRoom', function (roomID) {
                 socket.leave(roomID);
-            })
+            });
 
             console.info("Client connected id" + socket.id);
             // initialize this client's sequence number
@@ -31,7 +31,7 @@ module.exports = function (io,redis) {
                 clientsOnline[userID] = socket.id;
                 redis.set('userOnline', JSON.stringify(clientsOnline), redis.print);
                 console.log(userID);
-                sequenceNumberByClient.set(userID, socket.id);
+                sequenceNumberByClient.set(userID, socket);
             });
 
             socket.on('sendMessage', async function (reqSender, reqReceiver, reqConversationID, reqType, reqValue) {
@@ -55,15 +55,15 @@ module.exports = function (io,redis) {
                 else {
                     // case 1: tin nhắn trong giới hạn của gói câu hỏi: update success
                     // collect data
-                    var records = {
+                    let records = {
                         recorderID: reqSender,
                         type: reqType,
                         value: reqValue
-                    }
-                    var objectUpdate = {
+                    };
+                    let objectUpdate = {
                         id: reqConversationID,
                         records: records
-                    }
+                    };
                     // update record chat success
                     if (await updateRecord(objectUpdate)) {
                         // check sender
@@ -75,7 +75,7 @@ module.exports = function (io,redis) {
                         if (receive != null) {
                             receive.emit('newMessage', {data: JSON.stringify(megSender)});
                         } else {
-                            let fullName = await getUser(reqSender)
+                            let fullName = await getUser(reqSender);
                             let payLoad = {
                                 data: {
                                     senderId: reqSender,
@@ -86,7 +86,7 @@ module.exports = function (io,redis) {
                                     message: ""+ fullName +" vừa nhắn tin cho bạn",
                                     createTime: Date.now().toString()
                                 }
-                            }
+                            };
                             SendNotification.sendNotification(reqReceiver, payLoad);
                             // save to notification table
                             let objNotificationToSave = {
@@ -96,8 +96,8 @@ module.exports = function (io,redis) {
                                 type: constants.NOTIFICATION_TYPE_CHAT,
                                 storageId: reqConversationID,
                                 message: ""+ fullName +" vừa nhắn tin cho bạn",
-                            }
-                            await CreateNotification.create(objNotificationToSave)
+                            };
+                            await createNotification(objNotificationToSave);
                         }
                     }
                     // update record chat failed do vượt quá giới hạn gói câu hỏi
@@ -112,10 +112,10 @@ module.exports = function (io,redis) {
                         if (receive != null) {
                             // json: số tiền nhận được, số tiền hiện tại đang có
                             console.log("ng nhan tin" +send + "");
-                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. \nBạn nhận được: " + paymentIdDoctor.amount + "VND\nSố tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND");
+                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "VND. Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND");
                         }
                         else {
-                            let fullName = await getUser(reqSender)
+                            let fullName = await getUser(reqSender);
                             // bạn nhận được xx tiền, số tiền hiện tại là xxxx
                             let payLoad = {
                                 data: {
@@ -124,12 +124,12 @@ module.exports = function (io,redis) {
                                     receiveId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
-                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + " VND\n" + "Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND",
+                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND",
                                     createTime: Date.now().toString()
                                 }
-                            }
+                            };
                             // send notification
-                            SendNotification.sendNotification(reqReceiver, payLoad)
+                            await SendNotification.sendNotification(reqReceiver, payLoad);
                             // save to notification table
                             let objNotificationToSave = {
                                 senderId: reqSender,
@@ -137,9 +137,9 @@ module.exports = function (io,redis) {
                                 receiverId: reqReceiver,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: reqConversationID,
-                                message: "Bạn nhận được: " + paymentIdDoctor.amount + " VND\n" + "Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND",
-                            }
-                            await CreateNotification.create(objNotificationToSave)
+                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND",
+                            };
+                            await createNotification(objNotificationToSave)
                         }
                     }
                 }
@@ -148,13 +148,13 @@ module.exports = function (io,redis) {
 
             socket.on('doneConversation', async function (reqSender, reqReceiver, reqConversationID) {
 
-                var send = sequenceNumberByClient.get(reqSender);
-                var receive = sequenceNumberByClient.get(reqReceiver);
+                let send = sequenceNumberByClient.get(reqSender);
+                let receive = sequenceNumberByClient.get(reqReceiver);
 
                 //Update status cua chat history là done (status : 2)
 
                 if (updateStatus(reqConversationID)) {
-                    let paymentIdDoctor = await createPaymentForDoctor(reqConversationID)
+                    let paymentIdDoctor = await createPaymentForDoctor(reqConversationID);
                     if (paymentIdDoctor) {
                         // emit to sender
                         if (send != null) {
@@ -163,10 +163,10 @@ module.exports = function (io,redis) {
                         // emit to receiver
                         if (receive != null) {
                             // json: số tiền nhận được, số tiền hiện tại đang có
-                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc \nBạn nhận được: " + paymentIdDoctor.amount + "+VND\nSố tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND");
+                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "+VND. Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND");
 
                         } else {
-                            let fullName = await getUser(reqSender)
+                            let fullName = await getUser(reqSender);
                             // bạn nhận được xx tiền, số tiền hiện tại là xxxx
                             let payLoad = {
                                 data: {
@@ -175,12 +175,12 @@ module.exports = function (io,redis) {
                                     receiveId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
-                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + " VND\n" + "Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney +"VND",
+                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney +"VND",
                                     createTime: Date.now().toString()
                                 }
-                            }
+                            };
                             // send notification
-                            SendNotification.sendNotification(reqReceiver, payLoad)
+                            await SendNotification.sendNotification(reqReceiver, payLoad);
                             // save to notification table
                             let objNotificationToSave = {
                                 senderId: reqSender,
@@ -188,9 +188,9 @@ module.exports = function (io,redis) {
                                 receiverId: reqReceiver,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: reqConversationID,
-                                message: "Bạn nhận được: " + paymentIdDoctor.amount + " VND\n" + "Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND",
-                            }
-                            await CreateNotification.create(objNotificationToSave)
+                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND",
+                            };
+                            await createNotification(objNotificationToSave);
                         }
                     }
                     else {
@@ -200,7 +200,7 @@ module.exports = function (io,redis) {
                     // TODO notification to Admin
                     console.log("update is failed")
                 }
-            })
+            });
             /// socket upload image chat
 
             ///
@@ -229,21 +229,19 @@ module.exports = function (io,redis) {
                 console.info("Client gone id" + socket.id);
             });
         }
-    )
+    );
 /////////////////////////////////
     const ChatsHistory = require('../models').ChatsHistory;
     const TypeAdvisory = require('../models').TypeAdvisory;
     const PaymentsHistory = require('../models').PaymentsHistory;
-    const SendNotification = require('./NotificationFCMController')
+    const SendNotification = require('./NotificationFCMController');
     const User = require('../models').User;
-    const UploadImageChat = require('./UploadImageController');
-    const CreateNotification = require('./NotificationController');
+    const Notification = require('../models').Notification;
     const constants = require('./../constants');
 
     async function getUser(userId) {
         let fullName;
-        let objUser = await User.findById({_id: userId})
-        console.log(objUser)
+        let objUser = await User.findById({_id: userId});
         if (objUser) {
             fullName = " " + objUser.firstName + " " + objUser.middleName + " " + objUser.lastName + "";
         }
@@ -251,45 +249,35 @@ module.exports = function (io,redis) {
     }
 
     async function updateRecord(data) {
-        console.log(data)
         let updateSuccess = false;
         if (!data.id) {
-            console.log("data id is null");
-            updateSuccess = false
+            updateSuccess = false;
             return updateSuccess;
         }
-        ;
         try {
             // check limit record
-            let pushRecord = await ChatsHistory.findById({_id: data.id})
+            let pushRecord = await ChatsHistory.findById({_id: data.id});
             console.log("chat history" + pushRecord);
-            console.log("id type " + pushRecord.typeAdvisoryID)
+            console.log("id type " + pushRecord.typeAdvisoryID);
             let objTypeAdvisory = await TypeAdvisory.findById({_id: pushRecord.typeAdvisoryID});
-
-            console.log("type " + objTypeAdvisory);
             if (!objTypeAdvisory) {
-                console.log("type is null");
-                updateSuccess = false
+                updateSuccess = false;
                 return updateSuccess;
             }
-            ;
             // loop check
-            var countRecord = 0;
-            for (var i = 0; i < pushRecord.records.length; i++) {
-
+            let countRecord = 0;
+            for (let i = 0; i < pushRecord.records.length; i++) {
                 if (pushRecord.records[i].recorderID === pushRecord.patientId) {
                     countRecord++;
                 }
             }
-            console.log(countRecord)
-            console.log(objTypeAdvisory.limitNumberRecords * 1)
             if (countRecord >= (objTypeAdvisory.limitNumberRecords * 1)) {
-                await updateStatus(data.id)
+                await updateStatus(data.id);
                 updateSuccess = false;
                 return updateSuccess;
             } else {
                 // update
-                pushRecord.records.push(data.records)
+                pushRecord.records.push(data.records);
                 await pushRecord.save(function (err, pushRecord) {
                     if (err) {
 
@@ -303,9 +291,8 @@ module.exports = function (io,redis) {
         } catch (e) {
             console.log(e);
         }
-        console.log( "final " + updateSuccess)
         return updateSuccess;
-    }
+    };
 
     async function updateStatus(reqConversationID) {
         let success = false;
@@ -325,7 +312,7 @@ module.exports = function (io,redis) {
 
     async function getStatus(reqConversationID) {
         let status = 0;
-        let objChatHistory = await ChatsHistory.findById({_id: reqConversationID})
+        let objChatHistory = await ChatsHistory.findById({_id: reqConversationID});
         if (objChatHistory) {
             status = objChatHistory.status * 1;
         }
@@ -333,18 +320,18 @@ module.exports = function (io,redis) {
     }
 
     async function createPaymentForDoctor(conversationID) {
-        var paymentID;
+        let paymentID;
         // get conversation
-        let objChatHistory = await ChatsHistory.findById({_id: conversationID})
+        let objChatHistory = await ChatsHistory.findById({_id: conversationID});
         if (objChatHistory) {
             // get amount of type advisory
-            let objTypeAdvisory = await TypeAdvisory.findById({_id: objChatHistory.typeAdvisoryID})
+            let objTypeAdvisory = await TypeAdvisory.findById({_id: objChatHistory.typeAdvisoryID});
             // get user
-            let objUser = await User.findById({_id: objChatHistory.doctorId})
+            let objUser = await User.findById({_id: objChatHistory.doctorId});
             // calculate remain money
-            var remainMoney = objUser.remainMoney * 1 + objTypeAdvisory.price * 1 * constants.PERCENT_PAY_FOR_DOCTOR;
+            let remainMoney = objUser.remainMoney * 1 + objTypeAdvisory.price * 1 * constants.PERCENT_PAY_FOR_DOCTOR;
             try {
-                var objPaymentHistory = PaymentsHistory({
+                let objPaymentHistory = PaymentsHistory({
                     userID: objChatHistory.doctorId,
                     amount: objTypeAdvisory.price * 1 * constants.PERCENT_PAY_FOR_DOCTOR,
                     remainMoney: remainMoney,
@@ -368,7 +355,27 @@ module.exports = function (io,redis) {
             catch (e) {
             }
         }
-        console.log("su" + paymentID)
         return paymentID;
     }
+
+    const createNotification = async function (body) {
+        try {
+            let notification = Notification({
+                senderId: body.senderId,
+                nameSender: body.nameSender,
+                receiverId: body.receiverId,
+                type: body.type,
+                storageId: body.storageId,
+                message: body.message
+            });
+            await  notification.save(function (err, success) {
+                if(err){
+                    console.log(err)
+                }
+            });
+        }
+        catch (e) {
+            console.log(e)
+        }
+    };
 }
