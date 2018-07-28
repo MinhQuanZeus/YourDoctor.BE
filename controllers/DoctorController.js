@@ -179,16 +179,6 @@ const getListSpecialistDoctor = async function (req, res) {
                 index[arrayDoctor[i]] = true;
             }
         }
-        //return ReS(res, {message: 'Tạo danh sách bác sỹ thành công', listDoctor: arrayDoctor}, 200);
-
-
-        // let itemDoctorSchema = new mongoose.Schema({
-        //     doctorId: {type: String},
-        //     firstName: {type: String},
-        //     middleName: {type: String},
-        //     lastName: {type: String},
-        //     currentRating: {type: String}
-        // })
         var listDoctor = []
         // loop
         for (var i = 0; i <= arrayDoctor.length; i++) {

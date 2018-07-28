@@ -49,6 +49,6 @@ const upload = async function (req, res) {
         if (erro) return ReE(res, err, 422);
     });
     form.parse(req);
-    return filePath
+    return ReS(res, {message: 'Link ảnh chat', filePath: filePath}, 200);
 };
 module.exports.upload = upload;

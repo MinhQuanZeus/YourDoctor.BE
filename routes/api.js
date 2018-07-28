@@ -105,7 +105,7 @@ router.put('/chatshistorys', ChatsHistoryController.updateRecord);
 router.get('/chatshistorys/getAllConversationByPatient/:patientId', ChatsHistoryController.getAllConversationByPatient);
 router.get('/chatshistorys/getAllConversationByDoctor/:doctorId', ChatsHistoryController.getAllConversationByDoctor);
 router.get('/chatshistorys/getConversationByID/:id', ChatsHistoryController.getConversationByID);
-router.get('/chatshistorys/checkDoctorReply/:id', ChatsHistoryController.checkDoctorReply);
+router.post('/chatshistorys/checkDoctorReply', ChatsHistoryController.checkDoctorReply);
 router.get('/chatshistorys/checkStatusChatsHistory/:id', ChatsHistoryController.checkStatusChatsHistory);
 
 //----------PaymentHistory
@@ -116,6 +116,9 @@ router.post('/tokennotifications', TokenNotificationController.createToken);
 router.get('/tokennotifications/:userId', TokenNotificationController.getToken);
 
 
+/// upload image chat
+const UploadImageController = require('../controllers/UploadImageController');
+router.post('/uploadImageChat', UploadImageController.upload);
 // test insert notification
 const NotificationController = require('../controllers/NotificationController');
 router.post('/notifications', NotificationController.create);
