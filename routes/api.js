@@ -38,9 +38,10 @@ router.post('/auth/login', AuthController.login);
 router.get('/users', passport.authenticate('jwt', {
     session: false
 }), UserController.get);
-router.put('/users', passport.authenticate('jwt', {
-    session: false
-}), UserController.update);
+// router.put('/users', passport.authenticate('jwt', {
+//     session: false
+// }), UserController.update);
+router.put('/users', UserController.update);
 router.delete('/users', passport.authenticate('jwt', {
     session: false
 }), UserController.remove);

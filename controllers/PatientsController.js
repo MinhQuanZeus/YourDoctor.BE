@@ -1,4 +1,5 @@
 const Patient = require('../models').Patient;
+const User = require('../models').User;
 const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
@@ -81,12 +82,24 @@ const update = async function (req, res) {
             patientUpdate.save(function (err, updatedPatients) {
                 if (err) return ReE(res, "ERROR0029", 503);
                 res.send(updatedPatients);
+                let objUser = User.findOne({id:data.patientId})
+                if(!objUser){
+                    return ReE(res, "Not found", 404);
+                }
+                objUser.set(data);
+                objUser.save(function (err, updateUser) {
+                    if(err){
+                        return ReE(res, "Update Failed", 503);
+                    }
+                    else {
+                        return ReE(res, "Update Success", 200);
+                    }
+                })
             });
         });
     } catch (e) {
         return ReE(res, "ERROR0029", 503);
     }
-
 };
 module.exports.update = update;
 

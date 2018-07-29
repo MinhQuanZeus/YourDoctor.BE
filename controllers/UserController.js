@@ -1,6 +1,6 @@
 const Account = require('../models').Account;
 const authService = require('./../services/AuthService');
-
+const User = require('../models').User;
 // const create = async function (req, res) {
 //     res.setHeader('Content-Type', 'application/json');
 //     const body = req.body;
@@ -27,28 +27,23 @@ const get = async function (req, res) {
 module.exports.get = get;
 
 const update = async function (req, res) {
-    let err, account, data;
-    account = req.account;
-    data = req.body;
-    user.set(data);
-
-    [err, account] = await to(account.save());
-    if (err) {
-        console.log(err, account);
-
-        if (err.message.includes('E11000')) {
-            if (err.message.includes('phone')) {
-                err = 'This phone number is already in use';
-            } else if (err.message.includes('email')) {
-                err = 'This email address is already in use';
-            } else {
-                err = 'Duplicate Key Entry';
-            }
-        }
-
-        return ReE(res, err);
+    let data = req.body;
+    let objUpdateUser = await User.findById({_id:data.id});
+    console.log(objUpdateUser)
+    if(!objUpdateUser){
+        ReS(res, {message: 'Not found user'}, 404);
     }
-    return ReS(res, {message: 'Updated User: ' + user.email});
+    else {
+        objUpdateUser.set(data);
+        await objUpdateUser.save(function (err, updateSuccess) {
+            if(err){
+                ReS(res, {message: 'Update Failed'}, 503);
+            }
+            else {
+                ReS(res, {message: 'Update Success',updateSuccess:updateSuccess}, 200);
+            }
+        })
+    }
 };
 module.exports.update = update;
 
@@ -63,14 +58,3 @@ const remove = async function (req, res) {
 };
 module.exports.remove = remove;
 
-
-// const login = async function (req, res) {
-//     const body = req.body;
-//     let err, user;
-
-//     [err, user] = await to(authService.authUser(req.body));
-//     if (err) return ReE(res, err, 422);
-
-//     return ReS(res, {token: user.getJWT(), user: user.toWeb()});
-// };
-// module.exports.login = login;
