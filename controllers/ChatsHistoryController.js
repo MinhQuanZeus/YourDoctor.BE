@@ -535,8 +535,8 @@ const checkStatusChatsHistory = async function (req, res) {
                 if (objChatHistory.status * 1 !== constants.STATUS_CONVERSATION_FINISH) {
                     let objChatDone = {
                         ChatsHistoryID: objChatHistory.id,
-                        statusDone: true,
-                        message: "Cuộc tư vấn này đã kết thúc"
+                        statusDone: false,
+                        message: "Cuộc tư vấn này chưa kết thúc"
                     };
                     arrayResult.push(objChatDone);
                 }
