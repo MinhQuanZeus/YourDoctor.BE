@@ -9,15 +9,15 @@ const create = async function (req, res) {
     else if(!body.idPersonBeingReported){
         return ReE(res, 'Báo cáo không thành công',400);
     }else {
-        var report = new Report({
+        let report = new Report({
             idReporter: body.idReporter,
             idPersonBeingReported: body.idPersonBeingReported,
             reason: body.reason,
             timeCreate: body.timeCreate
-        })
+        });
         return ReS(report, {message: 'Gửi báo cáo thành công',report:report }, 200);
     }
-}
+};
 
 module.exports.create = create;
 

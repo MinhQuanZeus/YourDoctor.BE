@@ -3,7 +3,7 @@ const PhoneVerification = require("../models/PhoneVerification");
 const sendPhoneVerifyCode = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
-    const vietnamesePhoneRegex = /(09|01[2|6|8|9])+([0-9]{8})\b/
+    const vietnamesePhoneRegex = /(09|01[2|6|8|9])+([0-9]{8})\b/;
     if (!body.phoneNumber || !vietnamesePhoneRegex.test(body.phoneNumber)) {
         return ReE(res, 'ERROR0003', 400);
     } else {       

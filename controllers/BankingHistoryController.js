@@ -7,7 +7,7 @@ const create = async function (req, res) {
         return ReE(res, 'Tạo lịch sử giao dịch thất bại');
     }
     else {
-        var bankingHistory = new BankingHistory({
+        let bankingHistory = new BankingHistory({
             userId: body.userId,
             amount: body.amount,
             remainMoney: body.remainMoney,
@@ -16,18 +16,18 @@ const create = async function (req, res) {
             accountNumber: body.accountNumber,
             timeDeal: body.timeDeal,
             deletionFlag: body.deletionFlag
-        })
-        await  bankingHistory.save()
+        });
+        await  bankingHistory.save();
         return ReS(res, {message: 'Tạo lịch sử giao dịch ngân hàng thành công',bankingHistory:bankingHistory}, 200);
     }
-}
+};
 
 module.exports.create = create;
 
 const getAllHistoryBanking = async function (req, res) {
-    let query = {}
-    if ( req.query.userId) query.userId = req.query.userId
-    if ( req.query.deletionFlag) query.deletionFlag = req.query.deletionFlag
+    let query = {};
+    if ( req.query.userId) query.userId = req.query.userId;
+    if ( req.query.deletionFlag) query.deletionFlag = req.query.deletionFlag;
     console.log(query);
     BankingHistory.find(query, function (err, allHistory) {
         if(err){
@@ -44,7 +44,7 @@ const getDetailHistoryById = async function(req, res){
         return ReS(res, {message: 'Tải lịch sử giao dịch thành công',doc:doc}, 200);
     })
         .catch(err => next(err));
-}
+};
 module.exports.getDetailHistoryById = getDetailHistoryById;
 
 const removeLogic = async function (req, res) {

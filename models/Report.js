@@ -1,15 +1,13 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const bcrypt_p = require('bcrypt-promise');
-const jwt = require('jsonwebtoken');
-const validate = require('mongoose-validator');
 
 let ReportSchema = mongoose.Schema({
     idReporter: {
-        type: String
+        type: String,
+        ref: 'User'
     },
     idPersonBeingReported: {
-        type: String
+        type: String,
+        ref: 'User'
     },
     reason: {
         type: String

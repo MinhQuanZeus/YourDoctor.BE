@@ -1,8 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const bcrypt_p = require('bcrypt-promise');
-const jwt = require('jsonwebtoken');
-const validate = require('mongoose-validator');
 
 let RatingSchema = mongoose.Schema({
     patientId: {
@@ -12,12 +8,9 @@ let RatingSchema = mongoose.Schema({
         type: String
     },
     rating: {
-        type: Number,
-        default: 0
+        type: Number
     },
-    time: {
-        type: Date
-    }
-});
+    comment: {type: String}
+}, {timestamp: true});
 
 let Rating = module.exports = mongoose.model('Rating', RatingSchema);

@@ -33,7 +33,7 @@ const createUser = async (userDetail, avatar) => {
         if (err) TE('ERROR0023');
         if (user.role == constants.ROLE_PATIENT) {
             const pat = new Patient({
-                patientID: user._id,
+                patientId: user._id,
                 favoriteDoctors: [],
                 deletionFlag: constants.NOT_DELETED_ENTITY
             })

@@ -23,3 +23,4 @@ const uploadAvatar = async (part) => {
     }
 }
 module.exports.uploadAvatar = uploadAvatar;
+
