@@ -7,16 +7,16 @@ const create = async function (req, res) {
     let duplicateTypeAdvisory = await TypeAdvisory.findOne({name:body.name});
 
     if (duplicateTypeAdvisory) return ReE(res, 'ERROR0014', 409);
-    var typeAdvisories = new TypeAdvisory({
+    let typeAdvisories = new TypeAdvisory({
         name: body.name,
         price: body.price,
         limitNumberRecords: body.limitNumberRecords,
         description: body.description
-    })
+    });
     await  typeAdvisories.save();
     return ReS(res, {message: 'Tạo kiểu câu hỏi thành công', typeAdvisories: typeAdvisories}, 200);
 
-}
+};
 module.exports.create = create;
 
 const getAllTypeAdvisories = async function (req, res) {
@@ -35,7 +35,7 @@ const getTypeAdvisoriesById = async function (req, res) {
         if (err) return ReS(res, 'ERROR0012', 404);
         return ReS(res, {message: 'Tải kiểu câu hỏi thành công', objectAdvisory: objectAdvisory}, 200);
     });
-}
+};
 module.exports.getTypeAdvisoriesById = getTypeAdvisoriesById;
 
 const update = async function (req, res) {

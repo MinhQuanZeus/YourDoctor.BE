@@ -71,7 +71,7 @@ UserSchema.pre('save', async function (next) {
     } else {
         return next();
     }
-})
+});
 
 UserSchema.methods.comparePassword = async function (pw) {
     let err, pass;
@@ -82,12 +82,11 @@ UserSchema.methods.comparePassword = async function (pw) {
         console.log(err);
         TE(err);
     }
-    ;
 
     if (!pass) TE('invalid password');
 
     return this;
-}
+};
 
 UserSchema.virtual('full_name').set(function (name) {
     var split = name.split(' ');

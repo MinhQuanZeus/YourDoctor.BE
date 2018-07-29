@@ -13,7 +13,7 @@ const create = async function (req, res) {
 
         if (duplicateDoctor) return ReE(res, 'ERROR0008', 409);
 
-        var doctor = new Doctor({
+        let doctor = new Doctor({
             doctorId: body.doctorId,
             currentRating: body.currentRating,
             certificates: body.certificates,
@@ -29,7 +29,7 @@ const create = async function (req, res) {
     catch (e) {
         return ReE(res, 'ERROR0008', 503);
     }
-}
+};
 
 module.exports.create = create;
 
@@ -38,8 +38,8 @@ module.exports.create = create;
 const getDoctor = async function (req, res) {
     // get all doctor nếu không có param truyền lên
     // get all doctor nếu có param truyền lên ( chỉ dùng để get all doctor chưa bị xóa logic)
-    let query = {}
-    if (req.query.deletionFlag) query.deletionFlag = req.query.deletionFlag
+    let query = {};
+    if (req.query.deletionFlag) query.deletionFlag = req.query.deletionFlag;
     console.log(query);
     try {
         Doctor.find(query, function (err, getDoctor) {
@@ -64,8 +64,7 @@ const getInformationDoctorById = async function (req, res) {
         return ReE(res, "ERROR0010", 400);
     }
     try {
-        var query = {doctorId: req.params.doctorId}
-        console.log(query)
+        let query = {doctorId: req.params.doctorId};
         Doctor.find(
             query
         )
@@ -86,7 +85,7 @@ const getInformationDoctorById = async function (req, res) {
     catch (e) {
         return ReE(res, "ERROR0034", 404);
     }
-}
+};
 
 module.exports.getInformationDoctorById = getInformationDoctorById;
 
@@ -95,7 +94,6 @@ const update = async function (req, res) {
     let data;
     data = req.body;
     if (!data) return ReE(res, "ERROR0010", 400);
-    console.log(data);
     try {
         Doctor.findOne({doctorId: data.doctorId}, function (err, doctorUpdate) {
             if (err) return ReE(res, "ERROR0035", 503);
@@ -109,7 +107,7 @@ const update = async function (req, res) {
     } catch (e) {
         return ReE(res, "ERROR0035", 503);
     }
-}
+};
 module.exports.update = update;
 
 const remove = async function (req, res) {
@@ -140,14 +138,14 @@ const getListSpecialistDoctor = async function (req, res) {
 
 
     // query - get params
-    let arrayDoctor = [typeof String]
+    let arrayDoctor = [typeof String];
     try {
         //get list favorite doctor
         let objPatient = await Patient.findOne({patientId: req.query.patientId});
         if (objPatient) {
-            for (var i = 0; i < objPatient.favoriteDoctors.length; i++) {
-                let objDoctor = await Doctor.findOne({doctorId: objPatient.favoriteDoctors[i]})
-                for (var j = 0; j < objDoctor.idSpecialist.length; j++) {
+            for (let i = 0; i < objPatient.favoriteDoctors.length; i++) {
+                let objDoctor = await Doctor.findOne({doctorId: objPatient.favoriteDoctors[i]});
+                for (let j = 0; j < objDoctor.idSpecialist.length; j++) {
                     if (objDoctor.idSpecialist[j].specialistId === req.params.specialistId) {
                         arrayDoctor.push(objDoctor.doctorId)
                     }
@@ -155,7 +153,7 @@ const getListSpecialistDoctor = async function (req, res) {
             }
         }
 
-        var listDoctor = await Doctor.find({
+        let listDoctor = await Doctor.find({
             'idSpecialist': {
                 '$elemMatch': {
                     'specialistId': req.params.specialistId
@@ -164,13 +162,13 @@ const getListSpecialistDoctor = async function (req, res) {
             'currentRating': {
                 $gte: 3
             }
-        })
-        for (var i = 0; i < listDoctor.length; i++) {
+        });
+        for (let i = 0; i < listDoctor.length; i++) {
             arrayDoctor.push(listDoctor[i].doctorId)
         }
         // delete duplicate id
-        var index = {};
-        for (var i = arrayDoctor.length - 1; i >= 0; i--) {
+        let index = {};
+        for (let i = arrayDoctor.length - 1; i >= 0; i--) {
             if (arrayDoctor[i] in index) {
                 // remove this item
                 arrayDoctor.splice(i, 1);
@@ -179,9 +177,8 @@ const getListSpecialistDoctor = async function (req, res) {
                 index[arrayDoctor[i]] = true;
             }
         }
-        var listDoctor = []
         // loop
-        for (var i = 0; i <= arrayDoctor.length; i++) {
+        for (let i = 0; i <= arrayDoctor.length; i++) {
 
             let itemDoctor = await Doctor.findOne({
                 'idSpecialist': {
@@ -200,9 +197,8 @@ const getListSpecialistDoctor = async function (req, res) {
                     path: 'doctorId',
                     select: 'firstName middleName lastName avatar'
                 })
-            console.log(itemDoctor)
             if (itemDoctor) {
-                var itemInfoDoctor = {
+                let itemInfoDoctor = {
                     doctorId: itemDoctor.doctorId._id,
                     firstName: itemDoctor.doctorId.firstName,
                     middleName: itemDoctor.doctorId.middleName,
@@ -215,11 +211,11 @@ const getListSpecialistDoctor = async function (req, res) {
         }
         return ReS(res, {message: 'Tạo danh sách bác sỹ theo chuyên khoa thành công', listDoctor: listDoctor}, 200);
     } catch (e) {
-        console.log(e)
+        console.log(e);
         return ReE(res, "ERROR0037", 503);
     }
     });
-}
+};
 
 module.exports.getListSpecialistDoctor = getListSpecialistDoctor;
 

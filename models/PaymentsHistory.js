@@ -9,4 +9,4 @@ let PaymentsHistorySchema = mongoose.Schema({
     deletionFlag: {type: Boolean, default: false}
 },{timestamp:true});
 
-let PaymentsHistory = module.exports = mongoose.model('PaymentsHistory',PaymentsHistorySchema)
+let PaymentsHistory = module.exports = mongoose.model('PaymentsHistory',PaymentsHistorySchema);

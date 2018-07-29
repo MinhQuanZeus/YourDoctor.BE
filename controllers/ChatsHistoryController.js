@@ -2,7 +2,7 @@ const ChatsHistory = require('../models').ChatsHistory;
 const TypeAdvisory = require('../models').TypeAdvisory;
 const PaymentsHistory = require('../models').PaymentsHistory;
 const User = require('../models').User;
-const SendNotification = require('./NotificationFCMController')
+const SendNotification = require('./NotificationFCMController');
 const Notification = require('../models').Notification;
 const constants = require('./../constants');
 
@@ -64,7 +64,7 @@ const create = async function (req, res) {
                 message: "" + fullName + " vừa tạo yêu cầu tư vấn qua nhắn tin với bạn",
                 createTime: Date.now().toString()
             }
-        }
+        };
         // send
         await SendNotification.sendNotification(chatHistory.doctorId, payLoad);
         // save
@@ -107,7 +107,7 @@ const create = async function (req, res) {
         ReS(res, e.message, 503);
     }
 
-}
+};
 
 module.exports.create = create;
 
@@ -236,7 +236,6 @@ const checkDoctorReply = async function (req, res) {
         let arrayResultCheck = [];
         for (let k = 0; k < body.listId.length; k++) {
             let objChatHistory = await ChatsHistory.findById({_id: body.listId[k]});
-            console.log(objChatHistory)
             if (!objChatHistory) {
                 return ReE(res, "Not Found", 404);
             }
@@ -245,7 +244,6 @@ const checkDoctorReply = async function (req, res) {
                 // chưa trả lời
                 // get objPayment bệnh nhân
                 let objPaymentPatient = await PaymentsHistory.findById({_id: objChatHistory.paymentPatientID});
-                console.log(objPaymentPatient)
                 // get objUser bệnh nhân => trả lại tiền
                 let objUser = await User.findById({_id: objChatHistory.patientId});
                 let amount = objPaymentPatient.amount * 1;
@@ -369,9 +367,8 @@ const checkDoctorReply = async function (req, res) {
                             // cuộc tư vấn chưa done
                             // Tạo payment cho bác sỹ, thanh toán cho bác sỹ
                             let paymentIdDoctor = await createPaymentForDoctor(objChatHistory.id);
-                            console.log(paymentIdDoctor)
                             // update status done cho cuộc tư vấn, update payment id doctor vào cuộc chat
-                            objChatHistory.set({status:constants.STATUS_CONVERSATION_FINISH, paymentDoctorID:paymentIdDoctor.id})
+                            objChatHistory.set({status:constants.STATUS_CONVERSATION_FINISH, paymentDoctorID:paymentIdDoctor.id});
                             await objChatHistory.save();
                             //
                             let fullName = await getUser(objChatHistory.patientId);
@@ -491,7 +488,6 @@ async function createPaymentForDoctor(conversationID) {
                 typeAdvisoryID: objChatHistory.typeAdvisoryID,
                 status: constants.PAYMENT_SUCCESS
             });
-
             // update remain money to User
             objUser.set({remainMoney: remainMoney});
             await objUser.save(function (err, objUser) {
@@ -512,7 +508,7 @@ async function createPaymentForDoctor(conversationID) {
 
 async function getUser(userId) {
     let fullName;
-    let objUser = await User.findById({_id: userId})
+    let objUser = await User.findById({_id: userId});
     if (objUser) {
         fullName = " " + objUser.firstName + " " + objUser.middleName + " " + objUser.lastName + "";
     }

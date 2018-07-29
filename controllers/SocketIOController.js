@@ -48,7 +48,6 @@ module.exports = function (io,redis) {
                     // cuộc tư vấn đã kết thúc
                     if (send != null) {
                         send.emit('conversationDone', 'Cuộc tư vấn đã kết thúc');
-                        return;
                     }
                 }
                 // cuộc tư vấn chưa kết thúc
@@ -296,7 +295,7 @@ module.exports = function (io,redis) {
 
     async function updateStatus(reqConversationID) {
         let success = false;
-        let objChatHistory = await ChatsHistory.findById({_id: reqConversationID})
+        let objChatHistory = await ChatsHistory.findById({_id: reqConversationID});
         if (objChatHistory) {
             objChatHistory.set({status: constants.STATUS_CONVERSATION_FINISH});
             await objChatHistory.save(function (err, objUpdate) {
@@ -378,4 +377,4 @@ module.exports = function (io,redis) {
             console.log(e)
         }
     };
-}
+};

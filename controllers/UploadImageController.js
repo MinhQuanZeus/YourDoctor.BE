@@ -22,7 +22,7 @@ const uploadImageChat = async (part) => {
             return "done";
         });
     }
-}
+};
 module.exports.uploadImageChat = uploadImageChat;
 
 //////////

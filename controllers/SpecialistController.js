@@ -6,18 +6,18 @@ const create = async function (req, res) {
     if(!body.name){
         return ReE(res, 'ERROR0014', 400);
     }
-    let dupplicateSpecialist = await Specialist.findOne({name:body.name})
+    let duplicateSpecialist = await Specialist.findOne({name:body.name});
 
-    if(dupplicateSpecialist) return ReE(res, 'ERROR0014',409);
+    if(duplicateSpecialist) return ReE(res, 'ERROR0014',409);
 
-    var specialist = new Specialist({
+    let specialist = new Specialist({
         name: body.name,
         description: body.description
-    })
-    await  specialist.save()
+    });
+    await  specialist.save();
     return ReS(res, {message: 'Tạo chuyên khoa thành công', specialist : specialist}, 200);
 
-}
+};
 
 module.exports.create = create;
 
@@ -25,7 +25,6 @@ const get = async function (req, res) {
     Specialist.find({}, function (err, specialist) {
         if(err){
             return ReE(res, 'ERROR0015', 404);
-            next();
         }
         return ReS(res, {message: 'Tải danh sách chuyên khoa thành công', specialist : specialist}, 200);
     });
@@ -36,11 +35,11 @@ module.exports.get = get;
 const update = async function (req, res) {
     let data = req.body;
     console.log(req.body);
-    let objSpecialist = await Specialist.findById({_id:data.id})
+    let objSpecialist = await Specialist.findById({_id:data.id});
     if(!objSpecialist) return ReE(res, 'Not found', 400);
-    objSpecialist.set(data)
+    objSpecialist.set(data);
     objSpecialist.save(function (err, updateSpecialistSuccess) {
-        if (err) return ReE(res, 'found', 503);
+        if (err) return ReE(res, 'Update failed', 503);
         return ReS(res, {message: 'Cập nhật chuyên khoa thành công', updateSpecialistSuccess : updateSpecialistSuccess}, 200);
     })
 };

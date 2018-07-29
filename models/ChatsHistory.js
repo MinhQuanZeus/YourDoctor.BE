@@ -5,7 +5,7 @@ let childRecords = mongoose.Schema({
     type: {type: Number},
     value: {type: String},
     created: {type: Date, default: Date.now}
-})
+});
 
 let chatsHistorySchema = mongoose.Schema({
     contentTopic: {type: String},

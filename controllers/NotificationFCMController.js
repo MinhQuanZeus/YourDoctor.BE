@@ -1,6 +1,6 @@
-var admin = require("firebase-admin");
+let admin = require("firebase-admin");
 
-var serviceAccount = CONFIG.ACCOUNT;
+let serviceAccount = CONFIG.ACCOUNT;
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -9,28 +9,17 @@ admin.initializeApp({
 
 const sendNotification = function (topicUserId, payload) {
 
-    var options = {
+    let options = {
         priority:"high",
         timeToLive: 60 * 60 *24 * 7
     };
     admin.messaging().sendToTopic(topicUserId,payload,options).then(function (response) {
         console.log("successfull", response)}).catch(function (error) {
-        console.log("loi roi", error)
+        console.log("loi roi", error);
     });
-}
+};
 
 
 module.exports.sendNotification = sendNotification;
-
-// sample data
-// var payload = {
-//     data : {
-//         senderId: "ID cua ng nguoi",
-//         type: "video call or chat",
-//         advisoryId: "id cua cuoc tu van chat hay video call",
-//         message: ""
-//     }
-// };
-
 
 

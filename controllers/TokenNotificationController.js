@@ -7,7 +7,7 @@ const createToken = async function (req, res) {
     if (!body.userId || !body.tokenDevice ) {
         return ReE(res, 'ERROR0028', 400);
     }
-    let existsToken = await TokenNotification.findOne({userId:body.userId})
+    let existsToken = await TokenNotification.findOne({userId:body.userId});
     if(existsToken) {
         try {
             existsToken.set(body);
@@ -21,7 +21,7 @@ const createToken = async function (req, res) {
     }
     else {
         try{
-            var tokenNotification = new TokenNotification({
+            let tokenNotification = new TokenNotification({
                 userId : body.userId,
                 tokenDevice :body.tokenDevice
             });
@@ -31,15 +31,15 @@ const createToken = async function (req, res) {
             ReS(res, e.message, 503);
         }
     }
-}
+};
 
 module.exports.createToken = createToken;
 
 
 const getToken = async function (req, res) {
-    let objToken = await TokenNotification.findOne({userId:req.params.userId})
+    let objToken = await TokenNotification.findOne({userId:req.params.userId});
     if(!objToken) return ReE(res, "ERROR0042", 404);
     return ReS(res, {message: 'Tạo token device thành công', tokenDevice: objToken.tokenDevice}, 200);
-}
+};
 
 module.exports.getToken = getToken;

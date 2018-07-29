@@ -9,14 +9,14 @@ const create = async function (req, res) {
     if (duplicatePatient) {
         return ReE(res, 'ERROR0018', 409);
     }
-    var patient = new Patient({
+    let patient = new Patient({
         patientId: body.patientId,
         favoriteDoctors: body.favoriteDoctors,
         deletionFlag: body.deletionFlag
     });
     await  patient.save();
     return ReS(res, {message: 'Tạo thông tin bác sỹ thành công', patient: patient}, 200);
-}
+};
 
 module.exports.create = create;
 
@@ -24,8 +24,8 @@ module.exports.create = create;
 const getPatients = async function (req, res) {
     // get all patients nếu không có param truyền lên
     // get all patients nếu có param truyền lên ( chỉ dùng để get all patients chưa bị xóa logic)
-    let query = {}
-    if (req.query.deletionFlag) query.deletionFlag = req.query.deletionFlag
+    let query = {};
+    if (req.query.deletionFlag) query.deletionFlag = req.query.deletionFlag;
     console.log(query);
     Patient.find(query, function (err, getPatient) {
         if (err) {
@@ -44,8 +44,7 @@ const getInformationPatientById = async function (req, res) {
         return ReE(res, "ERROR0010", 400);
     }
     try {
-        var query = {patientId: req.params.patientId}
-        console.log(query)
+        let query = {patientId: req.params.patientId};
         Patient.find(
             query
         )
@@ -65,7 +64,7 @@ const getInformationPatientById = async function (req, res) {
     } catch (e) {
         return ReE(res, "ERROR0038", 503);
     }
-}
+};
 module.exports.getInformationPatientById = getInformationPatientById;
 
 
@@ -88,12 +87,12 @@ const update = async function (req, res) {
         return ReE(res, "ERROR0029", 503);
     }
 
-}
+};
 module.exports.update = update;
 
 const remove = async function (req, res) {
     const body = req.body;
-    if (!body) return ReE(res, "ERROR0010", 400)
+    if (!body) return ReE(res, "ERROR0010", 400);
     Patient.findByIdAndRemove(body.id, function (err, patient) {
         if (err) return ReE(res, "ERROR0030", 404);
         return ReS(res, {message: 'Delete success'}, 200);
@@ -104,7 +103,7 @@ module.exports.remove = remove;
 
 const getListFavoriteDoctor = async function (req, res) {
     // query - get params
-    let query = {}
+    let query = {};
     if (req.query.skip) {
         query.skip = req.query.skip
     }
@@ -140,14 +139,13 @@ const getListFavoriteDoctor = async function (req, res) {
     } catch (e) {
         return ReE(res, "ERROR0031", 404);
     }
-}
+};
 module.exports.getListFavoriteDoctor = getListFavoriteDoctor;
 
 const getListIDFavoriteDoctor = async function (req, res) {
     if (!req.params.patientId) return ReE(res, "ERROR0031", 404);
     try {
         Patient.findOne({patientId: req.params.patientId}, function (err, listIDFavoriteDoctor) {
-            console.log(listIDFavoriteDoctor)
             if (err) TE(err);
             return ReS(res, {
                 message: 'Tạo danh sách bác sỹ được yêu thích thành công',
@@ -158,17 +156,16 @@ const getListIDFavoriteDoctor = async function (req, res) {
     } catch (e) {
         return ReE(res, "ERROR0031", 404);
     }
-}
+};
 module.exports.getListIDFavoriteDoctor = getListIDFavoriteDoctor;
 
 const addFavoriteDoctor = async function (req, res) {
-    let data = req.body
+    let data = req.body;
     if (!data.patientId || !data.doctorId) return ReE(res, "ERROR0010", 400);
     try {
-        let objPatient = await Patient.findOne({patientId: data.patientId})
+        let objPatient = await Patient.findOne({patientId: data.patientId});
         if (!objPatient) return ReE(res, "ERROR0032", 404);
-        console.log(objPatient)
-        objPatient.favoriteDoctors.push(data.doctorId)
+        objPatient.favoriteDoctors.push(data.doctorId);
         await objPatient.save(function (err, objPatientUpdate) {
             if (err) return ReE(res, "ERROR0032", 503);
             return ReS(res, {
@@ -179,18 +176,17 @@ const addFavoriteDoctor = async function (req, res) {
     } catch (e) {
         return ReE(res, "ERROR0032", 503);
     }
-}
-module.exports.addFavoriteDoctor = addFavoriteDoctor
+};
+module.exports.addFavoriteDoctor = addFavoriteDoctor;
 
 const removeFavoriteDoctor = async function (req, res) {
-    let data = req.body
+    let data = req.body;
 
     if (!data.patientId || !data.doctorId) return ReE(res, "ERROR0010", 400);
     try {
-        let objPatient = await Patient.findOne({patientId: data.patientId})
+        let objPatient = await Patient.findOne({patientId: data.patientId});
         if (!objPatient) return ReE(res, "ERROR0033", 404);
-        console.log(objPatient)
-        objPatient.favoriteDoctors.pull(data.doctorId)
+        objPatient.favoriteDoctors.pull(data.doctorId);
         await objPatient.save(function (err, objPatientUpdate) {
             if (err) return ReE(res, "ERROR0033", 503);
             return ReS(res, {
@@ -201,5 +197,5 @@ const removeFavoriteDoctor = async function (req, res) {
     } catch (e) {
         return ReE(res, "ERROR0033", 503);
     }
-}
-module.exports.removeFavoriteDoctor = removeFavoriteDoctor
+};
+module.exports.removeFavoriteDoctor = removeFavoriteDoctor;
