@@ -232,72 +232,22 @@ const checkDoctorReply = async function (req, res) {
     if (!body) {
         return ReE(res, "Bad request", 400);
     }
-    try {
-        let arrayResultCheck = [];
-        for (let k = 0; k < body.listId.length; k++) {
+
+    let arrayChatHistoryCheckFailed = [];
+    for (let k = 0; k < body.listId.length; k++) {
+        try {
             let objChatHistory = await ChatsHistory.findById({_id: body.listId[k]});
+            // kiểm tra sự tồn tại của của cuộc trò chuyện
             if (!objChatHistory) {
-                return ReE(res, "Not Found", 404);
-            }
-            if (objChatHistory.records.length <= 0) {
-
-                // chưa trả lời
-                // get objPayment bệnh nhân
-                let objPaymentPatient = await PaymentsHistory.findById({_id: objChatHistory.paymentPatientID});
-                // get objUser bệnh nhân => trả lại tiền
-                let objUser = await User.findById({_id: objChatHistory.patientId});
-                let amount = objPaymentPatient.amount * 1;
-                let remain_money = objUser.remainMoney * 1 + amount;
-                // update remain_money
-                objUser.set({remainMoney: remain_money});
-                await objUser.save();
-                // update payment history
-                objPaymentPatient.set({amount: 0, remainMoney: remain_money, status: constants.PAYMENT_FAILED});
-                await objPaymentPatient.save();
-                // update status cuộc tư vấn
-                objChatHistory.set({status: constants.STATUS_CONVERSATION_FINISH});
-                await objChatHistory.save();
-                // notification cho bác sỹ và bệnh nhân.
-                // get name doctor
-                let fullNameDoctor = await getUser(objChatHistory.doctorId);
-                // save to notification
-                let objNotificationPatientToSave = {
-                    senderId: objChatHistory.doctorId,
-                    nameSender: fullNameDoctor,
-                    receiveId: objChatHistory.patientId,
-                    type: constants.NOTIFICATION_TYPE_PAYMENT,
-                    storageId: objPaymentPatient.id,
-                    message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + remain_money + "VND",
-                };
-                await createNotification(objNotificationPatientToSave);
-
-                // create data noti for patients
-                let payLoadForPatient = {
-                    data: {
-                        senderId: objChatHistory.doctorId,
-                        nameSender: fullNameDoctor,
-                        receiveId: objChatHistory.patientId,
-                        type: constants.NOTIFICATION_TYPE_PAYMENT,
-                        storageId: objPaymentPatient.id,
-                        message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + remain_money + "VND",
-                        remain_money: remain_money + "",
-                        createTime: Date.now().toString()
-                    }
-                };
-                // send
-                await SendNotification.sendNotification(objChatHistory.patientId, payLoadForPatient);
-                //
-                let resultCheck = {
-                    ChatsHistoryID: objChatHistory.id,
-                    DoctorReply: false,
-                    StatusChatHistory: constants.STATUS_CONVERSATION_FINISH,
-                    Message: "Hoàn trả tiền"
-                };
-                arrayResultCheck.push(resultCheck)
+                // nếu k tồn tại return
+                arrayChatHistoryCheckFailed.push(body.listId[k])
             }
             else {
-                for (let i = 0; i < objChatHistory.records.length; i++) {
-                    if (objChatHistory.records[i].recorderID !== objChatHistory.doctorId) {
+                // nếu tồn tại check tiếp
+                // Trường hợp cuộc tư vấn chưa kết thúc
+                if (objChatHistory.status * 1 === constants.STATUS_CONVERSATION_TALKING) {
+                    // k có record
+                    if (objChatHistory.records.length <= 0) {
                         // chưa trả lời
                         // get objPayment bệnh nhân
                         let objPaymentPatient = await PaymentsHistory.findById({_id: objChatHistory.paymentPatientID});
@@ -342,30 +292,35 @@ const checkDoctorReply = async function (req, res) {
                             message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + remain_money + "VND",
                         };
                         await createNotification(objNotificationPatientToSave);
-                        //
-                        let resultCheck = {
-                            ChatsHistoryID: ChatsHistory.id,
-                            DoctorReply: false,
-                            StatusChatHistory: constants.STATUS_CONVERSATION_FINISH,
-                            Message: "Hoàn trả tiền"
+
+                        // send notification for doctor
+                        let fullNamePatient = await getUser(objChatHistory.patientId);
+                        // create data noti for patients
+                        let payLoadForDoctor = {
+                            data: {
+                                senderId: objChatHistory.patientId,
+                                nameSender: fullNamePatient,
+                                receiveId: objChatHistory.doctorId,
+                                type: constants.NOTIFICATION_TYPE_PAYMENT,
+                                storageId: objChatHistory.id,
+                                message: "Cuộc tư vấn với bệnh nhân " +fullNamePatient+" đã kết thúc do qua thời gian trả lời",
+                                createTime: Date.now().toString()
+                            }
                         };
-                        arrayResultCheck.push(resultCheck)
-                    }
-                    else {
-                        // bác sỹ có reply tin nhắn
-                        // check status done của cuộc tư vấn
-                        if (objChatHistory.status * 1 === constants.STATUS_CONVERSATION_FINISH) {
-                            let resultCheck = {
-                                ChatsHistoryID: objChatHistory.id,
-                                DoctorReply: true,
-                                StatusChatHistory: constants.STATUS_CONVERSATION_FINISH,
-                                Message: "Đã thanh toán tiền cho bác sỹ"
-                            };
-                            arrayResultCheck.push(resultCheck)
-                        }
-                        else {
-                            // cuộc tư vấn chưa done
-                            // Tạo payment cho bác sỹ, thanh toán cho bác sỹ
+                        // send
+                        await SendNotification.sendNotification(objChatHistory.doctorId, payLoadForDoctor);
+                        // save to notification
+                        let objNotificationDoctorToSave = {
+                            senderId: objChatHistory.patientId,
+                            nameSender: fullNamePatient,
+                            receiveId: objChatHistory.doctorId,
+                            type: constants.NOTIFICATION_TYPE_PAYMENT,
+                            storageId: objChatHistory.id,
+                            message: "Cuộc tư vấn với bệnh nhân " +fullNamePatient+" đã kết thúc do qua thời gian trả lời",
+                        };
+                        await createNotification(objNotificationDoctorToSave);
+                    }else {
+                        if(objChatHistory.records[i].recorderID === objChatHistory.doctorId){
                             let paymentIdDoctor = await createPaymentForDoctor(objChatHistory.id);
                             // update status done cho cuộc tư vấn, update payment id doctor vào cuộc chat
                             objChatHistory.set({
@@ -427,24 +382,68 @@ const checkDoctorReply = async function (req, res) {
                             };
                             // send notification
                             await SendNotification.sendNotification(objChatHistory.doctorId, payLoadPatient);
-                            //
-                            let resultCheck = {
-                                ChatsHistoryID: objChatHistory.id,
-                                DoctorReply: true,
-                                StatusChatHistory: constants.STATUS_CONVERSATION_FINISH,
-                                Message: "Tạo payment thanh toán tiền cho bác sỹ."
+                        }else {
+                            // trường hợp chưa có tin nhắn nào từ bác sỹ
+                            // chưa trả lời
+                            // get objPayment bệnh nhân
+                            let objPaymentPatient = await PaymentsHistory.findById({_id: objChatHistory.paymentPatientID});
+                            // get objUser bệnh nhân => trả lại tiền
+                            let objUser = await User.findById({_id: objChatHistory.patientId});
+                            let amount = objPaymentPatient.amount * 1;
+                            let remain_money = objUser.remainMoney * 1 + amount;
+                            // update remain_money
+                            objUser.set({remainMoney: remain_money});
+                            await objUser.save();
+                            // update payment history
+                            objPaymentPatient.set({
+                                amount: 0,
+                                remainMoney: remain_money,
+                                status: constants.PAYMENT_FAILED
+                            });
+                            await objPaymentPatient.save();
+                            // update status cuộc tư vấn
+                            objChatHistory.set({status: constants.STATUS_CONVERSATION_FINISH});
+                            await objChatHistory.save();
+                            // notification cho bác sỹ và bệnh nhân.
+                            // get name doctor
+                            let fullNameDoctor = await getUser(objChatHistory.doctorId);
+                            // create data noti for patients
+                            let payLoadForPatient = {
+                                data: {
+                                    senderId: objChatHistory.doctorId,
+                                    nameSender: fullNameDoctor,
+                                    receiveId: objChatHistory.patientId,
+                                    type: constants.NOTIFICATION_TYPE_PAYMENT,
+                                    storageId: objPaymentPatient.id,
+                                    message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + remain_money + "VND",
+                                    remain_money: remain_money + "",
+                                    createTime: Date.now().toString()
+                                }
                             };
-                            arrayResultCheck.push(resultCheck);
+                            // send
+                            await SendNotification.sendNotification(objChatHistory.patientId, payLoadForPatient);
+                            // save to notification
+                            let objNotificationPatientToSave = {
+                                senderId: objChatHistory.doctorId,
+                                nameSender: fullNameDoctor,
+                                receiveId: objChatHistory.patientId,
+                                type: constants.NOTIFICATION_TYPE_PAYMENT,
+                                storageId: objPaymentPatient.id,
+                                message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + remain_money + "VND",
+                            };
+                            await createNotification(objNotificationPatientToSave);
                         }
                     }
                 }
             }
         }
-        return ReS(res, {message: 'Result check', arrayResultCheck: arrayResultCheck}, 200);
+        catch (e) {
+            arrayChatHistoryCheckFailed.push(body.listId[k])
+        }
+        return ReS(res, {message: 'Danh sách ID chưa thể check', arrayChatHistoryCheckFailed: arrayChatHistoryCheckFailed}, 200);
     }
-    catch (e) {
 
-    }
+    //return ReS(res, {message: 'Result check', arrayResultCheck: arrayResultCheck}, 200);
 };
 
 module.exports.checkDoctorReply = checkDoctorReply;

@@ -1,7 +1,6 @@
 const Doctor = require('../models').Doctor;
 const Patient = require('../models').Patient;
 let redis = require('redis').createClient('redis://h:pfa32d86610f60f897ee0702482e41cc8ec66524df29453a1ab46fdbc2cf039da@ec2-107-23-150-142.compute-1.amazonaws.com:50419');
-//var redis = require('redis').createClient(50419, 'ec2-107-23-150-142.compute-1.amazonaws.com');
 const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
