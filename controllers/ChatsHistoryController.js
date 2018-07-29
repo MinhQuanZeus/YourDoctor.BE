@@ -252,7 +252,7 @@ const checkDoctorReply = async function (req, res) {
                 objUser.set({remainMoney: remain_money});
                 await objUser.save();
                 // update payment history
-                objPaymentPatient.set({amount: 0, remainMoney: remain_money, status:constants.PAYMENT_FAILED});
+                objPaymentPatient.set({amount: 0, remainMoney: remain_money, status: constants.PAYMENT_FAILED});
                 await objPaymentPatient.save();
                 // update status cuộc tư vấn
                 objChatHistory.set({status: constants.STATUS_CONVERSATION_FINISH});
@@ -309,7 +309,7 @@ const checkDoctorReply = async function (req, res) {
                         objUser.set({remainMoney: remain_money});
                         await objUser.save();
                         // update payment history
-                        objPaymentPatient.set({amount: 0, remainMoney: remain_money, status:constants.PAYMENT_FAILED});
+                        objPaymentPatient.set({amount: 0, remainMoney: remain_money, status: constants.PAYMENT_FAILED});
                         await objPaymentPatient.save();
                         // update status cuộc tư vấn
                         objChatHistory.set({status: constants.STATUS_CONVERSATION_FINISH});
@@ -368,7 +368,10 @@ const checkDoctorReply = async function (req, res) {
                             // Tạo payment cho bác sỹ, thanh toán cho bác sỹ
                             let paymentIdDoctor = await createPaymentForDoctor(objChatHistory.id);
                             // update status done cho cuộc tư vấn, update payment id doctor vào cuộc chat
-                            objChatHistory.set({status:constants.STATUS_CONVERSATION_FINISH, paymentDoctorID:paymentIdDoctor.id});
+                            objChatHistory.set({
+                                status: constants.STATUS_CONVERSATION_FINISH,
+                                paymentDoctorID: paymentIdDoctor.id
+                            });
                             await objChatHistory.save();
                             //
                             let fullName = await getUser(objChatHistory.patientId);
@@ -457,7 +460,7 @@ const createNotification = async function (body) {
             message: body.message
         });
         await  notification.save(function (err, success) {
-            if(err){
+            if (err) {
                 console.log(err)
             }
         });
@@ -516,28 +519,31 @@ async function getUser(userId) {
 }
 
 
-
 const checkStatusChatsHistory = async function (req, res) {
-    let statusDone = false;
-    if (!req.params.id) {
+    let arrayResult = [];
+    let body = req.body;
+    if (!body) {
         return ReE(res, "Bad request", 400);
     }
     else {
-        let objChatHistory = await ChatsHistory.findById({_id: req.params.id});
-        if (!objChatHistory) {
-            return ReE(res, "Not found", 404);
-        }
-        else {
-            if (objChatHistory.status * 1 === constants.STATUS_CONVERSATION_FINISH) {
-                statusDone = true;
-                return ReS(res, {message: 'Kiểm tra cuộc tư vấn đã kết thúc hay chưa', statusDone: statusDone}, 200);
+        for (let i = 0; i < body.listId.length; i++) {
+            let objChatHistory = await ChatsHistory.findById({_id: body.listId[i]});
+            if (!objChatHistory) {
+                return ReE(res, "Not found", 404);
             }
             else {
-                statusDone = false;
-                return ReS(res, {message: 'Kiểm tra cuộc tư vấn đã kết thúc hay chưa', statusDone: statusDone}, 200);
+                if (objChatHistory.status * 1 !== constants.STATUS_CONVERSATION_FINISH) {
+                    let objChatDone = {
+                        ChatsHistoryID: objChatHistory.id,
+                        statusDone: true,
+                        message: "Cuộc tư vấn này đã kết thúc"
+                    };
+                    arrayResult.push(objChatDone);
+                }
             }
         }
     }
+    return ReS(res, {message: 'Result check', arrayResult: arrayResult}, 200);
 };
 
 module.exports.checkStatusChatsHistory = checkStatusChatsHistory;
