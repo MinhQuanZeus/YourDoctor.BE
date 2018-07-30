@@ -49,7 +49,7 @@ const create = async function (req, res) {
             }
         });
 
-        let fullName;
+        let fullName
         if (objUser) {
             fullName = " " + objUser.firstName + " " + objUser.middleName + " " + objUser.lastName + "";
         }
@@ -58,7 +58,7 @@ const create = async function (req, res) {
             data: {
                 senderId: chatHistory.patientId,
                 nameSender: fullName,
-                receiveId: chatHistory.doctorId,
+                receiverId: chatHistory.doctorId,
                 type: constants.NOTIFICATION_TYPE_CHAT,
                 storageId: chatHistory.id,
                 message: "" + fullName + " vừa tạo yêu cầu tư vấn qua nhắn tin với bạn",
@@ -71,7 +71,7 @@ const create = async function (req, res) {
         let notificationDoctor = {
             senderId: chatHistory.patientId,
             nameSender: fullName,
-            receiveId: chatHistory.doctorId,
+            receiverId: chatHistory.doctorId,
             type: constants.NOTIFICATION_TYPE_CHAT,
             storageId: chatHistory.id,
             message: "" + fullName + " vừa tạo yêu cầu tư vấn qua nhắn tin với bạn",
@@ -79,14 +79,15 @@ const create = async function (req, res) {
         await createNotification(notificationDoctor);
 
         // create data noti for patients
+        let fullNameDoctor = await getUser(chatHistory.doctorId);
         let payLoadForPatient = {
             data: {
-                senderId: constants.ID_ADMIN,
-                nameSender: constants.NAME_ADMIN,
-                receiveId: chatHistory.patientId,
+                senderId: chatHistory.doctorId,
+                nameSender: fullNameDoctor,
+                receiverId: chatHistory.patientId,
                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                 storageId: objPayment.id,
-                message: "Bạn vừa tạo một yêu cầu tư vấn. Bạn đã thanh toán: " + objPayment.amount + "VND. Số tiền bạn có hiện tại: " + objPayment.remainMoney + "VND.",
+                message: "Bạn vừa tạo một yêu cầu tư vấn với bác sỹ "+fullNameDoctor+". Bạn đã thanh toán: " + objPayment.amount + "VND. Số tiền bạn có hiện tại: " + objPayment.remainMoney + "VND.",
                 createTime: Date.now().toString()
             }
         };
@@ -96,7 +97,7 @@ const create = async function (req, res) {
         let notificationPatient = {
             senderId: constants.ID_ADMIN,
             nameSender: constants.NAME_ADMIN,
-            receiveId: chatHistory.patientId,
+            receiverId: chatHistory.patientId,
             type: constants.NOTIFICATION_TYPE_PAYMENT,
             storageId: objPayment.id,
             message: "Bạn vừa tạo một yêu cầu tư vấn. Bạn đã thanh toán: " + objPayment.amount + "VND.Số tiền bạn có hiện tại: " + objPayment.remainMoney + "VND."
@@ -154,7 +155,7 @@ const getAllConversationByPatient = async function (req, res) {
     if (req.query.pageSize) {
         pageSize = req.query.pageSize * 1;
     }
-    if(req.query.page){
+    if (req.query.page) {
         page = req.query.pageSize * 1;
     }
     try {
@@ -172,16 +173,17 @@ const getAllConversationByPatient = async function (req, res) {
                     select: 'firstName middleName lastName avatar'
                 }
             ).exec(function (err, listChatsHistory) {
-            if (err) TE(err.message);
+            if (err) {
+                return ReS(res, {message: 'Not found'}, 503);
+            }
             return ReS(res, {
                 message: 'Tạo danh sách lịch sử chat thành công',
                 listChatsHistory: listChatsHistory
             }, 200);
         });
     } catch (e) {
-
+        return ReS(res, {message: 'Not found'}, 503);
     }
-
 };
 
 module.exports.getAllConversationByPatient = getAllConversationByPatient;
@@ -195,7 +197,7 @@ const getAllConversationByDoctor = async function (req, res) {
     if (req.query.pageSize) {
         pageSize = req.query.pageSize * 1;
     }
-    if(req.query.page){
+    if (req.query.page) {
         page = req.query.pageSize * 1;
     }
     try {
@@ -213,14 +215,16 @@ const getAllConversationByDoctor = async function (req, res) {
                     select: 'firstName middleName lastName avatar'
                 }
             ).exec(function (err, listChatsHistory) {
-            if (err) TE(err.message);
+            if (err) {
+                return ReS(res, {message: 'Not found'}, 503);
+            }
             return ReS(res, {
                 message: 'Tạo danh sách lịch sử chat thành công',
                 listChatsHistory: listChatsHistory
             }, 200);
         });
     } catch (e) {
-
+        return ReS(res, {message: 'Not found'}, 503);
     }
 
 };
@@ -571,4 +575,13 @@ const checkStatusChatsHistory = async function (req, res) {
 };
 
 module.exports.checkStatusChatsHistory = checkStatusChatsHistory;
+
+async function getUser(userId) {
+    let fullName;
+    let objUser = await User.findById({_id: userId});
+    if (objUser) {
+        fullName = " " + objUser.firstName + " " + objUser.middleName + " " + objUser.lastName + "";
+    }
+    return fullName
+}
 

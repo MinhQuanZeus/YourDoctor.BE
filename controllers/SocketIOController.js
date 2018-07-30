@@ -79,7 +79,7 @@ module.exports = function (io,redis) {
                                 data: {
                                     senderId: reqSender,
                                     nameSender: fullName,
-                                    receiveId: reqReceiver,
+                                    receiverId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_CHAT,
                                     storageId: reqConversationID,
                                     message: ""+ fullName +" vừa nhắn tin cho bạn",
@@ -120,7 +120,7 @@ module.exports = function (io,redis) {
                                 data: {
                                     senderId: reqSender,
                                     nameSender: fullName,
-                                    receiveId: reqReceiver,
+                                    receiverId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
                                     message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND",
@@ -171,7 +171,7 @@ module.exports = function (io,redis) {
                                 data: {
                                     senderId: reqSender,
                                     nameSender: fullName,
-                                    receiveId: reqReceiver,
+                                    receiverId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
                                     message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney +"VND",

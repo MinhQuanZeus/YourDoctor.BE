@@ -1,6 +1,6 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
-const Account = require('../models').Account;
+const User = require('../models').User;
 
 module.exports = (passport) => {
     var opts = {};
@@ -9,7 +9,7 @@ module.exports = (passport) => {
 
     passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
         let err, user;
-        [err, user] = await to(Account.findById(jwt_payload.user_id));
+        [err, user] = await to(User.findById(jwt_payload.user_id));
         if (err) return done(err, false);
         if (user) {
             return done(null, user);

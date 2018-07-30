@@ -218,5 +218,8 @@ router.post('/uploadImageChat', passport.authenticate('jwt', {
 router.post('/notifications', passport.authenticate('jwt', {
     session: false
 }), NotificationController.create);
+router.get('/notifications/getAllNotificationByPatient/:receiverId', passport.authenticate('jwt', {
+    session: false
+}), NotificationController.getAllNotificationByPatient);
 
 module.exports = router;
