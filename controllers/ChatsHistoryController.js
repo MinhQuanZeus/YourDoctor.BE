@@ -100,7 +100,7 @@ const create = async function (req, res) {
             receiverId: chatHistory.patientId,
             type: constants.NOTIFICATION_TYPE_PAYMENT,
             storageId: objPayment.id,
-            message: "Bạn vừa tạo một yêu cầu tư vấn. Bạn đã thanh toán: " + objPayment.amount + "VND.Số tiền bạn có hiện tại: " + objPayment.remainMoney + "VND."
+            message: "Bạn vừa tạo một yêu cầu tư vấn "+fullNameDoctor+". Bạn đã thanh toán: " + objPayment.amount + "VND.Số tiền bạn có hiện tại: " + objPayment.remainMoney + "VND."
         };
         await  createNotification(notificationPatient);
         return ReS(res, {message: 'Tạo cuộc tư vấn thành công', chatHistory: chatHistory}, 200);
