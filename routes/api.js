@@ -44,6 +44,7 @@ router.put('/users', passport.authenticate('jwt', {
 router.put('/users/changePassword', passport.authenticate('jwt', {
     session: false
 }), UserController.changePassword);
+router.put('/users/forgotPassword', UserController.forgotPassword);
 router.delete('/users', passport.authenticate('jwt', {
     session: false
 }), UserController.remove);

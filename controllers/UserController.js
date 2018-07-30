@@ -92,13 +92,46 @@ const changePassword = async function (req, res) {
 };
 module.exports.changePassword = changePassword;
 
-const fogotPassword = async function (req, res) {
+const validator = require('validator');
+const forgotPassword = async function (req, res) {
     let data = req.body;
+    let changePasswordSuccess;
     if (!data) {
         ReS(res, {message: 'Bad request'}, 400);
     }
     else {
-        let objUser =
+        let objUser = await User.findById({_id:data.id});
+        if(!objUser){
+            ReS(res, {message: 'Not found user'}, 404);
+        }
+        else {
+            if (validator.isMobilePhone(data.phoneNumber, 'any')){
+                if(objUser.phoneNumber!== data.phoneNumber){
+                    changePasswordSuccess = false;
+                    ReS(res, {message: 'Số điện thoại không chính xác', changePasswordSuccess: changePasswordSuccess}, 200);
+                }
+                else {
+                    objUser.set({password:data.newPassword});
+                    objUser.save(function (err, success) {
+                        if(err){
+                            changePasswordSuccess = false;
+                            ReS(res, {message: 'Update Failed', changePasswordSuccess: changePasswordSuccess}, 503);
+                        }
+                        else {
+                            changePasswordSuccess = true;
+                            ReS(res, {message: 'Update Success', changePasswordSuccess: changePasswordSuccess}, 200);
+                        }
+                    });
+                }
+            }
+            else {
+                changePasswordSuccess = false;
+                ReS(res, {message: 'Số điện thoại không chính xác', changePasswordSuccess: changePasswordSuccess}, 200);
+            }
+        }
     }
-}
+};
+
+module.exports.forgotPassword = forgotPassword;
+
 
