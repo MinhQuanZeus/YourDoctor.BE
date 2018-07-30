@@ -58,3 +58,37 @@ const remove = async function (req, res) {
 };
 module.exports.remove = remove;
 
+const changePassword = async function (req, res) {
+    let data = req.body;
+    let objUpdateUser = await User.findById({_id:data.id});
+    console.log(objUpdateUser)
+    if(!objUpdateUser){
+        ReS(res, {message: 'Not found user'}, 404);
+    }
+    else {
+        [err,checkPassword] = await to(objUpdateUser.comparePassword(data.oldPassword))
+        if(err){
+            ReS(res, {message: 'Password cũ không chính xác'}, 503);
+        }
+        else if(checkPassword){
+            [err,objDuplicatePassword] = await to(objUpdateUser.comparePassword(data.newPassword))
+            if(objDuplicatePassword){
+                ReS(res, {message: 'Password mới không được trùng password cũ'}, 503);
+            }else {
+                objUpdateUser.set({password:data.newPassword});
+                await objUpdateUser.save(function (err, updateSuccess) {
+                    if(err){
+                        changePasswordSuccess = false;
+                        ReS(res, {message: 'Update Failed', changePasswordSuccess:changePasswordSuccess}, 503);
+                    }
+                    else {
+                        changePasswordSuccess = true;
+                        ReS(res, {message: 'Update Success',changePasswordSuccess:changePasswordSuccess}, 200);
+                    }
+                })
+            }
+        }
+    }
+};
+module.exports.changePassword = changePassword;
+
