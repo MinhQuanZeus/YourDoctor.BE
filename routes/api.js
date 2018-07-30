@@ -207,9 +207,7 @@ router.post('/uploadImageChat', passport.authenticate('jwt', {
 }), UploadImageController.upload);
 
 // test insert notification
-router.post('/notifications', passport.authenticate('jwt', {
-    session: false
-}), NotificationController.create);
+router.post('/notifications', NotificationController.create);
 router.get('/notifications/getAllNotificationByPatient/:receiverId', passport.authenticate('jwt', {
     session: false
 }), NotificationController.getAllNotificationByPatient);

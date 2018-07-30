@@ -155,7 +155,7 @@ const getAllConversationByPatient = async function (req, res) {
         pageSize = req.query.pageSize * 1;
     }
     if (req.query.page) {
-        page = req.query.pageSize * 1;
+        page = req.query.page * 1;
     }
     try {
         ChatsHistory.find({
@@ -197,7 +197,7 @@ const getAllConversationByDoctor = async function (req, res) {
         pageSize = req.query.pageSize * 1;
     }
     if (req.query.page) {
-        page = req.query.pageSize * 1;
+        page = req.query.page * 1;
     }
     try {
         ChatsHistory.find({

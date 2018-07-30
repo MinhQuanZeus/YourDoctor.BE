@@ -1,11 +1,11 @@
 const Notification = require('../models').Notification;
 
-const create = async function (req) {
+const create = async function (req, res) {
     try {
-    const body = req.body;
-    if(!body){
-        return;
-    }
+        const body = req.body;
+        if (!body) {
+            return;
+        }
         let notification = new Notification({
             senderId: body.senderId,
             nameSender: body.nameSender,
@@ -15,6 +15,7 @@ const create = async function (req) {
             message: body.message
         });
         await  notification.save();
+        return ReS(res, {message: 'insert notification thành công', notification: notification}, 200);
     }
     catch (e) {
         console.log(e);
@@ -32,25 +33,23 @@ const getAllNotificationByPatient = async function (req, res) {
     if (req.query.pageSize) {
         pageSize = req.query.pageSize * 1;
     }
-    if(req.query.page){
-        page = req.query.pageSize * 1;
+    if (req.query.page) {
+        page = req.query.page * 1;
     }
     try {
-        Notification.find({
+        let listNotification = await Notification.find({
             receiverId: req.params.receiverId,
-            deletionFlag: {$ne: true}
+            deletionFlag: false
         })
             .sort([['createdAt', -1]])
             .limit(pageSize)
             .skip(pageSize * page)
-            .exec(function (err, listNotification) {
-                if (err) {
-                    return ReS(res, {message: 'Not found'}, 503);
-                }
-           return ReS(res, {message: 'Tạo danh sách notification thành công', listNotification: listNotification}, 200);
-        });
+        if(!listNotification){
+            return ReS(res, {message: 'Not found'}, 404);
+        }
+        return ReS(res, {message: 'Tạo danh sách notification thành công', listNotification: listNotification}, 200);
     } catch (e) {
-        console.log(e)
+        return ReS(res, {message: 'Not found'}, 503);
     }
 };
 
