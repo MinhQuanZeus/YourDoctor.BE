@@ -146,19 +146,30 @@ const updateRecord = async function (req, res) {
 module.exports.updateRecord = updateRecord;
 
 const getAllConversationByPatient = async function (req, res) {
-    //Todo get
-    // sort status, time
+    if (!req.params.patientId) {
+        return ReS(res, {message: 'Bad request'}, 400);
+    }
+    let pageSize = 0;
+    let page = 0;
+    if (req.query.pageSize) {
+        pageSize = req.query.pageSize * 1;
+    }
+    if(req.query.page){
+        page = req.query.pageSize * 1;
+    }
     try {
         ChatsHistory.find({
             patientId: req.params.patientId,
             deletionFlag: {$ne: constants.CHAT_HISTORY_PATIENT_DELETE}
         })
-            .select('doctorId records status updatedAt deletionFlag')
-            .sort([['status', 'ascending'], ['updatedAt', -1]])
+            .select('doctorId records status updatedAt')
+            .sort([['status', -1], ['updatedAt', -1]])
+            .limit(pageSize)
+            .skip(pageSize * page)
             .populate(
                 {
                     path: 'doctorId',
-                    select: 'firstName middleName lastName'
+                    select: 'firstName middleName lastName avatar'
                 }
             ).exec(function (err, listChatsHistory) {
             if (err) TE(err.message);
@@ -176,19 +187,30 @@ const getAllConversationByPatient = async function (req, res) {
 module.exports.getAllConversationByPatient = getAllConversationByPatient;
 
 const getAllConversationByDoctor = async function (req, res) {
-    //Todo get
-    // sort status, time
+    if (!req.params.doctorId) {
+        return ReS(res, {message: 'Bad request'}, 400);
+    }
+    let pageSize = 0;
+    let page = 0;
+    if (req.query.pageSize) {
+        pageSize = req.query.pageSize * 1;
+    }
+    if(req.query.page){
+        page = req.query.pageSize * 1;
+    }
     try {
         ChatsHistory.find({
             doctorId: req.params.doctorId,
             deletionFlag: {$ne: constants.CHAT_HISTORY_DOCTOR_DELETE}
         })
-            .select('patientId records status updatedAt deletionFlag')
-            .sort([['status', 'ascending'], ['updatedAt', -1]])
+            .select('patientId records status updatedAt')
+            .sort([['status', -1], ['updatedAt', -1]])
+            .limit(pageSize)
+            .skip(pageSize * page)
             .populate(
                 {
                     path: 'patientId',
-                    select: 'firstName middleName lastName'
+                    select: 'firstName middleName lastName avatar'
                 }
             ).exec(function (err, listChatsHistory) {
             if (err) TE(err.message);
@@ -303,7 +325,7 @@ const checkDoctorReply = async function (req, res) {
                                 receiveId: objChatHistory.doctorId,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: objChatHistory.id,
-                                message: "Cuộc tư vấn với bệnh nhân " +fullNamePatient+" đã kết thúc do qua thời gian trả lời",
+                                message: "Cuộc tư vấn với bệnh nhân " + fullNamePatient + " đã kết thúc do qua thời gian trả lời",
                                 createTime: Date.now().toString()
                             }
                         };
@@ -316,11 +338,11 @@ const checkDoctorReply = async function (req, res) {
                             receiveId: objChatHistory.doctorId,
                             type: constants.NOTIFICATION_TYPE_PAYMENT,
                             storageId: objChatHistory.id,
-                            message: "Cuộc tư vấn với bệnh nhân " +fullNamePatient+" đã kết thúc do qua thời gian trả lời",
+                            message: "Cuộc tư vấn với bệnh nhân " + fullNamePatient + " đã kết thúc do qua thời gian trả lời",
                         };
                         await createNotification(objNotificationDoctorToSave);
-                    }else {
-                        if(objChatHistory.records[i].recorderID === objChatHistory.doctorId){
+                    } else {
+                        if (objChatHistory.records[i].recorderID === objChatHistory.doctorId) {
                             let paymentIdDoctor = await createPaymentForDoctor(objChatHistory.id);
                             // update status done cho cuộc tư vấn, update payment id doctor vào cuộc chat
                             objChatHistory.set({
@@ -382,7 +404,7 @@ const checkDoctorReply = async function (req, res) {
                             };
                             // send notification
                             await SendNotification.sendNotification(objChatHistory.doctorId, payLoadPatient);
-                        }else {
+                        } else {
                             // trường hợp chưa có tin nhắn nào từ bác sỹ
                             // chưa trả lời
                             // get objPayment bệnh nhân
@@ -440,7 +462,10 @@ const checkDoctorReply = async function (req, res) {
         catch (e) {
             arrayChatHistoryCheckFailed.push(body.listId[k])
         }
-        return ReS(res, {message: 'Danh sách ID chưa thể check', arrayChatHistoryCheckFailed: arrayChatHistoryCheckFailed}, 200);
+        return ReS(res, {
+            message: 'Danh sách ID chưa thể check',
+            arrayChatHistoryCheckFailed: arrayChatHistoryCheckFailed
+        }, 200);
     }
 
     //return ReS(res, {message: 'Result check', arrayResultCheck: arrayResultCheck}, 200);

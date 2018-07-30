@@ -15,6 +15,8 @@ const PatientsController = require('../controllers/PatientsController');
 const ChatsHistoryController = require('../controllers/ChatsHistoryController');
 const PaymentsHistoryController = require('../controllers/PaymentsHistoryController');
 const TokenNotificationController = require('../controllers/TokenNotificationController');
+const UploadImageController = require('../controllers/UploadImageController');
+const NotificationController = require('../controllers/NotificationController');
 const passport = require('passport');
 const path = require('path');
 
@@ -44,7 +46,9 @@ router.put('/users', passport.authenticate('jwt', {
 router.put('/users/changePassword', passport.authenticate('jwt', {
     session: false
 }), UserController.changePassword);
-router.put('/users/forgotPassword', UserController.forgotPassword);
+router.put('/users/forgotPassword', passport.authenticate('jwt', {
+    session: false
+}), UserController.forgotPassword);
 router.delete('/users', passport.authenticate('jwt', {
     session: false
 }), UserController.remove);
@@ -71,60 +75,130 @@ router.post('/ratings', RatingController.create);
 router.put('/ratings', RatingController.update);
 
 //--------------- Type_advisories
-router.post('/typeadvisorys', TypeAdvisoriesController.create);
-router.get('/typeadvisorys/getAllTypeAdvisories', TypeAdvisoriesController.getAllTypeAdvisories);
-router.get('/typeadvisorys/getTypeAdvisoriesById/:id', TypeAdvisoriesController.getTypeAdvisoriesById);
-router.put('/typeadvisorys', TypeAdvisoriesController.update);
-router.delete('/typeadvisorys', TypeAdvisoriesController.remove);
+router.post('/typeadvisorys',passport.authenticate('jwt', {
+    session: false
+}), TypeAdvisoriesController.create);
+router.get('/typeadvisorys/getAllTypeAdvisories',passport.authenticate('jwt', {
+    session: false
+}), TypeAdvisoriesController.getAllTypeAdvisories);
+router.get('/typeadvisorys/getTypeAdvisoriesById/:id',passport.authenticate('jwt', {
+    session: false
+}), TypeAdvisoriesController.getTypeAdvisoriesById);
+router.put('/typeadvisorys',passport.authenticate('jwt', {
+    session: false
+}), TypeAdvisoriesController.update);
+router.delete('/typeadvisorys',passport.authenticate('jwt', {
+    session: false
+}), TypeAdvisoriesController.remove);
 
 //---------------Banking_history
-router.post('/bankinghistorys', BankingHistoryController.create);
-router.get('/bankinghistorys', BankingHistoryController.getAllHistoryBanking);
-router.get('/bankinghistorys/:id', BankingHistoryController.getDetailHistoryById);
-router.delete('/bankinghistorys/:id', BankingHistoryController.removeLogic);
+router.post('/bankinghistorys', passport.authenticate('jwt', {
+    session: false
+}),BankingHistoryController.create);
+router.get('/bankinghistorys', passport.authenticate('jwt', {
+    session: false
+}),BankingHistoryController.getAllHistoryBanking);
+router.get('/bankinghistorys/:id', passport.authenticate('jwt', {
+    session: false
+}),BankingHistoryController.getDetailHistoryById);
+router.delete('/bankinghistorys/:id',passport.authenticate('jwt', {
+    session: false
+}), BankingHistoryController.removeLogic);
 
 //---------------Doctor
-router.post('/doctors', DoctorController.create);
-router.get('/doctors', DoctorController.getDoctor);
-router.get('/doctors/getInformationDoctorById/:doctorId', DoctorController.getInformationDoctorById);
-router.get('/doctors/getListSpecialistDoctor/:specialistId', DoctorController.getListSpecialistDoctor);
-router.put('/doctors', DoctorController.update);
-router.delete('/doctors', DoctorController.remove);
+router.post('/doctors',passport.authenticate('jwt', {
+    session: false
+}), DoctorController.create);
+router.get('/doctors',passport.authenticate('jwt', {
+    session: false
+}), DoctorController.getDoctor);
+router.get('/doctors/getInformationDoctorById/:doctorId',passport.authenticate('jwt', {
+    session: false
+}), DoctorController.getInformationDoctorById);
+router.get('/doctors/getListSpecialistDoctor/:specialistId',passport.authenticate('jwt', {
+    session: false
+}), DoctorController.getListSpecialistDoctor);
+router.put('/doctors',passport.authenticate('jwt', {
+    session: false
+}), DoctorController.update);
+router.delete('/doctors', passport.authenticate('jwt', {
+    session: false
+}),DoctorController.remove);
 
 
 //-----------Patient
-router.post('/patients', PatientsController.create);
-router.get('/patients/getPatients', PatientsController.getPatients);
-router.get('/patients/getInformationPatientById/:patientId', PatientsController.getInformationPatientById);
-router.get('/patients/getListFavoriteDoctor/:patientId', PatientsController.getListFavoriteDoctor);
-router.get('/patients/getListIDFavoriteDoctor/:patientId', PatientsController.getListIDFavoriteDoctor);
-router.put('/patients', PatientsController.update);
-router.put('/patients/addFavoriteDoctor', PatientsController.addFavoriteDoctor);
-router.put('/patients/removeFavoriteDoctor', PatientsController.removeFavoriteDoctor);
-router.delete('/patients', PatientsController.remove);
+router.post('/patients', passport.authenticate('jwt', {
+    session: false
+}),PatientsController.create);
+router.get('/patients/getPatients', passport.authenticate('jwt', {
+    session: false
+}),PatientsController.getPatients);
+router.get('/patients/getInformationPatientById/:patientId', passport.authenticate('jwt', {
+    session: false
+}),PatientsController.getInformationPatientById);
+router.get('/patients/getListFavoriteDoctor/:patientId',passport.authenticate('jwt', {
+    session: false
+}), PatientsController.getListFavoriteDoctor);
+router.get('/patients/getListIDFavoriteDoctor/:patientId',passport.authenticate('jwt', {
+    session: false
+}), PatientsController.getListIDFavoriteDoctor);
+router.put('/patients', passport.authenticate('jwt', {
+    session: false
+}),PatientsController.update);
+router.put('/patients/addFavoriteDoctor',passport.authenticate('jwt', {
+    session: false
+}), PatientsController.addFavoriteDoctor);
+router.put('/patients/removeFavoriteDoctor',passport.authenticate('jwt', {
+    session: false
+}), PatientsController.removeFavoriteDoctor);
+router.delete('/patients', passport.authenticate('jwt', {
+    session: false
+}),PatientsController.remove);
 
 //-----------ChatsHistory
-router.post('/chatshistorys', ChatsHistoryController.create);
-router.put('/chatshistorys', ChatsHistoryController.updateRecord);
-router.get('/chatshistorys/getAllConversationByPatient/:patientId', ChatsHistoryController.getAllConversationByPatient);
-router.get('/chatshistorys/getAllConversationByDoctor/:doctorId', ChatsHistoryController.getAllConversationByDoctor);
-router.get('/chatshistorys/getConversationByID/:id', ChatsHistoryController.getConversationByID);
-router.post('/chatshistorys/checkDoctorReply', ChatsHistoryController.checkDoctorReply);
-router.post('/chatshistorys/checkStatusChatsHistory', ChatsHistoryController.checkStatusChatsHistory);
+router.post('/chatshistorys', passport.authenticate('jwt', {
+    session: false
+}),ChatsHistoryController.create);
+router.put('/chatshistorys',passport.authenticate('jwt', {
+    session: false
+}), ChatsHistoryController.updateRecord);
+router.get('/chatshistorys/getAllConversationByPatient/:patientId',passport.authenticate('jwt', {
+    session: false
+}), ChatsHistoryController.getAllConversationByPatient);
+router.get('/chatshistorys/getAllConversationByDoctor/:doctorId',passport.authenticate('jwt', {
+    session: false
+}), ChatsHistoryController.getAllConversationByDoctor);
+router.get('/chatshistorys/getConversationByID/:id', passport.authenticate('jwt', {
+    session: false
+}),ChatsHistoryController.getConversationByID);
+router.post('/chatshistorys/checkDoctorReply',passport.authenticate('jwt', {
+    session: false
+}), ChatsHistoryController.checkDoctorReply);
+router.post('/chatshistorys/checkStatusChatsHistory', passport.authenticate('jwt', {
+    session: false
+}),ChatsHistoryController.checkStatusChatsHistory);
 
 //----------PaymentHistory
-router.post('/paymentshistorys', PaymentsHistoryController.create);
+router.post('/paymentshistorys',passport.authenticate('jwt', {
+    session: false
+}), PaymentsHistoryController.create);
 
 //----------TokenNotification
-router.post('/tokennotifications', TokenNotificationController.createToken);
-router.get('/tokennotifications/:userId', TokenNotificationController.getToken);
+router.post('/tokennotifications',passport.authenticate('jwt', {
+    session: false
+}), TokenNotificationController.createToken);
+router.get('/tokennotifications/:userId',passport.authenticate('jwt', {
+    session: false
+}), TokenNotificationController.getToken);
 
+// uploadImage
+router.post('/uploadImageChat',passport.authenticate('jwt', {
+    session: false
+}), UploadImageController.upload);
 
-/// upload image chat
-const UploadImageController = require('../controllers/UploadImageController');
-router.post('/uploadImageChat', UploadImageController.upload);
 // test insert notification
-const NotificationController = require('../controllers/NotificationController');
-router.post('/notifications', NotificationController.create);
+router.post('/notifications', passport.authenticate('jwt', {
+    session: false
+}),NotificationController.create);
 
 module.exports = router;
