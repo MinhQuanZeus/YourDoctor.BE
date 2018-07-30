@@ -95,8 +95,8 @@ const create = async function (req, res) {
         await SendNotification.sendNotification(chatHistory.patientId, payLoadForPatient);
         // save
         let notificationPatient = {
-            senderId: constants.ID_ADMIN,
-            nameSender: constants.NAME_ADMIN,
+            senderId: chatHistory.doctorId,
+            nameSender: fullNameDoctor,
             receiverId: chatHistory.patientId,
             type: constants.NOTIFICATION_TYPE_PAYMENT,
             storageId: objPayment.id,

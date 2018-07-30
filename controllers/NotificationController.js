@@ -35,9 +35,6 @@ const getAllNotificationByPatient = async function (req, res) {
     if(req.query.page){
         page = req.query.pageSize * 1;
     }
-    console.log(req.params.receiverId);
-    console.log(pageSize);
-    console.log(page);
     try {
         Notification.find({
             receiverId: req.params.receiverId,
