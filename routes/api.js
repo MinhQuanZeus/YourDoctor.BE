@@ -192,6 +192,9 @@ router.post('/chatshistorys/checkStatusChatsHistory', passport.authenticate('jwt
 router.post('/paymentshistorys', passport.authenticate('jwt', {
     session: false
 }), PaymentsHistoryController.create);
+router.get('/paymentshistorys/getPaymentHistoryByUser/:userID', passport.authenticate('jwt', {
+    session: false
+}), PaymentsHistoryController.getPaymentHistoryByUser);
 
 //----------TokenNotification
 router.post('/tokennotifications', passport.authenticate('jwt', {
