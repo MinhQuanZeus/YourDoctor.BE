@@ -28,19 +28,19 @@ module.exports.get = get;
 
 const update = async function (req, res) {
     let data = req.body;
-    let objUpdateUser = await User.findById({_id:data.id});
+    let objUpdateUser = await User.findById({_id: data.id});
     console.log(objUpdateUser)
-    if(!objUpdateUser){
+    if (!objUpdateUser) {
         ReS(res, {message: 'Not found user'}, 404);
     }
     else {
         objUpdateUser.set(data);
         await objUpdateUser.save(function (err, updateSuccess) {
-            if(err){
+            if (err) {
                 ReS(res, {message: 'Update Failed'}, 503);
             }
             else {
-                ReS(res, {message: 'Update Success',updateSuccess:updateSuccess}, 200);
+                ReS(res, {message: 'Update Success', updateSuccess: updateSuccess}, 200);
             }
         })
     }
@@ -60,30 +60,30 @@ module.exports.remove = remove;
 
 const changePassword = async function (req, res) {
     let data = req.body;
-    let objUpdateUser = await User.findById({_id:data.id});
+    let objUpdateUser = await User.findById({_id: data.id});
     console.log(objUpdateUser)
-    if(!objUpdateUser){
+    if (!objUpdateUser) {
         ReS(res, {message: 'Not found user'}, 404);
     }
     else {
-        [err,checkPassword] = await to(objUpdateUser.comparePassword(data.oldPassword))
-        if(err){
+        [err, checkPassword] = await to(objUpdateUser.comparePassword(data.oldPassword))
+        if (err) {
             ReS(res, {message: 'Password cũ không chính xác'}, 503);
         }
-        else if(checkPassword){
-            [err,objDuplicatePassword] = await to(objUpdateUser.comparePassword(data.newPassword))
-            if(objDuplicatePassword){
+        else if (checkPassword) {
+            [err, objDuplicatePassword] = await to(objUpdateUser.comparePassword(data.newPassword))
+            if (objDuplicatePassword) {
                 ReS(res, {message: 'Password mới không được trùng password cũ'}, 503);
-            }else {
-                objUpdateUser.set({password:data.newPassword});
+            } else {
+                objUpdateUser.set({password: data.newPassword});
                 await objUpdateUser.save(function (err, updateSuccess) {
-                    if(err){
-                        changePasswordSuccess = false;
-                        ReS(res, {message: 'Update Failed', changePasswordSuccess:changePasswordSuccess}, 503);
+                    if (err) {
+                        let changePasswordSuccess = false;
+                        ReS(res, {message: 'Update Failed', changePasswordSuccess: changePasswordSuccess}, 503);
                     }
                     else {
-                        changePasswordSuccess = true;
-                        ReS(res, {message: 'Update Success',changePasswordSuccess:changePasswordSuccess}, 200);
+                        let changePasswordSuccess = true;
+                        ReS(res, {message: 'Update Success', changePasswordSuccess: changePasswordSuccess}, 200);
                     }
                 })
             }
@@ -91,4 +91,14 @@ const changePassword = async function (req, res) {
     }
 };
 module.exports.changePassword = changePassword;
+
+const fogotPassword = async function (req, res) {
+    let data = req.body;
+    if (!data) {
+        ReS(res, {message: 'Bad request'}, 400);
+    }
+    else {
+        let objUser =
+    }
+}
 
