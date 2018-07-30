@@ -115,11 +115,11 @@ const forgotPassword = async function (req, res) {
                     objUser.save(function (err, success) {
                         if(err){
                             changePasswordSuccess = false;
-                            ReS(res, {message: 'Update Failed', changePasswordSuccess: changePasswordSuccess}, 503);
+                            ReS(res, {message: 'Change password failed', changePasswordSuccess: changePasswordSuccess}, 503);
                         }
                         else {
                             changePasswordSuccess = true;
-                            ReS(res, {message: 'Update Success', changePasswordSuccess: changePasswordSuccess}, 200);
+                            ReS(res, {message: 'Change password success', changePasswordSuccess: changePasswordSuccess}, 200);
                         }
                     });
                 }
