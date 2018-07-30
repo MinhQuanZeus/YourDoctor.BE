@@ -107,7 +107,6 @@ const create = async function (req, res) {
     } catch (e) {
         ReS(res, e.message, 503);
     }
-
 };
 
 module.exports.create = create;

@@ -71,18 +71,10 @@ router.delete('/reports', passport.authenticate('jwt', {
 
 
 //--------------- Specialist
-router.post('/specialists', passport.authenticate('jwt', {
-    session: false
-}), SpecialistController.create);
-router.get('/specialists', passport.authenticate('jwt', {
-    session: false
-}), SpecialistController.get);
-router.put('/specialists', passport.authenticate('jwt', {
-    session: false
-}), SpecialistController.update);
-router.delete('/specialists', passport.authenticate('jwt', {
-    session: false
-}), SpecialistController.remove);
+router.post('/specialists', SpecialistController.create);
+router.get('/specialists', SpecialistController.get);
+router.put('/specialists', SpecialistController.update);
+router.delete('/specialists', SpecialistController.remove);
 
 //--------------- Rating
 router.post('/ratings', passport.authenticate('jwt', {
