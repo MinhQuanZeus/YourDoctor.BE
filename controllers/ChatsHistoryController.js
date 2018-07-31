@@ -272,7 +272,7 @@ const checkDoctorReply = async function (req, res) {
                 // Trường hợp cuộc tư vấn chưa kết thúc
                 if (objChatHistory.status * 1 === constants.STATUS_CONVERSATION_TALKING) {
                     // k có record
-                    if (objChatHistory.records.length <= 0) {
+                    if (objChatHistory.records.length === 0) {
                         // chưa trả lời
                         // get objPayment bệnh nhân
                         let objPaymentPatient = await PaymentsHistory.findById({_id: objChatHistory.paymentPatientID});
@@ -345,7 +345,14 @@ const checkDoctorReply = async function (req, res) {
                         };
                         await createNotification(objNotificationDoctorToSave);
                     } else {
-                        if (objChatHistory.records[i].recorderID === objChatHistory.doctorId) {
+                        let isDoctorRely = false;
+                        for(let i = 0 ; i < objChatHistory.records.length ; i++){
+                            if(objChatHistory.records[i].recorderID === objChatHistory.doctorId){
+                                isDoctorRely = true;
+                            }
+                        }
+
+                        if(isDoctorRely === true){
                             let paymentIdDoctor = await createPaymentForDoctor(objChatHistory.id);
                             // update status done cho cuộc tư vấn, update payment id doctor vào cuộc chat
                             objChatHistory.set({
@@ -407,10 +414,7 @@ const checkDoctorReply = async function (req, res) {
                             };
                             // send notification
                             await SendNotification.sendNotification(objChatHistory.doctorId, payLoadPatient);
-                        } else {
-                            // trường hợp chưa có tin nhắn nào từ bác sỹ
-                            // chưa trả lời
-                            // get objPayment bệnh nhân
+                        }else {
                             let objPaymentPatient = await PaymentsHistory.findById({_id: objChatHistory.paymentPatientID});
                             // get objUser bệnh nhân => trả lại tiền
                             let objUser = await User.findById({_id: objChatHistory.patientId});
@@ -463,13 +467,14 @@ const checkDoctorReply = async function (req, res) {
             }
         }
         catch (e) {
+            console.log(e.toString());
             arrayChatHistoryCheckFailed.push(body.listId[k])
         }
-        return ReS(res, {
-            message: 'Danh sách ID chưa thể check',
-            arrayChatHistoryCheckFailed: arrayChatHistoryCheckFailed
-        }, 200);
     }
+    return ReS(res, {
+        message: 'Danh sách ID chưa thể check',
+        arrayChatHistoryCheckFailed: arrayChatHistoryCheckFailed
+    }, 200);
 
     //return ReS(res, {message: 'Result check', arrayResultCheck: arrayResultCheck}, 200);
 };
