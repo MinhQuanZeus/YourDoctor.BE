@@ -46,13 +46,14 @@ const getInformationPatientById = async function (req, res) {
     }
     try {
         let query = {patientId: req.params.patientId};
-        Patient.find(
+        Patient.findOne(
             query
         )
+            .select('favoriteDoctors -_id')
             .populate(
                 {
                     path: 'patientId',
-                    select: '-password'
+                    select: '-password -createdAt -updatedAt'
                 }
             )
             .exec(function (err, informationPatient) {

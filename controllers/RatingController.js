@@ -44,16 +44,16 @@ const update = async function (req, res) {
 };
 
 async function updateCurrentRating(doctorId, res) {
-    let averagePatientRate =0;
+    let averagePatientRate = 0;
     Rating.aggregate([
         {
-            $match:{doctorId:{$eq:doctorId}}
+            $match: {doctorId: {$eq: doctorId}}
         },
         {
             $group: {
                 _id: '$doctorId',  //$doctorId is the column name in collection
-                totalRating : {
-                    $sum : "$rating"
+                totalRating: {
+                    $sum: "$rating"
                 },
                 count: {$sum: 1}
             }
@@ -62,22 +62,58 @@ async function updateCurrentRating(doctorId, res) {
         if (err) {
             next(err);
         } else {
-            if(result.length>0){
-                averagePatientRate = ((result[0].totalRating + constants.FIRST_RATTING)/(result[0].count+1)).toFixed(2);
+            if (result.length > 0) {
+                averagePatientRate = ((result[0].totalRating + constants.FIRST_RATTING) / (result[0].count + 1)).toFixed(2);
             }
         }
     });
     // update to doctor table
-    let updateToDoctor = await Doctor.findOne({doctorId:doctorId});
-    if(!updateToDoctor){ReS(res, 'Update Failed', 503)}
-    updateToDoctor.set({currentRating:averagePatientRate});
+    let updateToDoctor = await Doctor.findOne({doctorId: doctorId});
+    if (!updateToDoctor) {
+        ReS(res, 'Update Failed', 503)
+    }
+    updateToDoctor.set({currentRating: averagePatientRate});
     updateToDoctor.save(function (err, newRating) {
-        if(err) ReS(res, 'Update Failed', 503);
+        if (err) ReS(res, 'Update Failed', 503);
         return ReS(res, {message: 'Update rating bác sỹ thành công', newRating: newRating.currentRating}, 200);
     })
 }
 
 module.exports.update = update;
+
+const getCommentAndRating = async function (req, res) {
+    let pageSize = 0;
+    let page = 0;
+    if (req.query.pageSize) {
+        pageSize = req.query.pageSize * 1
+    }
+    if (req.query.page) {
+        page = req.query.page * 1
+    }
+    try {
+        let listComment = await Rating.find({
+            doctorId: req.params.doctorId
+        })
+            .select('patientId rating comment createdAt -_id')
+            .sort([['createdAt', -1]])
+            .limit(pageSize)
+            .skip(pageSize * page)
+            .populate({
+                path: 'patientId',
+                select: 'firstName middleName lastName avatar'
+            });
+        if (!listComment) {
+            return ReS(res, {message: 'Not found list comment'}, 404);
+        }
+        else {
+            return ReS(res, {message: 'Get list comment success', listComment: listComment}, 404);
+        }
+    } catch (e) {
+        return ReS(res, {message: 'Not found list comment'}, 503);
+    }
+};
+
+module.exports.getCommentAndRating = getCommentAndRating;
 
 
 

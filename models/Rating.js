@@ -2,10 +2,12 @@ const mongoose = require('mongoose');
 
 let RatingSchema = mongoose.Schema({
     patientId: {
-        type: String
+        type: String,
+        ref: 'User'
     },
     doctorId: {
-        type: String
+        type: String,
+        ref: 'User'
     },
     rating: {
         type: Number

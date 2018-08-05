@@ -1,6 +1,5 @@
 const Doctor = require('../models').Doctor;
 const Patient = require('../models').Patient;
-let redis = require('redis').createClient('redis://h:pfa32d86610f60f897ee0702482e41cc8ec66524df29453a1ab46fdbc2cf039da@ec2-107-23-150-142.compute-1.amazonaws.com:50419');
 const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
@@ -125,17 +124,6 @@ const remove = async function (req, res) {
 module.exports.remove = remove;
 
 const getListSpecialistDoctor = async function (req, res) {
-    redis.get('userOnline', async function (error, result) {
-        if (error) {
-            console.log(error);
-            throw error;
-        }
-        else {
-            JSON.parse(result)
-        }
-        console.log('GET result ->' + result);
-
-
     // query - get params
     let arrayDoctor = [typeof String];
     try {
@@ -213,9 +201,45 @@ const getListSpecialistDoctor = async function (req, res) {
         console.log(e);
         return ReE(res, "ERROR0037", 503);
     }
-    });
 };
 
 module.exports.getListSpecialistDoctor = getListSpecialistDoctor;
 
+const getDoctorRankingBySpecialist = async function (req, res) {
+    if(!req.params.specialistId){
+        return ReE(res, "Bad request", 400);
+    }
+    else {
+        let pageSize = 0;
+        let page = 0;
+        if (req.query.pageSize) {
+            pageSize = req.query.pageSize * 1;
+        }
+        if (req.query.page) {
+            page = req.query.page * 1;
+        }
+        let listDoctorRanking = await Doctor.find({
+            'idSpecialist': {
+                '$elemMatch': {
+                    'specialistId': req.params.specialistId
+                }
+            }
+        })
+            .select('doctorId currentRating -_id')
+            .sort([['currentRating', -1]])
+            .limit(pageSize)
+            .skip(pageSize * page)
+            .populate({
+                path: 'doctorId',
+                select:'firstName middleName lastName avatar'
+            });
+        if(!listDoctorRanking){
+            return ReE(res, "Not found list", 404);
+        }
+        else {
+            return ReS(res, {message: 'Tạo danh sách xếp hạng bác sỹ theo chuyên khoa thành công', listDoctorRanking: listDoctorRanking}, 200);
+        }
+    }
+};
 
+module.exports.getDoctorRankingBySpecialist = getDoctorRankingBySpecialist;
