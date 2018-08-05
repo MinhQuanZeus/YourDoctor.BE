@@ -43,7 +43,7 @@ const getAllNotificationByPatient = async function (req, res) {
         })
             .sort([['createdAt', -1]])
             .limit(pageSize)
-            .skip(pageSize * page)
+            .skip(pageSize * page);
         if(!listNotification){
             return ReS(res, {message: 'Not found'}, 404);
         }
