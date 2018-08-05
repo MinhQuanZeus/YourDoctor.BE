@@ -1,4 +1,4 @@
-module.exports = function (io, redis) {
+module.exports = function (io) {
     let clientsOnline = {};
 
     var sequenceNumberByClient = new Map();
@@ -12,7 +12,6 @@ module.exports = function (io, redis) {
             socket.on('addUser', function (userID) {
                 // add id client online to array
                 clientsOnline[userID] = socket.id;
-                redis.set('userOnline', JSON.stringify(clientsOnline), redis.print);
                 console.log(userID);
                 sequenceNumberByClient.set(userID, socket);
             });
@@ -269,7 +268,6 @@ module.exports = function (io, redis) {
                     if (clientsOnline[key] === socket.id)
                         delete clientsOnline[key];
                 });
-                redis.set('userOnline', JSON.stringify(clientsOnline), redis.print);
                 sequenceNumberByClient.delete(socket.id);
                 console.info("Client gone id" + socket.id);
             });

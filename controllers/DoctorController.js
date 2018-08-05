@@ -124,82 +124,75 @@ const remove = async function (req, res) {
 module.exports.remove = remove;
 
 const getListSpecialistDoctor = async function (req, res) {
-    // query - get params
-    let arrayDoctor = [typeof String];
+    const specialistId = req.query["specialistId"];
+    const patientId = req.query["patientId"];
+    if (!specialistId || !patientId) {
+        ReE(res, "Vui long nhập specialist Id và patient Id");
+    }
     try {
-        //get list favorite doctor
-        let objPatient = await Patient.findOne({patientId: req.query.patientId});
-        if (objPatient) {
-            for (let i = 0; i < objPatient.favoriteDoctors.length; i++) {
-                let objDoctor = await Doctor.findOne({doctorId: objPatient.favoriteDoctors[i]});
-                for (let j = 0; j < objDoctor.idSpecialist.length; j++) {
-                    if (objDoctor.idSpecialist[j].specialistId === req.params.specialistId) {
-                        arrayDoctor.push(objDoctor.doctorId)
-                    }
-                }
-            }
+        let patient = await Patient.find({
+            patientId: patientId
+        });
+        if (patient.length === 0) {
+            ReE(res, "Bệnh nhân không tồn tại");
         }
 
-        let listDoctor = await Doctor.find({
-            'idSpecialist': {
-                '$elemMatch': {
-                    'specialistId': req.params.specialistId
+        const favoriteDoctors = patient[0].favoriteDoctors;
+        console.log(favoriteDoctors)
+
+        let doctors = await Doctor.find({
+            idSpecialist: {
+                $elemMatch: {
+                    specialistId: specialistId
                 }
-            },
-            'currentRating': {
-                $gte: 3
+            }
+        })
+            .select("currentRating -_id")
+            .sort([["currentRating", "descending"]])
+            .populate({
+                path: "doctorId",
+                select: "firstName middleName lastName avatar"
+            });
+        let results = [];
+        for (let doctor of doctors) {
+            const temp = favoriteDoctors.filter(obj => obj === (doctor.doctorId._id + ''));
+            console.log(temp)
+            var itemInfoDoctor = {
+                doctorId: doctor.doctorId._id,
+                firstName: doctor.doctorId.firstName,
+                middleName: doctor.doctorId.middleName,
+                lastName: doctor.doctorId.lastName,
+                avatar: doctor.doctorId.avatar,
+                currentRating: doctor.currentRating
+            };
+            if (temp && temp.length > 0) {
+                itemInfoDoctor.isFavorited = true;
+            } else {
+                itemInfoDoctor.isFavorited = false;
+            }
+
+            results.push(itemInfoDoctor);
+        }
+        results.sort(function (a, b) {
+            let aSize = a.isFavorited;
+            let bSize = b.isFavorited;
+            let aLow = a.currentRating;
+            let bLow = b.currentRating;
+            console.log(aLow + " | " + bLow);
+
+            if(aSize === bSize)
+            {
+                return (aLow > bLow) ? -1 : (aLow > bLow) ? 1 : 0;
+            }
+            else
+            {
+                return (aSize > bSize) ? -1 : 1;
             }
         });
-        for (let i = 0; i < listDoctor.length; i++) {
-            arrayDoctor.push(listDoctor[i].doctorId)
-        }
-        // delete duplicate id
-        let index = {};
-        for (let i = arrayDoctor.length - 1; i >= 0; i--) {
-            if (arrayDoctor[i] in index) {
-                // remove this item
-                arrayDoctor.splice(i, 1);
-            } else {
-                // add this value to index
-                index[arrayDoctor[i]] = true;
-            }
-        }
-        // loop
-        for (let i = 0; i <= arrayDoctor.length; i++) {
-
-            let itemDoctor = await Doctor.findOne({
-                'idSpecialist': {
-                    '$elemMatch': {
-                        'specialistId': req.params.specialistId
-                    }
-                },
-                'currentRating': {
-                    $gte: 3
-                },
-                'doctorId': arrayDoctor[i]
-            })
-                .select('currentRating -_id')
-                .sort([['currentRating', 'descending']])
-                .populate({
-                    path: 'doctorId',
-                    select: 'firstName middleName lastName avatar'
-                })
-            if (itemDoctor) {
-                let itemInfoDoctor = {
-                    doctorId: itemDoctor.doctorId._id,
-                    firstName: itemDoctor.doctorId.firstName,
-                    middleName: itemDoctor.doctorId.middleName,
-                    lastName: itemDoctor.doctorId.lastName,
-                    avatar:itemDoctor.doctorId.avatar,
-                    currentRating: itemDoctor.currentRating
-                };
-                listDoctor.push(itemInfoDoctor)
-            }
-        }
-        return ReS(res, {message: 'Tạo danh sách bác sỹ theo chuyên khoa thành công', listDoctor: listDoctor}, 200);
+        return ReS(res, { message: "success", doctorList: results }, 200);
     } catch (e) {
         console.log(e);
-        return ReE(res, "ERROR0037", 503);
+        ReE(res, "Không thể lấy được data");
     }
 };
 
