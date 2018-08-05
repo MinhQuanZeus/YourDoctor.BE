@@ -181,10 +181,19 @@ module.exports = function (io, redis) {
                 let send = socket;
                 //let send = sequenceNumberByClient.get(reqSender);
                 let receive = sequenceNumberByClient.get(reqReceiver);
-                if(!receive){
-                    if(!(receive.rooms.indexOf(reqConversationID) >= 0)){
+                if(receive != null){
+                    try {
+                        if (!receive.rooms.indexOf(reqConversationID) >= 0) {
+                            receive = null;
+                        }
+                    }catch (e) {
+                        console.log(e.toString());
                         receive = null;
                     }
+
+                    // if(io.sockets.rooms['/' + reqConversationID].indexOf(receive.id) >= 0){
+                    //     receive = null;
+                    // }
                 }
                 //Update status cua chat history là done (status : 2)
 
