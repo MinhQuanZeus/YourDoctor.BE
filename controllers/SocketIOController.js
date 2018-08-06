@@ -11,6 +11,7 @@ module.exports = function (io) {
             // ng dung emit create add vao 1 map
             socket.on('addUser', function (userID, type) {
                 // add id client online to array
+                socket.userID = userID;
                 if(type===2){
                     doctorsOnline[userID] = socket.id;
                 }
@@ -31,20 +32,14 @@ module.exports = function (io) {
 
             socket.on('joinRoom', function (roomID) {
                 socket.join(roomID);
-                // if(io.sockets.manager.rooms['/' + roomID].indexOf(socket.id) >= 0){
-                //     socket.join(roomID)
-                // }else {
-                //     socket.room = roomID;
-                //     // join room
-                //     socket.join(roomID);
-                //     console.log("User joined the room: " + socket.room);
-                // }
-
-               // socket.join(roomID);
+                socket.room = roomID;
+                sequenceNumberByClient.set(socket.userID, socket);
             });
 
             socket.on('leaveRoom', function (roomID) {
                 socket.leave(roomID);
+                socket.room = null;
+                sequenceNumberByClient.set(socket.userID, socket);
             });
 
 
@@ -53,23 +48,12 @@ module.exports = function (io) {
                 let receive = sequenceNumberByClient.get(reqReceiver);
 
                 if(receive != null){
-                    try {
-                        if (!receive.rooms.indexOf(reqConversationID) >= 0) {
-                            receive = null;
-                        }
-                    }catch (e) {
-                        console.log(e.toString());
+                    console.log("check receiver" + receive.userID + ", " + receive.room);
+
+                    if(reqConversationID !== receive.room){
                         receive = null;
                     }
-
-                    // if(io.sockets.rooms['/' + reqConversationID].indexOf(receive.id) >= 0){
-                    //     receive = null;
-                    // }
                 }
-
-                // if(!(receive.rooms.indexOf(reqConversationID) >= 0)){
-                //     receive = null;
-                // }
 
                 let megSender = {
                     senderID: reqSender,
@@ -185,18 +169,11 @@ module.exports = function (io) {
                 //let send = sequenceNumberByClient.get(reqSender);
                 let receive = sequenceNumberByClient.get(reqReceiver);
                 if(receive != null){
-                    try {
-                        if (!receive.rooms.indexOf(reqConversationID) >= 0) {
-                            receive = null;
-                        }
-                    }catch (e) {
-                        console.log(e.toString());
+                    console.log("check receiver" + receive.userID + ", " + receive.room);
+
+                    if(reqConversationID !== receive.room){
                         receive = null;
                     }
-
-                    // if(io.sockets.rooms['/' + reqConversationID].indexOf(receive.id) >= 0){
-                    //     receive = null;
-                    // }
                 }
                 //Update status cua chat history là done (status : 2)
 
@@ -273,7 +250,7 @@ module.exports = function (io) {
                         delete doctorsOnline[key];
                 });
                 let jhonKey = (sequenceNumberByClient.find(([, v]) => v === socket.id) || [])[0];
-                sequenceNumberByClient.delete(jhonKey);
+                sequenceNumberByClient.delete(socket.userID);
                 console.info("Client gone id" + socket.id);
                 socket.emit('getDoctorOnline',doctorsOnline);
             });
