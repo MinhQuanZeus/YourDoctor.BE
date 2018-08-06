@@ -80,9 +80,6 @@ router.delete('/specialists', SpecialistController.remove);
 router.post('/ratings', passport.authenticate('jwt', {
     session: false
 }), RatingController.create);
-router.put('/ratings', passport.authenticate('jwt', {
-    session: false
-}), RatingController.update);
 router.get('/ratings/:doctorId', passport.authenticate('jwt', {
     session: false
 }), RatingController.getCommentAndRating);

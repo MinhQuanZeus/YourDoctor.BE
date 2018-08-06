@@ -1,5 +1,5 @@
 module.exports = function (io) {
-    let clientsOnline = {};
+    let doctorsOnline = {};
 
     var sequenceNumberByClient = new Map();
 
@@ -9,13 +9,17 @@ module.exports = function (io) {
             console.info("Client connected id" + socket.id);
             // initialize this client's sequence number
             // ng dung emit create add vao 1 map
-            socket.on('addUser', function (userID) {
+            socket.on('addUser', function (userID, type) {
                 // add id client online to array
-                clientsOnline[userID] = socket.id;
-                console.log(userID);
+                if(type===2){
+                    doctorsOnline[userID] = socket.id;
+                }
                 sequenceNumberByClient.set(userID, socket);
             });
 
+            socket.on('getDoctorOnline',function () {
+                socket.emit('getDoctorOnline',doctorsOnline);
+            });
 
             // create room
             socket.on('createRoom', function (room) {
@@ -264,12 +268,14 @@ module.exports = function (io) {
             // when socket disconnects, remove it from the list:
             socket.on("disconnect", () => {
                 console.log(socket.id + " disconnect");
-                Object.keys(JSON.stringify(clientsOnline)).forEach(function (key) {
-                    if (clientsOnline[key] === socket.id)
-                        delete clientsOnline[key];
+                Object.keys(JSON.stringify(doctorsOnline)).forEach(function (key) {
+                    if (doctorsOnline[key] === socket.id)
+                        delete doctorsOnline[key];
                 });
-                sequenceNumberByClient.delete(socket.id);
+                let jhonKey = (sequenceNumberByClient.find(([, v]) => v === socket.id) || [])[0];
+                sequenceNumberByClient.delete(jhonKey);
                 console.info("Client gone id" + socket.id);
+                socket.emit('getDoctorOnline',doctorsOnline);
             });
         }
     );
