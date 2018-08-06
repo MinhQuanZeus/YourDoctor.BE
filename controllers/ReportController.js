@@ -6,20 +6,20 @@ const create = async function (req, res) {
         if(!body){
             return ReS(report, 'Bad request', 400);
         }else {
-            let objReportUpdate = await Report.findOne({idReporter:body.idReporter, idPersonBeingReported: body.idPersonBeingReported});
-            if(objReportUpdate){
-                objReportUpdate.set(body);
-                objReportUpdate.save();
-                return ReS(res, {message: 'Gửi báo cáo thành công',objReportUpdate:objReportUpdate }, 200);
+            let objReport = await Report.findOne({idReporter:body.idReporter, idPersonBeingReported: body.idPersonBeingReported});
+            if(objReport){
+                objReport.set(body);
+                objReport.save();
+                return ReS(res, {message: 'Gửi báo cáo thành công',objReport:objReport }, 200);
             }
             else {
-                let reportCreateNew = new Report({
+                let objReport = new Report({
                     idReporter: body.idReporter,
                     idPersonBeingReported: body.idPersonBeingReported,
                     reason: body.reason
                 });
-                await reportCreateNew.save();
-                return ReS(res, {message: 'Gửi báo cáo thành công',reportCreateNew:reportCreateNew }, 200);
+                await objReport.save();
+                return ReS(res, {message: 'Gửi báo cáo thành công',objReport:objReport }, 200);
             }
         }
     }
