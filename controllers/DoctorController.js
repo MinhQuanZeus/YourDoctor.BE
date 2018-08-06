@@ -1,5 +1,6 @@
 const Doctor = require('../models').Doctor;
 const Patient = require('../models').Patient;
+const User = require('../models').User;
 const create = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
@@ -90,19 +91,42 @@ module.exports.getInformationDoctorById = getInformationDoctorById;
 
 const update = async function (req, res) {
     let data;
+    let objUpdateDoctor;
+    let objUpdateUser;
     data = req.body;
     if (!data) return ReE(res, "ERROR0010", 400);
     try {
-        Doctor.findOne({doctorId: data.doctorId}, function (err, doctorUpdate) {
-            if (err) return ReE(res, "ERROR0035", 503);
-            if (!doctorUpdate) return ReE(res, "ERROR0009", 404);
-            doctorUpdate.set(data);
-            doctorUpdate.save(function (err, updatedDoctor) {
-                if (err) return ReE(res, "ERROR0035", 503);
-                return ReS(res, {message: 'Update thông tin bác sỹ thành công', updatedDoctor: updatedDoctor}, 200);
-            });
-        });
+        // update to doctor
+        let doctorUpdate = await Doctor.findOne({doctorId: data.doctorId});
+        await doctorUpdate.set(data);
+        objUpdateDoctor = await doctorUpdate.save();
+
+        /// update to user
+        let userUpdate = await User.findById({_id: data.doctorId});
+        await userUpdate.set(data);
+        objUpdateUser = await userUpdate.save();
+
+        if (objUpdateUser && objUpdateDoctor) {
+            let objReturn = {
+                firstName: objUpdateUser.firstName,
+                middleName: objUpdateUser.middleName,
+                lastName: objUpdateUser.lastName,
+                birthday: objUpdateUser.birthday,
+                address: objUpdateUser.address,
+                avatar: objUpdateUser.avatar,
+                gender: objUpdateUser.gender,
+                certificates: objUpdateDoctor.certificates,
+                idSpecialist: objUpdateDoctor.idSpecialist,
+                universityGraduate: objUpdateDoctor.universityGraduate,
+                yearGraduate: objUpdateDoctor.yearGraduate,
+                placeWorking: objUpdateDoctor.placeWorking
+            };
+            return ReS(res, {message: 'Update thông tin bác sỹ thành công', informationDoctor: objReturn}, 200);
+        }else {
+            return ReE(res, "ERROR0035", 503);
+        }
     } catch (e) {
+        console.log(e)
         return ReE(res, "ERROR0035", 503);
     }
 };
@@ -180,16 +204,14 @@ const getListSpecialistDoctor = async function (req, res) {
             let bLow = b.currentRating;
             console.log(aLow + " | " + bLow);
 
-            if(aSize === bSize)
-            {
+            if (aSize === bSize) {
                 return (aLow > bLow) ? -1 : (aLow > bLow) ? 1 : 0;
             }
-            else
-            {
+            else {
                 return (aSize > bSize) ? -1 : 1;
             }
         });
-        return ReS(res, { message: "success", doctorList: results }, 200);
+        return ReS(res, {message: "success", doctorList: results}, 200);
     } catch (e) {
         console.log(e);
         ReE(res, "Không thể lấy được data");
@@ -199,7 +221,7 @@ const getListSpecialistDoctor = async function (req, res) {
 module.exports.getListSpecialistDoctor = getListSpecialistDoctor;
 
 const getDoctorRankingBySpecialist = async function (req, res) {
-    if(!req.params.specialistId){
+    if (!req.params.specialistId) {
         return ReE(res, "Bad request", 400);
     }
     else {
@@ -224,13 +246,16 @@ const getDoctorRankingBySpecialist = async function (req, res) {
             .skip(pageSize * page)
             .populate({
                 path: 'doctorId',
-                select:'firstName middleName lastName avatar'
+                select: 'firstName middleName lastName avatar'
             });
-        if(!listDoctorRanking){
+        if (!listDoctorRanking) {
             return ReE(res, "Not found list", 404);
         }
         else {
-            return ReS(res, {message: 'Tạo danh sách xếp hạng bác sỹ theo chuyên khoa thành công', listDoctorRanking: listDoctorRanking}, 200);
+            return ReS(res, {
+                message: 'Tạo danh sách xếp hạng bác sỹ theo chuyên khoa thành công',
+                listDoctorRanking: listDoctorRanking
+            }, 200);
         }
     }
 };
