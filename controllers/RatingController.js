@@ -31,7 +31,7 @@ module.exports.create = create;
 
 async function updateCurrentRating(doctorId, res) {
     let averagePatientRate = 0;
-    Rating.aggregate([
+    await Rating.aggregate([
         {
             $match: {doctorId: {$eq: doctorId}}
         },
