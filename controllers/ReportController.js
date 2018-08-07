@@ -9,8 +9,13 @@ const create = async function (req, res) {
             let objReport = await Report.findOne({idReporter:body.idReporter, idPersonBeingReported: body.idPersonBeingReported});
             if(objReport){
                 objReport.set(body);
-                objReport.save();
-                return ReS(res, {message: 'Gửi báo cáo thành công',objReport:objReport }, 200);
+                let isSuccess = await objReport.save();
+                if(isSuccess){
+                    return ReS(res, {message: 'Gửi báo cáo thành công',isSuccess:true }, 200);
+                }
+                else {
+                    return ReS(res, {message: 'Gửi báo cáo không thành công',isSuccess:false }, 200);
+                }
             }
             else {
                 let objReport = new Report({
@@ -18,8 +23,13 @@ const create = async function (req, res) {
                     idPersonBeingReported: body.idPersonBeingReported,
                     reason: body.reason
                 });
-                await objReport.save();
-                return ReS(res, {message: 'Gửi báo cáo thành công',objReport:objReport }, 200);
+                let isSuccess = await objReport.save();
+                if(isSuccess){
+                    return ReS(res, {message: 'Gửi báo cáo thành công',isSuccess:true }, 200);
+                }
+                else {
+                    return ReS(res, {message: 'Gửi báo cáo không thành công',isSuccess:false }, 200);
+                }
             }
         }
     }
