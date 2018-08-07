@@ -100,5 +100,24 @@ const getCommentAndRating = async function (req, res) {
 
 module.exports.getCommentAndRating = getCommentAndRating;
 
+const countPatientRatingForDoctor = async function (req, res) {
+    try {
+        Rating.find({
+            doctorId:req.params.doctorId
+        }).count(function (err, count) {
+            if(err) {
+                return ReS(res, {message: 'Error count'}, 503);
+            }
+            else {
+                return ReS(res, {message: 'Count success',numberOfRecordRate:count}, 200);
+            }
+        })
+    }
+    catch (e) {
+        console.log(e)
+        return ReS(res, {message: 'Error count'}, 503);
+    }
+};
 
+module.exports.countPatientRatingForDoctor = countPatientRatingForDoctor;
 
