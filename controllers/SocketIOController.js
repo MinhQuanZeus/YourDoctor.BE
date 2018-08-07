@@ -249,8 +249,11 @@ module.exports = function (io) {
                     if (doctorsOnline[key] === socket.id)
                         delete doctorsOnline[key];
                 });
-                let jhonKey = (sequenceNumberByClient.find(([, v]) => v === socket.id) || [])[0];
-                sequenceNumberByClient.delete(socket.userID);
+                let userID
+                for (let [key, value] of sequenceNumberByClient) {
+                    if (value === socket.id) userID = key
+                }
+                if (userID) sequenceNumberByClient.delete(userID)
                 console.info("Client gone id" + socket.id);
                 socket.emit('getDoctorOnline',doctorsOnline);
             });
