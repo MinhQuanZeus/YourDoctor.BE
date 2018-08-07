@@ -83,6 +83,9 @@ router.post('/ratings', passport.authenticate('jwt', {
 router.get('/ratings/:doctorId', passport.authenticate('jwt', {
     session: false
 }), RatingController.getCommentAndRating);
+router.get('/ratings/countPatientRatingForDoctor/:doctorId', passport.authenticate('jwt', {
+    session: false
+}), RatingController.countPatientRatingForDoctor);
 
 //--------------- Type_advisories
 router.post('/typeadvisorys', passport.authenticate('jwt', {
@@ -128,7 +131,7 @@ router.get('/doctors/getInformationDoctorById/:doctorId', passport.authenticate(
 router.get('/doctors/getListSpecialistDoctor', passport.authenticate('jwt', {
     session: false
 }), DoctorController.getListSpecialistDoctor);
-router.get('/doctors/getDoctorRankingBySpecialist/:specialistId',passport.authenticate('jwt', {
+router.get('/doctors/getDoctorRankingBySpecialist/:specialistId', passport.authenticate('jwt', {
     session: false
 }), DoctorController.getDoctorRankingBySpecialist);
 router.put('/doctors', passport.authenticate('jwt', {
