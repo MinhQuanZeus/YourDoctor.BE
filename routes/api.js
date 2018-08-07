@@ -17,6 +17,7 @@ const PaymentsHistoryController = require('../controllers/PaymentsHistoryControl
 const TokenNotificationController = require('../controllers/TokenNotificationController');
 const UploadImageController = require('../controllers/UploadImageController');
 const NotificationController = require('../controllers/NotificationController');
+const BankController = require('../controllers/BankController');
 const passport = require('passport');
 const path = require('path');
 
@@ -221,4 +222,7 @@ router.get('/notifications/getAllNotificationByPatient/:receiverId', passport.au
     session: false
 }), NotificationController.getAllNotificationByPatient);
 
+//
+router.post('/banks', BankController.create);
+router.get('/banks', BankController.get);
 module.exports = router;
