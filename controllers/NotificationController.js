@@ -24,7 +24,7 @@ const create = async function (req, res) {
 
 module.exports.create = create;
 
-const getAllNotificationByPatient = async function (req, res) {
+const getAllNotificationByUser = async function (req, res) {
     if (!req.params.receiverId) {
         return ReS(res, {message: 'Bad request'}, 400);
     }
@@ -43,7 +43,11 @@ const getAllNotificationByPatient = async function (req, res) {
         })
             .sort([['createdAt', -1]])
             .limit(pageSize)
-            .skip(pageSize * page);
+            .skip(pageSize * page)
+            .populate({
+                path:'senderId',
+                select:'avatar -_id'
+            });
         if(!listNotification){
             return ReS(res, {message: 'Not found'}, 404);
         }
@@ -53,4 +57,4 @@ const getAllNotificationByPatient = async function (req, res) {
     }
 };
 
-module.exports.getAllNotificationByPatient = getAllNotificationByPatient;
+module.exports.getAllNotificationByUser = getAllNotificationByUser;

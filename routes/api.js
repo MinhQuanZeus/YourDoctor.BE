@@ -108,7 +108,7 @@ router.delete('/typeadvisorys', passport.authenticate('jwt', {
 //---------------Banking_history
 router.post('/bankinghistorys', passport.authenticate('jwt', {
     session: false
-}), BankingHistoryController.create);
+}), BankingHistoryController.doctorWithdrawal);
 router.get('/bankinghistorys', passport.authenticate('jwt', {
     session: false
 }), BankingHistoryController.getAllHistoryBanking);
@@ -218,9 +218,9 @@ router.post('/uploadImageChat', passport.authenticate('jwt', {
 
 // test insert notification
 router.post('/notifications', NotificationController.create);
-router.get('/notifications/getAllNotificationByPatient/:receiverId', passport.authenticate('jwt', {
+router.get('/notifications/getAllNotificationByUser/:receiverId', passport.authenticate('jwt', {
     session: false
-}), NotificationController.getAllNotificationByPatient);
+}), NotificationController.getAllNotificationByUser);
 
 //
 router.post('/banks', BankController.create);
