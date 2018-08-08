@@ -6,15 +6,18 @@ module.exports = function (io) {
 // event fired every time a new client connects:
     io.sockets.on("connection", (socket) => {
             //let sender, conversationID, type, value;
-            console.info("Client connected id" + socket.id);
+
             // initialize this client's sequence number
             // ng dung emit create add vao 1 map
             socket.on('addUser', function (userID, type) {
                 // add id client online to array
+                console.log("Client connected id" + socket.id);
+
                 socket.userID = userID;
                 if(type===2){
                     doctorsOnline[userID] = socket.id;
                 }
+                console.log("add user" + socket.userID);
                 sequenceNumberByClient.set(userID, socket);
             });
 
