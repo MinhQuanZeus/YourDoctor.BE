@@ -11,6 +11,7 @@ const create = async function (req, res) {
             userID: body.userID,
             amount: body.amount,
             remainMoney: body.remainMoney,
+            fromUser: body.fromUser,
             typeAdvisoryID: body.typeAdvisoryID,
             status: body.status
         });
@@ -44,6 +45,15 @@ const getPaymentHistoryByUser = async function (req, res) {
             .sort([['createdAt', -1]])
             .limit(pageSize)
             .skip(pageSize * page)
+            .populate({
+                path: 'fromUser',
+                select:'firstName middleName lastName -_id'
+
+            })
+            .populate({
+                path: 'typeAdvisoryID',
+                select:'name -_id'
+            });
         if(!listPaymentHistory){
             return ReS(res, {message: 'Not found'}, 404);
         }
