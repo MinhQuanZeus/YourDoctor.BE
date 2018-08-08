@@ -46,7 +46,7 @@ const getAllNotificationByUser = async function (req, res) {
             .skip(pageSize * page)
             .populate({
                 path:'senderId',
-                select:'avatar -_id'
+                select:'avatar'
             });
         if(!listNotification){
             return ReS(res, {message: 'Not found'}, 404);
