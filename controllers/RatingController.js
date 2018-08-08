@@ -31,6 +31,7 @@ module.exports.create = create;
 
 async function updateCurrentRating(doctorId, res) {
     let averagePatientRate = 0;
+    let finalRate = 0;
     await Rating.aggregate([
         {
             $match: {doctorId: {$eq: doctorId}}
@@ -50,7 +51,9 @@ async function updateCurrentRating(doctorId, res) {
         } else {
             console.log(result[0].totalRating)
             if (result.length > 0) {
-                averagePatientRate = ((result[0].totalRating + constants.FIRST_RATTING) / (result[0].count + 1)).toFixed(2);
+                averagePatientRate = ((result[0].totalRating + constants.FIRST_RATTING) / (result[0].count + 1));
+                let count = result[0].count + 1;
+                finalRate = (averagePatientRate / 2) + 2.5 * Math.pow(2.718, (-count / constants.Q_MODEL_RATE))
             }
         }
     });
@@ -59,7 +62,7 @@ async function updateCurrentRating(doctorId, res) {
     if (!updateToDoctor) {
         ReS(res, 'Update Failed', 503)
     }
-    await updateToDoctor.set({currentRating: averagePatientRate});
+    await updateToDoctor.set({currentRating: finalRate});
     await updateToDoctor.save(function (err, newRating) {
         if (err) ReS(res, 'Update Failed', 503);
         return ReS(res, {message: 'Update rating bác sỹ thành công', newRating: newRating.currentRating}, 200);
@@ -103,13 +106,13 @@ module.exports.getCommentAndRating = getCommentAndRating;
 const countPatientRatingForDoctor = async function (req, res) {
     try {
         Rating.find({
-            doctorId:req.params.doctorId
+            doctorId: req.params.doctorId
         }).count(function (err, count) {
-            if(err) {
+            if (err) {
                 return ReS(res, {message: 'Error count'}, 503);
             }
             else {
-                return ReS(res, {message: 'Count success',numberOfRecordRate:count}, 200);
+                return ReS(res, {message: 'Count success', numberOfRecordRate: count}, 200);
             }
         })
     }

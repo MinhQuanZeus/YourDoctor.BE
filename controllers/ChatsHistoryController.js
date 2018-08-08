@@ -162,7 +162,7 @@ const getAllConversationByPatient = async function (req, res) {
             patientId: req.params.patientId,
             deletionFlag: {$ne: constants.CHAT_HISTORY_PATIENT_DELETE}
         })
-            .select('doctorId records status updatedAt')
+            .select('doctorId records status createdAt updatedAt')
             .sort([['status', -1], ['updatedAt', -1]])
             .limit(pageSize)
             .skip(pageSize * page)
