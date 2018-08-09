@@ -32,6 +32,28 @@ const create = async function (req, res) {
 
 module.exports.create = create;
 
+// get detail doctor
+const getDetailDoctor = async function (req, res) {
+    try {
+        if(!req.params.doctorId){
+            return ReE(res, 'Bad request', 400);
+        }
+        else {
+            let detailDoctor = await Doctor.findOne({doctorId:req.params.doctorId});
+            if(detailDoctor){
+                return ReS(res, {message: 'Lấy thông tin bác sỹ thành công', detailDoctor: detailDoctor}, 200);
+            }
+            else {
+                return ReE(res, 'Not found doctor', 503);
+            }
+        }
+    }
+    catch (e) {
+        console.log(e)
+        return ReE(res, 'Not found doctor', 503);
+    }
+};
+module.exports.getDetailDoctor = getDetailDoctor;
 
 // admin get all doctor to view
 const getDoctor = async function (req, res) {
