@@ -135,6 +135,9 @@ router.get('/doctors/getListSpecialistDoctor', passport.authenticate('jwt', {
 router.get('/doctors/getDoctorRankingBySpecialist/:specialistId', passport.authenticate('jwt', {
     session: false
 }), DoctorController.getDoctorRankingBySpecialist);
+router.get('/doctors/getDetailDoctor/:doctorId', passport.authenticate('jwt', {
+    session: false
+}), DoctorController.getDetailDoctor);
 router.put('/doctors', passport.authenticate('jwt', {
     session: false
 }), DoctorController.update);
