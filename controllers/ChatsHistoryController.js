@@ -162,8 +162,8 @@ const getAllConversationByPatient = async function (req, res) {
             patientId: req.params.patientId,
             deletionFlag: {$ne: constants.CHAT_HISTORY_PATIENT_DELETE}
         })
-            .select('doctorId records status createdAt updatedAt')
-            .sort([['status', -1], ['updatedAt', -1]])
+            .select('contentTopic doctorId records status createdAt updatedAt')
+            .sort([['status', 'ascending'], ['updatedAt', -1]])
             .limit(pageSize)
             .skip(pageSize * page)
             .populate(
@@ -204,8 +204,8 @@ const getAllConversationByDoctor = async function (req, res) {
             doctorId: req.params.doctorId,
             deletionFlag: {$ne: constants.CHAT_HISTORY_DOCTOR_DELETE}
         })
-            .select('patientId records status updatedAt')
-            .sort([['status', -1], ['updatedAt', -1]])
+            .select('patientId records status createdAt updatedAt')
+            .sort([['status', 1], ['updatedAt', -1]])
             .limit(pageSize)
             .skip(pageSize * page)
             .populate(
