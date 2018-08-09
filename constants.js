@@ -18,6 +18,7 @@ module.exports = Object.freeze({
     PAYMENT_FAILED: 2,
     MALE: 1,
     FEMALE: 2,
+    GENDER_OTHER:3,
     NOTIFICATION_TYPE_CHAT: "1",
     NOTIFICATION_TYPE_VIDEO_CALL: "2",
     NOTIFICATION_TYPE_PAYMENT: "3",
