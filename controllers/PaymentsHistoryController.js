@@ -47,7 +47,7 @@ const getPaymentHistoryByUser = async function (req, res) {
             .skip(pageSize * page)
             .populate({
                 path: 'fromUser',
-                select:'firstName middleName lastName -_id'
+                select:'firstName middleName lastName avatar -_id'
 
             })
             .populate({
