@@ -6,11 +6,11 @@ CONFIG.app = process.env.APP || 'development';
 CONFIG.port = process.env.PORT || '3000';
 
 CONFIG.db_dialect = process.env.DB_DIALECT || 'mongo';
-CONFIG.db_host = process.env.DB_HOST || 'ds125841.mlab.com';
-CONFIG.db_port = process.env.DB_PORT || '25841';
-CONFIG.db_name = process.env.DB_NAME || 'heroku_9s7l353d';
-CONFIG.db_user = process.env.DB_USER || 'yourdoctoruser';
-CONFIG.db_password = process.env.DB_PASSWORD || '123abc';
+CONFIG.db_host = process.env.DB_HOST || '103.221.220.186';
+CONFIG.db_port = process.env.DB_PORT || '27017';
+CONFIG.db_name = process.env.DB_NAME || 'yourdoctordb';
+CONFIG.db_user = process.env.DB_USER || 'yourdoctoradmin';
+CONFIG.db_password = process.env.DB_PASSWORD || 'abc123';
 
 CONFIG.jwt_encryption = process.env.JWT_ENCRYPTION || '123@123';
 CONFIG.jwt_expiration = process.env.JWT_EXPIRATION || '10000';
