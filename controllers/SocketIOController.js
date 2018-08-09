@@ -256,7 +256,9 @@ module.exports = function (io) {
                 for (let [key, value] of sequenceNumberByClient) {
                     if (value === socket.id) userID = key
                 }
-                if (userID) sequenceNumberByClient.delete(userID)
+                console.log(userID + "da out !!!");
+                //if (userID) sequenceNumberByClient.delete(userID);
+                sequenceNumberByClient.delete(socket.userID)
                 console.info("Client gone id" + socket.id);
                 socket.emit('getDoctorOnline',doctorsOnline);
             });
