@@ -73,7 +73,8 @@ router.delete('/reports', passport.authenticate('jwt', {
 
 //--------------- Specialist
 router.post('/specialists', SpecialistController.create);
-router.get('/specialists', SpecialistController.get);
+router.get('/specialists/getListSpecialist', SpecialistController.getListSpecialist);
+router.get('/specialists/getDetailSpecialist/:specialistId', SpecialistController.getDetailSpecialist);
 router.put('/specialists', SpecialistController.update);
 router.delete('/specialists', SpecialistController.remove);
 
@@ -215,9 +216,7 @@ router.get('/tokennotifications/:userId', passport.authenticate('jwt', {
 }), TokenNotificationController.getToken);
 
 // uploadImage
-router.post('/uploadImageChat', passport.authenticate('jwt', {
-    session: false
-}), UploadImageController.upload);
+router.post('/uploadImageChat',UploadImageController.upload);
 
 // test insert notification
 router.post('/notifications', NotificationController.create);
