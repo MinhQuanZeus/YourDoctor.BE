@@ -192,6 +192,9 @@ router.get('/chatshistorys/getAllConversationByDoctor/:doctorId', passport.authe
 router.get('/chatshistorys/getConversationByID/:id', passport.authenticate('jwt', {
     session: false
 }), ChatsHistoryController.getConversationByID);
+router.get('/chatshistorys/getListConversationPending/:patientId', passport.authenticate('jwt', {
+    session: false
+}), ChatsHistoryController.getListConversationPending);
 router.post('/chatshistorys/checkDoctorReply', passport.authenticate('jwt', {
     session: false
 }), ChatsHistoryController.checkDoctorReply);

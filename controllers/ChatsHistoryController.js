@@ -480,6 +480,31 @@ const checkDoctorReply = async function (req, res) {
 };
 
 module.exports.checkDoctorReply = checkDoctorReply;
+
+const getListConversationPending = async function (req, res) {
+    try {
+        if(req.params.patientId){
+            let listPending = await ChatsHistory.find({
+                patientId:req.params.patientId,
+                status: constants.STATUS_CONVERSATION_TALKING
+            }).select('id')
+            if(listPending){
+                return ReS(res, {message: 'Danh sách cuộc tư vấn pending', listPending: listPending}, 200);
+            }else {
+                return ReE(res, "Not found", 503);
+            }
+        }
+        else {
+            return ReE(res, "Bad request", 400);
+        }
+    }
+    catch (e) {
+        console.log(e)
+        return ReE(res, "Not found", 503);
+    }
+};
+module.exports.getListConversationPending = getListConversationPending;
+
 //
 const createNotification = async function (body) {
     try {
