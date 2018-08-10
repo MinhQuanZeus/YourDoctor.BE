@@ -130,17 +130,18 @@ const update = async function (req, res) {
 
         if (objUpdateUser && objUpdateDoctor) {
             let objReturn = {
-                firstName: objUpdateUser.firstName,
-                middleName: objUpdateUser.middleName,
-                lastName: objUpdateUser.lastName,
+                // firstName: objUpdateUser.firstName,
+                // middleName: objUpdateUser.middleName,
+                // lastName: objUpdateUser.lastName,
+                _id:objUpdateUser.id,
                 birthday: objUpdateUser.birthday,
                 address: objUpdateUser.address,
                 avatar: objUpdateUser.avatar,
                 gender: objUpdateUser.gender,
-                certificates: objUpdateDoctor.certificates,
-                idSpecialist: objUpdateDoctor.idSpecialist,
-                universityGraduate: objUpdateDoctor.universityGraduate,
-                yearGraduate: objUpdateDoctor.yearGraduate,
+                // certificates: objUpdateDoctor.certificates,
+                // idSpecialist: objUpdateDoctor.idSpecialist,
+                // universityGraduate: objUpdateDoctor.universityGraduate,
+                // yearGraduate: objUpdateDoctor.yearGraduate,
                 placeWorking: objUpdateDoctor.placeWorking
             };
             return ReS(res, {message: 'Update thông tin bác sỹ thành công', informationDoctor: objReturn}, 200);
