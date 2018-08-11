@@ -54,6 +54,8 @@ router.delete('/users', passport.authenticate('jwt', {
     session: false
 }), UserController.remove);
 
+router.get('/users/get_all_user', UserController.get_all_user);
+
 
 //Phone
 router.post('/phone/sms', PhoneController.sendPhoneVerifyCode);

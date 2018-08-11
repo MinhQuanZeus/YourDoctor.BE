@@ -100,26 +100,35 @@ const forgotPassword = async function (req, res) {
         ReS(res, {message: 'Bad request'}, 400);
     }
     else {
-        let objUser = await User.findById({_id:data.id});
-        if(!objUser){
+        let objUser = await User.findById({_id: data.id});
+        if (!objUser) {
             ReS(res, {message: 'Not found user'}, 404);
         }
         else {
-            if (validator.isMobilePhone(data.phoneNumber, 'any')){
-                if(objUser.phoneNumber!== data.phoneNumber){
+            if (validator.isMobilePhone(data.phoneNumber, 'any')) {
+                if (objUser.phoneNumber !== data.phoneNumber) {
                     changePasswordSuccess = false;
-                    ReS(res, {message: 'Số điện thoại không chính xác', changePasswordSuccess: changePasswordSuccess}, 200);
+                    ReS(res, {
+                        message: 'Số điện thoại không chính xác',
+                        changePasswordSuccess: changePasswordSuccess
+                    }, 200);
                 }
                 else {
-                    objUser.set({password:data.newPassword});
+                    objUser.set({password: data.newPassword});
                     objUser.save(function (err, success) {
-                        if(err){
+                        if (err) {
                             changePasswordSuccess = false;
-                            ReS(res, {message: 'Change password failed', changePasswordSuccess: changePasswordSuccess}, 503);
+                            ReS(res, {
+                                message: 'Change password failed',
+                                changePasswordSuccess: changePasswordSuccess
+                            }, 503);
                         }
                         else {
                             changePasswordSuccess = true;
-                            ReS(res, {message: 'Change password success', changePasswordSuccess: changePasswordSuccess}, 200);
+                            ReS(res, {
+                                message: 'Change password success',
+                                changePasswordSuccess: changePasswordSuccess
+                            }, 200);
                         }
                     });
                 }
@@ -133,5 +142,63 @@ const forgotPassword = async function (req, res) {
 };
 
 module.exports.forgotPassword = forgotPassword;
+
+const get_all_user = async function (req, res) {
+    try {
+        let query = {};
+        if (req.query.page_size) {
+            query.page_size = req.query.page_size;
+        }
+        if (req.query.page_number) {
+            query.page_number = req.query.page_number;
+        }
+        if (req.query.search_keyword) {
+            query.search_keyword = req.query.search_keyword;
+        }
+        console.log(query.search_keyword)
+        if (req.query.status) {
+            query.status = req.query.status;
+        }
+        if (req.query.role) {
+            query.role = req.query.role;
+        }
+        if (req.query.sort_key) {
+            query.sort_key = req.query.sort_key;
+        }
+        if (req.query.sort_direction) {
+            query.sort_direction = req.query.sort_direction;
+        }
+        let finalList = [];
+        let listUser = await User.find({
+            status: query.status,
+            role: query.role,
+            deletionFlag: {$ne: true}
+        });
+        if (listUser) {
+            for (let objUser of listUser) {
+                let fullName = objUser.firstName + " " + objUser.middleName + " " + objUser.lastName;
+                console.log(fullName)
+                if (fullName.includes(query.search_keyword.toLowerCase())) {
+                    finalList.push(objUser);
+                }
+            }
+            // finalList.sort(function (a, b) {
+            //     let aSize = a.query.sort_key;
+            //     let bSize = b.query.sort_key;
+            //     if (query.sort_direction === 'desc') {
+            //         return (aSize > bSize) ? -1 : 1;
+            //     } else if (query.sort_direction === 'asc') {
+            //         return (aSize < bSize) ? -1 : 1;
+            //     }
+            // });
+            ReS(res, {message: finalList.length+"", listUser: finalList}, 200);
+        }
+    }
+    catch (e) {
+        console.log(e)
+    }
+};
+
+module.exports.get_all_user = get_all_user;
 
 
