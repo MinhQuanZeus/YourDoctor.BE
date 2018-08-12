@@ -87,7 +87,7 @@ const create = async function (req, res) {
                 receiverId: chatHistory.patientId,
                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                 storageId: objPayment.id,
-                message: "Bạn vừa tạo một yêu cầu tư vấn với bác sỹ "+fullNameDoctor+". Bạn đã thanh toán: " + objPayment.amount + "VND. Số tiền bạn có hiện tại: " + objPayment.remainMoney + "VND.",
+                message: "Bạn vừa tạo một yêu cầu tư vấn với bác sỹ " + fullNameDoctor + ". Bạn đã thanh toán: " + objPayment.amount + "VND. Số tiền bạn có hiện tại: " + objPayment.remainMoney + "VND.",
                 createTime: Date.now().toString()
             }
         };
@@ -100,7 +100,7 @@ const create = async function (req, res) {
             receiverId: chatHistory.patientId,
             type: constants.NOTIFICATION_TYPE_PAYMENT,
             storageId: objPayment.id,
-            message: "Bạn vừa tạo một yêu cầu tư vấn "+fullNameDoctor+". Bạn đã thanh toán: " + objPayment.amount + "VND.Số tiền bạn có hiện tại: " + objPayment.remainMoney + "VND."
+            message: "Bạn vừa tạo một yêu cầu tư vấn " + fullNameDoctor + ". Bạn đã thanh toán: " + objPayment.amount + "VND.Số tiền bạn có hiện tại: " + objPayment.remainMoney + "VND."
         };
         await  createNotification(notificationPatient);
         return ReS(res, {message: 'Tạo cuộc tư vấn thành công', chatHistory: chatHistory}, 200);
@@ -346,13 +346,13 @@ const checkDoctorReply = async function (req, res) {
                         await createNotification(objNotificationDoctorToSave);
                     } else {
                         let isDoctorRely = false;
-                        for(let i = 0 ; i < objChatHistory.records.length ; i++){
-                            if(objChatHistory.records[i].recorderID === objChatHistory.doctorId){
+                        for (let i = 0; i < objChatHistory.records.length; i++) {
+                            if (objChatHistory.records[i].recorderID === objChatHistory.doctorId) {
                                 isDoctorRely = true;
                             }
                         }
 
-                        if(isDoctorRely === true){
+                        if (isDoctorRely === true) {
                             let paymentIdDoctor = await createPaymentForDoctor(objChatHistory.id);
                             // update status done cho cuộc tư vấn, update payment id doctor vào cuộc chat
                             objChatHistory.set({
@@ -414,7 +414,7 @@ const checkDoctorReply = async function (req, res) {
                             };
                             // send notification
                             await SendNotification.sendNotification(objChatHistory.doctorId, payLoadPatient);
-                        }else {
+                        } else {
                             let objPaymentPatient = await PaymentsHistory.findById({_id: objChatHistory.paymentPatientID});
                             // get objUser bệnh nhân => trả lại tiền
                             let objUser = await User.findById({_id: objChatHistory.patientId});
@@ -483,14 +483,24 @@ module.exports.checkDoctorReply = checkDoctorReply;
 
 const getListConversationPending = async function (req, res) {
     try {
-        if(req.params.patientId){
+        if (req.params.patientId) {
             let listPending = await ChatsHistory.find({
-                patientId:req.params.patientId,
+                patientId: req.params.patientId,
                 status: constants.STATUS_CONVERSATION_TALKING
             }).select('id createdAt');
-            if(listPending){
-                return ReS(res, {message: 'Danh sách cuộc tư vấn pending', listPending: listPending}, 200);
-            }else {
+            let finalListPending = [];
+            if (listPending) {
+                for (let objPending of listPending) {
+                    let created_date = new Date(objPending.createdAt);
+                    let objPendingToPush = {
+                        _id:objPending.id,
+                        createdAt:objPending.createdAt,
+                        timeRemain: Date.now() - created_date.getTime()
+                    };
+                    finalListPending.push(objPendingToPush);
+                }
+                return ReS(res, {message: 'Danh sách cuộc tư vấn pending', listPending: finalListPending}, 200);
+            } else {
                 return ReE(res, "Not found", 503);
             }
         }
