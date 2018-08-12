@@ -4,8 +4,8 @@ const create = async function (req, res) {
     try {
         if (req.body) {
             let objIntroAndRule = IntroduceAndRule({
-                type: req.body.type,
-                content: req.body.content
+                type: body.type,
+                content: body.content
             });
             let objIntroAndRuleReturn = await objIntroAndRule.save();
             if (objIntroAndRuleReturn) {
