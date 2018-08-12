@@ -91,40 +91,54 @@ const changePassword = async function (req, res) {
     }
 };
 module.exports.changePassword = changePassword;
-const phoneService = require('./../services/PhoneService');
+
+const validator = require('validator');
 const forgotPassword = async function (req, res) {
-    if (!req.params.phoneNumber) {
+    let data = req.body;
+    let changePasswordSuccess;
+    if (!data) {
         ReS(res, {message: 'Bad request'}, 400);
     }
     else {
-        let objUser = await User.findOne({phoneNumber: req.params.phoneNumber});
-        if (objUser) {
-            const newPassword = "yd@" + Math.floor(10000 + 89999 * Math.random());
-            objUser.set({password: newPassword});
-            let objUserReturn = await objUser.save();
-            if (objUserReturn) {
-                [errors, status] = await to(phoneService.sendSMSPassword(req.params.phoneNumber, newPassword));
-                if (errors) {
-                    return ReE(res, {
-                        status: false,
-                        message: "Có lỗi khi gửi message!"
-                    }, 400);
-                } else {
-                    return ReS(res, {
-                        status: true,
-                        message: "Mật khẩu mới đã được gửi tới số điện thoại của bạn!"
-                    }, 200);
-                }
-            }
+        let objUser = await User.findById({_id: data.id});
+        if (!objUser) {
+            ReS(res, {message: 'Not found user'}, 404);
         }
         else {
-            return ReS(res, {
-                status: false,
-                message: "Số điện thoại không đúng."
-            }, 404);
+            if (validator.isMobilePhone(data.phoneNumber, 'any')) {
+                if (objUser.phoneNumber !== data.phoneNumber) {
+                    changePasswordSuccess = false;
+                    ReS(res, {
+                        message: 'Số điện thoại không chính xác',
+                        changePasswordSuccess: changePasswordSuccess
+                    }, 200);
+                }
+                else {
+                    objUser.set({password: data.newPassword});
+                    objUser.save(function (err, success) {
+                        if (err) {
+                            changePasswordSuccess = false;
+                            ReS(res, {
+                                message: 'Change password failed',
+                                changePasswordSuccess: changePasswordSuccess
+                            }, 503);
+                        }
+                        else {
+                            changePasswordSuccess = true;
+                            ReS(res, {
+                                message: 'Change password success',
+                                changePasswordSuccess: changePasswordSuccess
+                            }, 200);
+                        }
+                    });
+                }
+            }
+            else {
+                changePasswordSuccess = false;
+                ReS(res, {message: 'Số điện thoại không chính xác', changePasswordSuccess: changePasswordSuccess}, 200);
+            }
         }
     }
-
 };
 
 module.exports.forgotPassword = forgotPassword;
@@ -155,22 +169,22 @@ const getAllUser = async function (req, res) {
         }
         // create query
         let queryToSearch = {};
-        if (query.status !== '0' && query.role !== '0') {
-            queryToSearch = {status: query.status, role: query.role, deletionFlag: {$ne: true}}
+        if(query.status!=='0' && query.role !=='0'){
+            queryToSearch = {status: query.status,role: query.role,deletionFlag: {$ne: true}}
         }
-        else if (query.status !== '0' && query.role === '0') {
-            queryToSearch = {status: query.status, deletionFlag: {$ne: true}}
+        else if(query.status!=='0' && query.role ==='0'){
+            queryToSearch = {status: query.status,deletionFlag: {$ne: true}}
         }
-        else if (query.status === '0' && query.role !== '0') {
-            queryToSearch = {role: query.role, deletionFlag: {$ne: true}}
+        else if (query.status ==='0' && query.role!=='0'){
+            queryToSearch = {role: query.role,deletionFlag: {$ne: true}}
         }
-        else if (query.status === '0' && query.role === '0') {
+        else if(query.status ==='0' && query.role ==='0'){
             queryToSearch = {deletionFlag: {$ne: true}}
         }
         let finalList = [];
         let listUser = await User.find(queryToSearch);
         if (listUser) {
-            if (query.search_keyword) {
+            if(query.search_keyword){
                 for (let objUser of listUser) {
                     let fullName = objUser.firstName + " " + objUser.middleName + " " + objUser.lastName;
                     if (fullName.toLowerCase().includes(query.search_keyword.toLowerCase())) {
@@ -178,17 +192,17 @@ const getAllUser = async function (req, res) {
                         finalList.push(objUser);
                     }
                 }
-            } else {
+            }else {
                 for (let objUser of listUser) {
                     let fullName = objUser.firstName + " " + objUser.middleName + " " + objUser.lastName;
                     objUser.fullName = fullName;
                     finalList.push(objUser);
                 }
             }
-            if (query.sort_key && query.sort_direction) {
+            if(query.sort_key && query.sort_direction){
                 finalList.sort(function (a, b) {
-                    switch (query.sort_key) {
-                        case 'fullName': {
+                    switch (query.sort_key){
+                        case 'fullName':{
                             let aSize = a.fullName;
                             let bSize = b.fullName;
                             if (query.sort_direction.includes('desc')) {
@@ -196,9 +210,8 @@ const getAllUser = async function (req, res) {
                             } else if (query.sort_direction.includes('asc')) {
                                 return (aSize < bSize) ? -1 : 1;
                             }
-                            break;
-                        }
-                        case 'role': {
+                            break;}
+                        case 'role':{
                             let aSize = a.role;
                             let bSize = b.role;
                             if (query.sort_direction.includes('desc')) {
@@ -208,7 +221,7 @@ const getAllUser = async function (req, res) {
                             }
                             break;
                         }
-                        case 'status': {
+                        case 'status':{
                             let aSize = a.status;
                             let bSize = b.status;
                             if (query.sort_direction.includes('desc')) {
@@ -218,7 +231,7 @@ const getAllUser = async function (req, res) {
                             }
                             break;
                         }
-                        default : {
+                        default :{
                             let aSize = a.role;
                             let bSize = b.role;
                             if (query.sort_direction.includes('desc')) {
