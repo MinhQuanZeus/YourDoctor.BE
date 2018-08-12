@@ -17,8 +17,21 @@ const sendSMSVerification = async (phoneNumber) => {
         console.log(error);
         return Promise.reject("ERROR0007");
     }
-}
+};
 module.exports.sendSMSVerification = sendSMSVerification;
+
+const sendSMSPassword = async (phoneNumber, newPassword) => {
+    const mesage = "Your doctor! Mật khẩu tài khoản của Quý khách là: " +newPassword;
+    try {
+        const statusSendSMS = await sendSMS(phoneNumber, mesage);
+    } catch (error) {
+        console.log(error);
+        return Promise.reject("ERROR0007");
+    }
+};
+module.exports.sendSMSPassword = sendSMSPassword;
+
+
 const sendSMS = async (phoneNumber, content) => {
     var url = CONFIG.SPEED_SMS_URL;
     var params = JSON.stringify({
