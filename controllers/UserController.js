@@ -143,7 +143,7 @@ const forgotPassword = async function (req, res) {
 
 module.exports.forgotPassword = forgotPassword;
 
-const get_all_user = async function (req, res) {
+const getAllUser = async function (req, res) {
     try {
         let query = {};
         if (req.query.page_size) {
@@ -155,7 +155,6 @@ const get_all_user = async function (req, res) {
         if (req.query.search_keyword) {
             query.search_keyword = req.query.search_keyword;
         }
-        console.log(query.search_keyword)
         if (req.query.status) {
             query.status = req.query.status;
         }
@@ -168,30 +167,84 @@ const get_all_user = async function (req, res) {
         if (req.query.sort_direction) {
             query.sort_direction = req.query.sort_direction;
         }
+        // create query
+        let queryToSearch = {};
+        if(query.status!=='0' && query.role !=='0'){
+            queryToSearch = {status: query.status,role: query.role,deletionFlag: {$ne: true}}
+        }
+        else if(query.status!=='0' && query.role ==='0'){
+            queryToSearch = {status: query.status,deletionFlag: {$ne: true}}
+        }
+        else if (query.status ==='0' && query.role!=='0'){
+            queryToSearch = {role: query.role,deletionFlag: {$ne: true}}
+        }
+        else if(query.status ==='0' && query.role ==='0'){
+            queryToSearch = {deletionFlag: {$ne: true}}
+        }
         let finalList = [];
-        let listUser = await User.find({
-            status: query.status,
-            role: query.role,
-            deletionFlag: {$ne: true}
-        });
+        let listUser = await User.find(queryToSearch);
         if (listUser) {
-            for (let objUser of listUser) {
-                let fullName = objUser.firstName + " " + objUser.middleName + " " + objUser.lastName;
-                console.log(fullName)
-                if (fullName.includes(query.search_keyword.toLowerCase())) {
+            if(query.search_keyword){
+                for (let objUser of listUser) {
+                    let fullName = objUser.firstName + " " + objUser.middleName + " " + objUser.lastName;
+                    if (fullName.toLowerCase().includes(query.search_keyword.toLowerCase())) {
+                        objUser.fullName = fullName;
+                        finalList.push(objUser);
+                    }
+                }
+            }else {
+                for (let objUser of listUser) {
+                    let fullName = objUser.firstName + " " + objUser.middleName + " " + objUser.lastName;
+                    objUser.fullName = fullName;
                     finalList.push(objUser);
                 }
             }
-            // finalList.sort(function (a, b) {
-            //     let aSize = a.query.sort_key;
-            //     let bSize = b.query.sort_key;
-            //     if (query.sort_direction === 'desc') {
-            //         return (aSize > bSize) ? -1 : 1;
-            //     } else if (query.sort_direction === 'asc') {
-            //         return (aSize < bSize) ? -1 : 1;
-            //     }
-            // });
-            ReS(res, {message: finalList.length+"", listUser: finalList}, 200);
+            if(query.sort_key && query.sort_direction){
+                finalList.sort(function (a, b) {
+                    switch (query.sort_key){
+                        case 'fullName':{
+                            let aSize = a.fullName;
+                            let bSize = b.fullName;
+                            if (query.sort_direction.includes('desc')) {
+                                return (aSize > bSize) ? -1 : 1;
+                            } else if (query.sort_direction.includes('asc')) {
+                                return (aSize < bSize) ? -1 : 1;
+                            }
+                            break;}
+                        case 'role':{
+                            let aSize = a.role;
+                            let bSize = b.role;
+                            if (query.sort_direction.includes('desc')) {
+                                return (aSize > bSize) ? -1 : 1;
+                            } else if (query.sort_direction.includes('asc')) {
+                                return (aSize < bSize) ? -1 : 1;
+                            }
+                            break;
+                        }
+                        case 'status':{
+                            let aSize = a.status;
+                            let bSize = b.status;
+                            if (query.sort_direction.includes('desc')) {
+                                return (aSize > bSize) ? -1 : 1;
+                            } else if (query.sort_direction.includes('asc')) {
+                                return (aSize < bSize) ? -1 : 1;
+                            }
+                            break;
+                        }
+                        default :{
+                            let aSize = a.role;
+                            let bSize = b.role;
+                            if (query.sort_direction.includes('desc')) {
+                                return (aSize > bSize) ? -1 : 1;
+                            } else if (query.sort_direction.includes('asc')) {
+                                return (aSize < bSize) ? -1 : 1;
+                            }
+                            break;
+                        }
+                    }
+                });
+            }
+            ReS(res, {message: finalList.length, listUser: finalList}, 200);
         }
     }
     catch (e) {
@@ -199,6 +252,6 @@ const get_all_user = async function (req, res) {
     }
 };
 
-module.exports.get_all_user = get_all_user;
+module.exports.getAllUser = getAllUser;
 
 

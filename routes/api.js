@@ -54,7 +54,9 @@ router.delete('/users', passport.authenticate('jwt', {
     session: false,
 }), UserController.remove)
 
-router.get('/users/get_all_user', UserController.get_all_user)
+router.get('/users/get-all-user', passport.authenticate('jwt', {
+    session: false
+}), UserController.getAllUser);
 
 
 //Phone
@@ -221,7 +223,7 @@ router.get('/tokennotifications/:userId', passport.authenticate('jwt', {
 }), TokenNotificationController.getToken)
 
 // uploadImage
-router.post('/uploadImageChat', UploadImageController.upload)
+router.post('/uploadImageChat', UploadImageController.upload);
 
 // test insert notification
 router.post('/notifications', NotificationController.create)
