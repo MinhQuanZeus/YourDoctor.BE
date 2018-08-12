@@ -58,6 +58,8 @@ router.get('/users/get-all-user', passport.authenticate('jwt', {
     session: false
 }), UserController.getAllUser);
 
+// Introduce and Rule
+
 
 //Phone
 router.post('/phone/sms', PhoneController.sendPhoneVerifyCode)

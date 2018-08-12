@@ -487,7 +487,7 @@ const getListConversationPending = async function (req, res) {
             let listPending = await ChatsHistory.find({
                 patientId:req.params.patientId,
                 status: constants.STATUS_CONVERSATION_TALKING
-            }).select('id')
+            }).select('id createdAt');
             if(listPending){
                 return ReS(res, {message: 'Danh sách cuộc tư vấn pending', listPending: listPending}, 200);
             }else {
