@@ -1,28 +1,108 @@
 const BankingHistory = require('../models').BankingHistory;
-const create = async function (req, res) {
+const User = require('../models').User;
+const SendNotification = require('./NotificationFCMController');
+const Notification = require('../models').Notification;
+const constants = require('../constants')
+const doctorWithdrawal = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    const body = req.body;
-    if(!body.userId || !body.amount || !body.remainMoney || !body.nameBank || !body.accountNumber){
-        //TODO validate
-        return ReE(res, 'Tạo lịch sử giao dịch thất bại');
+    try {
+        const body = req.body;
+        if(!body){
+            return ReE(res, 'Bad request',400);
+        }
+        else {
+            let bankingHistory = new BankingHistory({
+                userId: body.userId,
+                amount: body.amount,
+                remainMoney: body.remainMoney,
+                type: body.type,
+                nameBank: body.nameBank,
+                accountNumber: body.accountNumber,
+                timeDeal: body.timeDeal,
+                isSuccess:false,
+                deletionFlag: body.deletionFlag
+            });
+            await  bankingHistory.save();
+
+            // update remain money for doctor
+            //get doctor
+            let objDoctor = await User.findById({_id:body.userId});
+            // update remain
+            await objDoctor.set({remainMoney:body.remainMoney});
+            let objSuccess = await objDoctor.save();
+            // check update success - send notification
+            if(objSuccess){
+                //send notification to doctor
+                let payLoadDoctor = {
+                    data: {
+                        senderId: constants.ID_ADMIN,
+                        nameSender: constants.NAME_ADMIN,
+                        receiverId: bankingHistory.userId,
+                        type: constants.NOTIFICATION_TYPE_BANKING,
+                        storageId: bankingHistory.id,
+                        message: "Tạo yêu cầu rút tiền thành công. Yêu cầu của bạn đang trong quá trình kiểm tra và xử lí.",
+                        createTime: Date.now().toString()
+                    }
+                };
+                // send
+                await SendNotification.sendNotification(bankingHistory.userId, payLoadDoctor);
+                // save
+                let notificationDoctor = {
+                    senderId: constants.ID_ADMIN,
+                    nameSender: constants.NAME_ADMIN,
+                    receiverId: bankingHistory.userId,
+                    type: constants.NOTIFICATION_TYPE_BANKING,
+                    storageId: bankingHistory.id,
+                    message: "Tạo yêu cầu rút tiền thành công. Yêu cầu của bạn đang trong quá trình kiểm tra và xử lí.",
+                };
+                await createNotification(notificationDoctor);
+                //send notification to Admin
+                let fullNameDoctor = await getUser(bankingHistory.userId);
+                let payLoadAmin = {
+                    data: {
+                        senderId: bankingHistory.userId,
+                        nameSender: fullNameDoctor,
+                        receiverId: constants.ID_ADMIN,
+                        type: constants.NOTIFICATION_TYPE_BANKING,
+                        storageId: bankingHistory.id,
+                        message: "Bác sỹ "+fullNameDoctor+" đã tạo yêu cầu rút tiền qua tài khoản ngân hàng - Chờ xử lí",
+                        createTime: Date.now().toString()
+                    }
+                };
+                // send
+                await SendNotification.sendNotification(constants.ID_ADMIN, payLoadAmin);
+                // save
+                let notificationAdmin = {
+                    senderId: bankingHistory.userId,
+                    nameSender: fullNameDoctor,
+                    receiverId: constants.ID_ADMIN,
+                    type: constants.NOTIFICATION_TYPE_BANKING,
+                    storageId: bankingHistory.id,
+                    message: "Bác sỹ "+fullNameDoctor+" đã tạo yêu cầu rút tiền qua tài khoản ngân hàng - Chờ xử lí",
+                };
+                await createNotification(notificationAdmin);
+
+                // return success
+                return ReS(res, {message: 'Tạo lịch sử giao dịch ngân hàng thành công',bankingHistory:bankingHistory}, 200);
+            }
+            else {
+                return ReE(res, 'Tạo yêu cầu rút tiền không thành công',503);
+            }
+
+        }
+    }catch (e) {
+        console.log(e);
+        return ReE(res, 'Tạo yêu cầu rút tiền không thành công',503);
     }
-    else {
-        let bankingHistory = new BankingHistory({
-            userId: body.userId,
-            amount: body.amount,
-            remainMoney: body.remainMoney,
-            type: body.type,
-            nameBank: body.nameBank,
-            accountNumber: body.accountNumber,
-            timeDeal: body.timeDeal,
-            deletionFlag: body.deletionFlag
-        });
-        await  bankingHistory.save();
-        return ReS(res, {message: 'Tạo lịch sử giao dịch ngân hàng thành công',bankingHistory:bankingHistory}, 200);
-    }
+
 };
 
-module.exports.create = create;
+module.exports.doctorWithdrawal = doctorWithdrawal;
+
+const patientRecharge = async function (req, res) {
+
+};
+module.exports.patientRecharge = patientRecharge;
 
 const getAllHistoryBanking = async function (req, res) {
     let query = {};
@@ -54,3 +134,37 @@ const removeLogic = async function (req, res) {
     });
 };
 module.exports.removeLogic = removeLogic;
+
+const payCashForDoctor =  async function (req, res) {
+
+};
+
+async function getUser(userId) {
+    let fullName;
+    let objUser = await User.findById({_id: userId});
+    if (objUser) {
+        fullName = " " + objUser.firstName + " " + objUser.middleName + " " + objUser.lastName + "";
+    }
+    return fullName
+}
+
+const createNotification = async function (body) {
+    try {
+        let notification = Notification({
+            senderId: body.senderId,
+            nameSender: body.nameSender,
+            receiverId: body.receiverId,
+            type: body.type,
+            storageId: body.storageId,
+            message: body.message
+        });
+        await  notification.save(function (err, success) {
+            if (err) {
+                console.log(err)
+            }
+        });
+    }
+    catch (e) {
+        console.log(e)
+    }
+};

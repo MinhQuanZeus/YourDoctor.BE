@@ -17,7 +17,7 @@ let chatsHistorySchema = mongoose.Schema({
     typeAdvisoryID: {type: String, ref: 'TypeAdvisories'},
     paymentPatientID: {type: String, ref: 'PaymentsHistory'},
     paymentDoctorID: {type: String, ref: 'PaymentsHistory'},
-    deletionFlag: {type: Boolean, default: false}
+    deletionFlag: {type: Number, default: 1}
 }, {timestamps: true});
 
 let ChatsHistory = module.exports = mongoose.model('ChatsHistory', chatsHistorySchema);

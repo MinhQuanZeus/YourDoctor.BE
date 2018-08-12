@@ -1,6 +1,6 @@
 const Account = require('../models').Account;
 const authService = require('./../services/AuthService');
-
+const User = require('../models').User;
 // const create = async function (req, res) {
 //     res.setHeader('Content-Type', 'application/json');
 //     const body = req.body;
@@ -27,28 +27,23 @@ const get = async function (req, res) {
 module.exports.get = get;
 
 const update = async function (req, res) {
-    let err, account, data;
-    account = req.account;
-    data = req.body;
-    user.set(data);
-
-    [err, account] = await to(account.save());
-    if (err) {
-        console.log(err, account);
-
-        if (err.message.includes('E11000')) {
-            if (err.message.includes('phone')) {
-                err = 'This phone number is already in use';
-            } else if (err.message.includes('email')) {
-                err = 'This email address is already in use';
-            } else {
-                err = 'Duplicate Key Entry';
-            }
-        }
-
-        return ReE(res, err);
+    let data = req.body;
+    let objUpdateUser = await User.findById({_id: data.id});
+    console.log(objUpdateUser)
+    if (!objUpdateUser) {
+        ReS(res, {message: 'Not found user'}, 404);
     }
-    return ReS(res, {message: 'Updated User: ' + user.email});
+    else {
+        objUpdateUser.set(data);
+        await objUpdateUser.save(function (err, updateSuccess) {
+            if (err) {
+                ReS(res, {message: 'Update Failed'}, 503);
+            }
+            else {
+                ReS(res, {message: 'Update Success', updateSuccess: updateSuccess}, 200);
+            }
+        })
+    }
 };
 module.exports.update = update;
 
@@ -63,14 +58,147 @@ const remove = async function (req, res) {
 };
 module.exports.remove = remove;
 
+const changePassword = async function (req, res) {
+    let data = req.body;
+    let objUpdateUser = await User.findById({_id: data.id});
+    console.log(objUpdateUser)
+    if (!objUpdateUser) {
+        ReS(res, {message: 'Not found user'}, 404);
+    }
+    else {
+        [err, checkPassword] = await to(objUpdateUser.comparePassword(data.oldPassword))
+        if (err) {
+            ReS(res, {message: 'Password cũ không chính xác'}, 503);
+        }
+        else if (checkPassword) {
+            [err, objDuplicatePassword] = await to(objUpdateUser.comparePassword(data.newPassword))
+            if (objDuplicatePassword) {
+                ReS(res, {message: 'Password mới không được trùng password cũ'}, 503);
+            } else {
+                objUpdateUser.set({password: data.newPassword});
+                await objUpdateUser.save(function (err, updateSuccess) {
+                    if (err) {
+                        let changePasswordSuccess = false;
+                        ReS(res, {message: 'Update Failed', changePasswordSuccess: changePasswordSuccess}, 503);
+                    }
+                    else {
+                        let changePasswordSuccess = true;
+                        ReS(res, {message: 'Update Success', changePasswordSuccess: changePasswordSuccess}, 200);
+                    }
+                })
+            }
+        }
+    }
+};
+module.exports.changePassword = changePassword;
 
-// const login = async function (req, res) {
-//     const body = req.body;
-//     let err, user;
+const validator = require('validator');
+const forgotPassword = async function (req, res) {
+    let data = req.body;
+    let changePasswordSuccess;
+    if (!data) {
+        ReS(res, {message: 'Bad request'}, 400);
+    }
+    else {
+        let objUser = await User.findById({_id: data.id});
+        if (!objUser) {
+            ReS(res, {message: 'Not found user'}, 404);
+        }
+        else {
+            if (validator.isMobilePhone(data.phoneNumber, 'any')) {
+                if (objUser.phoneNumber !== data.phoneNumber) {
+                    changePasswordSuccess = false;
+                    ReS(res, {
+                        message: 'Số điện thoại không chính xác',
+                        changePasswordSuccess: changePasswordSuccess
+                    }, 200);
+                }
+                else {
+                    objUser.set({password: data.newPassword});
+                    objUser.save(function (err, success) {
+                        if (err) {
+                            changePasswordSuccess = false;
+                            ReS(res, {
+                                message: 'Change password failed',
+                                changePasswordSuccess: changePasswordSuccess
+                            }, 503);
+                        }
+                        else {
+                            changePasswordSuccess = true;
+                            ReS(res, {
+                                message: 'Change password success',
+                                changePasswordSuccess: changePasswordSuccess
+                            }, 200);
+                        }
+                    });
+                }
+            }
+            else {
+                changePasswordSuccess = false;
+                ReS(res, {message: 'Số điện thoại không chính xác', changePasswordSuccess: changePasswordSuccess}, 200);
+            }
+        }
+    }
+};
 
-//     [err, user] = await to(authService.authUser(req.body));
-//     if (err) return ReE(res, err, 422);
+module.exports.forgotPassword = forgotPassword;
 
-//     return ReS(res, {token: user.getJWT(), user: user.toWeb()});
-// };
-// module.exports.login = login;
+const get_all_user = async function (req, res) {
+    try {
+        let query = {};
+        if (req.query.page_size) {
+            query.page_size = req.query.page_size;
+        }
+        if (req.query.page_number) {
+            query.page_number = req.query.page_number;
+        }
+        if (req.query.search_keyword) {
+            query.search_keyword = req.query.search_keyword;
+        }
+        console.log(query.search_keyword)
+        if (req.query.status) {
+            query.status = req.query.status;
+        }
+        if (req.query.role) {
+            query.role = req.query.role;
+        }
+        if (req.query.sort_key) {
+            query.sort_key = req.query.sort_key;
+        }
+        if (req.query.sort_direction) {
+            query.sort_direction = req.query.sort_direction;
+        }
+        let finalList = [];
+        let listUser = await User.find({
+            status: query.status,
+            role: query.role,
+            deletionFlag: {$ne: true}
+        });
+        if (listUser) {
+            for (let objUser of listUser) {
+                let fullName = objUser.firstName + " " + objUser.middleName + " " + objUser.lastName;
+                console.log(fullName)
+                if (fullName.includes(query.search_keyword.toLowerCase())) {
+                    finalList.push(objUser);
+                }
+            }
+            // finalList.sort(function (a, b) {
+            //     let aSize = a.query.sort_key;
+            //     let bSize = b.query.sort_key;
+            //     if (query.sort_direction === 'desc') {
+            //         return (aSize > bSize) ? -1 : 1;
+            //     } else if (query.sort_direction === 'asc') {
+            //         return (aSize < bSize) ? -1 : 1;
+            //     }
+            // });
+            ReS(res, {message: finalList.length+"", listUser: finalList}, 200);
+        }
+    }
+    catch (e) {
+        console.log(e)
+    }
+};
+
+module.exports.get_all_user = get_all_user;
+
+

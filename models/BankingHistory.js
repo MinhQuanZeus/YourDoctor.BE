@@ -22,6 +22,9 @@ let BankingHistorySchema = mongoose.Schema({
     timeDeal: {
         type: Date
     },
+    isSuccess:{
+      type:Boolean
+    },
     deletionFlag: {
         type: Boolean,
         default: false

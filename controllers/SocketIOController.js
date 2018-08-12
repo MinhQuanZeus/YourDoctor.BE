@@ -1,12 +1,30 @@
-module.exports = function (io,redis) {
-    let clientsOnline = {};
+module.exports = function (io) {
+    let doctorsOnline = {};
 
     var sequenceNumberByClient = new Map();
 
 // event fired every time a new client connects:
     io.sockets.on("connection", (socket) => {
             //let sender, conversationID, type, value;
-            console.log("socket connect: " + socket.id);
+
+            // initialize this client's sequence number
+            // ng dung emit create add vao 1 map
+            socket.on('addUser', function (userID, type) {
+                // add id client online to array
+                console.log("Client connected id" + socket.id);
+
+                socket.userID = userID;
+                if(type===2){
+                    doctorsOnline[userID] = socket.id;
+                }
+                console.log("add user" + socket.userID);
+                sequenceNumberByClient.set(userID, socket);
+            });
+
+            socket.on('getDoctorOnline',function () {
+                socket.emit('getDoctorOnline',doctorsOnline);
+            });
+
             // create room
             socket.on('createRoom', function (room) {
                 socket.room = room;
@@ -17,26 +35,29 @@ module.exports = function (io,redis) {
 
             socket.on('joinRoom', function (roomID) {
                 socket.join(roomID);
+                socket.room = roomID;
+                sequenceNumberByClient.set(socket.userID, socket);
             });
 
             socket.on('leaveRoom', function (roomID) {
                 socket.leave(roomID);
+                socket.room = null;
+                sequenceNumberByClient.set(socket.userID, socket);
             });
 
-            console.info("Client connected id" + socket.id);
-            // initialize this client's sequence number
-            // ng dung emit create add vao 1 map
-            socket.on('addUser', function (userID) {
-                // add id client online to array
-                clientsOnline[userID] = socket.id;
-                redis.set('userOnline', JSON.stringify(clientsOnline), redis.print);
-                console.log(userID);
-                sequenceNumberByClient.set(userID, socket);
-            });
 
             socket.on('sendMessage', async function (reqSender, reqReceiver, reqConversationID, reqType, reqValue) {
-                let send = sequenceNumberByClient.get(reqSender);
+                let send = socket;
                 let receive = sequenceNumberByClient.get(reqReceiver);
+
+                if(receive != null){
+                    console.log("check receiver" + receive.userID + ", " + receive.room);
+
+                    if(reqConversationID !== receive.room){
+                        receive = null;
+                    }
+                }
+
                 let megSender = {
                     senderID: reqSender,
                     type: reqType,
@@ -79,10 +100,10 @@ module.exports = function (io,redis) {
                                 data: {
                                     senderId: reqSender,
                                     nameSender: fullName,
-                                    receiveId: reqReceiver,
+                                    receiverId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_CHAT,
                                     storageId: reqConversationID,
-                                    message: ""+ fullName +" vừa nhắn tin cho bạn",
+                                    message: "" + fullName + " vừa nhắn tin cho bạn",
                                     createTime: Date.now().toString()
                                 }
                             };
@@ -94,7 +115,7 @@ module.exports = function (io,redis) {
                                 receiverId: reqReceiver,
                                 type: constants.NOTIFICATION_TYPE_CHAT,
                                 storageId: reqConversationID,
-                                message: ""+ fullName +" vừa nhắn tin cho bạn",
+                                message: "" + fullName + " vừa nhắn tin cho bạn",
                             };
                             await createNotification(objNotificationToSave);
                         }
@@ -105,13 +126,13 @@ module.exports = function (io,redis) {
                         //let objPaymentDoctor = await PaymentsHistory.findById({_id: paymentIdDoctor})
 
                         if (send != null) {
-                            console.log("ng nhan tin" +send + "");
+                            console.log("ng nhan tin" + send + "");
                             send.emit('errorUpdate', 'Số tin nhắn vượt qua giới hạn của gói tư vấn - Cuộc tư vấn đã kết thúc.');
                         }
                         if (receive != null) {
                             // json: số tiền nhận được, số tiền hiện tại đang có
-                            console.log("ng nhan tin" +send + "");
-                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "VND. Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND");
+                            console.log("ng nhan tin" + send + "");
+                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "VND. Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND");
                         }
                         else {
                             let fullName = await getUser(reqSender);
@@ -120,10 +141,10 @@ module.exports = function (io,redis) {
                                 data: {
                                     senderId: reqSender,
                                     nameSender: fullName,
-                                    receiveId: reqReceiver,
+                                    receiverId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
-                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND",
+                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
                                     createTime: Date.now().toString()
                                 }
                             };
@@ -136,7 +157,7 @@ module.exports = function (io,redis) {
                                 receiverId: reqReceiver,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: reqConversationID,
-                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND",
+                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
                             };
                             await createNotification(objNotificationToSave)
                         }
@@ -147,9 +168,16 @@ module.exports = function (io,redis) {
 
             socket.on('doneConversation', async function (reqSender, reqReceiver, reqConversationID) {
 
-                let send = sequenceNumberByClient.get(reqSender);
+                let send = socket;
+                //let send = sequenceNumberByClient.get(reqSender);
                 let receive = sequenceNumberByClient.get(reqReceiver);
+                if(receive != null){
+                    console.log("check receiver" + receive.userID + ", " + receive.room);
 
+                    if(reqConversationID !== receive.room){
+                        receive = null;
+                    }
+                }
                 //Update status cua chat history là done (status : 2)
 
                 if (updateStatus(reqConversationID)) {
@@ -162,7 +190,7 @@ module.exports = function (io,redis) {
                         // emit to receiver
                         if (receive != null) {
                             // json: số tiền nhận được, số tiền hiện tại đang có
-                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "+VND. Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND");
+                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "+VND. Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND");
 
                         } else {
                             let fullName = await getUser(reqSender);
@@ -171,10 +199,10 @@ module.exports = function (io,redis) {
                                 data: {
                                     senderId: reqSender,
                                     nameSender: fullName,
-                                    receiveId: reqReceiver,
+                                    receiverId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
-                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney +"VND",
+                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
                                     createTime: Date.now().toString()
                                 }
                             };
@@ -187,7 +215,7 @@ module.exports = function (io,redis) {
                                 receiverId: reqReceiver,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: reqConversationID,
-                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney+"VND",
+                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
                             };
                             await createNotification(objNotificationToSave);
                         }
@@ -219,13 +247,20 @@ module.exports = function (io,redis) {
 
             // when socket disconnects, remove it from the list:
             socket.on("disconnect", () => {
-                Object.keys(JSON.stringify(clientsOnline)).forEach(function(key){
-                    if(clientsOnline[key]===socket.id)
-                        delete clientsOnline[key];
+                console.log(socket.id + " disconnect");
+                Object.keys(JSON.stringify(doctorsOnline)).forEach(function (key) {
+                    if (doctorsOnline[key] === socket.id)
+                        delete doctorsOnline[key];
                 });
-                redis.set('userOnline', JSON.stringify(clientsOnline), redis.print);
-                sequenceNumberByClient.delete(socket.id);
+                let userID
+                for (let [key, value] of sequenceNumberByClient) {
+                    if (value === socket.id) userID = key
+                }
+                console.log(userID + "da out !!!");
+                //if (userID) sequenceNumberByClient.delete(userID);
+                sequenceNumberByClient.delete(socket.userID)
                 console.info("Client gone id" + socket.id);
+                socket.emit('getDoctorOnline',doctorsOnline);
             });
         }
     );
@@ -301,7 +336,7 @@ module.exports = function (io,redis) {
             await objChatHistory.save(function (err, objUpdate) {
             });
 
-            if(await getStatus(reqConversationID)=== constants.STATUS_CONVERSATION_FINISH){
+            if (await getStatus(reqConversationID) === constants.STATUS_CONVERSATION_FINISH) {
                 success = true;
             }
 
@@ -334,6 +369,7 @@ module.exports = function (io,redis) {
                     userID: objChatHistory.doctorId,
                     amount: objTypeAdvisory.price * 1 * constants.PERCENT_PAY_FOR_DOCTOR,
                     remainMoney: remainMoney,
+                    fromUser:objChatHistory.patientId,
                     typeAdvisoryID: objChatHistory.typeAdvisoryID,
                     status: constants.PAYMENT_SUCCESS
                 });
@@ -368,7 +404,7 @@ module.exports = function (io,redis) {
                 message: body.message
             });
             await  notification.save(function (err, success) {
-                if(err){
+                if (err) {
                     console.log(err)
                 }
             });

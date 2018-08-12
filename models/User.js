@@ -35,7 +35,7 @@ let UserSchema = mongoose.Schema({
     address: {
         type: String
     },
-    avatar: {
+        avatar: {
         type: String
     },
     remainMoney:{
@@ -46,6 +46,9 @@ let UserSchema = mongoose.Schema({
     },
     gender:{
          type:Number
+    },
+    status:{
+            type:Number,
     },
     deletionFlag: {
         type: Boolean,
