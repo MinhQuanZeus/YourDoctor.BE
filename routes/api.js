@@ -18,6 +18,7 @@ const TokenNotificationController = require('../controllers/TokenNotificationCon
 const UploadImageController = require('../controllers/UploadImageController');
 const NotificationController = require('../controllers/NotificationController');
 const BankController = require('../controllers/BankController');
+const IntroduceAndRuleController = require('../controllers/IntroduceAndRuleController');
 const passport = require('passport');
 const path = require('path');
 
@@ -57,7 +58,8 @@ router.get('/users/get-all-user', passport.authenticate('jwt', {
 }), UserController.getAllUser);
 
 // Introduce and Rule
-
+router.post('/IntroduceAndRule', IntroduceAndRuleController.create);
+router.get('/IntroduceAndRule', IntroduceAndRuleController.get);
 
 //Phone
 router.post('/phone/sms', PhoneController.sendPhoneVerifyCode);
