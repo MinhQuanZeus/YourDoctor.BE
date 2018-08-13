@@ -19,6 +19,7 @@ const UploadImageController = require('../controllers/UploadImageController');
 const NotificationController = require('../controllers/NotificationController');
 const BankController = require('../controllers/BankController');
 const IntroduceAndRuleController = require('../controllers/IntroduceAndRuleController');
+const StaffController = require('../controllers/StaffController');
 const passport = require('passport');
 const path = require('path');
 
@@ -237,6 +238,9 @@ router.post('/notifications', NotificationController.create);
 router.get('/notifications/getAllNotificationByUser/:receiverId', passport.authenticate('jwt', {
     session: false
 }), NotificationController.getAllNotificationByUser);
+
+/// Stafff
+router.post('/staffs', StaffController.createStaff);
 
 //
 router.post('/banks', BankController.create);

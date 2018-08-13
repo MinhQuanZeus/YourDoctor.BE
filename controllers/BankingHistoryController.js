@@ -1,4 +1,5 @@
 const BankingHistory = require('../models').BankingHistory;
+const Staff = require('../models').Staff;
 const User = require('../models').User;
 const SendNotification = require('./NotificationFCMController');
 const Notification = require('../models').Notification;
@@ -58,30 +59,32 @@ const doctorWithdrawal = async function (req, res) {
                 await createNotification(notificationDoctor);
                 //send notification to Admin
                 let fullNameDoctor = await getUser(bankingHistory.userId);
-                let payLoadAmin = {
-                    data: {
+                let listStaff = await Staff.find({department:'Kế toán'}).select('id');
+                for(let objStaff of listStaff){
+                    let payLoadAmin = {
+                        data: {
+                            senderId: bankingHistory.userId,
+                            nameSender: fullNameDoctor,
+                            receiverId: objStaff.id,
+                            type: constants.NOTIFICATION_TYPE_BANKING,
+                            storageId: bankingHistory.id,
+                            message: "Bác sỹ "+fullNameDoctor+" đã tạo yêu cầu rút tiền qua tài khoản ngân hàng - Chờ xử lí",
+                            createTime: Date.now().toString()
+                        }
+                    };
+                    // send
+                    await SendNotification.sendNotification(objStaff.id, payLoadAmin);
+                    // save
+                    let notificationAdmin = {
                         senderId: bankingHistory.userId,
                         nameSender: fullNameDoctor,
-                        receiverId: constants.ID_ADMIN,
+                        receiverId: objStaff.id,
                         type: constants.NOTIFICATION_TYPE_BANKING,
                         storageId: bankingHistory.id,
                         message: "Bác sỹ "+fullNameDoctor+" đã tạo yêu cầu rút tiền qua tài khoản ngân hàng - Chờ xử lí",
-                        createTime: Date.now().toString()
-                    }
-                };
-                // send
-                await SendNotification.sendNotification(constants.ID_ADMIN, payLoadAmin);
-                // save
-                let notificationAdmin = {
-                    senderId: bankingHistory.userId,
-                    nameSender: fullNameDoctor,
-                    receiverId: constants.ID_ADMIN,
-                    type: constants.NOTIFICATION_TYPE_BANKING,
-                    storageId: bankingHistory.id,
-                    message: "Bác sỹ "+fullNameDoctor+" đã tạo yêu cầu rút tiền qua tài khoản ngân hàng - Chờ xử lí",
-                };
-                await createNotification(notificationAdmin);
-
+                    };
+                    await createNotification(notificationAdmin);
+                }
                 // return success
                 return ReS(res, {message: 'Tạo lịch sử giao dịch ngân hàng thành công',bankingHistory:bankingHistory}, 200);
             }
@@ -98,6 +101,8 @@ const doctorWithdrawal = async function (req, res) {
 };
 
 module.exports.doctorWithdrawal = doctorWithdrawal;
+
+
 
 const patientRecharge = async function (req, res) {
 
