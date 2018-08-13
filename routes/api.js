@@ -5,21 +5,22 @@ const UserController = require('./../controllers/UserController')
 const PhoneController = require('./../controllers/PhoneController')
 const AuthController = require('./../controllers/AuthController')
 
-const ReportController = require('../controllers/ReportController')
-const SpecialistController = require('../controllers/SpecialistController')
-const RatingController = require('../controllers/RatingController')
-const TypeAdvisoriesController = require('../controllers/TypeAdvisoriesController')
-const BankingHistoryController = require('../controllers/BankingHistoryController')
-const DoctorController = require('../controllers/DoctorController')
-const PatientsController = require('../controllers/PatientsController')
-const ChatsHistoryController = require('../controllers/ChatsHistoryController')
-const PaymentsHistoryController = require('../controllers/PaymentsHistoryController')
-const TokenNotificationController = require('../controllers/TokenNotificationController')
-const UploadImageController = require('../controllers/UploadImageController')
-const NotificationController = require('../controllers/NotificationController')
-const BankController = require('../controllers/BankController')
-const passport = require('passport')
-const path = require('path')
+const ReportController = require('../controllers/ReportController');
+const SpecialistController = require('../controllers/SpecialistController');
+const RatingController = require('../controllers/RatingController');
+const TypeAdvisoriesController = require('../controllers/TypeAdvisoriesController');
+const BankingHistoryController = require('../controllers/BankingHistoryController');
+const DoctorController = require('../controllers/DoctorController');
+const PatientsController = require('../controllers/PatientsController');
+const ChatsHistoryController = require('../controllers/ChatsHistoryController');
+const PaymentsHistoryController = require('../controllers/PaymentsHistoryController');
+const TokenNotificationController = require('../controllers/TokenNotificationController');
+const UploadImageController = require('../controllers/UploadImageController');
+const NotificationController = require('../controllers/NotificationController');
+const BankController = require('../controllers/BankController');
+const IntroduceAndRuleController = require('../controllers/IntroduceAndRuleController');
+const passport = require('passport');
+const path = require('path');
 
 
 require('./../middleware/passport')(passport)
@@ -57,7 +58,8 @@ router.get('/users/get-all-user', passport.authenticate('jwt', {
 }), UserController.getAllUser);
 
 // Introduce and Rule
-
+router.post('/IntroduceAndRule', IntroduceAndRuleController.create);
+router.get('/IntroduceAndRule', IntroduceAndRuleController.get);
 
 //Phone
 router.post('/phone/sms', PhoneController.sendPhoneVerifyCode)
