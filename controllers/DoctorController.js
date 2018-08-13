@@ -43,7 +43,12 @@ const registerDoctor = async function (req, res) {
                 placeWorking: body.placeWorking
             });
             let objDoctorReturn = await  doctor.save();
-            if (objDoctorReturn) {
+
+            let patient = new Patient({
+                patientId:objUserReturn.id
+            });
+            let objPatientReturn = patient.save();
+            if (objDoctorReturn && objPatientReturn) {
                 // send notification to staff or admin
                 return ReS(res, {
                     status: true,
