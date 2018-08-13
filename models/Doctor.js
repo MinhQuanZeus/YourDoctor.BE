@@ -23,6 +23,9 @@ let DoctorSchema = mongoose.Schema({
         type: String,
         ref: 'User'
     },
+    systemRating: {
+        type: Number
+    },
     currentRating: {
         type: Number
     },
