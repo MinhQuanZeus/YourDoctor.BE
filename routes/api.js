@@ -127,9 +127,7 @@ router.delete('/bankinghistorys/:id', passport.authenticate('jwt', {
 }), BankingHistoryController.removeLogic)
 
 //---------------Doctor
-router.post('/doctors', passport.authenticate('jwt', {
-    session: false,
-}), DoctorController.create)
+router.post('/doctors', DoctorController.registerDoctor);
 router.get('/doctors', passport.authenticate('jwt', {
     session: false,
 }), DoctorController.getDoctor)
@@ -149,9 +147,16 @@ router.put('/doctors', passport.authenticate('jwt', {
     session: false,
 }), DoctorController.update)
 router.delete('/doctors', passport.authenticate('jwt', {
-    session: false,
-}), DoctorController.remove)
-router.get('/doctors/doctors-by-specialist', DoctorController.getDoctorsBySpecialist)
+    session: false
+}), DoctorController.remove);
+
+router.get('/doctors/getListDoctorPending',passport.authenticate('jwt', {
+    session: false
+}),DoctorController.getListDoctorPending);
+router.put('/doctors/confirmInforDoctor',passport.authenticate('jwt', {
+    session: false
+}),DoctorController.confirmInforDoctor);
+
 
 //-----------Patient
 router.post('/patients', passport.authenticate('jwt', {
