@@ -20,6 +20,7 @@ const NotificationController = require('../controllers/NotificationController');
 const BankController = require('../controllers/BankController');
 const IntroduceAndRuleController = require('../controllers/IntroduceAndRuleController');
 const StaffController = require('../controllers/StaffController');
+const ReportConversationController = require('../controllers/ReportConversationController');
 const passport = require('passport');
 const path = require('path');
 
@@ -242,6 +243,11 @@ router.get('/notifications/getAllNotificationByUser/:receiverId', passport.authe
 /// Stafff
 router.post('/staffs', StaffController.createStaff);
 
+
+/// ReportConversationController
+router.post('/ReportConversations', passport.authenticate('jwt', {
+    session: false
+}), ReportConversationController.createReportConveration)
 //
 router.post('/banks', BankController.create)
 router.get('/banks', BankController.get)
