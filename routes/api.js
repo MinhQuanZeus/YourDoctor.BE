@@ -158,6 +158,7 @@ router.get('/doctors/getListDoctorPending',passport.authenticate('jwt', {
 router.put('/doctors/confirmInforDoctor',passport.authenticate('jwt', {
     session: false
 }),DoctorController.confirmInforDoctor);
+router.get('/doctors/doctors-by-specialist', DoctorController.getDoctorsBySpecialist);
 
 
 //-----------Patient
