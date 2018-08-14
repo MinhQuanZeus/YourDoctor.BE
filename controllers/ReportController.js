@@ -44,7 +44,7 @@ const get = async function (req, res) {
     try {
         Report.find({}, function (err, listReport) {
             if(err){
-                return ReS(report, 'Not found report', 404);
+                return ReS(res, 'Not found report', 404);
             }
             return ReS(res, {message: 'Tải danh sách báo cáo thành công',listReport:listReport }, 200);
         });
