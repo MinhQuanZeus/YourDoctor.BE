@@ -140,6 +140,12 @@ const checkCodeVerify = async function (req, res) {
                         objUser.set({remainMoney:oldRemainMoney});
                         let objUserReturn = await objUser.save();
                         if(objUserReturn){
+                            // xóa giao dịch
+                            BankingHistory.findByIdAndRemove({_id:objBanking.id},function (err, success) {
+                               if(err) {
+                                   return ReE(res, {message:'Có lỗi xảy ra khi xóa giao dịch'},503);
+                               }
+                            });
                             return ReE(res, {message:'Giao dịch đã bị hủy',oldRemainMoney:objUserReturn.remainMoney},503);
                         }
                     }
