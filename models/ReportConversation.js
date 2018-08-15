@@ -18,6 +18,10 @@ let ReportConversationSchema = mongoose.Schema({
     type: {
         type: String
     },
+    status: {
+        type: Boolean,
+        default: false
+    },
     deletionFlag: {
         type: Boolean,
         default: false

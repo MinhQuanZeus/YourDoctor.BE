@@ -12,6 +12,10 @@ let ReportSchema = mongoose.Schema({
     reason: {
         type: String
     },
+    status: {
+        type: Boolean,
+        default: false
+    },
     deletionFlag: {
         type: Boolean,
         default: false

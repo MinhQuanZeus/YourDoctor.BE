@@ -97,10 +97,14 @@ const getListDoctorPending = async function (req, res) {
         return ReS(res, {
             status: true,
             message: 'List doctor pending'
-        ,finalListInforDoctor:finalListInforDoctor}, 503);
+        ,finalListInforDoctor:finalListInforDoctor}, 200);
     }
     catch (e) {
         console.log(e)
+        return ReS(res, {
+            status: false,
+            message: 'Get failed'
+            }, 200);
     }
 };
 

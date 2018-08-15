@@ -23,6 +23,24 @@ const create = async function (req, res) {
 
 module.exports.create = create;
 
+const getAllSpecialist = async function (req, res) {
+    try {
+        let listSpecialist = await Specialist.find({});
+        if(listSpecialist){
+            return ReS(res, {message: 'Tạo danh sách chuyên khoa thành công', listSpecialist : listSpecialist}, 200);
+        }
+        else {
+            return ReE(res, 'Tạo danh sách chuyên khoa không thành công',503);
+        }
+    }
+    catch (e) {
+        console.log(e)
+        return ReE(res, 'Tạo danh sách chuyên khoa không thành công',503);
+    }
+};
+module.exports.getAllSpecialist = getAllSpecialist;
+
+
 const getListSpecialist = async function (req, res) {
     try {
         let listSpecialist = await Specialist.find({}).select('name image');
