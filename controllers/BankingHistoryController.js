@@ -18,7 +18,7 @@ const doctorWithdrawal = async function (req, res) {
                 userId: body.userId,
                 amount: body.amount,
                 remainMoney: body.remainMoney,
-                type: body.type,
+                type: constants.BANKKING_TYPE_Withdrawal,
                 nameBank: body.nameBank,
                 accountNumber: body.accountNumber,
                 code: code
@@ -33,7 +33,7 @@ const doctorWithdrawal = async function (req, res) {
                 let objSuccess = await objDoctor.save();
                 // check update success - send notification
                 if(objSuccess){
-                    [errors, codeVerify] = await to(phoneService.sendSMSPassword(objDoctor.phoneNumber, code));
+                    [errors, codeVerify] = await to(phoneService.sendSMSVerifyBanking(objDoctor.phoneNumber, code));
                     if (errors) {
                         return ReE(res, {
                             status: false,
