@@ -19,7 +19,7 @@ const doctorWithdrawal = async function (req, res) {
                 type: body.type,
                 nameBank: body.nameBank,
                 accountNumber: body.accountNumber,
-                timeDeal: body.timeDeal,
+                status:
                 isSuccess:false,
                 deletionFlag: body.deletionFlag
             });
@@ -32,65 +32,6 @@ const doctorWithdrawal = async function (req, res) {
             await objDoctor.set({remainMoney:body.remainMoney});
             let objSuccess = await objDoctor.save();
             // check update success - send notification
-            if(objSuccess){
-                //send notification to doctor
-                let payLoadDoctor = {
-                    data: {
-                        senderId: constants.ID_ADMIN,
-                        nameSender: constants.NAME_ADMIN,
-                        receiverId: bankingHistory.userId,
-                        type: constants.NOTIFICATION_TYPE_BANKING,
-                        storageId: bankingHistory.id,
-                        message: "Tạo yêu cầu rút tiền thành công. Yêu cầu của bạn đang trong quá trình kiểm tra và xử lí.",
-                        createTime: Date.now().toString()
-                    }
-                };
-                // send
-                await SendNotification.sendNotification(bankingHistory.userId, payLoadDoctor);
-                // save
-                let notificationDoctor = {
-                    senderId: constants.ID_ADMIN,
-                    nameSender: constants.NAME_ADMIN,
-                    receiverId: bankingHistory.userId,
-                    type: constants.NOTIFICATION_TYPE_BANKING,
-                    storageId: bankingHistory.id,
-                    message: "Tạo yêu cầu rút tiền thành công. Yêu cầu của bạn đang trong quá trình kiểm tra và xử lí.",
-                };
-                await createNotification(notificationDoctor);
-                //send notification to Admin
-                let fullNameDoctor = await getUser(bankingHistory.userId);
-                let listStaff = await Staff.find({department:'Kế toán'}).select('id');
-                for(let objStaff of listStaff){
-                    let payLoadAmin = {
-                        data: {
-                            senderId: bankingHistory.userId,
-                            nameSender: fullNameDoctor,
-                            receiverId: objStaff.id,
-                            type: constants.NOTIFICATION_TYPE_BANKING,
-                            storageId: bankingHistory.id,
-                            message: "Bác sỹ "+fullNameDoctor+" đã tạo yêu cầu rút tiền qua tài khoản ngân hàng - Chờ xử lí",
-                            createTime: Date.now().toString()
-                        }
-                    };
-                    // send
-                    await SendNotification.sendNotification(objStaff.id, payLoadAmin);
-                    // save
-                    let notificationAdmin = {
-                        senderId: bankingHistory.userId,
-                        nameSender: fullNameDoctor,
-                        receiverId: objStaff.id,
-                        type: constants.NOTIFICATION_TYPE_BANKING,
-                        storageId: bankingHistory.id,
-                        message: "Bác sỹ "+fullNameDoctor+" đã tạo yêu cầu rút tiền qua tài khoản ngân hàng - Chờ xử lí",
-                    };
-                    await createNotification(notificationAdmin);
-                }
-                // return success
-                return ReS(res, {message: 'Tạo lịch sử giao dịch ngân hàng thành công',bankingHistory:bankingHistory}, 200);
-            }
-            else {
-                return ReE(res, 'Tạo yêu cầu rút tiền không thành công',503);
-            }
 
         }
     }catch (e) {

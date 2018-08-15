@@ -19,11 +19,11 @@ let BankingHistorySchema = mongoose.Schema({
     accountNumber: {
         type: String
     },
-    timeDeal: {
-        type: Date
+    status:{
+      type:Number
     },
-    isSuccess:{
-      type:Boolean
+    code:{
+        type: String
     },
     deletionFlag: {
         type: Boolean,
