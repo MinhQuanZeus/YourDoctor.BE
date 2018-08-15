@@ -21,8 +21,7 @@ const doctorWithdrawal = async function (req, res) {
                 type: body.type,
                 nameBank: body.nameBank,
                 accountNumber: body.accountNumber,
-                code: code,
-                deletionFlag: body.deletionFlag
+                code: code
             });
             let objBankingHistoryReturn = await  bankingHistory.save();
             if(objBankingHistoryReturn){
