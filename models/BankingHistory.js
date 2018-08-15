@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const constant = require('../constants');
 let BankingHistorySchema = mongoose.Schema({
     userId: {
         type: String
@@ -19,11 +19,16 @@ let BankingHistorySchema = mongoose.Schema({
     accountNumber: {
         type: String
     },
-    status:{
-      type:Number
+    status: {
+        type: Number,
+        default: constant.BANKING_HISTORY_PENDING_VERIFY
     },
-    code:{
+    code: {
         type: String
+    },
+    timeInputCode:{
+        type: Number,
+        default: 1
     },
     deletionFlag: {
         type: Boolean,
