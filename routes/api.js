@@ -122,7 +122,7 @@ router.delete('/typeadvisorys', passport.authenticate('jwt', {
 }), TypeAdvisoriesController.remove)
 
 //---------------Banking_history
-router.post('/bankinghistorys', passport.authenticate('jwt', {
+router.post('/bankinghistorys/doctorWithdrawal', passport.authenticate('jwt', {
     session: false,
 }), BankingHistoryController.doctorWithdrawal);
 
