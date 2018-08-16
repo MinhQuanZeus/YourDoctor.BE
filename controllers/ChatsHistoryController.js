@@ -493,8 +493,8 @@ const getListConversationPending = async function (req, res) {
                 for (let objPending of listPending) {
                     let created_date = new Date(objPending.createdAt);
                     let objPendingToPush = {
-                        _id:objPending.id,
-                        createdAt:objPending.createdAt,
+                        _id: objPending.id,
+                        createdAt: objPending.createdAt,
                         timeRemain: Date.now() - created_date.getTime()
                     };
                     finalListPending.push(objPendingToPush);
@@ -624,3 +624,66 @@ async function getUser(userId) {
     return fullName
 }
 
+const doctorDenyRequestChat = async function (req, res) {
+    try {
+        if (req.params.id) {
+            let objChatHistory = await ChatsHistory.findById({_id: req.params.id});
+            if (objChatHistory) {
+                // get payment
+                let objPayment = await PaymentsHistory.findById({_id: objChatHistory.paymentPatientID});
+                // get objUser
+                let objUser = await User.findById({_id: objChatHistory.patientId});
+                // update remainMoney
+                let returnRemainMoney = objUser.remainMoney + objPayment.amount;
+                objUser.set({remainMoney: returnRemainMoney});
+                let objUserReturn = await objUser.save();
+                // update status chat history
+                objChatHistory.set({status: constants.STATUS_CONVERSATION_FINISH});
+                let objChatHistoryReturn = await objChatHistory.save();
+                // update payment
+                objPayment.set({amount: 0, remainMoney: returnRemainMoney, status: constants.PAYMENT_FAILED});
+                let objPaymentReturn = await objPayment.save();
+                if (objUserReturn && objChatHistoryReturn && objPaymentReturn) {
+                    // send notification to patient
+                    let fullNameDoctor = await getUser(objChatHistory.doctorId);
+                    let payLoadPatient = {
+                        data: {
+                            senderId: objChatHistory.doctorId,
+                            nameSender: fullNameDoctor,
+                            receiverId: objChatHistory.patientId,
+                            type: constants.NOTIFICATION_TYPE_PAYMENT,
+                            storageId: objPayment.id,
+                            message: "Bác sỹ " + fullNameDoctor + " đã từ chối cuộc tư vấn với bạn vì lý do cá nhân. Bạn được hoàn trả lại toàn bộ phí tư vấn.",
+                            createTime: Date.now().toString()
+                        }
+                    };
+                    // send
+                    await SendNotification.sendNotification(objChatHistory.patientId, payLoadPatient);
+                    // save
+                    let notificationPatient = {
+                        senderId: objChatHistory.doctorId,
+                        nameSender: fullNameDoctor,
+                        receiverId: objChatHistory.patientId,
+                        type: constants.NOTIFICATION_TYPE_PAYMENT,
+                        storageId: objPayment.id,
+                        message: "Bác sỹ " + fullNameDoctor + " đã từ chối cuộc tư vấn với bạn vì lý do cá nhân. Bạn được hoàn trả lại toàn bộ phí tư vấn.",
+                    };
+                    await createNotification(notificationPatient);
+
+                    return ReS(res, {status: true, message: 'Từ chối tư vấn thành công'}, 200);
+                }
+            }
+            else {
+                return ReE(res, "Cuộc tư vấn không tồn tại.", 400);
+            }
+        }
+        else {
+            return ReE(res, "Bad request", 400);
+        }
+    }
+    catch (e) {
+        return ReE(res, "Có lỗi xảy ra", 400);
+    }
+};
+
+module.exports.doctorDenyRequestChat = doctorDenyRequestChat;

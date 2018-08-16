@@ -203,28 +203,31 @@ router.delete('/patients', passport.authenticate('jwt', {
 //-----------ChatsHistory
 router.post('/chatshistorys', passport.authenticate('jwt', {
     session: false,
-}), ChatsHistoryController.create)
+}), ChatsHistoryController.create);
 router.put('/chatshistorys', passport.authenticate('jwt', {
     session: false,
-}), ChatsHistoryController.updateRecord)
+}), ChatsHistoryController.updateRecord);
 router.get('/chatshistorys/getAllConversationByPatient/:patientId', passport.authenticate('jwt', {
     session: false,
-}), ChatsHistoryController.getAllConversationByPatient)
+}), ChatsHistoryController.getAllConversationByPatient);
 router.get('/chatshistorys/getAllConversationByDoctor/:doctorId', passport.authenticate('jwt', {
     session: false,
-}), ChatsHistoryController.getAllConversationByDoctor)
+}), ChatsHistoryController.getAllConversationByDoctor);
 router.get('/chatshistorys/getConversationByID/:id', passport.authenticate('jwt', {
     session: false,
-}), ChatsHistoryController.getConversationByID)
+}), ChatsHistoryController.getConversationByID);
 router.get('/chatshistorys/getListConversationPending/:patientId', passport.authenticate('jwt', {
     session: false,
-}), ChatsHistoryController.getListConversationPending)
+}), ChatsHistoryController.getListConversationPending);
 router.post('/chatshistorys/checkDoctorReply', passport.authenticate('jwt', {
     session: false,
-}), ChatsHistoryController.checkDoctorReply)
+}), ChatsHistoryController.checkDoctorReply);
 router.post('/chatshistorys/checkStatusChatsHistory', passport.authenticate('jwt', {
     session: false,
-}), ChatsHistoryController.checkStatusChatsHistory)
+}), ChatsHistoryController.checkStatusChatsHistory);
+router.get('/chatshistorys/doctorDenyRequestChat/:id', passport.authenticate('jwt', {
+    session: false,
+}),ChatsHistoryController.doctorDenyRequestChat);
 
 //----------PaymentHistory
 router.post('/paymentshistorys', passport.authenticate('jwt', {
