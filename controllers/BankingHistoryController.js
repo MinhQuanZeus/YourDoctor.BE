@@ -70,6 +70,9 @@ const checkCodeVerify = async function (req, res) {
         let body = req.body;
         if (body) {
             let objBanking = await BankingHistory.findById({_id: body.id});
+            if('2' === objBanking.status+""){
+                return ReE(res, {message: 'Giao dịch đã được xác mminh.'}, 503);
+            }
             if (objBanking) {
                 if (body.code === objBanking.code + "") {
                     objBanking.set({status: constants.BANKING_HISTORY_VERIFIED});
@@ -149,20 +152,20 @@ const checkCodeVerify = async function (req, res) {
                                     return ReE(res, {message: 'Có lỗi xảy ra khi xóa giao dịch'}, 503);
                                 }
                             });
-                            return ReE(res, {
+                            return ReS(res, {
+                                status:false,
                                 message: 'Giao dịch đã bị hủy',
-                                oldRemainMoney: objUserReturn.remainMoney
-                            }, 503);
+                                oldRemainMoney: oldRemainMoney
+                            }, 200);
                         }
                     }
                     else {
-                        console.log('vao dayddđd');
-                        return ReE(res, {message: 'Bạn đã nhập sai code'}, 503);
+                        return ReS(res, {message: 'Bạn đã nhập sai code'}, 503);
                     }
                 }
             }
             else {
-                return ReE(res, {message: 'Giao dịch đã bị hủy'}, 503);
+                return ReE(res, {message: 'Giao dịch không tồn tại.'}, 503);
             }
         }
         else {

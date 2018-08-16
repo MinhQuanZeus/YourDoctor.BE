@@ -126,9 +126,7 @@ router.post('/bankinghistorys/doctorWithdrawal', passport.authenticate('jwt', {
     session: false,
 }), BankingHistoryController.doctorWithdrawal);
 
-router.post('/bankinghistorys/checkCodeVerify', passport.authenticate('jwt', {
-    session: false,
-}), BankingHistoryController.checkCodeVerify);
+router.post('/bankinghistorys/checkCodeVerify', BankingHistoryController.checkCodeVerify);
 
 router.get('/bankinghistorys', passport.authenticate('jwt', {
     session: false,
