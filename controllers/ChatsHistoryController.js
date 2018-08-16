@@ -33,9 +33,9 @@ const create = async function (req, res) {
         // get payment
         let objUser = await User.findById({_id: body.patientId});
         let objPayment = await PaymentsHistory.findById({_id: chatHistory.paymentPatientID});
-
         // update remain money
-        objUser.set({remainMoney: objPayment.remainMoney});
+        let newRemainMoney = objUser.remainMoney - objPayment.amount;
+        objUser.set({remainMoney: newRemainMoney});
         await objUser.save(function (err, success) {
             if (err) {
                 ReE(res, err.toString(), 503);
@@ -87,7 +87,7 @@ const create = async function (req, res) {
                 receiverId: chatHistory.patientId,
                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                 storageId: objPayment.id,
-                message: "Bạn vừa tạo một yêu cầu tư vấn với bác sỹ " + fullNameDoctor + ". Bạn đã thanh toán: " + objPayment.amount + "VND. Số tiền bạn có hiện tại: " + objPayment.remainMoney + "VND.",
+                message: "Bạn vừa tạo một yêu cầu tư vấn với bác sỹ " + fullNameDoctor + ". Bạn đã thanh toán: " + objPayment.amount + "VND. Số tiền bạn có hiện tại: " + newRemainMoney + "VND.",
                 createTime: Date.now().toString()
             }
         };
@@ -100,7 +100,7 @@ const create = async function (req, res) {
             receiverId: chatHistory.patientId,
             type: constants.NOTIFICATION_TYPE_PAYMENT,
             storageId: objPayment.id,
-            message: "Bạn vừa tạo một yêu cầu tư vấn " + fullNameDoctor + ". Bạn đã thanh toán: " + objPayment.amount + "VND.Số tiền bạn có hiện tại: " + objPayment.remainMoney + "VND."
+            message: "Bạn vừa tạo một yêu cầu tư vấn " + fullNameDoctor + ". Bạn đã thanh toán: " + objPayment.amount + "VND.Số tiền bạn có hiện tại: " + newRemainMoney + "VND."
         };
         await  createNotification(notificationPatient);
         return ReS(res, {message: 'Tạo cuộc tư vấn thành công', chatHistory: chatHistory}, 200);
