@@ -81,7 +81,7 @@ const checkCodeVerify = async function (req, res) {
                         //send notification to doctor
                         let payLoadDoctor = {
                             data: {
-                                senderId: "ADMIN",
+                                senderId: constants.ID_ADMIN,
                                 nameSender: "ADMIN",
                                 receiverId: objBanking.userId,
                                 type: constants.NOTIFICATION_TYPE_BANKING,
@@ -94,7 +94,7 @@ const checkCodeVerify = async function (req, res) {
                         await SendNotification.sendNotification(objBanking.userId, payLoadDoctor);
                         // save
                         let notificationDoctor = {
-                            senderId: "ADMIN",
+                            senderId: constants.ID_ADMIN,
                             nameSender: "ADMIN",
                             receiverId: objBanking.userId,
                             type: constants.NOTIFICATION_TYPE_BANKING,
