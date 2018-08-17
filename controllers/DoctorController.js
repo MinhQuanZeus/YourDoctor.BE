@@ -294,10 +294,7 @@ const getListSpecialistDoctor = async function (req, res) {
         if (patient.length === 0) {
             ReE(res, "Bệnh nhân không tồn tại");
         }
-
         const favoriteDoctors = patient[0].favoriteDoctors;
-        console.log(favoriteDoctors)
-
         let doctors = await Doctor.find({
             idSpecialist: {
                 $elemMatch: {
@@ -309,19 +306,19 @@ const getListSpecialistDoctor = async function (req, res) {
             .sort([["currentRating", "descending"]])
             .populate({
                 path: "doctorId",
-                select: "firstName middleName lastName avatar"
+                select: "firstName middleName lastName avatar status"
             });
         let results = [];
         for (let doctor of doctors) {
             const temp = favoriteDoctors.filter(obj => obj === (doctor.doctorId._id + ''));
-            console.log(temp)
-            var itemInfoDoctor = {
+            let itemInfoDoctor = {
                 doctorId: doctor.doctorId._id,
                 firstName: doctor.doctorId.firstName,
                 middleName: doctor.doctorId.middleName,
                 lastName: doctor.doctorId.lastName,
                 avatar: doctor.doctorId.avatar,
-                currentRating: doctor.currentRating
+                currentRating: doctor.currentRating,
+                status: doctor.doctorId.status
             };
             if (temp && temp.length > 0) {
                 itemInfoDoctor.isFavorited = true;
@@ -336,8 +333,6 @@ const getListSpecialistDoctor = async function (req, res) {
             let bSize = b.isFavorited;
             let aLow = a.currentRating;
             let bLow = b.currentRating;
-            console.log(aLow + " | " + bLow);
-
             if (aSize === bSize) {
                 return (aLow > bLow) ? -1 : (aLow > bLow) ? 1 : 0;
             }
@@ -345,7 +340,14 @@ const getListSpecialistDoctor = async function (req, res) {
                 return (aSize > bSize) ? -1 : 1;
             }
         });
-        return ReS(res, {message: "success", doctorList: results}, 200);
+        let finalList = [];
+        for (let i = 0; i <results.length;i++){
+            console.log(results[i]);
+            if('1' === results[i].status+""){
+                finalList.push(results[i]);
+            }
+        }
+        return ReS(res, {message: "success", doctorList: finalList}, 200);
     } catch (e) {
         console.log(e);
         ReE(res, "Không thể lấy được data");
