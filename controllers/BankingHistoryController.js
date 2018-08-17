@@ -70,7 +70,7 @@ const checkCodeVerify = async function (req, res) {
         let body = req.body;
         if (body) {
             let objBanking = await BankingHistory.findById({_id: body.id});
-            if('2' === objBanking.status+""){
+            if ('2' === objBanking.status + "") {
                 return ReE(res, {message: 'Giao dịch đã được xác mminh.'}, 503);
             }
             if (objBanking) {
@@ -139,7 +139,7 @@ const checkCodeVerify = async function (req, res) {
                     objBanking.set({timeInputCode: timeInputCode});
                     let objBankingReturn = await objBanking.save();
                     console.log(objBankingReturn)
-                    if ('4' === objBankingReturn.timeInputCode+"") {
+                    if ('4' === objBankingReturn.timeInputCode + "") {
                         console.log('vao day');
                         let objUser = await User.findById({_id: objBanking.userId});
                         let oldRemainMoney = objBanking.amount + objBanking.remainMoney;
@@ -153,7 +153,7 @@ const checkCodeVerify = async function (req, res) {
                                 }
                             });
                             return ReS(res, {
-                                status:false,
+                                status: false,
                                 message: 'Giao dịch đã bị hủy',
                                 oldRemainMoney: oldRemainMoney
                             }, 200);
@@ -183,19 +183,33 @@ const patientRecharge = async function (req, res) {
 };
 module.exports.patientRecharge = patientRecharge;
 
-const getAllHistoryBanking = async function (req, res) {
-    let query = {};
-    if (req.query.userId) query.userId = req.query.userId;
-    if (req.query.deletionFlag) query.deletionFlag = req.query.deletionFlag;
-    console.log(query);
-    BankingHistory.find(query, function (err, allHistory) {
-        if (err) {
-            ReE(res, "ERROR0019", 404);
+const getHistoryBanking = async function (req, res) {
+    try {
+        if (req.params.userId) {
+            let listBankingHistory = await BankingHistory.find({
+                userId: req.params.userId,
+                deletionFlag : true
+            });
+            if(listBankingHistory){
+                return ReS(res, {
+                    status: true,
+                    message: 'Danh sách giao dịch ngân hàng.',
+                    listBankingHistory: listBankingHistory
+                }, 200);
+            }
+            else {
+
+            }
         }
-        return ReS(res, {message: 'Tải lịch sử giao dịch thành công', allHistory: allHistory}, 200);
-    });
+        else {
+            return ReE(res, {message: 'BAD REQUEST'}, 400);
+        }
+    }
+    catch (e) {
+
+    }
 };
-module.exports.getAllHistoryBanking = getAllHistoryBanking;
+module.exports.getHistoryBanking = getHistoryBanking;
 
 const getDetailHistoryById = async function (req, res) {
     BankingHistory.findById(req.params.id).then(doc => {
@@ -208,7 +222,6 @@ module.exports.getDetailHistoryById = getDetailHistoryById;
 
 const removeLogic = async function (req, res) {
     BankingHistory.findByIdAndUpdate(req.params.id, {$set: {deletionFlag: "1"}}, function (err, removeLogic) {
-        if (err) TE(err.message);
         res.send(removeLogic);
     });
 };

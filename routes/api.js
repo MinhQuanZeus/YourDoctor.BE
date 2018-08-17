@@ -130,7 +130,7 @@ router.post('/bankinghistorys/checkCodeVerify', BankingHistoryController.checkCo
 
 router.get('/bankinghistorys', passport.authenticate('jwt', {
     session: false,
-}), BankingHistoryController.getAllHistoryBanking);
+}), BankingHistoryController.getHistoryBanking);
 router.get('/bankinghistorys/:id', passport.authenticate('jwt', {
     session: false,
 }), BankingHistoryController.getDetailHistoryById);
