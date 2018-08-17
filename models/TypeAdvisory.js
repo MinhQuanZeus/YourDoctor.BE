@@ -12,7 +12,8 @@ let TypeAdvisoriesSchema = mongoose.Schema({
     },
     description: {
         type: String
-    }
+    },
+    deletionFlag: {type: Boolean, default: false}
 }, {
     timestamps: true
 });
