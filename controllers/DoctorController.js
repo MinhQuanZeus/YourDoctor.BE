@@ -372,8 +372,7 @@ const getDoctorRankingBySpecialist = async function (req, res) {
                 '$elemMatch': {
                     'specialistId': req.params.specialistId
                 }
-            },
-            status: 1
+            }
         })
             .select('doctorId currentRating -_id')
             .sort([['currentRating', -1]])
@@ -418,8 +417,7 @@ const getDoctorsBySpecialist = async function (req, res) {
                 $elemMatch: {
                     specialistId: specialistId,
                 },
-            },
-            status: 1
+            }
         })
             .select('currentRating -_id')
             .populate({
