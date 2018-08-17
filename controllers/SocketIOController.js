@@ -194,7 +194,7 @@ module.exports = function (io) {
                         // emit to receiver
                         if (receive != null) {
                             // json: số tiền nhận được, số tiền hiện tại đang có
-                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "+VND. Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND");
+                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "VND. Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND");
 
                         } else {
                             let fullName = await getUser(reqSender);
