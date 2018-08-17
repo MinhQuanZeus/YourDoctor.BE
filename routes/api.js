@@ -285,4 +285,8 @@ router.get('/banks',passport.authenticate('jwt', {
 router.get('/videcallhistories/getHistoryVideoCallPatient/:patientId',passport.authenticate('jwt', {
     session: false
 }), VideoCallHistoryController.getHistoryVideoCallPatient);
+
+router.get('/videcallhistories/getHistoryVideoCallDoctor/:doctorId',passport.authenticate('jwt', {
+    session: false
+}), VideoCallHistoryController.getHistoryVideoCallDoctor);
 module.exports = router;
