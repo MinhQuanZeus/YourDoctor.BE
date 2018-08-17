@@ -368,9 +368,9 @@ const getDoctorRankingBySpecialist = async function (req, res) {
             page = req.query.page * 1;
         }
         let listDoctorRanking = await Doctor.find({
-            'idSpecialist': {
-                '$elemMatch': {
-                    'specialistId': req.params.specialistId
+            idSpecialist: {
+                $elemMatch: {
+                    specialistId: req.params.specialistId
                 }
             }
         })
@@ -380,15 +380,21 @@ const getDoctorRankingBySpecialist = async function (req, res) {
             .skip(pageSize * page)
             .populate({
                 path: 'doctorId',
-                select: 'firstName middleName lastName avatar'
+                select: 'firstName middleName lastName avatar status'
             });
         if (!listDoctorRanking) {
             return ReE(res, "Not found list", 404);
         }
         else {
+            let finalList = [];
+            for(let objDoctor of listDoctorRanking){
+                if('1' === objDoctor.doctorId.status+""){
+                    finalList.push(objDoctor);
+                }
+            }
             return ReS(res, {
                 message: 'Tạo danh sách xếp hạng bác sỹ theo chuyên khoa thành công',
-                listDoctorRanking: listDoctorRanking
+                listDoctorRanking: finalList
             }, 200);
         }
     }
