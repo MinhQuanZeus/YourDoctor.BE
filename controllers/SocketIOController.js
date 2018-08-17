@@ -147,6 +147,7 @@ module.exports = function (io) {
                                     receiverId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
+                                    remainMoney: paymentIdDoctor.remainMoney+"",
                                     message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
                                     createTime: Date.now().toString()
                                 }
@@ -205,6 +206,7 @@ module.exports = function (io) {
                                     receiverId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
+                                    remainMoney: paymentIdDoctor.remainMoney+"",
                                     message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
                                     createTime: Date.now().toString()
                                 }

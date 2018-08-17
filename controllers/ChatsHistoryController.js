@@ -301,7 +301,7 @@ const checkDoctorReply = async function (req, res) {
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: objPaymentPatient.id,
                                 message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + remain_money + "VND",
-                                remain_money: remain_money + "",
+                                remainMoney: remain_money + "",
                                 createTime: Date.now().toString()
                             }
                         };
@@ -369,6 +369,7 @@ const checkDoctorReply = async function (req, res) {
                                 receiveId: objChatHistory.doctorId,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: objChatHistory.id,
+                                remainMoney: paymentIdDoctor.remainMoney+"",
                                 message: "Cuộc tư vấn với bệnh nhân " + fullName + " đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + " VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
                             };
                             console.log(objNotificationToSave);
@@ -444,8 +445,8 @@ const checkDoctorReply = async function (req, res) {
                                     receiveId: objChatHistory.patientId,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: objPaymentPatient.id,
+                                    remainMoney: remain_money+"",
                                     message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + remain_money + "VND",
-                                    remain_money: remain_money + "",
                                     createTime: Date.now().toString()
                                 }
                             };
@@ -653,6 +654,7 @@ const doctorDenyRequestChat = async function (req, res) {
                             receiverId: objChatHistory.patientId,
                             type: constants.NOTIFICATION_TYPE_PAYMENT,
                             storageId: objPayment.id,
+                            remainMoney: returnRemainMoney+"",
                             message: "Bác sỹ " + fullNameDoctor + " đã từ chối cuộc tư vấn với bạn vì lý do cá nhân. Bạn được hoàn trả lại toàn bộ phí tư vấn.",
                             createTime: Date.now().toString()
                         }
