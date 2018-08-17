@@ -185,11 +185,22 @@ module.exports.patientRecharge = patientRecharge;
 
 const getHistoryBanking = async function (req, res) {
     try {
+        let pageSize = 0;
+        let page = 0;
+        if (req.query.pageSize) {
+            pageSize = req.query.pageSize * 1;
+        }
+        if (req.query.page) {
+            page = req.query.page * 1;
+        }
         if (req.params.userId) {
             let listBankingHistory = await BankingHistory.find({
                 userId: req.params.userId,
                 deletionFlag : false
-            }).select('-timeInputCode -code');
+            })
+                .select('-timeInputCode -code')
+                .limit(pageSize)
+                .skip(pageSize * page);
             if(listBankingHistory){
                 return ReS(res, {
                     status: true,
