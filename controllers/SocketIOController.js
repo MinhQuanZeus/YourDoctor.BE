@@ -135,7 +135,7 @@ module.exports = function (io) {
                         if (receive != null) {
                             // json: số tiền nhận được, số tiền hiện tại đang có
                             console.log("ng nhan tin" + send + "");
-                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "VND. Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND");
+                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "VND. Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND");
                         }
                         else {
                             let fullName = await getUser(reqSender);
@@ -148,7 +148,7 @@ module.exports = function (io) {
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
                                     remainMoney: paymentIdDoctor.remainMoney+"",
-                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
+                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND",
                                     createTime: Date.now().toString()
                                 }
                             };
@@ -161,7 +161,7 @@ module.exports = function (io) {
                                 receiverId: reqReceiver,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: reqConversationID,
-                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
+                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND",
                             };
                             await createNotification(objNotificationToSave)
                         }
@@ -194,7 +194,7 @@ module.exports = function (io) {
                         // emit to receiver
                         if (receive != null) {
                             // json: số tiền nhận được, số tiền hiện tại đang có
-                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "VND. Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND");
+                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "VND. Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND");
 
                         } else {
                             let fullName = await getUser(reqSender);
@@ -207,7 +207,7 @@ module.exports = function (io) {
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
                                     remainMoney: paymentIdDoctor.remainMoney+"",
-                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
+                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND",
                                     createTime: Date.now().toString()
                                 }
                             };
@@ -220,7 +220,7 @@ module.exports = function (io) {
                                 receiverId: reqReceiver,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: reqConversationID,
-                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
+                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND",
                             };
                             await createNotification(objNotificationToSave);
                         }
