@@ -21,6 +21,7 @@ const BankController = require('../controllers/BankController');
 const IntroduceAndRuleController = require('../controllers/IntroduceAndRuleController');
 const StaffController = require('../controllers/StaffController');
 const ReportConversationController = require('../controllers/ReportConversationController');
+const VideoCallHistoryController = require('../controllers/VideoCallHistoryController');
 const passport = require('passport');
 const path = require('path');
 
@@ -278,4 +279,10 @@ router.post('/banks',passport.authenticate('jwt', {
 router.get('/banks',passport.authenticate('jwt', {
     session: false
 }), BankController.get);
+
+
+///////// video call history
+router.get('/videcallhistories/getHistoryVideoCallPatient/:patientId',passport.authenticate('jwt', {
+    session: false
+}), VideoCallHistoryController.getHistoryVideoCallPatient);
 module.exports = router;
