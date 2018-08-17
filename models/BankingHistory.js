@@ -35,7 +35,7 @@ let BankingHistorySchema = mongoose.Schema({
         default: false
     }
 }, {
-    timestamp: true
+    timestamps: true
 });
 
 let BankingHistory = module.exports = mongoose.model('BankingHistory', BankingHistorySchema);

@@ -188,8 +188,8 @@ const getHistoryBanking = async function (req, res) {
         if (req.params.userId) {
             let listBankingHistory = await BankingHistory.find({
                 userId: req.params.userId,
-                deletionFlag : true
-            });
+                deletionFlag : false
+            }).select('-timeInputCode -code');
             if(listBankingHistory){
                 return ReS(res, {
                     status: true,
@@ -198,7 +198,7 @@ const getHistoryBanking = async function (req, res) {
                 }, 200);
             }
             else {
-
+                return ReE(res, {message: 'Không tìm thấy lịch sử giao dịch'}, 400);
             }
         }
         else {
@@ -206,7 +206,7 @@ const getHistoryBanking = async function (req, res) {
         }
     }
     catch (e) {
-
+        return ReE(res, {message: 'ERROR'}, 400);
     }
 };
 module.exports.getHistoryBanking = getHistoryBanking;

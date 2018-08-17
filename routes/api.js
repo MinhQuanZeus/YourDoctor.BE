@@ -134,6 +134,9 @@ router.get('/bankinghistorys', passport.authenticate('jwt', {
 router.get('/bankinghistorys/:id', passport.authenticate('jwt', {
     session: false,
 }), BankingHistoryController.getDetailHistoryById);
+router.get('/bankinghistorys/getHistoryBanking/:userId', passport.authenticate('jwt', {
+    session: false,
+}),BankingHistoryController.getHistoryBanking);
 router.delete('/bankinghistorys/:id', passport.authenticate('jwt', {
     session: false,
 }), BankingHistoryController.removeLogic);
