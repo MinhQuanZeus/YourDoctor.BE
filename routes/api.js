@@ -19,7 +19,6 @@ const UploadImageController = require('../controllers/UploadImageController');
 const NotificationController = require('../controllers/NotificationController');
 const BankController = require('../controllers/BankController');
 const IntroduceAndRuleController = require('../controllers/IntroduceAndRuleController');
-const StaffController = require('../controllers/StaffController');
 const ReportConversationController = require('../controllers/ReportConversationController');
 const VideoCallHistoryController = require('../controllers/VideoCallHistoryController');
 const passport = require('passport');
@@ -257,10 +256,6 @@ router.post('/notifications', NotificationController.create);
 router.get('/notifications/getAllNotificationByUser/:receiverId', passport.authenticate('jwt', {
     session: false,
 }), NotificationController.getAllNotificationByUser);
-
-/// Stafff
-router.post('/staffs', StaffController.createStaff);
-
 
 /// ReportConversationController
 router.post('/reportConversations', passport.authenticate('jwt', {

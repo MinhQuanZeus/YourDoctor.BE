@@ -78,20 +78,7 @@ const checkCodeVerify = async function (req, res) {
                     objBanking.set({status: constants.BANKING_HISTORY_VERIFIED});
                     let objBankingReturn = await objBanking.save();
                     if (objBankingReturn) {
-                        //send notification to doctor
-                        let payLoadDoctor = {
-                            data: {
-                                senderId: constants.ID_ADMIN,
-                                nameSender: "ADMIN",
-                                receiverId: objBanking.userId,
-                                type: constants.NOTIFICATION_TYPE_BANKING,
-                                storageId: objBanking.id,
-                                message: "Tạo yêu cầu rút tiền thành công. Yêu cầu của bạn đang trong quá trình kiểm tra và xử lí.",
-                                createTime: Date.now().toString()
-                            }
-                        };
-                        // send
-                        await SendNotification.sendNotification(objBanking.userId, payLoadDoctor);
+
                         // save
                         let notificationDoctor = {
                             senderId: constants.ID_ADMIN,
@@ -103,10 +90,37 @@ const checkCodeVerify = async function (req, res) {
                         };
                         await createNotification(notificationDoctor);
 
+                        let listAdmin = await User.find({role: '3'}).select('id');
+                        console.log(listAdmin);
                         //send notification to Admin
                         let fullNameDoctor = await getUser(objBanking.userId);
-                        let listStaff = await Staff.find({role: '1'}).select('id');
-                        for (let objStaff of listStaff) {
+                        for (let objStaff of listAdmin) {
+                            // save
+                            let notificationAdmin = {
+                                senderId: objBanking.userId,
+                                nameSender: fullNameDoctor,
+                                receiverId: objStaff.id,
+                                type: constants.NOTIFICATION_TYPE_BANKING,
+                                storageId: objBanking.id,
+                                message: "Bác sỹ " + fullNameDoctor + " đã tạo yêu cầu rút tiền qua tài khoản ngân hàng - Chờ xử lí",
+                            };
+                            await createNotification(notificationAdmin);
+                            //send notification to doctor
+                            let payLoadDoctor = {
+                                data: {
+                                    senderId: constants.ID_ADMIN,
+                                    nameSender: "ADMIN",
+                                    receiverId: objBanking.userId,
+                                    type: constants.NOTIFICATION_TYPE_BANKING,
+                                    storageId: objBanking.id,
+                                    message: "Tạo yêu cầu rút tiền thành công. Yêu cầu của bạn đang trong quá trình kiểm tra và xử lí.",
+                                    createTime: Date.now().toString()
+                                }
+                            };
+                            // send
+                            await SendNotification.sendNotification(objBanking.userId, payLoadDoctor);
+
+                            /// send noti admin
                             let payLoadAdmin = {
                                 data: {
                                     senderId: objBanking.userId,
@@ -120,16 +134,6 @@ const checkCodeVerify = async function (req, res) {
                             };
                             // send
                             await SendNotification.sendNotification(objStaff.id, payLoadAdmin);
-                            // save
-                            let notificationAdmin = {
-                                senderId: objBanking.userId,
-                                nameSender: fullNameDoctor,
-                                receiverId: objStaff.id,
-                                type: constants.NOTIFICATION_TYPE_BANKING,
-                                storageId: objBanking.id,
-                                message: "Bác sỹ " + fullNameDoctor + " đã tạo yêu cầu rút tiền qua tài khoản ngân hàng - Chờ xử lí",
-                            };
-                            await createNotification(notificationAdmin);
                         }
                         return ReS(res, {status: true, message: 'Giao dịch thành công. Chờ xử lí từ hệ thống'}, 200);
                     }
