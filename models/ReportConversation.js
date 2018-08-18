@@ -22,12 +22,27 @@ let ReportConversationSchema = mongoose.Schema({
         type: Boolean,
         default: false
     },
+    createdAt: {
+        type: Number,
+        default: new Date().getTime()
+    },
+    updatedAt: {
+        type: Number,
+        default: new Date().getTime()
+    },
     deletionFlag: {
         type: Boolean,
         default: false
     }
-}, {
-    timestamps: true
 });
 
 let ReportConversation = module.exports = mongoose.model('ReportConversation', ReportConversationSchema);
+
+ReportConversationSchema.pre('save', async function (next) {
+    const currTime = new Date().getTime();
+    this.updatedAt = currTime;
+    if (this.isNew) {
+        this.createdAt = currTime;
+    }
+    next();
+});

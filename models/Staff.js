@@ -7,12 +7,27 @@ let StaffSchema = mongoose.Schema({
     },
     department: {type: String},
     role: {type: Number},
+    createdAt: {
+        type: Number,
+        default: new Date().getTime()
+    },
+    updatedAt: {
+        type: Number,
+        default: new Date().getTime()
+    },
     deletionFlag: {
         type: Boolean,
         default: false
     }
-}, {
-    timestamps: true
 });
 
 let Staff = module.exports = mongoose.model('Staff', StaffSchema);
+
+StaffSchema.pre('save', async function (next) {
+    const currTime = new Date().getTime();
+    this.updatedAt = currTime;
+    if (this.isNew) {
+        this.createdAt = currTime;
+    }
+    next();
+});
