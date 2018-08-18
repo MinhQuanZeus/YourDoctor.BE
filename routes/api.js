@@ -128,15 +128,22 @@ router.post('/bankinghistorys/doctorWithdrawal', passport.authenticate('jwt', {
 
 router.post('/bankinghistorys/checkCodeVerify', BankingHistoryController.checkCodeVerify);
 
-router.get('/bankinghistorys', passport.authenticate('jwt', {
+router.get('/bankinghistorys/getHistoryBanking:/userId', passport.authenticate('jwt', {
     session: false,
 }), BankingHistoryController.getHistoryBanking);
-router.get('/bankinghistorys/:id', passport.authenticate('jwt', {
+
+router.get('/bankinghistorys/get-detail-banking/:id',passport.authenticate('jwt', {
     session: false,
 }), BankingHistoryController.getDetailHistoryById);
-router.get('/bankinghistorys/getHistoryBanking/:userId', passport.authenticate('jwt', {
+
+router.get('/bankinghistorys/handleBankingHistory/:id', passport.authenticate('jwt', {
     session: false,
-}),BankingHistoryController.getHistoryBanking);
+}),BankingHistoryController.handleBankingHistory);
+
+router.get('/bankinghistorys/get-list-banking-pending', passport.authenticate('jwt', {
+    session: false,
+}),BankingHistoryController.getListBankingPendingVerify);
+
 router.delete('/bankinghistorys/:id', passport.authenticate('jwt', {
     session: false,
 }), BankingHistoryController.removeLogic);
