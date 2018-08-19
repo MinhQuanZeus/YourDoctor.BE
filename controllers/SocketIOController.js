@@ -12,7 +12,9 @@ module.exports = function (io) {
             socket.on('addUser', function (userID, type) {
                 socket.userID = userID;
                 if(type===2){
-                    doctorsOnline.push(userID)
+                    if(!doctorsOnline.includes(userID)){
+                        doctorsOnline.push(userID)
+                    }
                     socket.type =2;
                 }else {
                     socket.type = 1;
@@ -167,7 +169,6 @@ module.exports = function (io) {
                         }
                     }
                 }
-
             });
 
             socket.on('doneConversation', async function (reqSender, reqReceiver, reqConversationID) {
