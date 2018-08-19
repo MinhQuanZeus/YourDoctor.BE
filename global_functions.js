@@ -32,13 +32,24 @@ ReS = function (res, data, code) { // Success Web Response
 
     if (typeof data == 'object') {
         send_data = Object.assign(data, send_data);
-        console.log(send_data);
     }
 
     if (typeof code !== 'undefined') res.statusCode = code;
-
     return res.json(send_data)
 };
+
+compareDate = function(date1, date2) {
+    try {
+        temp1 = new Date(date1);
+        temp2 = new Date(date2);
+        if (temp1.getTime() === temp2.getTime()) {
+            return true;
+        }
+        return false;
+    }catch (e) {
+        return false;
+    }
+}
 
 //This is here to handle all the uncaught promise rejections
 process.on('unhandledRejection', error => {

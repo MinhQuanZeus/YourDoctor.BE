@@ -2,6 +2,7 @@ module.exports = Object.freeze({
     ROLE_PATIENT: 1,
     ROLE_DOCTOR: 2,
     ROLE_STAFF: 3,
+    ROLE_ADMIN: 4,
     STATUS_USER_ACTIVE:1,
     STATUS_USER_BLOCK:3,
     STATUS_DOCTOR_PENDING:2,
