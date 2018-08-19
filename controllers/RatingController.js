@@ -54,15 +54,16 @@ async function updateCurrentRating(doctorId, res) {
         if (err) {
             next(err);
         } else {
-            console.log(result[0].totalRating)
-            if (result.length > 0) {
-                averagePatientRate = ((result[0].totalRating + updateToDoctor.systemRating) / (result[0].count + 1));
-                let count = result[0].count + 1;
-                finalRate = (averagePatientRate / 2) + 2.5 * Math.pow(2.718, (-count / constants.Q_MODEL_RATE)).toFixed(2);
+            if (result[0].totalRating > 0) {
+                averagePatientRate = ((result[0].totalRating) / (result[0].count));
+                finalRate = ((averagePatientRate * (1-constants.SYSTEM_RATE_PERCENT)) + (updateToDoctor.systemRating * constants.SYSTEM_RATE_PERCENT)).toFixed(2)
+            }
+            else {
+                finalRate = updateToDoctor.systemRating;
             }
         }
     });
-    await updateToDoctor.set({currentRating: finalRate});
+    await updateToDoctor.set({currentRating: finalRate.toFixed(2)});
     await updateToDoctor.save(function (err, newRating) {
         if (err) ReS(res, 'Update Failed', 503);
         return ReS(res, {message: 'Update rating bác sỹ thành công', newRating: newRating.currentRating}, 200);

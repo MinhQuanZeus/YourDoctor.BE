@@ -46,6 +46,10 @@ router.get('/users', passport.authenticate('jwt', {
 router.put('/users', passport.authenticate('jwt', {
     session: false,
 }), UserController.update);
+
+router.put('/users/update-user', passport.authenticate('jwt', {
+    session: false,
+}), UserController.updateUser);
 router.put('/users/changePassword', passport.authenticate('jwt', {
     session: false
 }), UserController.changePassword);

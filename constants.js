@@ -27,6 +27,8 @@ module.exports = Object.freeze({
     NOTIFICATION_TYPE_VIDEO_CALL: "2",
     NOTIFICATION_TYPE_PAYMENT: "3",
     NOTIFICATION_TYPE_BANKING: "4",
+    NOTIFICATION_TYPE_REPORT: "5",
+    NOTIFICATION_TYPE_ROLE: "6",
     ID_ADMIN: "5b75a076370072f452dc3df2",
     NAME_ADMIN: "ADMIN",
     DEADLINE_TIME_REPLY: 2,
@@ -35,5 +37,5 @@ module.exports = Object.freeze({
     BANKING_HISTORY_DONE: 3,
     BANKKING_TYPE_Withdrawal:1,
     BANKKING_TYPE_Recharge:2,
-    Q_MODEL_RATE: 5.76
+    SYSTEM_RATE_PERCENT : 0.5
 });

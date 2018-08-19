@@ -31,6 +31,18 @@ const sendSMSPassword = async (phoneNumber, newPassword) => {
 };
 module.exports.sendSMSPassword = sendSMSPassword;
 
+const adminSendSMS = async (phoneNumber, message) => {
+    try {
+        const statusSendSMS = await sendSMS(phoneNumber, message);
+    } catch (error) {
+        console.log(error);
+        return Promise.reject("ERROR0007");
+    }
+};
+module.exports.adminSendSMS = adminSendSMS;
+
+
+
 const sendSMSVerifyBanking = async (phoneNumber, verifyCode) => {
     const mesage = "Mã xác nhận giao dịch của bạn là: " +verifyCode;
     try {

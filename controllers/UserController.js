@@ -1,6 +1,10 @@
 const Account = require('../models').Account;
 const authService = require('./../services/AuthService');
 const User = require('../models').User;
+const Rating = require('../models').Rating;
+const Doctor = require('../models').Doctor;
+const SendNotification = require('./NotificationFCMController');
+const constants = require('../constants')
 // const create = async function (req, res) {
 //     res.setHeader('Content-Type', 'application/json');
 //     const body = req.body;
@@ -240,5 +244,165 @@ const getAllUser = async function (req, res) {
 };
 
 module.exports.getAllUser = getAllUser;
+
+const updateUser = async function (req, res) {
+    try {
+        let body = req.body;
+        if (body) {
+            let objUser = await User.findById({_id: body.id});
+            let objDoctor = await Doctor.findOne({doctorId: body.id});
+            if (objUser.role === '2') {
+                if (body.status === '1') {
+                    let message = "Tài khoản bác sỹ của bạn đã được xác minh. Bạn đã có thể đăng nhập vào hệ thống ứng dụng của YourDoctor";
+                    [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+                }
+                if (body.status === '3') {
+                    let message = "Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.";
+                    await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT, message);
+                }
+                if (body.status === '4') {
+                    let message = "Tài khoản của bạn đã bị khóa tạm thời sử dụng ứng dụng YourDoctor Partner. Bạn vẫn có thể đăng nhập ứng dụng dành cho bệnh nhân.";
+                    await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT, message);
+                }
+                if (body.systemRating < objDoctor.systemRating) {
+                    let message = "Bạn đã bị giảm chỉ số Rate do những báo cáo về chất lượng các cuộc tư vấn.";
+                    await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT, message);
+                }
+                if (body.role === '1') {
+                    let message = "Tài khoản của bạn đã được cập nhật thành Bệnh nhân.";
+                    await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE, message);
+                }
+                if (body.role === '3') {
+                    let message = "Tài khoản của bạn đã được cập nhật thành Admin.";
+                    await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE, message);
+                }
+                let finalRate = await calculateRate(body.id,body.systemRating);
+                objDoctor.set({systemRating:body.systemRating, currentRating:finalRate});
+                let objDoctorReturn = await objDoctor.save();
+                objUser.set({status: body.status, role: body.role})
+                let objUserReturn = objUser.save();
+                if(objDoctorReturn && objUserReturn){
+                    return ReS(res, {success: true}, 200);
+                }
+                else {
+                    return ReS(res, {success: false}, 503);
+                }
+            }
+            else if (objUser.role === '1') {
+                if (body.status === '3') {
+                    let message = "Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.";
+                    await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT, message);
+                }
+                if (body.role === '2') {
+                    let message = "Tài khoản của bạn đã được cập nhật thành Bác sỹ.";
+                    await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE, message);
+                }
+                if (body.role === '3') {
+                    let message = "Tài khoản của bạn đã được cập nhật thành Admin.";
+                    await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE, message);
+                }
+                objUser.set({status: body.status});
+                let objUserReturn = objUser.save();
+                if (objUserReturn) {
+                    return ReS(res, {success: true}, 200);
+                }
+                else {
+                    return ReS(res, {success: false}, 503);
+                }
+            }
+        }
+        else {
+            ReE(res, {message: 'Bad request'}, 400);
+        }
+    }
+    catch (e) {
+
+    }
+};
+
+module.exports.updateUser = updateUser
+
+async function Notification(senderId, nameSender, receiverId, type, storageId, message) {
+    let notification = {
+        senderId: senderId,
+        nameSender: nameSender,
+        receiverId: receiverId,
+        type: type,
+        storageId: storageId,
+        message: message
+    };
+    await createNotification(notification);
+
+    let payLoad = {
+        data: {
+            senderId: senderId,
+            nameSender: nameSender,
+            receiverId: receiverId,
+            type: type,
+            storageId: storageId,
+            message: message,
+            createTime: Date.now().toString()
+        }
+    };
+    // send
+    await SendNotification.sendNotification(receiverId, payLoad);
+}
+
+const createNotification = async function (body) {
+    try {
+        let notification = Notification({
+            senderId: body.senderId,
+            nameSender: body.nameSender,
+            receiverId: body.receiverId,
+            type: body.type,
+            storageId: body.storageId,
+            message: body.message
+        });
+        await  notification.save(function (err, success) {
+            if (err) {
+                console.log(err)
+            }
+        });
+    }
+    catch (e) {
+        console.log(e)
+    }
+};
+
+module.exports.getAllUser = getAllUser;
+
+
+async function calculateRate(doctorId, newSystemRating) {
+    let averagePatientRate = 0;
+    let finalRate = 0;
+    // update to doctor table
+    await Rating.aggregate([
+        {
+            $match: {doctorId: {$eq: doctorId}}
+        },
+        {
+            $group: {
+                _id: '$doctorId',  //$doctorId is the column name in collection
+                totalRating: {
+                    $sum: "$rating"
+                },
+                count: {$sum: 1}
+            }
+        }
+    ], function (err, result) {
+        if (err) {
+            console.log(err)
+        } else {
+            if (result[0].totalRating > 0) {
+                averagePatientRate = ((result[0].totalRating) / (result[0].count));
+                finalRate = ((averagePatientRate * (1-constants.SYSTEM_RATE_PERCENT)) + (newSystemRating * constants.SYSTEM_RATE_PERCENT))
+            }
+            else {
+                finalRate = newSystemRating
+            }
+        }
+    });
+    return finalRate.toFixed(2);
+}
 
 
