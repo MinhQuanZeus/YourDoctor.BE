@@ -37,7 +37,7 @@ const registerDoctor = async function (req, res) {
             let objDoctorReturn = await  doctor.save();
 
             let patient = new Patient({
-                patientId:objUserReturn.id
+                patientId: objUserReturn.id
             });
             let objPatientReturn = patient.save();
             if (objDoctorReturn && objPatientReturn) {
@@ -78,18 +78,19 @@ const getListDoctorPending = async function (req, res) {
             status: constants.STATUS_DOCTOR_PENDING
         }).select('id');
         let finalListInforDoctor = [];
-        for(let objUserPending of listDoctorPending){
+        for (let objUserPending of listDoctorPending) {
             console.log(objUserPending._id);
-            let objDoctor = await Doctor.find({doctorId:objUserPending.id})
+            let objDoctor = await Doctor.find({doctorId: objUserPending.id})
                 .populate({
-                path:'doctorId'
-            });
+                    path: 'doctorId'
+                });
             finalListInforDoctor.push(objDoctor);
         }
         return ReS(res, {
             status: true,
             message: 'List doctor pending'
-        ,finalListInforDoctor:finalListInforDoctor}, 503);
+            , finalListInforDoctor: finalListInforDoctor
+        }, 503);
     }
     catch (e) {
         console.log(e)
@@ -102,15 +103,15 @@ module.exports.getListDoctorPending = getListDoctorPending;
 const confirmInforDoctor = async function (req, res) {
     try {
         let data = req.body;
-        if(data){
-            let objUser = await User.findById({_id:data.id});
-            objUser.set({status:data.status});
+        if (data) {
+            let objUser = await User.findById({_id: data.id});
+            objUser.set({status: data.status});
             let objUserReturn = await objUser.save();
-            if(objUserReturn){
-                let objDoctor = await Doctor.findOne({doctorId:data.id});
-                objDoctor.set({systemRating:data.systemRating,currentRating:data.systemRating});
+            if (objUserReturn) {
+                let objDoctor = await Doctor.findOne({doctorId: data.id});
+                objDoctor.set({systemRating: data.systemRating, currentRating: data.systemRating});
                 let objDoctorReturn = await objDoctor.save();
-                if(objDoctorReturn){
+                if (objDoctorReturn) {
                     return ReS(res, {
                         status: true,
                         message: 'Update infor user thành công.'
@@ -146,12 +147,12 @@ module.exports.confirmInforDoctor = confirmInforDoctor;
 // get detail doctor
 const getDetailDoctor = async function (req, res) {
     try {
-        if(!req.params.doctorId){
+        if (!req.params.doctorId) {
             return ReE(res, 'Bad request', 400);
         }
         else {
-            let detailDoctor = await Doctor.findOne({doctorId:req.params.doctorId});
-            if(detailDoctor){
+            let detailDoctor = await Doctor.findOne({doctorId: req.params.doctorId});
+            if (detailDoctor) {
                 return ReS(res, {message: 'Lấy thông tin bác sỹ thành công', detailDoctor: detailDoctor}, 200);
             }
             else {
@@ -160,7 +161,6 @@ const getDetailDoctor = async function (req, res) {
         }
     }
     catch (e) {
-        console.log(e)
         return ReE(res, 'Not found doctor', 503);
     }
 };
@@ -244,7 +244,7 @@ const update = async function (req, res) {
                 // firstName: objUpdateUser.firstName,
                 // middleName: objUpdateUser.middleName,
                 // lastName: objUpdateUser.lastName,
-                _id:objUpdateUser.id,
+                _id: objUpdateUser.id,
                 birthday: objUpdateUser.birthday,
                 address: objUpdateUser.address,
                 avatar: objUpdateUser.avatar,
@@ -256,11 +256,10 @@ const update = async function (req, res) {
                 placeWorking: objUpdateDoctor.placeWorking
             };
             return ReS(res, {message: 'Update thông tin bác sỹ thành công', informationDoctor: objReturn}, 200);
-        }else {
+        } else {
             return ReE(res, "ERROR0035", 503);
         }
     } catch (e) {
-        console.log(e)
         return ReE(res, "ERROR0035", 503);
     }
 };
@@ -341,9 +340,9 @@ const getListSpecialistDoctor = async function (req, res) {
             }
         });
         let finalList = [];
-        for (let i = 0; i <results.length;i++){
+        for (let i = 0; i < results.length; i++) {
             console.log(results[i]);
-            if('1' === results[i].status+""){
+            if ('1' === results[i].status + "") {
                 finalList.push(results[i]);
             }
         }
@@ -389,8 +388,8 @@ const getDoctorRankingBySpecialist = async function (req, res) {
         }
         else {
             let finalList = [];
-            for(let objDoctor of listDoctorRanking){
-                if('1' === objDoctor.doctorId.status+""){
+            for (let objDoctor of listDoctorRanking) {
+                if ('1' === objDoctor.doctorId.status + "") {
                     finalList.push(objDoctor);
                 }
             }
@@ -405,20 +404,20 @@ const getDoctorRankingBySpecialist = async function (req, res) {
 module.exports.getDoctorRankingBySpecialist = getDoctorRankingBySpecialist;
 
 const getDoctorsBySpecialist = async function (req, res) {
-    const specialistId = req.query['specialistId']
-    const patientId = req.query['patientId']
+    const specialistId = req.query['specialistId'];
+    const patientId = req.query['patientId'];
     if (!specialistId || !patientId) {
         ReE(res, 'ERROR0045')
     }
     try {
         let patient = await Patient.find({
             patientId: patientId,
-        })
+        });
         if (patient.length === 0) {
             ReE(res, 'ERROR0046')
         }
 
-        const favoriteDoctors = patient[0].favoriteDoctors
+        const favoriteDoctors = patient[0].favoriteDoctors;
 
         let doctors = await Doctor.find({
             idSpecialist: {
@@ -430,19 +429,20 @@ const getDoctorsBySpecialist = async function (req, res) {
             .select('currentRating -_id')
             .populate({
                 path: 'doctorId',
-                select: 'firstName middleName lastName avatar',
-            })
-        let results = []
+                select: 'firstName middleName lastName avatar status',
+            });
+        let results = [];
         for (let doctor of doctors) {
             const temp = favoriteDoctors.filter(obj => obj === (doctor.doctorId._id + ''))
-            var itemInfoDoctor = {
+            let itemInfoDoctor = {
                 id: doctor.doctorId._id,
                 firstName: doctor.doctorId.firstName,
                 middleName: doctor.doctorId.middleName,
                 lastName: doctor.doctorId.lastName,
                 avatar: doctor.doctorId.avatar,
                 currentRating: doctor.currentRating,
-            }
+                status: doctor.doctorId.status
+            };
             if (temp && temp.length > 0) {
                 itemInfoDoctor.isFavorited = true
             } else {
@@ -450,13 +450,20 @@ const getDoctorsBySpecialist = async function (req, res) {
             }
             results.push(itemInfoDoctor)
         }
+        let finalList = [];
+        for (let i = 0; i < results.length; i++) {
+            console.log(results[i]);
+            if ('1' === results[i].status + "") {
+                finalList.push(results[i]);
+            }
+        }
         return ReS(res, {
             message: 'success',
-            doctorList: results,
+            doctorList: finalList,
         }, 200)
     } catch (e) {
         ReE(res, 'ERROR0047')
     }
-}
+};
 
-module.exports.getDoctorsBySpecialist = getDoctorsBySpecialist
+module.exports.getDoctorsBySpecialist = getDoctorsBySpecialist;
