@@ -1,6 +1,7 @@
 const Doctor = require('../models').Doctor;
 const Patient = require('../models').Patient;
 const User = require('../models').User;
+const constants = require('../constants')
 const registerDoctor = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     const body = req.body;
