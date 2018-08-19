@@ -14,7 +14,6 @@ const DoctorController = require('../controllers/DoctorController');
 const PatientsController = require('../controllers/PatientsController');
 const ChatsHistoryController = require('../controllers/ChatsHistoryController');
 const PaymentsHistoryController = require('../controllers/PaymentsHistoryController');
-const TokenNotificationController = require('../controllers/TokenNotificationController');
 const UploadImageController = require('../controllers/UploadImageController');
 const NotificationController = require('../controllers/NotificationController');
 const BankController = require('../controllers/BankController');
@@ -246,14 +245,6 @@ router.post('/paymentshistorys', passport.authenticate('jwt', {
 router.get('/paymentshistorys/getPaymentHistoryByUser/:userID', passport.authenticate('jwt', {
     session: false,
 }), PaymentsHistoryController.getPaymentHistoryByUser);
-
-//----------TokenNotification
-router.post('/tokennotifications', passport.authenticate('jwt', {
-    session: false,
-}), TokenNotificationController.createToken);
-router.get('/tokennotifications/:userId', passport.authenticate('jwt', {
-    session: false,
-}), TokenNotificationController.getToken);
 
 // uploadImage
 router.post('/uploadImageChat', UploadImageController.upload);
