@@ -58,7 +58,7 @@ router.delete('/users', passport.authenticate('jwt', {
     session: false,
 }), UserController.remove)
 
-router.get('/users/:userId', passport.authenticate('jwt', {
+router.get('/users/detail/:userId', passport.authenticate('jwt', {
     session: false,
 }), UserController.getUserById)
 

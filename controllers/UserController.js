@@ -420,11 +420,12 @@ const deleteUserById = async function (req, res) {
 module.exports.deleteUserById = deleteUserById
 
 const getUserById = async function (req, res) {
+    console.log('getUser');
     const userId = req.params.userId
     if (!userId) {
         ReE(res, {
             status: false,
-            message: 'Vui lòng nhập userId và updateTime',
+            message: 'Vui lòng nhập userId',
         }, 400)
     }
     User.find({
@@ -445,10 +446,15 @@ const getUserById = async function (req, res) {
                     if (err) return ReE(res, "ERROR0009", 404);
                     next();
                 }
+                let moreDoctorDetail = null;
+                if (getDoctor && getDoctor.length> 0) {
+                    moreDoctorDetail = getDoctor[0];
+                }
+
                 ReS(res, {
                     status: true,
                     user: user.toWeb(),
-                    moreDoctorDetail: getDoctor
+                    moreDoctorDetail: moreDoctorDetail
                 }, 200)
             });
         }else {
