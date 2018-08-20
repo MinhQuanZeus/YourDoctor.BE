@@ -17,8 +17,44 @@ const sendSMSVerification = async (phoneNumber) => {
         console.log(error);
         return Promise.reject("ERROR0007");
     }
-}
+};
 module.exports.sendSMSVerification = sendSMSVerification;
+
+const sendSMSPassword = async (phoneNumber, newPassword) => {
+    const mesage = "Your doctor! Mật khẩu tài khoản của Quý khách là: " +newPassword;
+    try {
+        const statusSendSMS = await sendSMS(phoneNumber, mesage);
+    } catch (error) {
+        console.log(error);
+        return Promise.reject("ERROR0007");
+    }
+};
+module.exports.sendSMSPassword = sendSMSPassword;
+
+const adminSendSMS = async (phoneNumber, message) => {
+    try {
+        const statusSendSMS = await sendSMS(phoneNumber, message);
+    } catch (error) {
+        console.log(error);
+        return Promise.reject("ERROR0007");
+    }
+};
+module.exports.adminSendSMS = adminSendSMS;
+
+
+
+const sendSMSVerifyBanking = async (phoneNumber, verifyCode) => {
+    const mesage = "Mã xác nhận giao dịch của bạn là: " +verifyCode;
+    try {
+        const statusSendSMS = await sendSMS(phoneNumber, mesage);
+    } catch (error) {
+        console.log(error);
+        return Promise.reject("ERROR0007");
+    }
+};
+module.exports.sendSMSVerifyBanking = sendSMSVerifyBanking;
+
+
 const sendSMS = async (phoneNumber, content) => {
     var url = CONFIG.SPEED_SMS_URL;
     var params = JSON.stringify({

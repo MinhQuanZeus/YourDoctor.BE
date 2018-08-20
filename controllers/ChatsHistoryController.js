@@ -33,9 +33,9 @@ const create = async function (req, res) {
         // get payment
         let objUser = await User.findById({_id: body.patientId});
         let objPayment = await PaymentsHistory.findById({_id: chatHistory.paymentPatientID});
-
         // update remain money
-        objUser.set({remainMoney: objPayment.remainMoney});
+        let newRemainMoney = objUser.remainMoney - objPayment.amount;
+        objUser.set({remainMoney: newRemainMoney});
         await objUser.save(function (err, success) {
             if (err) {
                 ReE(res, err.toString(), 503);
@@ -87,7 +87,7 @@ const create = async function (req, res) {
                 receiverId: chatHistory.patientId,
                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                 storageId: objPayment.id,
-                message: "Bạn vừa tạo một yêu cầu tư vấn với bác sỹ "+fullNameDoctor+". Bạn đã thanh toán: " + objPayment.amount + "VND. Số tiền bạn có hiện tại: " + objPayment.remainMoney + "VND.",
+                message: "Bạn vừa tạo một yêu cầu tư vấn với bác sỹ " + fullNameDoctor + ". Bạn đã thanh toán: " + objPayment.amount + "VND. Số tiền bạn có hiện tại: " + Math.round(newRemainMoney) + "VND.",
                 createTime: Date.now().toString()
             }
         };
@@ -100,7 +100,7 @@ const create = async function (req, res) {
             receiverId: chatHistory.patientId,
             type: constants.NOTIFICATION_TYPE_PAYMENT,
             storageId: objPayment.id,
-            message: "Bạn vừa tạo một yêu cầu tư vấn "+fullNameDoctor+". Bạn đã thanh toán: " + objPayment.amount + "VND.Số tiền bạn có hiện tại: " + objPayment.remainMoney + "VND."
+            message: "Bạn vừa tạo một yêu cầu tư vấn " + fullNameDoctor + ". Bạn đã thanh toán: " + objPayment.amount + "VND.Số tiền bạn có hiện tại: " + Math.round(newRemainMoney) + "VND."
         };
         await  createNotification(notificationPatient);
         return ReS(res, {message: 'Tạo cuộc tư vấn thành công', chatHistory: chatHistory}, 200);
@@ -257,7 +257,6 @@ const checkDoctorReply = async function (req, res) {
     if (!body) {
         return ReE(res, "Bad request", 400);
     }
-
     let arrayChatHistoryCheckFailed = [];
     for (let k = 0; k < body.listId.length; k++) {
         try {
@@ -300,8 +299,8 @@ const checkDoctorReply = async function (req, res) {
                                 receiveId: objChatHistory.patientId,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: objPaymentPatient.id,
-                                message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + remain_money + "VND",
-                                remain_money: remain_money + "",
+                                message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + Math.round(remain_money) + "VND",
+                                remainMoney: remain_money + "",
                                 createTime: Date.now().toString()
                             }
                         };
@@ -314,7 +313,7 @@ const checkDoctorReply = async function (req, res) {
                             receiveId: objChatHistory.patientId,
                             type: constants.NOTIFICATION_TYPE_PAYMENT,
                             storageId: objPaymentPatient.id,
-                            message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + remain_money + "VND",
+                            message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + Math.round(remain_money) + "VND",
                         };
                         await createNotification(objNotificationPatientToSave);
 
@@ -346,13 +345,13 @@ const checkDoctorReply = async function (req, res) {
                         await createNotification(objNotificationDoctorToSave);
                     } else {
                         let isDoctorRely = false;
-                        for(let i = 0 ; i < objChatHistory.records.length ; i++){
-                            if(objChatHistory.records[i].recorderID === objChatHistory.doctorId){
+                        for (let i = 0; i < objChatHistory.records.length; i++) {
+                            if (objChatHistory.records[i].recorderID === objChatHistory.doctorId) {
                                 isDoctorRely = true;
                             }
                         }
 
-                        if(isDoctorRely === true){
+                        if (isDoctorRely === true) {
                             let paymentIdDoctor = await createPaymentForDoctor(objChatHistory.id);
                             // update status done cho cuộc tư vấn, update payment id doctor vào cuộc chat
                             objChatHistory.set({
@@ -369,7 +368,8 @@ const checkDoctorReply = async function (req, res) {
                                 receiveId: objChatHistory.doctorId,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: objChatHistory.id,
-                                message: "Cuộc tư vấn với bệnh nhân " + fullName + " đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + " VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
+                                remainMoney: paymentIdDoctor.remainMoney+"",
+                                message: "Cuộc tư vấn với bệnh nhân " + fullName + " đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + " VND." + " Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND",
                             };
                             console.log(objNotificationToSave);
                             // save to notification table
@@ -382,7 +382,7 @@ const checkDoctorReply = async function (req, res) {
                                     receiveId: objChatHistory.doctorId,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: ChatsHistory.id,
-                                    message: "Cuộc tư vấn với bệnh nhân " + fullName + "đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + " VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
+                                    message: "Cuộc tư vấn với bệnh nhân " + fullName + "đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + " VND." + " Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND",
                                     createTime: Date.now().toString()
                                 }
                             };
@@ -414,7 +414,7 @@ const checkDoctorReply = async function (req, res) {
                             };
                             // send notification
                             await SendNotification.sendNotification(objChatHistory.doctorId, payLoadPatient);
-                        }else {
+                        } else {
                             let objPaymentPatient = await PaymentsHistory.findById({_id: objChatHistory.paymentPatientID});
                             // get objUser bệnh nhân => trả lại tiền
                             let objUser = await User.findById({_id: objChatHistory.patientId});
@@ -444,8 +444,8 @@ const checkDoctorReply = async function (req, res) {
                                     receiveId: objChatHistory.patientId,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: objPaymentPatient.id,
-                                    message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + remain_money + "VND",
-                                    remain_money: remain_money + "",
+                                    remainMoney: remain_money+"",
+                                    message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + Math.round(remain_money) + "VND",
                                     createTime: Date.now().toString()
                                 }
                             };
@@ -458,7 +458,7 @@ const checkDoctorReply = async function (req, res) {
                                 receiveId: objChatHistory.patientId,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: objPaymentPatient.id,
-                                message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + remain_money + "VND",
+                                message: "Cuộc tư vấn với bác sỹ " + fullNameDoctor + " đã bị hủy do quá thời gian trả lời. Bạn được hoàn trả: " + amount + "VND. Số tiền bạn có hiện tại: " + Math.round(remain_money) + "VND",
                             };
                             await createNotification(objNotificationPatientToSave);
                         }
@@ -483,14 +483,24 @@ module.exports.checkDoctorReply = checkDoctorReply;
 
 const getListConversationPending = async function (req, res) {
     try {
-        if(req.params.patientId){
+        if (req.params.patientId) {
             let listPending = await ChatsHistory.find({
-                patientId:req.params.patientId,
+                patientId: req.params.patientId,
                 status: constants.STATUS_CONVERSATION_TALKING
-            }).select('id')
-            if(listPending){
-                return ReS(res, {message: 'Danh sách cuộc tư vấn pending', listPending: listPending}, 200);
-            }else {
+            }).select('id createdAt');
+            let finalListPending = [];
+            if (listPending) {
+                for (let objPending of listPending) {
+                    let created_date = new Date(objPending.createdAt);
+                    let objPendingToPush = {
+                        _id: objPending.id,
+                        createdAt: objPending.createdAt,
+                        timeRemain: Date.now() - created_date.getTime()
+                    };
+                    finalListPending.push(objPendingToPush);
+                }
+                return ReS(res, {message: 'Danh sách cuộc tư vấn pending', listPending: finalListPending}, 200);
+            } else {
                 return ReE(res, "Not found", 503);
             }
         }
@@ -614,3 +624,67 @@ async function getUser(userId) {
     return fullName
 }
 
+const doctorDenyRequestChat = async function (req, res) {
+    try {
+        if (req.params.id) {
+            let objChatHistory = await ChatsHistory.findById({_id: req.params.id});
+            if (objChatHistory) {
+                // get payment
+                let objPayment = await PaymentsHistory.findById({_id: objChatHistory.paymentPatientID});
+                // get objUser
+                let objUser = await User.findById({_id: objChatHistory.patientId});
+                // update remainMoney
+                let returnRemainMoney = objUser.remainMoney + objPayment.amount;
+                objUser.set({remainMoney: returnRemainMoney});
+                let objUserReturn = await objUser.save();
+                // update status chat history
+                objChatHistory.set({status: constants.STATUS_CONVERSATION_FINISH});
+                let objChatHistoryReturn = await objChatHistory.save();
+                // update payment
+                objPayment.set({amount: 0, remainMoney: returnRemainMoney, status: constants.PAYMENT_FAILED});
+                let objPaymentReturn = await objPayment.save();
+                if (objUserReturn && objChatHistoryReturn && objPaymentReturn) {
+                    // send notification to patient
+                    let fullNameDoctor = await getUser(objChatHistory.doctorId);
+                    let payLoadPatient = {
+                        data: {
+                            senderId: objChatHistory.doctorId,
+                            nameSender: fullNameDoctor,
+                            receiverId: objChatHistory.patientId,
+                            type: constants.NOTIFICATION_TYPE_PAYMENT,
+                            storageId: objPayment.id,
+                            remainMoney: returnRemainMoney+"",
+                            message: "Bác sỹ " + fullNameDoctor + " đã từ chối cuộc tư vấn với bạn vì lý do cá nhân. Bạn được hoàn trả lại toàn bộ phí tư vấn.",
+                            createTime: Date.now().toString()
+                        }
+                    };
+                    // send
+                    await SendNotification.sendNotification(objChatHistory.patientId, payLoadPatient);
+                    // save
+                    let notificationPatient = {
+                        senderId: objChatHistory.doctorId,
+                        nameSender: fullNameDoctor,
+                        receiverId: objChatHistory.patientId,
+                        type: constants.NOTIFICATION_TYPE_PAYMENT,
+                        storageId: objPayment.id,
+                        message: "Bác sỹ " + fullNameDoctor + " đã từ chối cuộc tư vấn với bạn vì lý do cá nhân. Bạn được hoàn trả lại toàn bộ phí tư vấn.",
+                    };
+                    await createNotification(notificationPatient);
+
+                    return ReS(res, {status: true, message: 'Từ chối tư vấn thành công'}, 200);
+                }
+            }
+            else {
+                return ReE(res, "Cuộc tư vấn không tồn tại.", 400);
+            }
+        }
+        else {
+            return ReE(res, "Bad request", 400);
+        }
+    }
+    catch (e) {
+        return ReE(res, "Có lỗi xảy ra", 400);
+    }
+};
+
+module.exports.doctorDenyRequestChat = doctorDenyRequestChat;

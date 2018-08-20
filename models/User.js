@@ -53,9 +53,15 @@ let UserSchema = mongoose.Schema({
     deletionFlag: {
         type: Boolean,
         default: false
+    },
+    createdAt: {
+        type: Number,
+        default: new Date().getTime()
+    },
+    updatedAt: {
+        type: Number,
+        default: new Date().getTime()
     }
-}, {
-    timestamps: true
 });
 
 UserSchema.pre('save', async function (next) {
@@ -63,17 +69,21 @@ UserSchema.pre('save', async function (next) {
     if (this.isModified('password') || this.isNew) {
 
         let err, salt, hash;
-        [err, salt] = await to(bcrypt.genSalt(10));
-        if (err) TE(err.message, true);
+        [err, salt] = await to(bcrypt.genSalt(10))
+        if (err) TE(err.message, true)
 
-        [err, hash] = await to(bcrypt.hash(this.password, salt));
-        if (err) TE(err.message, true);
+            [err, hash] = await to(bcrypt.hash(this.password, salt))
+        if (err) TE(err.message, true)
 
-        this.password = hash;
+        this.password = hash
 
-    } else {
-        return next();
     }
+    const currTime = new Date().getTime();
+    this.updatedAt = currTime;
+    if (this.isNew) {
+        this.createdAt = currTime;
+    }
+    next();
 });
 
 UserSchema.methods.comparePassword = async function (pw) {

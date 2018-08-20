@@ -42,26 +42,47 @@ module.exports.create = create;
 
 const get = async function (req, res) {
     try {
-        Report.find({}, function (err, listReport) {
+        Report.find({
+            status: false
+        }, function (err, listReport) {
             if(err){
-                return ReS(report, 'Not found report', 404);
+                return ReS(res, {message:'Not found report'}, 404);
             }
             return ReS(res, {message: 'Tải danh sách báo cáo thành công',listReport:listReport }, 200);
         });
     }
     catch (e) {
         console.log(e)
+        return ReS(res, {message:'Tải danh sách báo cáo không thành công'}, 503);
     }
 };
 
 module.exports.get = get;
 
-const remove = async function (req, res) {
-    const body = req.body;
-    Report.findByIdAndRemove(body.id, function (err, report) {
-        if (err) return handleError(err);
-        res.send('Delete report success');
-    });
+const updateReportDoctorProcessing = async function (req, res) {
+    try {
+        if(req.params.id){
+            let objReport = await Report.findById({_id:req.params.id});
+            if(objReport){
+                objReport.set({status:true});
+                let objReportReturn = await objReport.save();
+                if(objReportReturn){
+                    return ReS(res, {message: 'Xử lý báo cáo thành công',objReportReturn:objReportReturn }, 200);
+                }
+                else {
+                    return ReS(res, {message: 'Xử lý báo cáo không thành công'}, 503);
+                }
+            }
+            else {
+                return ReS(res, {message: 'Xử lý báo cáo không thành công'}, 503);
+            }
+        }
+        else {
+            return ReS(res, {message: 'BAD REQUEST'}, 503);
+        }
+    }
+    catch (e) {
+        return ReS(res, {message: 'Xử lý báo cáo không thành công'}, 503);
+    }
 };
-
-module.exports.remove = remove;
+module.exports.updateReportDoctorProcessing = updateReportDoctorProcessing;

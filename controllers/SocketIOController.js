@@ -1,5 +1,5 @@
 module.exports = function (io) {
-    let doctorsOnline = {};
+    let doctorsOnline = [];
 
     var sequenceNumberByClient = new Map();
 
@@ -10,37 +10,42 @@ module.exports = function (io) {
             // initialize this client's sequence number
             // ng dung emit create add vao 1 map
             socket.on('addUser', function (userID, type) {
-                // add id client online to array
-                console.log("Client connected id" + socket.id);
-
                 socket.userID = userID;
                 if(type===2){
-                    doctorsOnline[userID] = socket.id;
+                    if(!doctorsOnline.includes(userID)){
+                        doctorsOnline.push(userID)
+                    }
+                    socket.type =2;
+                }else {
+                    socket.type = 1;
                 }
-                console.log("add user" + socket.userID);
+                console.log("Client connected User id " + socket.userID);
+                console.log("Client connected socket id " + socket.id);
+                console.log("Client connected socket type " + socket.type);
                 sequenceNumberByClient.set(userID, socket);
             });
 
             socket.on('getDoctorOnline',function () {
-                socket.emit('getDoctorOnline',doctorsOnline);
+                console.log("lisOnline" ,JSON.stringify(doctorsOnline));
+                socket.emit('getDoctorOnline', JSON.stringify(doctorsOnline));
             });
 
             // create room
             socket.on('createRoom', function (room) {
                 socket.room = room;
                 // join room
-                socket.join(room);
+                //socket.join(room);
                 console.log("User joined the room: " + socket.room);
             });
 
             socket.on('joinRoom', function (roomID) {
-                socket.join(roomID);
+                //socket.join(roomID);
                 socket.room = roomID;
                 sequenceNumberByClient.set(socket.userID, socket);
             });
 
             socket.on('leaveRoom', function (roomID) {
-                socket.leave(roomID);
+                //socket.leave(roomID);
                 socket.room = null;
                 sequenceNumberByClient.set(socket.userID, socket);
             });
@@ -132,7 +137,7 @@ module.exports = function (io) {
                         if (receive != null) {
                             // json: số tiền nhận được, số tiền hiện tại đang có
                             console.log("ng nhan tin" + send + "");
-                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "VND. Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND");
+                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "VND. Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND");
                         }
                         else {
                             let fullName = await getUser(reqSender);
@@ -144,7 +149,8 @@ module.exports = function (io) {
                                     receiverId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
-                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
+                                    remainMoney: paymentIdDoctor.remainMoney+"",
+                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND",
                                     createTime: Date.now().toString()
                                 }
                             };
@@ -157,13 +163,12 @@ module.exports = function (io) {
                                 receiverId: reqReceiver,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: reqConversationID,
-                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
+                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND",
                             };
                             await createNotification(objNotificationToSave)
                         }
                     }
                 }
-
             });
 
             socket.on('doneConversation', async function (reqSender, reqReceiver, reqConversationID) {
@@ -190,7 +195,7 @@ module.exports = function (io) {
                         // emit to receiver
                         if (receive != null) {
                             // json: số tiền nhận được, số tiền hiện tại đang có
-                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "+VND. Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND");
+                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "VND. Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND");
 
                         } else {
                             let fullName = await getUser(reqSender);
@@ -202,7 +207,8 @@ module.exports = function (io) {
                                     receiverId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
-                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
+                                    remainMoney: paymentIdDoctor.remainMoney+"",
+                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND",
                                     createTime: Date.now().toString()
                                 }
                             };
@@ -215,7 +221,7 @@ module.exports = function (io) {
                                 receiverId: reqReceiver,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: reqConversationID,
-                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
+                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND",
                             };
                             await createNotification(objNotificationToSave);
                         }
@@ -248,19 +254,28 @@ module.exports = function (io) {
             // when socket disconnects, remove it from the list:
             socket.on("disconnect", () => {
                 console.log(socket.id + " disconnect");
-                Object.keys(JSON.stringify(doctorsOnline)).forEach(function (key) {
-                    if (doctorsOnline[key] === socket.id)
-                        delete doctorsOnline[key];
-                });
-                let userID
-                for (let [key, value] of sequenceNumberByClient) {
-                    if (value === socket.id) userID = key
+                // Object.keys(JSON.stringify(doctorsOnline)).forEach(function (key) {
+                //     if (doctorsOnline[key] === socket.id)
+                //         delete doctorsOnline[key];
+                // });
+                // doctorsOnline.push(userID)
+                if(socket.type === 2){
+                    var index = doctorsOnline.indexOf(socket.userID);
+                    if (index > -1) {
+                        doctorsOnline.splice(index, 1);
+                    }
                 }
-                console.log(userID + "da out !!!");
+
+                //doctorsOnline.delete(socket.userID)
+                // let userID
+                // for (let [key, value] of sequenceNumberByClient) {
+                //     if (value === socket.id) userID = key
+                // }
+                // console.log(userID + "da out !!!");
                 //if (userID) sequenceNumberByClient.delete(userID);
                 sequenceNumberByClient.delete(socket.userID)
                 console.info("Client gone id" + socket.id);
-                socket.emit('getDoctorOnline',doctorsOnline);
+                //socket.emit('getDoctorOnline',doctorsOnline);
             });
         }
     );

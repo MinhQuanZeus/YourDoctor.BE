@@ -89,7 +89,7 @@ const authUser = async (userInfo) => { //returns token
     }
     if (!user) TE('ERROR0020');
     [err, user] = await to(user.comparePassword(userInfo.password));
-
+    console.log(err);
     if (err) TE('ERROR0022');
 
     return user;

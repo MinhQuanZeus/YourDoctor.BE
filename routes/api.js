@@ -5,21 +5,23 @@ const UserController = require('./../controllers/UserController')
 const PhoneController = require('./../controllers/PhoneController')
 const AuthController = require('./../controllers/AuthController')
 
-const ReportController = require('../controllers/ReportController')
-const SpecialistController = require('../controllers/SpecialistController')
-const RatingController = require('../controllers/RatingController')
-const TypeAdvisoriesController = require('../controllers/TypeAdvisoriesController')
-const BankingHistoryController = require('../controllers/BankingHistoryController')
-const DoctorController = require('../controllers/DoctorController')
-const PatientsController = require('../controllers/PatientsController')
-const ChatsHistoryController = require('../controllers/ChatsHistoryController')
-const PaymentsHistoryController = require('../controllers/PaymentsHistoryController')
-const TokenNotificationController = require('../controllers/TokenNotificationController')
-const UploadImageController = require('../controllers/UploadImageController')
-const NotificationController = require('../controllers/NotificationController')
-const BankController = require('../controllers/BankController')
-const passport = require('passport')
-const path = require('path')
+const ReportController = require('../controllers/ReportController');
+const SpecialistController = require('../controllers/SpecialistController');
+const RatingController = require('../controllers/RatingController');
+const TypeAdvisoriesController = require('../controllers/TypeAdvisoriesController');
+const BankingHistoryController = require('../controllers/BankingHistoryController');
+const DoctorController = require('../controllers/DoctorController');
+const PatientsController = require('../controllers/PatientsController');
+const ChatsHistoryController = require('../controllers/ChatsHistoryController');
+const PaymentsHistoryController = require('../controllers/PaymentsHistoryController');
+const UploadImageController = require('../controllers/UploadImageController');
+const NotificationController = require('../controllers/NotificationController');
+const BankController = require('../controllers/BankController');
+const IntroduceAndRuleController = require('../controllers/IntroduceAndRuleController');
+const ReportConversationController = require('../controllers/ReportConversationController');
+const VideoCallHistoryController = require('../controllers/VideoCallHistoryController');
+const passport = require('passport');
+const path = require('path');
 
 
 require('./../middleware/passport')(passport)
@@ -36,6 +38,7 @@ router.get('/', function (req, res, next) {
 //Auth controller
 router.post('/auth/register', AuthController.register)
 router.post('/auth/login', AuthController.login)
+router.post('/auth/logout', AuthController.logout)
 
 //User controllerss
 router.get('/users', passport.authenticate('jwt', {
@@ -44,18 +47,32 @@ router.get('/users', passport.authenticate('jwt', {
 router.put('/users', passport.authenticate('jwt', {
     session: false,
 }), UserController.update)
+router.put('/users/update-user', passport.authenticate('jwt', {
+    session: false,
+}), UserController.updateUser);
 router.put('/users/changePassword', passport.authenticate('jwt', {
     session: false,
 }), UserController.changePassword)
-router.put('/users/forgotPassword', passport.authenticate('jwt', {
-    session: false,
-}), UserController.forgotPassword)
+router.get('/users/forgotPassword/:phoneNumber', UserController.forgotPassword)
 router.delete('/users', passport.authenticate('jwt', {
     session: false,
 }), UserController.remove)
 
-router.get('/users/get_all_user', UserController.get_all_user)
+router.get('/users/detail/:userId', passport.authenticate('jwt', {
+    session: false,
+}), UserController.getUserById)
 
+router.delete('/users/:userId', passport.authenticate('jwt', {
+    session: false,
+}), UserController.deleteUserById)
+
+router.get('/users/get-all-user', passport.authenticate('jwt', {
+    session: false,
+}), UserController.getAllUser)
+
+// Introduce and Rule
+router.post('/IntroduceAndRule', IntroduceAndRuleController.create)
+router.get('/IntroduceAndRule', IntroduceAndRuleController.get)
 
 //Phone
 router.post('/phone/sms', PhoneController.sendPhoneVerifyCode)
@@ -65,20 +82,27 @@ router.post('/phone/verify', PhoneController.verifyPhoneVerifyCode)
 router.post('/reports', passport.authenticate('jwt', {
     session: false,
 }), ReportController.create)
-router.get('/reports', passport.authenticate('jwt', {
+router.get('/reports/get-list-report-doctor', passport.authenticate('jwt', {
     session: false,
 }), ReportController.get)
-router.delete('/reports', passport.authenticate('jwt', {
+router.put('/reports/update-report-doctor/:id', passport.authenticate('jwt', {
     session: false,
-}), ReportController.remove)
+}), ReportController.updateReportDoctorProcessing)
 
 
 //--------------- Specialist
 router.post('/specialists', SpecialistController.create)
+router.get('/specialists/get-all-specialist', passport.authenticate('jwt', {
+    session: false,
+}), SpecialistController.getAllSpecialist)
 router.get('/specialists/getListSpecialist', SpecialistController.getListSpecialist)
 router.get('/specialists/getDetailSpecialist/:specialistId', SpecialistController.getDetailSpecialist)
-router.put('/specialists', SpecialistController.update)
-router.delete('/specialists', SpecialistController.remove)
+router.put('/specialists', passport.authenticate('jwt', {
+    session: false,
+}), SpecialistController.update)
+router.delete('/specialists', passport.authenticate('jwt', {
+    session: false,
+}), SpecialistController.remove)
 
 //--------------- Rating
 router.post('/ratings', passport.authenticate('jwt', {
@@ -109,23 +133,34 @@ router.delete('/typeadvisorys', passport.authenticate('jwt', {
 }), TypeAdvisoriesController.remove)
 
 //---------------Banking_history
-router.post('/bankinghistorys', passport.authenticate('jwt', {
+router.post('/bankinghistorys/doctorWithdrawal', passport.authenticate('jwt', {
     session: false,
 }), BankingHistoryController.doctorWithdrawal)
-router.get('/bankinghistorys', passport.authenticate('jwt', {
+
+router.post('/bankinghistorys/checkCodeVerify', BankingHistoryController.checkCodeVerify)
+
+router.get('/bankinghistorys/getHistoryBanking:/userId', passport.authenticate('jwt', {
     session: false,
-}), BankingHistoryController.getAllHistoryBanking)
-router.get('/bankinghistorys/:id', passport.authenticate('jwt', {
+}), BankingHistoryController.getHistoryBanking);
+
+router.get('/bankinghistorys/get-detail-banking/:id',passport.authenticate('jwt', {
     session: false,
-}), BankingHistoryController.getDetailHistoryById)
+}), BankingHistoryController.getDetailHistoryById);
+
+router.get('/bankinghistorys/handleBankingHistory/:id', passport.authenticate('jwt', {
+    session: false,
+}),BankingHistoryController.handleBankingHistory);
+
+router.get('/bankinghistorys/get-list-banking-pending', passport.authenticate('jwt', {
+    session: false,
+}),BankingHistoryController.getListBankingPendingVerify);
+
 router.delete('/bankinghistorys/:id', passport.authenticate('jwt', {
     session: false,
 }), BankingHistoryController.removeLogic)
 
 //---------------Doctor
-router.post('/doctors', passport.authenticate('jwt', {
-    session: false,
-}), DoctorController.create)
+router.post('/doctors', DoctorController.registerDoctor)
 router.get('/doctors', passport.authenticate('jwt', {
     session: false,
 }), DoctorController.getDoctor)
@@ -147,7 +182,15 @@ router.put('/doctors', passport.authenticate('jwt', {
 router.delete('/doctors', passport.authenticate('jwt', {
     session: false,
 }), DoctorController.remove)
+
+router.get('/doctors/getListDoctorPending', passport.authenticate('jwt', {
+    session: false,
+}), DoctorController.getListDoctorPending)
+router.put('/doctors/confirmInforDoctor', passport.authenticate('jwt', {
+    session: false,
+}), DoctorController.confirmInforDoctor)
 router.get('/doctors/doctors-by-specialist', DoctorController.getDoctorsBySpecialist)
+
 
 //-----------Patient
 router.post('/patients', passport.authenticate('jwt', {
@@ -203,6 +246,9 @@ router.post('/chatshistorys/checkDoctorReply', passport.authenticate('jwt', {
 router.post('/chatshistorys/checkStatusChatsHistory', passport.authenticate('jwt', {
     session: false,
 }), ChatsHistoryController.checkStatusChatsHistory)
+router.get('/chatshistorys/doctorDenyRequestChat/:id', passport.authenticate('jwt', {
+    session: false,
+}), ChatsHistoryController.doctorDenyRequestChat)
 
 //----------PaymentHistory
 router.post('/paymentshistorys', passport.authenticate('jwt', {
@@ -211,14 +257,6 @@ router.post('/paymentshistorys', passport.authenticate('jwt', {
 router.get('/paymentshistorys/getPaymentHistoryByUser/:userID', passport.authenticate('jwt', {
     session: false,
 }), PaymentsHistoryController.getPaymentHistoryByUser)
-
-//----------TokenNotification
-router.post('/tokennotifications', passport.authenticate('jwt', {
-    session: false,
-}), TokenNotificationController.createToken)
-router.get('/tokennotifications/:userId', passport.authenticate('jwt', {
-    session: false,
-}), TokenNotificationController.getToken)
 
 // uploadImage
 router.post('/uploadImageChat', UploadImageController.upload)
@@ -229,7 +267,31 @@ router.get('/notifications/getAllNotificationByUser/:receiverId', passport.authe
     session: false,
 }), NotificationController.getAllNotificationByUser)
 
+/// ReportConversationController
+router.post('/reportConversations', passport.authenticate('jwt', {
+    session: false,
+}), ReportConversationController.createReportConveration)
+router.put('/reportConversations/update-report-conversation/:id', passport.authenticate('jwt', {
+    session: false,
+}), ReportConversationController.updateReportConversationProcessing)
+router.get('/reportConversations/get-list-report-conversation', passport.authenticate('jwt', {
+    session: false,
+}), ReportConversationController.getListReport)
 //
-router.post('/banks', BankController.create)
-router.get('/banks', BankController.get)
-module.exports = router
+router.post('/banks',passport.authenticate('jwt', {
+    session: false
+}), BankController.create);
+router.get('/banks',passport.authenticate('jwt', {
+    session: false
+}), BankController.get);
+
+
+///////// video call history
+router.get('/videcallhistories/getHistoryVideoCallPatient/:patientId',passport.authenticate('jwt', {
+    session: false
+}), VideoCallHistoryController.getHistoryVideoCallPatient);
+
+router.get('/videcallhistories/getHistoryVideoCallDoctor/:doctorId',passport.authenticate('jwt', {
+    session: false
+}), VideoCallHistoryController.getHistoryVideoCallDoctor);
+module.exports = router;
