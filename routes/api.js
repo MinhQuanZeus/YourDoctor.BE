@@ -278,7 +278,7 @@ router.get('/notifications/getAllNotificationByUser/:receiverId', passport.authe
 router.post('/reportConversations', passport.authenticate('jwt', {
     session: false,
 }), ReportConversationController.createReportConveration)
-router.put('/reportConversations/update-report-conversation/:id', passport.authenticate('jwt', {
+router.put('/reportConversations/update-report-conversation', passport.authenticate('jwt', {
     session: false,
 }), ReportConversationController.updateReportConversationProcessing)
 router.get('/reportConversations/get-list-report-conversation', passport.authenticate('jwt', {

@@ -104,8 +104,8 @@ module.exports.getDetailReport = getDetailReport;
 
 const updateReportConversationProcessing = async function (req, res) {
     try {
-        if (req.params.id) {
-            let objReport = await ReportConversation.findById({_id: req.params.id});
+        if (req.body.id) {
+            let objReport = await ReportConversation.findById({_id: req.body.id});
             if (objReport) {
                 objReport.set({status: true});
                 let objReportReturn = await objReport.save();
