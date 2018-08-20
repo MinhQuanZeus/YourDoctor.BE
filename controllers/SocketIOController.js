@@ -11,12 +11,12 @@ module.exports = function (io) {
             // ng dung emit create add vao 1 map
             socket.on('addUser', function (userID, type) {
                 socket.userID = userID;
-                if(type===2){
-                    if(!doctorsOnline.includes(userID)){
+                if (type === 2) {
+                    if (!doctorsOnline.includes(userID)) {
                         doctorsOnline.push(userID)
                     }
-                    socket.type =2;
-                }else {
+                    socket.type = 2;
+                } else {
                     socket.type = 1;
                 }
                 console.log("Client connected User id " + socket.userID);
@@ -25,8 +25,8 @@ module.exports = function (io) {
                 sequenceNumberByClient.set(userID, socket);
             });
 
-            socket.on('getDoctorOnline',function () {
-                console.log("lisOnline" ,JSON.stringify(doctorsOnline));
+            socket.on('getDoctorOnline', function () {
+                console.log("lisOnline", JSON.stringify(doctorsOnline));
                 socket.emit('getDoctorOnline', JSON.stringify(doctorsOnline));
             });
 
@@ -55,10 +55,10 @@ module.exports = function (io) {
                 let send = socket;
                 let receive = sequenceNumberByClient.get(reqReceiver);
 
-                if(receive != null){
+                if (receive != null) {
                     console.log("check receiver" + receive.userID + ", " + receive.room);
 
-                    if(reqConversationID !== receive.room){
+                    if (reqConversationID !== receive.room) {
                         receive = null;
                     }
                 }
@@ -149,8 +149,8 @@ module.exports = function (io) {
                                     receiverId: reqReceiver,
                                     type: constants.NOTIFICATION_TYPE_PAYMENT,
                                     storageId: reqConversationID,
-                                    remainMoney: paymentIdDoctor.remainMoney+"",
-                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND",
+                                    remainMoney: paymentIdDoctor.remainMoney + "",
+                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
                                     createTime: Date.now().toString()
                                 }
                             };
@@ -163,7 +163,7 @@ module.exports = function (io) {
                                 receiverId: reqReceiver,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: reqConversationID,
-                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND",
+                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
                             };
                             await createNotification(objNotificationToSave)
                         }
@@ -176,10 +176,10 @@ module.exports = function (io) {
                 let send = socket;
                 //let send = sequenceNumberByClient.get(reqSender);
                 let receive = sequenceNumberByClient.get(reqReceiver);
-                if(receive != null){
+                if (receive != null) {
                     console.log("check receiver" + receive.userID + ", " + receive.room);
 
-                    if(reqConversationID !== receive.room){
+                    if (reqConversationID !== receive.room) {
                         receive = null;
                     }
                 }
@@ -195,25 +195,11 @@ module.exports = function (io) {
                         // emit to receiver
                         if (receive != null) {
                             // json: số tiền nhận được, số tiền hiện tại đang có
-                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "VND. Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND");
+                            receive.emit('finishConversation', "Cuộc tư vấn đã kết thúc. Bạn nhận được: " + paymentIdDoctor.amount + "VND. Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND");
 
                         } else {
                             let fullName = await getUser(reqSender);
                             // bạn nhận được xx tiền, số tiền hiện tại là xxxx
-                            let payLoad = {
-                                data: {
-                                    senderId: reqSender,
-                                    nameSender: fullName,
-                                    receiverId: reqReceiver,
-                                    type: constants.NOTIFICATION_TYPE_PAYMENT,
-                                    storageId: reqConversationID,
-                                    remainMoney: paymentIdDoctor.remainMoney+"",
-                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND",
-                                    createTime: Date.now().toString()
-                                }
-                            };
-                            // send notification
-                            await SendNotification.sendNotification(reqReceiver, payLoad);
                             // save to notification table
                             let objNotificationToSave = {
                                 senderId: reqSender,
@@ -221,9 +207,23 @@ module.exports = function (io) {
                                 receiverId: reqReceiver,
                                 type: constants.NOTIFICATION_TYPE_PAYMENT,
                                 storageId: reqConversationID,
-                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + Math.round(paymentIdDoctor.remainMoney) + "VND",
+                                message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
                             };
                             await createNotification(objNotificationToSave);
+                            let payLoad = {
+                                data: {
+                                    senderId: reqSender,
+                                    nameSender: fullName,
+                                    receiverId: reqReceiver,
+                                    type: constants.NOTIFICATION_TYPE_PAYMENT,
+                                    storageId: reqConversationID,
+                                    remainMoney: paymentIdDoctor.remainMoney + "",
+                                    message: "Bạn nhận được: " + paymentIdDoctor.amount + "VND." + " Số tiền bạn có hiện tại: " + paymentIdDoctor.remainMoney + "VND",
+                                    createTime: Date.now().toString()
+                                }
+                            };
+                            // send notification
+                            await SendNotification.sendNotification(reqReceiver, payLoad);
                         }
                     }
                     else {
@@ -259,20 +259,12 @@ module.exports = function (io) {
                 //         delete doctorsOnline[key];
                 // });
                 // doctorsOnline.push(userID)
-                if(socket.type === 2){
+                if (socket.type === 2) {
                     var index = doctorsOnline.indexOf(socket.userID);
                     if (index > -1) {
                         doctorsOnline.splice(index, 1);
                     }
                 }
-
-                //doctorsOnline.delete(socket.userID)
-                // let userID
-                // for (let [key, value] of sequenceNumberByClient) {
-                //     if (value === socket.id) userID = key
-                // }
-                // console.log(userID + "da out !!!");
-                //if (userID) sequenceNumberByClient.delete(userID);
                 sequenceNumberByClient.delete(socket.userID)
                 console.info("Client gone id" + socket.id);
                 //socket.emit('getDoctorOnline',doctorsOnline);
@@ -306,8 +298,6 @@ module.exports = function (io) {
         try {
             // check limit record
             let pushRecord = await ChatsHistory.findById({_id: data.id});
-            console.log("chat history" + pushRecord);
-            console.log("id type " + pushRecord.typeAdvisoryID);
             let objTypeAdvisory = await TypeAdvisory.findById({_id: pushRecord.typeAdvisoryID});
             if (!objTypeAdvisory) {
                 updateSuccess = false;
@@ -378,31 +368,27 @@ module.exports = function (io) {
             // get user
             let objUser = await User.findById({_id: objChatHistory.doctorId});
             // calculate remain money
-            let remainMoney = objUser.remainMoney * 1 + objTypeAdvisory.price * 1 * constants.PERCENT_PAY_FOR_DOCTOR;
+            let amount = objTypeAdvisory.price * constants.PERCENT_PAY_FOR_DOCTOR;
+            let remainMoney = objUser.remainMoney + amount;
             try {
                 let objPaymentHistory = PaymentsHistory({
                     userID: objChatHistory.doctorId,
-                    amount: objTypeAdvisory.price * 1 * constants.PERCENT_PAY_FOR_DOCTOR,
+                    amount: amount,
                     remainMoney: remainMoney,
-                    fromUser:objChatHistory.patientId,
+                    fromUser: objChatHistory.patientId,
                     typeAdvisoryID: objChatHistory.typeAdvisoryID,
                     status: constants.PAYMENT_SUCCESS
                 });
 
                 // update remain money to User
                 objUser.set({remainMoney: remainMoney});
-                await objUser.save(function (err, objUser) {
-                    if (err) {
-
-                    }
-                });
+                await objUser.save();
 
                 // save to payment table
-                await objPaymentHistory.save(function (err, objPaymentHistory) {
-                });
-                paymentID = objPaymentHistory;
+                paymentID = await objPaymentHistory.save()
             }
             catch (e) {
+                console.log(e);
             }
         }
         return paymentID;
