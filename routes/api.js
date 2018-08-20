@@ -283,7 +283,10 @@ router.put('/reportConversations/update-report-conversation/:id', passport.authe
 }), ReportConversationController.updateReportConversationProcessing)
 router.get('/reportConversations/get-list-report-conversation', passport.authenticate('jwt', {
     session: false,
-}), ReportConversationController.getListReport)
+}), ReportConversationController.getListReport);
+router.get('/reportConversations/get-detail-report-conversation', passport.authenticate('jwt', {
+    session: false,
+}), ReportConversationController.getDetailReport)
 //
 router.post('/banks',passport.authenticate('jwt', {
     session: false
