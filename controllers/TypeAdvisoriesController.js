@@ -4,7 +4,7 @@ const create = async function (req, res) {
     if (!body.name || !body.price || (!body.limitNumberRecords && body.type === 1) || !body.description) {
         return ReE(res, 'ERROR0011', 400);
     }
-    if (data.type === 2) {
+    if (body.type === 2) {
         let duplicateTypeAdvisory = await TypeAdvisory.findOne({ type: body.type });
         if (duplicateTypeAdvisory) return ReE(res, 'ERROR0014', 409);
     }
