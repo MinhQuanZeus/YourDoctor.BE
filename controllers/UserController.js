@@ -399,7 +399,7 @@ const deleteUserById = async function (req, res) {
             return ReE(res, 'Người dùng không tồn tại', 404)
         }
         user = results[0]
-        if (user.updatedAt !== updateTime) {
+        if (Number(user.updatedAt) !== Number(updateTime)) {
             return ReE(res, 'Người dùng đã được chỉnh sửa, vui lòng refresh và thử lại', 400)
         }
 

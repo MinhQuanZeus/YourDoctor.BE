@@ -38,7 +38,17 @@ app.use(function (req, res, next) {
 });
 
 app.use('/api', apiRouter);
-app.use('/', indexRouter);
+// app.use('/', indexRouter);
+
+// all unmatched requests to this path, with no file extension, redirect to the dash page
+app.use('/', function ( req, res, next ) {
+    // uri has a forward slash followed any number of any characters except full stops (up until the end of the string)
+    if (/\/[^.]*$/.test(req.url)) {
+        res.sendfile(__dirname + '/public/index.html');
+    } else {
+        next();
+    }
+});
 
 
 // catch 404 and forward to error handler

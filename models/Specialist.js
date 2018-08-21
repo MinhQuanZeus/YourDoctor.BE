@@ -15,6 +15,10 @@ let SpecialistSchema = mongoose.Schema({
         type: Number,
         default: new Date().getTime()
     },
+    deletionFlag: {
+        type: Boolean,
+        default: false
+    },
     updatedAt: {
         type: Number,
         default: new Date().getTime()

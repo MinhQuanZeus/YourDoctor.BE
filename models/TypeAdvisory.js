@@ -10,6 +10,9 @@ let TypeAdvisoriesSchema = mongoose.Schema({
     limitNumberRecords: {
         type: Number
     },
+    type: {
+        type: Number
+    },
     description: {
         type: String
     },

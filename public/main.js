@@ -1,5 +1,285 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["main"],{
 
+/***/ "./node_modules/moment/locale sync recursive ^\\.\\/.*$":
+/*!**************************************************!*\
+  !*** ./node_modules/moment/locale sync ^\.\/.*$ ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./af": "./node_modules/moment/locale/af.js",
+	"./af.js": "./node_modules/moment/locale/af.js",
+	"./ar": "./node_modules/moment/locale/ar.js",
+	"./ar-dz": "./node_modules/moment/locale/ar-dz.js",
+	"./ar-dz.js": "./node_modules/moment/locale/ar-dz.js",
+	"./ar-kw": "./node_modules/moment/locale/ar-kw.js",
+	"./ar-kw.js": "./node_modules/moment/locale/ar-kw.js",
+	"./ar-ly": "./node_modules/moment/locale/ar-ly.js",
+	"./ar-ly.js": "./node_modules/moment/locale/ar-ly.js",
+	"./ar-ma": "./node_modules/moment/locale/ar-ma.js",
+	"./ar-ma.js": "./node_modules/moment/locale/ar-ma.js",
+	"./ar-sa": "./node_modules/moment/locale/ar-sa.js",
+	"./ar-sa.js": "./node_modules/moment/locale/ar-sa.js",
+	"./ar-tn": "./node_modules/moment/locale/ar-tn.js",
+	"./ar-tn.js": "./node_modules/moment/locale/ar-tn.js",
+	"./ar.js": "./node_modules/moment/locale/ar.js",
+	"./az": "./node_modules/moment/locale/az.js",
+	"./az.js": "./node_modules/moment/locale/az.js",
+	"./be": "./node_modules/moment/locale/be.js",
+	"./be.js": "./node_modules/moment/locale/be.js",
+	"./bg": "./node_modules/moment/locale/bg.js",
+	"./bg.js": "./node_modules/moment/locale/bg.js",
+	"./bm": "./node_modules/moment/locale/bm.js",
+	"./bm.js": "./node_modules/moment/locale/bm.js",
+	"./bn": "./node_modules/moment/locale/bn.js",
+	"./bn.js": "./node_modules/moment/locale/bn.js",
+	"./bo": "./node_modules/moment/locale/bo.js",
+	"./bo.js": "./node_modules/moment/locale/bo.js",
+	"./br": "./node_modules/moment/locale/br.js",
+	"./br.js": "./node_modules/moment/locale/br.js",
+	"./bs": "./node_modules/moment/locale/bs.js",
+	"./bs.js": "./node_modules/moment/locale/bs.js",
+	"./ca": "./node_modules/moment/locale/ca.js",
+	"./ca.js": "./node_modules/moment/locale/ca.js",
+	"./cs": "./node_modules/moment/locale/cs.js",
+	"./cs.js": "./node_modules/moment/locale/cs.js",
+	"./cv": "./node_modules/moment/locale/cv.js",
+	"./cv.js": "./node_modules/moment/locale/cv.js",
+	"./cy": "./node_modules/moment/locale/cy.js",
+	"./cy.js": "./node_modules/moment/locale/cy.js",
+	"./da": "./node_modules/moment/locale/da.js",
+	"./da.js": "./node_modules/moment/locale/da.js",
+	"./de": "./node_modules/moment/locale/de.js",
+	"./de-at": "./node_modules/moment/locale/de-at.js",
+	"./de-at.js": "./node_modules/moment/locale/de-at.js",
+	"./de-ch": "./node_modules/moment/locale/de-ch.js",
+	"./de-ch.js": "./node_modules/moment/locale/de-ch.js",
+	"./de.js": "./node_modules/moment/locale/de.js",
+	"./dv": "./node_modules/moment/locale/dv.js",
+	"./dv.js": "./node_modules/moment/locale/dv.js",
+	"./el": "./node_modules/moment/locale/el.js",
+	"./el.js": "./node_modules/moment/locale/el.js",
+	"./en-au": "./node_modules/moment/locale/en-au.js",
+	"./en-au.js": "./node_modules/moment/locale/en-au.js",
+	"./en-ca": "./node_modules/moment/locale/en-ca.js",
+	"./en-ca.js": "./node_modules/moment/locale/en-ca.js",
+	"./en-gb": "./node_modules/moment/locale/en-gb.js",
+	"./en-gb.js": "./node_modules/moment/locale/en-gb.js",
+	"./en-ie": "./node_modules/moment/locale/en-ie.js",
+	"./en-ie.js": "./node_modules/moment/locale/en-ie.js",
+	"./en-il": "./node_modules/moment/locale/en-il.js",
+	"./en-il.js": "./node_modules/moment/locale/en-il.js",
+	"./en-nz": "./node_modules/moment/locale/en-nz.js",
+	"./en-nz.js": "./node_modules/moment/locale/en-nz.js",
+	"./eo": "./node_modules/moment/locale/eo.js",
+	"./eo.js": "./node_modules/moment/locale/eo.js",
+	"./es": "./node_modules/moment/locale/es.js",
+	"./es-do": "./node_modules/moment/locale/es-do.js",
+	"./es-do.js": "./node_modules/moment/locale/es-do.js",
+	"./es-us": "./node_modules/moment/locale/es-us.js",
+	"./es-us.js": "./node_modules/moment/locale/es-us.js",
+	"./es.js": "./node_modules/moment/locale/es.js",
+	"./et": "./node_modules/moment/locale/et.js",
+	"./et.js": "./node_modules/moment/locale/et.js",
+	"./eu": "./node_modules/moment/locale/eu.js",
+	"./eu.js": "./node_modules/moment/locale/eu.js",
+	"./fa": "./node_modules/moment/locale/fa.js",
+	"./fa.js": "./node_modules/moment/locale/fa.js",
+	"./fi": "./node_modules/moment/locale/fi.js",
+	"./fi.js": "./node_modules/moment/locale/fi.js",
+	"./fo": "./node_modules/moment/locale/fo.js",
+	"./fo.js": "./node_modules/moment/locale/fo.js",
+	"./fr": "./node_modules/moment/locale/fr.js",
+	"./fr-ca": "./node_modules/moment/locale/fr-ca.js",
+	"./fr-ca.js": "./node_modules/moment/locale/fr-ca.js",
+	"./fr-ch": "./node_modules/moment/locale/fr-ch.js",
+	"./fr-ch.js": "./node_modules/moment/locale/fr-ch.js",
+	"./fr.js": "./node_modules/moment/locale/fr.js",
+	"./fy": "./node_modules/moment/locale/fy.js",
+	"./fy.js": "./node_modules/moment/locale/fy.js",
+	"./gd": "./node_modules/moment/locale/gd.js",
+	"./gd.js": "./node_modules/moment/locale/gd.js",
+	"./gl": "./node_modules/moment/locale/gl.js",
+	"./gl.js": "./node_modules/moment/locale/gl.js",
+	"./gom-latn": "./node_modules/moment/locale/gom-latn.js",
+	"./gom-latn.js": "./node_modules/moment/locale/gom-latn.js",
+	"./gu": "./node_modules/moment/locale/gu.js",
+	"./gu.js": "./node_modules/moment/locale/gu.js",
+	"./he": "./node_modules/moment/locale/he.js",
+	"./he.js": "./node_modules/moment/locale/he.js",
+	"./hi": "./node_modules/moment/locale/hi.js",
+	"./hi.js": "./node_modules/moment/locale/hi.js",
+	"./hr": "./node_modules/moment/locale/hr.js",
+	"./hr.js": "./node_modules/moment/locale/hr.js",
+	"./hu": "./node_modules/moment/locale/hu.js",
+	"./hu.js": "./node_modules/moment/locale/hu.js",
+	"./hy-am": "./node_modules/moment/locale/hy-am.js",
+	"./hy-am.js": "./node_modules/moment/locale/hy-am.js",
+	"./id": "./node_modules/moment/locale/id.js",
+	"./id.js": "./node_modules/moment/locale/id.js",
+	"./is": "./node_modules/moment/locale/is.js",
+	"./is.js": "./node_modules/moment/locale/is.js",
+	"./it": "./node_modules/moment/locale/it.js",
+	"./it.js": "./node_modules/moment/locale/it.js",
+	"./ja": "./node_modules/moment/locale/ja.js",
+	"./ja.js": "./node_modules/moment/locale/ja.js",
+	"./jv": "./node_modules/moment/locale/jv.js",
+	"./jv.js": "./node_modules/moment/locale/jv.js",
+	"./ka": "./node_modules/moment/locale/ka.js",
+	"./ka.js": "./node_modules/moment/locale/ka.js",
+	"./kk": "./node_modules/moment/locale/kk.js",
+	"./kk.js": "./node_modules/moment/locale/kk.js",
+	"./km": "./node_modules/moment/locale/km.js",
+	"./km.js": "./node_modules/moment/locale/km.js",
+	"./kn": "./node_modules/moment/locale/kn.js",
+	"./kn.js": "./node_modules/moment/locale/kn.js",
+	"./ko": "./node_modules/moment/locale/ko.js",
+	"./ko.js": "./node_modules/moment/locale/ko.js",
+	"./ky": "./node_modules/moment/locale/ky.js",
+	"./ky.js": "./node_modules/moment/locale/ky.js",
+	"./lb": "./node_modules/moment/locale/lb.js",
+	"./lb.js": "./node_modules/moment/locale/lb.js",
+	"./lo": "./node_modules/moment/locale/lo.js",
+	"./lo.js": "./node_modules/moment/locale/lo.js",
+	"./lt": "./node_modules/moment/locale/lt.js",
+	"./lt.js": "./node_modules/moment/locale/lt.js",
+	"./lv": "./node_modules/moment/locale/lv.js",
+	"./lv.js": "./node_modules/moment/locale/lv.js",
+	"./me": "./node_modules/moment/locale/me.js",
+	"./me.js": "./node_modules/moment/locale/me.js",
+	"./mi": "./node_modules/moment/locale/mi.js",
+	"./mi.js": "./node_modules/moment/locale/mi.js",
+	"./mk": "./node_modules/moment/locale/mk.js",
+	"./mk.js": "./node_modules/moment/locale/mk.js",
+	"./ml": "./node_modules/moment/locale/ml.js",
+	"./ml.js": "./node_modules/moment/locale/ml.js",
+	"./mn": "./node_modules/moment/locale/mn.js",
+	"./mn.js": "./node_modules/moment/locale/mn.js",
+	"./mr": "./node_modules/moment/locale/mr.js",
+	"./mr.js": "./node_modules/moment/locale/mr.js",
+	"./ms": "./node_modules/moment/locale/ms.js",
+	"./ms-my": "./node_modules/moment/locale/ms-my.js",
+	"./ms-my.js": "./node_modules/moment/locale/ms-my.js",
+	"./ms.js": "./node_modules/moment/locale/ms.js",
+	"./mt": "./node_modules/moment/locale/mt.js",
+	"./mt.js": "./node_modules/moment/locale/mt.js",
+	"./my": "./node_modules/moment/locale/my.js",
+	"./my.js": "./node_modules/moment/locale/my.js",
+	"./nb": "./node_modules/moment/locale/nb.js",
+	"./nb.js": "./node_modules/moment/locale/nb.js",
+	"./ne": "./node_modules/moment/locale/ne.js",
+	"./ne.js": "./node_modules/moment/locale/ne.js",
+	"./nl": "./node_modules/moment/locale/nl.js",
+	"./nl-be": "./node_modules/moment/locale/nl-be.js",
+	"./nl-be.js": "./node_modules/moment/locale/nl-be.js",
+	"./nl.js": "./node_modules/moment/locale/nl.js",
+	"./nn": "./node_modules/moment/locale/nn.js",
+	"./nn.js": "./node_modules/moment/locale/nn.js",
+	"./pa-in": "./node_modules/moment/locale/pa-in.js",
+	"./pa-in.js": "./node_modules/moment/locale/pa-in.js",
+	"./pl": "./node_modules/moment/locale/pl.js",
+	"./pl.js": "./node_modules/moment/locale/pl.js",
+	"./pt": "./node_modules/moment/locale/pt.js",
+	"./pt-br": "./node_modules/moment/locale/pt-br.js",
+	"./pt-br.js": "./node_modules/moment/locale/pt-br.js",
+	"./pt.js": "./node_modules/moment/locale/pt.js",
+	"./ro": "./node_modules/moment/locale/ro.js",
+	"./ro.js": "./node_modules/moment/locale/ro.js",
+	"./ru": "./node_modules/moment/locale/ru.js",
+	"./ru.js": "./node_modules/moment/locale/ru.js",
+	"./sd": "./node_modules/moment/locale/sd.js",
+	"./sd.js": "./node_modules/moment/locale/sd.js",
+	"./se": "./node_modules/moment/locale/se.js",
+	"./se.js": "./node_modules/moment/locale/se.js",
+	"./si": "./node_modules/moment/locale/si.js",
+	"./si.js": "./node_modules/moment/locale/si.js",
+	"./sk": "./node_modules/moment/locale/sk.js",
+	"./sk.js": "./node_modules/moment/locale/sk.js",
+	"./sl": "./node_modules/moment/locale/sl.js",
+	"./sl.js": "./node_modules/moment/locale/sl.js",
+	"./sq": "./node_modules/moment/locale/sq.js",
+	"./sq.js": "./node_modules/moment/locale/sq.js",
+	"./sr": "./node_modules/moment/locale/sr.js",
+	"./sr-cyrl": "./node_modules/moment/locale/sr-cyrl.js",
+	"./sr-cyrl.js": "./node_modules/moment/locale/sr-cyrl.js",
+	"./sr.js": "./node_modules/moment/locale/sr.js",
+	"./ss": "./node_modules/moment/locale/ss.js",
+	"./ss.js": "./node_modules/moment/locale/ss.js",
+	"./sv": "./node_modules/moment/locale/sv.js",
+	"./sv.js": "./node_modules/moment/locale/sv.js",
+	"./sw": "./node_modules/moment/locale/sw.js",
+	"./sw.js": "./node_modules/moment/locale/sw.js",
+	"./ta": "./node_modules/moment/locale/ta.js",
+	"./ta.js": "./node_modules/moment/locale/ta.js",
+	"./te": "./node_modules/moment/locale/te.js",
+	"./te.js": "./node_modules/moment/locale/te.js",
+	"./tet": "./node_modules/moment/locale/tet.js",
+	"./tet.js": "./node_modules/moment/locale/tet.js",
+	"./tg": "./node_modules/moment/locale/tg.js",
+	"./tg.js": "./node_modules/moment/locale/tg.js",
+	"./th": "./node_modules/moment/locale/th.js",
+	"./th.js": "./node_modules/moment/locale/th.js",
+	"./tl-ph": "./node_modules/moment/locale/tl-ph.js",
+	"./tl-ph.js": "./node_modules/moment/locale/tl-ph.js",
+	"./tlh": "./node_modules/moment/locale/tlh.js",
+	"./tlh.js": "./node_modules/moment/locale/tlh.js",
+	"./tr": "./node_modules/moment/locale/tr.js",
+	"./tr.js": "./node_modules/moment/locale/tr.js",
+	"./tzl": "./node_modules/moment/locale/tzl.js",
+	"./tzl.js": "./node_modules/moment/locale/tzl.js",
+	"./tzm": "./node_modules/moment/locale/tzm.js",
+	"./tzm-latn": "./node_modules/moment/locale/tzm-latn.js",
+	"./tzm-latn.js": "./node_modules/moment/locale/tzm-latn.js",
+	"./tzm.js": "./node_modules/moment/locale/tzm.js",
+	"./ug-cn": "./node_modules/moment/locale/ug-cn.js",
+	"./ug-cn.js": "./node_modules/moment/locale/ug-cn.js",
+	"./uk": "./node_modules/moment/locale/uk.js",
+	"./uk.js": "./node_modules/moment/locale/uk.js",
+	"./ur": "./node_modules/moment/locale/ur.js",
+	"./ur.js": "./node_modules/moment/locale/ur.js",
+	"./uz": "./node_modules/moment/locale/uz.js",
+	"./uz-latn": "./node_modules/moment/locale/uz-latn.js",
+	"./uz-latn.js": "./node_modules/moment/locale/uz-latn.js",
+	"./uz.js": "./node_modules/moment/locale/uz.js",
+	"./vi": "./node_modules/moment/locale/vi.js",
+	"./vi.js": "./node_modules/moment/locale/vi.js",
+	"./x-pseudo": "./node_modules/moment/locale/x-pseudo.js",
+	"./x-pseudo.js": "./node_modules/moment/locale/x-pseudo.js",
+	"./yo": "./node_modules/moment/locale/yo.js",
+	"./yo.js": "./node_modules/moment/locale/yo.js",
+	"./zh-cn": "./node_modules/moment/locale/zh-cn.js",
+	"./zh-cn.js": "./node_modules/moment/locale/zh-cn.js",
+	"./zh-hk": "./node_modules/moment/locale/zh-hk.js",
+	"./zh-hk.js": "./node_modules/moment/locale/zh-hk.js",
+	"./zh-tw": "./node_modules/moment/locale/zh-tw.js",
+	"./zh-tw.js": "./node_modules/moment/locale/zh-tw.js"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	var module = __webpack_require__(id);
+	return module;
+}
+function webpackContextResolve(req) {
+	var id = map[req];
+	if(!(id + 1)) { // check for number or string
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return id;
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
+
+/***/ }),
+
 /***/ "./src/$$_lazy_route_resource lazy recursive":
 /*!**********************************************************!*\
   !*** ./src/$$_lazy_route_resource lazy namespace object ***!
@@ -189,6 +469,319 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/app/models/ChatHistory.ts":
+/*!***************************************!*\
+  !*** ./src/app/models/ChatHistory.ts ***!
+  \***************************************/
+/*! exports provided: ChatHistory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChatHistory", function() { return ChatHistory; });
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+
+var ChatHistory = /** @class */ (function () {
+    function ChatHistory(props) {
+        if (props === void 0) { props = {
+            _id: null,
+            createdAt: null,
+            updatedAt: null,
+            contentTopic: null,
+            doctorId: null,
+            patientId: null,
+            records: null,
+            status: null
+        }; }
+        this.props = props;
+    }
+    Object.defineProperty(ChatHistory.prototype, "id", {
+        get: function () {
+            return this.props._id;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ChatHistory.prototype, "content", {
+        get: function () {
+            return this.props.contentTopic;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ChatHistory.prototype, "createdAt", {
+        get: function () {
+            return this.props.createdAt;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ChatHistory.prototype, "createdAtFormatted", {
+        get: function () {
+            if (!this.props.createdAt) {
+                return '';
+            }
+            return moment__WEBPACK_IMPORTED_MODULE_0__(this.props.createdAt).format('YYYY/MM/DD hh:mm');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ChatHistory.prototype, "updatedAt", {
+        get: function () {
+            return this.props.updatedAt;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ChatHistory.prototype, "doctorDetail", {
+        get: function () {
+            return new DoctorInfo(this.props.doctorId);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ChatHistory.prototype, "patientDetail", {
+        get: function () {
+            return new PatientInfo(this.props.patientId);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ChatHistory.prototype, "fullNamePatient", {
+        get: function () {
+            return this.patientDetail.fullName;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ChatHistory.prototype, "fullNameDoctor", {
+        get: function () {
+            return this.doctorDetail.fullName;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ChatHistory.prototype, "status", {
+        get: function () {
+            return this.props.status;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ChatHistory.prototype, "statusString", {
+        get: function () {
+            if (this.status === 2) {
+                return 'Hoàn thành';
+            }
+            else {
+                return 'Chưa hoàn thành';
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return ChatHistory;
+}());
+
+var DoctorInfo = /** @class */ (function () {
+    function DoctorInfo(props) {
+        if (props === void 0) { props = {
+            _id: null,
+            firstName: null,
+            lastName: null,
+            middleName: null,
+        }; }
+        this.props = props;
+    }
+    Object.defineProperty(DoctorInfo.prototype, "id", {
+        get: function () {
+            return this.props._id;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DoctorInfo.prototype, "fullName", {
+        get: function () {
+            if (!this.props.firstName || !this.props.lastName) {
+                return '';
+            }
+            if (!this.props.middleName) {
+                return this.props.firstName + ' ' + this.props.lastName;
+            }
+            else {
+                return this.props.firstName + ' ' + this.props.middleName + ' ' + this.props.lastName;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return DoctorInfo;
+}());
+var PatientInfo = /** @class */ (function () {
+    function PatientInfo(props) {
+        if (props === void 0) { props = {
+            _id: null,
+            firstName: null,
+            lastName: null,
+            middleName: null,
+        }; }
+        this.props = props;
+    }
+    Object.defineProperty(PatientInfo.prototype, "id", {
+        get: function () {
+            return this.props._id;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PatientInfo.prototype, "fullName", {
+        get: function () {
+            if (!this.props.firstName || !this.props.lastName) {
+                return '';
+            }
+            if (!this.props.middleName) {
+                return this.props.firstName + ' ' + this.props.lastName;
+            }
+            else {
+                return this.props.firstName + ' ' + this.props.middleName + ' ' + this.props.lastName;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return PatientInfo;
+}());
+
+
+/***/ }),
+
+/***/ "./src/app/models/Doctor.ts":
+/*!**********************************!*\
+  !*** ./src/app/models/Doctor.ts ***!
+  \**********************************/
+/*! exports provided: Doctor, Certificate */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Doctor", function() { return Doctor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Certificate", function() { return Certificate; });
+/* harmony import */ var _Specialist__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Specialist */ "./src/app/models/Specialist.ts");
+
+var Doctor = /** @class */ (function () {
+    function Doctor(props) {
+        if (props === void 0) { props = {
+            doctorId: null,
+            systemRating: null,
+            universityGraduate: null,
+            yearGraduate: null,
+            placeWorking: null,
+            currentRating: null,
+            certificates: null,
+            idSpecialist: null,
+        }; }
+        this.props = props;
+    }
+    Object.defineProperty(Doctor.prototype, "certificates", {
+        get: function () {
+            if (this.props.certificates && this.props.certificates.length > 0) {
+                return this.props.certificates.map(function (obj) { return new Certificate(obj); });
+            }
+            else {
+                return [];
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Doctor.prototype, "specialists", {
+        get: function () {
+            if (this.props.idSpecialist && this.props.idSpecialist.length > 0) {
+                return this.props.idSpecialist.map(function (obj) { return new _Specialist__WEBPACK_IMPORTED_MODULE_0__["Specialist"](obj); });
+            }
+            else {
+                return [];
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Doctor.prototype, "doctorId", {
+        get: function () {
+            return this.props.doctorId;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Doctor.prototype, "systemRating", {
+        get: function () {
+            return this.props.systemRating;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Doctor.prototype, "universityGraduate", {
+        get: function () {
+            return this.props.universityGraduate;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Doctor.prototype, "yearGraduate", {
+        get: function () {
+            return this.props.yearGraduate;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Doctor.prototype, "placeWorking", {
+        get: function () {
+            return this.props.placeWorking;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Doctor.prototype, "currentRating", {
+        get: function () {
+            return this.props.currentRating;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Doctor;
+}());
+
+var Certificate = /** @class */ (function () {
+    function Certificate(props) {
+        if (props === void 0) { props = {
+            _id: null,
+            name: null,
+            pathImage: null
+        }; }
+        this.props = props;
+    }
+    Object.defineProperty(Certificate.prototype, "image", {
+        get: function () {
+            return this.props.pathImage;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Certificate.prototype, "name", {
+        get: function () {
+            return this.props.name;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Certificate;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/models/Message.ts":
 /*!***********************************!*\
   !*** ./src/app/models/Message.ts ***!
@@ -252,6 +845,358 @@ var Message = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/models/PaymentHistory.ts":
+/*!******************************************!*\
+  !*** ./src/app/models/PaymentHistory.ts ***!
+  \******************************************/
+/*! exports provided: PaymentHistory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PaymentHistory", function() { return PaymentHistory; });
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+
+var PaymentHistory = /** @class */ (function () {
+    function PaymentHistory(props) {
+        if (props === void 0) { props = {
+            createdAt: null,
+            updatedAt: null,
+            _id: null,
+            userID: null,
+            amount: null,
+            remainMoney: null,
+            fromUser: null,
+            typeAdvisoryID: null,
+            status: null
+        }; }
+        this.props = props;
+    }
+    Object.defineProperty(PaymentHistory.prototype, "createdAt", {
+        get: function () {
+            return this.props.createdAt;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PaymentHistory.prototype, "createdAtFormatted", {
+        get: function () {
+            if (!this.props.createdAt) {
+                return '';
+            }
+            return moment__WEBPACK_IMPORTED_MODULE_0__(this.props.createdAt).format('YYYY/MM/DD hh:mm');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PaymentHistory.prototype, "updatedAt", {
+        get: function () {
+            return this.props.updatedAt;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PaymentHistory.prototype, "id", {
+        get: function () {
+            return this.props._id;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PaymentHistory.prototype, "userID", {
+        get: function () {
+            return this.props.userID;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PaymentHistory.prototype, "amount", {
+        get: function () {
+            if (!this.props.amount) {
+                return 0;
+            }
+            return this.props.amount.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PaymentHistory.prototype, "remainMoney", {
+        get: function () {
+            if (!this.props.remainMoney) {
+                return 0;
+            }
+            return this.props.remainMoney.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PaymentHistory.prototype, "fromUser", {
+        get: function () {
+            return new FromUserInfo(this.props.fromUser);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PaymentHistory.prototype, "formUserFullName", {
+        get: function () {
+            return this.fromUser.fullName;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PaymentHistory.prototype, "typeAdvisory", {
+        get: function () {
+            return this.props.typeAdvisoryID ? this.props.typeAdvisoryID.name : '';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return PaymentHistory;
+}());
+
+var FromUserInfo = /** @class */ (function () {
+    function FromUserInfo(props) {
+        if (props === void 0) { props = {
+            _id: null,
+            firstName: null,
+            lastName: null,
+            middleName: null,
+        }; }
+        this.props = props;
+    }
+    Object.defineProperty(FromUserInfo.prototype, "id", {
+        get: function () {
+            return this.props._id;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(FromUserInfo.prototype, "fullName", {
+        get: function () {
+            if (!this.props.firstName || !this.props.lastName) {
+                return '';
+            }
+            if (!this.props.middleName) {
+                return this.props.firstName + ' ' + this.props.lastName;
+            }
+            else {
+                return this.props.firstName + ' ' + this.props.middleName + ' ' + this.props.lastName;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return FromUserInfo;
+}());
+
+
+/***/ }),
+
+/***/ "./src/app/models/Specialist.ts":
+/*!**************************************!*\
+  !*** ./src/app/models/Specialist.ts ***!
+  \**************************************/
+/*! exports provided: Specialist */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Specialist", function() { return Specialist; });
+var Specialist = /** @class */ (function () {
+    function Specialist(props) {
+        if (props === void 0) { props = {
+            _id: null,
+            createdAt: null,
+            updatedAt: null,
+            specialistId: null,
+            listQuestion: null,
+            name: null,
+            description: null,
+            image: null
+        }; }
+        this.props = props;
+    }
+    Object.defineProperty(Specialist.prototype, "specialistId", {
+        get: function () {
+            return this.props.specialistId;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Specialist.prototype, "name", {
+        get: function () {
+            return this.props.name;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Specialist.prototype, "id", {
+        get: function () {
+            return this.props._id;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Specialist.prototype, "description", {
+        get: function () {
+            return this.props.description;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Specialist.prototype, "image", {
+        get: function () {
+            return this.props.image;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Specialist.prototype, "updatedAt", {
+        get: function () {
+            return this.props.updatedAt;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Specialist.prototype, "listQuestion", {
+        get: function () {
+            return this.props.listQuestion;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Specialist.prototype, "listQuestionString", {
+        get: function () {
+            if (this.props.listQuestion && this.props.listQuestion.length > 0) {
+                var data = '';
+                for (var _i = 0, _a = this.props.listQuestion; _i < _a.length; _i++) {
+                    var str = _a[_i];
+                    data = data + str + '\n';
+                }
+                return data;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Specialist;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/models/TypeAdvisory.ts":
+/*!****************************************!*\
+  !*** ./src/app/models/TypeAdvisory.ts ***!
+  \****************************************/
+/*! exports provided: TypeAdvisory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TypeAdvisory", function() { return TypeAdvisory; });
+var TypeAdvisory = /** @class */ (function () {
+    function TypeAdvisory(props) {
+        if (props === void 0) { props = {
+            createdAt: null,
+            updatedAt: null,
+            deletionFlag: null,
+            _id: null,
+            name: null,
+            price: null,
+            type: null,
+            limitNumberRecords: null,
+            description: null,
+        }; }
+        this.props = props;
+    }
+    Object.defineProperty(TypeAdvisory.prototype, "createdAt", {
+        get: function () {
+            return this.props.createdAt;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TypeAdvisory.prototype, "updatedAt", {
+        get: function () {
+            return this.props.updatedAt;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TypeAdvisory.prototype, "deletionFlag", {
+        get: function () {
+            return this.props.deletionFlag;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TypeAdvisory.prototype, "id", {
+        get: function () {
+            return this.props._id;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TypeAdvisory.prototype, "name", {
+        get: function () {
+            return this.props.name;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TypeAdvisory.prototype, "price", {
+        get: function () {
+            if (!this.props.price) {
+                return 0;
+            }
+            return this.props.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TypeAdvisory.prototype, "type", {
+        get: function () {
+            return this.props.type;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TypeAdvisory.prototype, "typeString", {
+        get: function () {
+            if (this.props.type === 1) {
+                return 'chat';
+            }
+            else {
+                return 'video call';
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TypeAdvisory.prototype, "limitNumberRecords", {
+        get: function () {
+            return this.props.limitNumberRecords;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TypeAdvisory.prototype, "description", {
+        get: function () {
+            return this.props.description;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return TypeAdvisory;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/models/User.ts":
 /*!********************************!*\
   !*** ./src/app/models/User.ts ***!
@@ -263,6 +1208,8 @@ var Message = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "User", function() { return User; });
 /* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../constants */ "./src/app/constants/index.ts");
+/* harmony import */ var _Doctor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Doctor */ "./src/app/models/Doctor.ts");
+
 
 var User = /** @class */ (function () {
     function User(props) {
@@ -282,12 +1229,16 @@ var User = /** @class */ (function () {
             role: null,
             status: null,
             createdAt: null,
-            updatedAt: null
+            updatedAt: null,
+            moreDoctorDetail: null
         }; }
         this.props = props;
     }
     Object.defineProperty(User.prototype, "fullName", {
         get: function () {
+            if (!this.props.firstName || !this.props.lastName) {
+                return '';
+            }
             if (!this.props.middleName) {
                 return this.props.firstName + ' ' + this.props.lastName;
             }
@@ -298,9 +1249,26 @@ var User = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(User.prototype, "doctorDetail", {
+        get: function () {
+            return new _Doctor__WEBPACK_IMPORTED_MODULE_1__["Doctor"](this.props.moreDoctorDetail);
+        },
+        set: function (value) {
+            this.props.moreDoctorDetail = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(User.prototype, "phoneNumber", {
         get: function () {
             return this.props.phoneNumber;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(User.prototype, "status", {
+        get: function () {
+            return this.props.status;
         },
         enumerable: true,
         configurable: true
@@ -415,7 +1383,17 @@ var User = /** @class */ (function () {
     });
     Object.defineProperty(User.prototype, "remainMoney", {
         get: function () {
-            return this.props.remainMoney;
+            if (!this.props.remainMoney) {
+                return 0;
+            }
+            return this.props.remainMoney.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(User.prototype, "remainMoneyFormatted", {
+        get: function () {
+            return format_number(this.props.remainMoney);
         },
         enumerable: true,
         configurable: true
@@ -430,6 +1408,254 @@ var User = /** @class */ (function () {
     return User;
 }());
 
+function format_number(val) {
+    var v = Number(val = '');
+    if (isNaN(v)) {
+        return val;
+    }
+    var sign = (v < 0) ? '-' : '';
+    var res = Math.abs(v).toString().split('').reverse().join('').replace(/(\d{3}(?!$))/g, '$1,').split('').reverse().join('');
+    return sign + res;
+}
+
+
+/***/ }),
+
+/***/ "./src/app/models/VideoCallHistory.ts":
+/*!********************************************!*\
+  !*** ./src/app/models/VideoCallHistory.ts ***!
+  \********************************************/
+/*! exports provided: VideoCallHistory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VideoCallHistory", function() { return VideoCallHistory; });
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+
+var VideoCallHistory = /** @class */ (function () {
+    function VideoCallHistory(props) {
+        if (props === void 0) { props = {
+            _id: null,
+            createdAt: null,
+            updatedAt: null,
+            doctorId: null,
+            patientId: null,
+            records: null,
+            status: null,
+            timeStart: null,
+            timeEnd: null,
+            linkVideo: null
+        }; }
+        this.props = props;
+    }
+    Object.defineProperty(VideoCallHistory.prototype, "id", {
+        get: function () {
+            return this.props._id;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(VideoCallHistory.prototype, "content", {
+        get: function () {
+            return this.props.contentTopic;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(VideoCallHistory.prototype, "createdAt", {
+        get: function () {
+            return this.props.createdAt;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(VideoCallHistory.prototype, "createdAtFormatted", {
+        get: function () {
+            if (!this.props.createdAt) {
+                return '';
+            }
+            return moment__WEBPACK_IMPORTED_MODULE_0__(this.props.createdAt).format('YYYY/MM/DD hh:mm');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(VideoCallHistory.prototype, "timeStart", {
+        get: function () {
+            return this.props.timeStart;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(VideoCallHistory.prototype, "timeStartFormatted", {
+        get: function () {
+            if (!this.props.timeStart) {
+                return '';
+            }
+            return moment__WEBPACK_IMPORTED_MODULE_0__(this.props.timeStart).format('YYYY/MM/DD hh:mm');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(VideoCallHistory.prototype, "callLength", {
+        get: function () {
+            if (!this.props.timeEnd || !this.props.timeStart || (this.props.timeEnd - this.props.timeStart) < 0) {
+                return '0';
+            }
+            var callength = (this.props.timeEnd - this.props.timeStart) / 1000;
+            var length = '';
+            var min = parseInt(callength / 60 + '', 10);
+            var sec = parseInt(callength % 60 + '', 10);
+            if (min < 10) {
+                length = '0' + min + 'min';
+            }
+            else {
+                length = min + 'min';
+            }
+            if (sec < 0) {
+                length = length + '0' + sec + 'sec';
+            }
+            else {
+                length = length + sec + 'sec';
+            }
+            return length;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(VideoCallHistory.prototype, "linkVideo", {
+        get: function () {
+            return this.props.linkVideo;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(VideoCallHistory.prototype, "updatedAt", {
+        get: function () {
+            return this.props.updatedAt;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(VideoCallHistory.prototype, "doctorDetail", {
+        get: function () {
+            return new DoctorInfo(this.props.doctorId);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(VideoCallHistory.prototype, "patientDetail", {
+        get: function () {
+            return new PatientInfo(this.props.patientId);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(VideoCallHistory.prototype, "fullNamePatient", {
+        get: function () {
+            return this.patientDetail.fullName;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(VideoCallHistory.prototype, "fullNameDoctor", {
+        get: function () {
+            return this.doctorDetail.fullName;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(VideoCallHistory.prototype, "status", {
+        get: function () {
+            return this.props.status;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(VideoCallHistory.prototype, "statusString", {
+        get: function () {
+            if (this.status === 2) {
+                return 'Hoàn thành';
+            }
+            else {
+                return 'Chưa hoàn thành';
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return VideoCallHistory;
+}());
+
+var DoctorInfo = /** @class */ (function () {
+    function DoctorInfo(props) {
+        if (props === void 0) { props = {
+            _id: null,
+            firstName: null,
+            lastName: null,
+            middleName: null,
+        }; }
+        this.props = props;
+    }
+    Object.defineProperty(DoctorInfo.prototype, "id", {
+        get: function () {
+            return this.props._id;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DoctorInfo.prototype, "fullName", {
+        get: function () {
+            if (!this.props.firstName || !this.props.lastName) {
+                return '';
+            }
+            if (!this.props.middleName) {
+                return this.props.firstName + ' ' + this.props.lastName;
+            }
+            else {
+                return this.props.firstName + ' ' + this.props.middleName + ' ' + this.props.lastName;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return DoctorInfo;
+}());
+var PatientInfo = /** @class */ (function () {
+    function PatientInfo(props) {
+        if (props === void 0) { props = {
+            _id: null,
+            firstName: null,
+            lastName: null,
+            middleName: null,
+        }; }
+        this.props = props;
+    }
+    Object.defineProperty(PatientInfo.prototype, "id", {
+        get: function () {
+            return this.props._id;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(PatientInfo.prototype, "fullName", {
+        get: function () {
+            if (!this.props.firstName || !this.props.lastName) {
+                return '';
+            }
+            if (!this.props.middleName) {
+                return this.props.firstName + ' ' + this.props.lastName;
+            }
+            else {
+                return this.props.firstName + ' ' + this.props.middleName + ' ' + this.props.lastName;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return PatientInfo;
+}());
 
 
 /***/ }),
@@ -438,7 +1664,7 @@ var User = /** @class */ (function () {
 /*!*********************************!*\
   !*** ./src/app/models/index.ts ***!
   \*********************************/
-/*! exports provided: User, Message */
+/*! exports provided: User, Message, Specialist, ChatHistory, VideoCallHistory, PaymentHistory, TypeAdvisory */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -448,6 +1674,26 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _Message__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Message */ "./src/app/models/Message.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Message", function() { return _Message__WEBPACK_IMPORTED_MODULE_1__["Message"]; });
+
+/* harmony import */ var _Specialist__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Specialist */ "./src/app/models/Specialist.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Specialist", function() { return _Specialist__WEBPACK_IMPORTED_MODULE_2__["Specialist"]; });
+
+/* harmony import */ var _ChatHistory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ChatHistory */ "./src/app/models/ChatHistory.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChatHistory", function() { return _ChatHistory__WEBPACK_IMPORTED_MODULE_3__["ChatHistory"]; });
+
+/* harmony import */ var _VideoCallHistory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./VideoCallHistory */ "./src/app/models/VideoCallHistory.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VideoCallHistory", function() { return _VideoCallHistory__WEBPACK_IMPORTED_MODULE_4__["VideoCallHistory"]; });
+
+/* harmony import */ var _PaymentHistory__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PaymentHistory */ "./src/app/models/PaymentHistory.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PaymentHistory", function() { return _PaymentHistory__WEBPACK_IMPORTED_MODULE_5__["PaymentHistory"]; });
+
+/* harmony import */ var _TypeAdvisory__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TypeAdvisory */ "./src/app/models/TypeAdvisory.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TypeAdvisory", function() { return _TypeAdvisory__WEBPACK_IMPORTED_MODULE_6__["TypeAdvisory"]; });
+
+
+
+
+
 
 
 
@@ -479,14 +1725,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _interceptors_HttpErrorInterceptor__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../interceptors/HttpErrorInterceptor */ "./src/app/interceptors/HttpErrorInterceptor.ts");
 /* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
 /* harmony import */ var _ngx_translate_http_loader__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ngx-translate/http-loader */ "./node_modules/@ngx-translate/http-loader/esm5/ngx-translate-http-loader.js");
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -534,11 +1778,15 @@ var AppModule = /** @class */ (function () {
                     useClass: _interceptors_HttpErrorInterceptor__WEBPACK_IMPORTED_MODULE_10__["HttpErrorInterceptor"],
                     multi: true
                 },
-                { provide: _angular_common__WEBPACK_IMPORTED_MODULE_13__["LocationStrategy"], useClass: _angular_common__WEBPACK_IMPORTED_MODULE_13__["HashLocationStrategy"] },
                 _services__WEBPACK_IMPORTED_MODULE_8__["UserServices"],
                 _services__WEBPACK_IMPORTED_MODULE_8__["AuthServices"],
                 ngx_cookie_service__WEBPACK_IMPORTED_MODULE_9__["CookieService"],
-                _services__WEBPACK_IMPORTED_MODULE_8__["CommonServices"]
+                _services__WEBPACK_IMPORTED_MODULE_8__["CommonServices"],
+                _services__WEBPACK_IMPORTED_MODULE_8__["ChatServices"],
+                _services__WEBPACK_IMPORTED_MODULE_8__["VideoCallServices"],
+                _services__WEBPACK_IMPORTED_MODULE_8__["PaymentServices"],
+                _services__WEBPACK_IMPORTED_MODULE_8__["TypeAdvisoryServices"],
+                _services__WEBPACK_IMPORTED_MODULE_8__["SpecialistServices"]
             ],
             bootstrap: [_components__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]]
         })
@@ -880,6 +2128,67 @@ module.exports = ":host {\n  position: fixed;\n  top: 100px;\n  right: 50px;\n  
 
 /***/ }),
 
+/***/ "./src/app/modules/core/components/ImageViewModalComponent/image-view-modal.component.html":
+/*!*************************************************************************************************!*\
+  !*** ./src/app/modules/core/components/ImageViewModalComponent/image-view-modal.component.html ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2 mat-dialog-title>{{dataImage?.name}}</h2>\r\n<mat-dialog-content>\r\n    <img [src]=\"dataImage?.image\">\r\n</mat-dialog-content>\r\n<mat-dialog-actions>\r\n    <button mat-raised-button color=\"primary\" (click)=\"ok()\">Ok</button>\r\n</mat-dialog-actions>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/core/components/ImageViewModalComponent/image-view-modal.component.ts":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/modules/core/components/ImageViewModalComponent/image-view-modal.component.ts ***!
+  \***********************************************************************************************/
+/*! exports provided: ImageViewModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ImageViewModalComponent", function() { return ImageViewModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
+var ImageViewModalComponent = /** @class */ (function () {
+    function ImageViewModalComponent(dialogRef, data) {
+        this.dialogRef = dialogRef;
+        this.data = data;
+        this.dataImage = data;
+    }
+    ImageViewModalComponent.prototype.ok = function () {
+        this.dialogRef.close('ok');
+    };
+    ImageViewModalComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-dialog-image-view',
+            template: __webpack_require__(/*! ./image-view-modal.component.html */ "./src/app/modules/core/components/ImageViewModalComponent/image-view-modal.component.html")
+        }),
+        __param(1, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"], Object])
+    ], ImageViewModalComponent);
+    return ImageViewModalComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/modules/core/components/fullscreen/fullscreen.component.html":
 /*!******************************************************************************!*\
   !*** ./src/app/modules/core/components/fullscreen/fullscreen.component.html ***!
@@ -957,7 +2266,7 @@ var FullscreenComponent = /** @class */ (function () {
 /*!**************************************************!*\
   !*** ./src/app/modules/core/components/index.ts ***!
   \**************************************************/
-/*! exports provided: DeletionConfirmModalComponent, FullscreenComponent, SearchBarComponent, SidebarComponent, SidemenuComponent, SidemenuItemComponent, ToolbarComponent, ToolbarNotificationComponent, UserMenuComponent, FlashMessageComponent, FlashMessageContainerComponent */
+/*! exports provided: DeletionConfirmModalComponent, FullscreenComponent, SearchBarComponent, SidebarComponent, SidemenuComponent, SidemenuItemComponent, ToolbarComponent, ToolbarNotificationComponent, UserMenuComponent, FlashMessageComponent, FlashMessageContainerComponent, ImageViewModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -994,6 +2303,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _FlashMessageContainerComponent_flash_messages_container_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./FlashMessageContainerComponent/flash-messages-container.component */ "./src/app/modules/core/components/FlashMessageContainerComponent/flash-messages-container.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FlashMessageContainerComponent", function() { return _FlashMessageContainerComponent_flash_messages_container_component__WEBPACK_IMPORTED_MODULE_10__["FlashMessageContainerComponent"]; });
+
+/* harmony import */ var _ImageViewModalComponent_image_view_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ImageViewModalComponent/image-view-modal.component */ "./src/app/modules/core/components/ImageViewModalComponent/image-view-modal.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ImageViewModalComponent", function() { return _ImageViewModalComponent_image_view_modal_component__WEBPACK_IMPORTED_MODULE_11__["ImageViewModalComponent"]; });
+
 
 
 
@@ -1204,7 +2517,7 @@ var SidebarComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-nav-list [style.maxHeight]=\"(menu.open)?'1200px':'48px'\"  [ngClass]=\"{'secondaryMenu': secondaryMenu, 'primary': !secondaryMenu}\">\n    <mat-list-item *ngIf = \"menu.link==false\" (click)=\"menu.open = !menu.open\" >\n        <mat-icon matListIcon iconsmall  >{{menu.icon}} </mat-icon>\n        <h3 matLine *ngIf=\"!iconOnly\">{{ menu.name }} </h3>\n        <mat-chip-list *ngIf=\"menu?.chip && !iconOnly\">\n            <mat-chip >{{menu?.chip?.value}} </mat-chip>\n        </mat-chip-list>        \n        <mat-icon *ngIf=\"chechForChildMenu()\" class=\"sidenav-dropdown-indicator rotate \" [ngClass]=\"{'indicateOpen':menu.open}\"> expand_more</mat-icon>\n    </mat-list-item>\n\n    <mat-list-item *ngIf = \"menu.link!=false\" (click)=\"menu.open = !menu.open\" [routerLink]=\"[menu.link]\">\n    \t<mat-icon matListIcon iconsmall  >{{menu.icon}} </mat-icon>\n        <h3 matLine *ngIf=\"!iconOnly\">{{ menu.name }} </h3>\n    </mat-list-item>\n\n    <cdk-sidemenu-item *ngFor=\"let submenu of menu?.sub\" [menu]=\"submenu\" [iconOnly]=\"iconOnly\" [secondaryMenu]=\"true\"> </cdk-sidemenu-item>\n\n</mat-nav-list>\n"
+module.exports = "<mat-nav-list [style.maxHeight]=\"(menu.open)?'1200px':'48px'\"  [ngClass]=\"{'secondaryMenu': secondaryMenu, 'primary': !secondaryMenu}\">\n    <mat-list-item *ngIf = \"menu.link==false\" (click)=\"menu.open = !menu.open\" >\n        <mat-icon matListIcon iconsmall  >{{menu.icon}} </mat-icon>\n        <h3 matLine *ngIf=\"!iconOnly\">{{ menu.name }} </h3>\n        <mat-chip-list *ngIf=\"menu?.chip && !iconOnly\">\n            <mat-chip >{{menu?.chip?.value}} </mat-chip>\n        </mat-chip-list>\n        <mat-icon *ngIf=\"chechForChildMenu()\" class=\"sidenav-dropdown-indicator rotate \" [ngClass]=\"{'indicateOpen':menu.open}\"> expand_more</mat-icon>\n    </mat-list-item>\n\n    <mat-list-item class=\"link\" *ngIf = \"menu.link!=false\" (click)=\"menu.open = !menu.open\" [routerLink]=\"[menu.link]\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">\n    \t<mat-icon matListIcon iconsmall  >{{menu.icon}} </mat-icon>\n        <h3 matLine *ngIf=\"!iconOnly\">{{ menu.name }} </h3>\n    </mat-list-item>\n\n    <cdk-sidemenu-item *ngFor=\"let submenu of menu?.sub\" [menu]=\"submenu\" [iconOnly]=\"iconOnly\" [secondaryMenu]=\"true\"> </cdk-sidemenu-item>\n\n</mat-nav-list>\n"
 
 /***/ }),
 
@@ -1292,33 +2605,27 @@ __webpack_require__.r(__webpack_exports__);
 var menus = [
     {
         'name': 'Người dùng',
-        'icon': 'account_box',
-        'link': false,
-        'open': true,
-        'sub': [
-            {
-                'name': 'List người dùng',
-                'link': '/admin/users',
-                'icon': 'account_circle',
-                'chip': false,
-                'open': true,
-            }
-        ]
+        'icon': 'supervisor_account',
+        'link': '/admin/users',
+        'open': false,
     },
     {
         'name': 'Reports',
         'icon': 'announcement',
-        'link': false,
+        'link': '/admin/reports',
         'open': false,
-        'sub': [
-            {
-                'name': 'Danh sách report',
-                'link': '/admin/reports',
-                'icon': 'announcement',
-                'chip': false,
-                'open': false,
-            }
-        ]
+    },
+    {
+        'name': 'Chuyên khoa',
+        'icon': 'extension',
+        'link': '/admin/specialist',
+        'open': false
+    },
+    {
+        'name': 'Danh sách loại tư vấn',
+        'icon': 'assignment',
+        'link': '/admin/type-advisories',
+        'open': false
     }
 ];
 
@@ -1816,7 +3123,8 @@ var CoreModule = /** @class */ (function () {
                 _components__WEBPACK_IMPORTED_MODULE_2__["UserMenuComponent"],
                 _components__WEBPACK_IMPORTED_MODULE_2__["DeletionConfirmModalComponent"],
                 _components__WEBPACK_IMPORTED_MODULE_2__["FlashMessageComponent"],
-                _components__WEBPACK_IMPORTED_MODULE_2__["FlashMessageContainerComponent"]
+                _components__WEBPACK_IMPORTED_MODULE_2__["FlashMessageContainerComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_2__["ImageViewModalComponent"]
             ],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
@@ -1849,7 +3157,7 @@ var CoreModule = /** @class */ (function () {
                 _components__WEBPACK_IMPORTED_MODULE_2__["FlashMessageComponent"],
                 _components__WEBPACK_IMPORTED_MODULE_2__["FlashMessageContainerComponent"]
             ],
-            entryComponents: [_components__WEBPACK_IMPORTED_MODULE_2__["DeletionConfirmModalComponent"]],
+            entryComponents: [_components__WEBPACK_IMPORTED_MODULE_2__["DeletionConfirmModalComponent"], _components__WEBPACK_IMPORTED_MODULE_2__["ImageViewModalComponent"]],
             providers: [
                 {
                     provide: ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_12__["PERFECT_SCROLLBAR_CONFIG"],
@@ -1869,7 +3177,7 @@ var CoreModule = /** @class */ (function () {
 /*!**********************************!*\
   !*** ./src/app/modules/index.ts ***!
   \**********************************/
-/*! exports provided: LoginModule, LazyLoadModule, CoreModule, MainModule, highlightJsFactory, UserListModule */
+/*! exports provided: LoginModule, LazyLoadModule, CoreModule, MainModule, highlightJsFactory, UserListModule, TypeAdvisoryModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1890,6 +3198,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "highlightJsFactory", function() { return _user_list_user_list_module__WEBPACK_IMPORTED_MODULE_4__["highlightJsFactory"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UserListModule", function() { return _user_list_user_list_module__WEBPACK_IMPORTED_MODULE_4__["UserListModule"]; });
+
+/* harmony import */ var _type_advisory_type_advisory_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./type-advisory/type-advisory.module */ "./src/app/modules/type-advisory/type-advisory.module.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TypeAdvisoryModule", function() { return _type_advisory_type_advisory_module__WEBPACK_IMPORTED_MODULE_5__["TypeAdvisoryModule"]; });
+
 
 
 
@@ -1936,7 +3248,7 @@ var LazyLoadModule = /** @class */ (function () {
     }
     LazyLoadModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
-            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes, { useHash: true })],
+            imports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"].forRoot(routes)],
             exports: [_angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"]]
         })
     ], LazyLoadModule);
@@ -2090,6 +3402,10 @@ var LoginComponent = /** @class */ (function () {
                         userInfo = response && response.user;
                         token = response && response.token;
                         if (userInfo) {
+                            if (userInfo.role !== 3) {
+                                this.commonServices.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_6__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: 'Vui lòng đăng nhập bằng tài khoản admin' }));
+                                return [2 /*return*/];
+                            }
                             sessionStorage.setItem('USER_INFO', JSON.stringify(userInfo));
                         }
                         if (token) {
@@ -2420,15 +3736,21 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************************!*\
   !*** ./src/app/modules/main/lazyloader.routes.ts ***!
   \***************************************************/
-/*! exports provided: appRoutes, userList */
+/*! exports provided: appRoutes, userList, typeAdvisoryList, specialist */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "appRoutes", function() { return appRoutes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userList", function() { return userList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "typeAdvisoryList", function() { return typeAdvisoryList; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "specialist", function() { return specialist; });
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components */ "./src/app/modules/main/components/index.ts");
 /* harmony import */ var _user_list_user_list_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../user-list/user-list.module */ "./src/app/modules/user-list/user-list.module.ts");
+/* harmony import */ var _type_advisory_type_advisory_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../type-advisory/type-advisory.module */ "./src/app/modules/type-advisory/type-advisory.module.ts");
+/* harmony import */ var _specialist_specialist_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../specialist/specialist.module */ "./src/app/modules/specialist/specialist.module.ts");
+
+
 
 
 // import { DashboardCrmComponent } from '../dashboard-crm/dashboard-crm.component';
@@ -2436,10 +3758,18 @@ var appRoutes = [{
         path: '', component: _components__WEBPACK_IMPORTED_MODULE_0__["MainComponent"], children: [
             { path: '', loadChildren: userList },
             { path: 'users', loadChildren: userList },
+            { path: 'type-advisories', loadChildren: typeAdvisoryList },
+            { path: 'specialist', loadChildren: specialist },
         ]
     }];
 function userList() {
     return _user_list_user_list_module__WEBPACK_IMPORTED_MODULE_1__["UserListModule"];
+}
+function typeAdvisoryList() {
+    return _type_advisory_type_advisory_module__WEBPACK_IMPORTED_MODULE_2__["TypeAdvisoryModule"];
+}
+function specialist() {
+    return _specialist_specialist_module__WEBPACK_IMPORTED_MODULE_3__["SpecialistModule"];
 }
 
 
@@ -2515,6 +3845,3081 @@ var MainModule = /** @class */ (function () {
         })
     ], MainModule);
     return MainModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/specialist/components/CreateSpecialistComponent/create-specialist.component.html":
+/*!**********************************************************************************************************!*\
+  !*** ./src/app/modules/specialist/components/CreateSpecialistComponent/create-specialist.component.html ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2 mat-dialog-title>Thêm loại chuyên khoa</h2>\r\n<mat-dialog-content class=\"min-width-400\" style=\"overflow-x: hidden;\">\r\n    <div class=\"avatar\">\r\n        <img width=\"150px\" height=\"150px\" class=\"avatar\" [src]=\"avatarSrc\">\r\n        <input type=\"file\" id=\"selectedFile\" style=\"display: none;\" (change)=\"onImageChange($event)\"\r\n               accept=\"image/*\"/>\r\n        <span class=\"icon-upload\"><i class=\"fas fa-upload\" style=\"cursor: pointer; font-size: 18px\"\r\n                                     onclick=\"document.getElementById('selectedFile').click();\"></i></span>\r\n    </div>\r\n    <form fxLayout=\"column\" fxLayoutAlign=\"start stretch\" [formGroup]=\"userForm\">\r\n        <mat-form-field class=\"full-width\">\r\n            <input type=\"tel\" class=\"input\" placeholder=\"Tên\"\r\n                   [(ngModel)]=\"model.name\"\r\n                   formControlName=\"specialistName\" required matInput>\r\n        </mat-form-field>\r\n        <mat-error *ngIf=\"userForm.controls['specialistName'].errors && userForm.controls['specialistName'].touched\"\r\n                   class=\"help is-danger\">\r\n            Tên có ít nhất 1 ký tự và dài nhất 100 ký tự\r\n        </mat-error>\r\n        <mat-form-field class=\"full-width\">\r\n            <input type=\"text\" class=\"input\" placeholder=\"Mô tả\" [(ngModel)]=\"model.description\"\r\n                   formControlName=\"description\" matInput>\r\n        </mat-form-field>\r\n        <mat-error *ngIf=\"userForm.controls['description'].errors && userForm.controls['description'].touched\"\r\n                   class=\"help is-danger\">\r\n            Mô tả có nhiều nhất 4000 ký tự\r\n        </mat-error>\r\n        <mat-form-field class=\"full-width\">\r\n                <textarea type=\"text\" class=\"input\" placeholder=\"Câu hỏi thường gặp\" [(ngModel)]=\"model.listQuestion\" rows=\"5\"\r\n                          formControlName=\"listQuestion\" matInput></textarea>\r\n        </mat-form-field>\r\n        <div style=\"color: #ff7500;font-size: 14px; font-weight: bold\">Chú ý: Mỗi câu hỏi được ngăn cách bởi dấu Enter</div>\r\n    </form>\r\n</mat-dialog-content>\r\n<mat-dialog-actions>\r\n    <button mat-raised-button [disabled]=\"userForm.invalid\" color=\"primary\" (click)=\"onSubmit()\">Lưu</button>\r\n    <button mat-raised-button (click)=\"cancel()\">Hủy</button>\r\n</mat-dialog-actions>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/specialist/components/CreateSpecialistComponent/create-specialist.component.scss":
+/*!**********************************************************************************************************!*\
+  !*** ./src/app/modules/specialist/components/CreateSpecialistComponent/create-specialist.component.scss ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".is-danger {\n  color: red; }\n\n.min-width-400 {\n  min-width: 400px; }\n\n.avatar {\n  border-radius: 50%;\n  display: block;\n  margin-left: auto;\n  margin-right: auto; }\n\n.btn {\n  display: inline-block;\n  font-weight: 400;\n  text-align: center;\n  white-space: nowrap;\n  vertical-align: middle;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  border: 1px solid transparent;\n  padding: .375rem .75rem;\n  font-size: 1rem;\n  line-height: 1.5;\n  border-radius: .25rem;\n  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out; }\n\n.btn-success {\n  color: #fff;\n  background-color: #28a745;\n  border-color: #28a745; }\n\n.icon-upload {\n  color: #28a745;\n  position: relative;\n  text-align: center;\n  top: -15px;\n  left: 25px;\n  display: block; }\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/specialist/components/CreateSpecialistComponent/create-specialist.component.ts":
+/*!********************************************************************************************************!*\
+  !*** ./src/app/modules/specialist/components/CreateSpecialistComponent/create-specialist.component.ts ***!
+  \********************************************************************************************************/
+/*! exports provided: CreateSpecialistComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateSpecialistComponent", function() { return CreateSpecialistComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../models */ "./src/app/models/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../services */ "./src/app/services/index.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+var CreateSpecialistComponent = /** @class */ (function () {
+    function CreateSpecialistComponent(dialogRef, specialistServices, commonService, data, fb) {
+        this.dialogRef = dialogRef;
+        this.specialistServices = specialistServices;
+        this.commonService = commonService;
+        this.data = data;
+        this.fb = fb;
+        this.model = {
+            name: null,
+            description: null,
+            listQuestion: null,
+        };
+        this.avatarSrc = '../../../../../assets/images/noavatar.png';
+        this.userForm = this.fb.group({
+            'specialistName': ['', [
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(100),
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required
+                ],
+            ],
+            'listQuestion': ['', [],
+            ],
+            'description': ['', [
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(4000)
+                ]
+            ]
+        });
+    }
+    CreateSpecialistComponent.prototype.ok = function () {
+        this.dialogRef.close('ok');
+    };
+    CreateSpecialistComponent.prototype.cancel = function () {
+        this.dialogRef.close();
+    };
+    CreateSpecialistComponent.prototype.onSubmit = function () {
+        this.model.name = this.model.name ? this.model.name.trim() : '';
+        this.model.description = this.model.description ? this.model.description.trim() : '';
+        this.model.listQuestion = this.model.listQuestion ? this.model.listQuestion.trim() : '';
+        if (this.userForm.valid) {
+            var arrayQuestion = [];
+            if (this.model.listQuestion) {
+                var strArray = this.model.listQuestion.split('\n');
+                if (strArray && strArray.length > 0) {
+                    for (var i = 0; i < strArray.length; i++) {
+                        var temp = strArray[i] ? strArray[i].trim() : '';
+                        if (temp && temp.length > 0) {
+                            arrayQuestion.push(temp);
+                        }
+                    }
+                }
+            }
+            var data = {
+                name: this.model.name,
+                description: this.model.description,
+                listQuestion: arrayQuestion
+            };
+            var formData = new FormData();
+            if (this.avatar) {
+                formData.append('image', this.avatar);
+            }
+            formData.append('specialist', JSON.stringify(data));
+            this.postType(formData);
+        }
+    };
+    CreateSpecialistComponent.prototype.onImageChange = function (event) {
+        var _this = this;
+        this.avatar = event && event.target && event.target.files && event.target.files.length > 0 ? event.target.files[0] : null;
+        if (this.avatar) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                _this.avatarSrc = e.target.result;
+            };
+            reader.readAsDataURL(this.avatar);
+        }
+    };
+    CreateSpecialistComponent.prototype.postType = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, e_1, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.specialistServices.create(data).toPromise()];
+                    case 1:
+                        response = _a.sent();
+                        if (response) {
+                            this.dialogRef.close('ok');
+                            this.commonService.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_4__["Message"]({ id: new Date().getTime(), type: 'SUCCESS', content: 'Đã thêm thành công ' + this.model.name }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_1 = _a.sent();
+                        if (e_1 instanceof _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpErrorResponse"]) {
+                            error = e_1 && e_1.error && e_1.error.error ? e_1.error.error : '';
+                            this.commonService.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_4__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    CreateSpecialistComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-create-type-advisory',
+            template: __webpack_require__(/*! ./create-specialist.component.html */ "./src/app/modules/specialist/components/CreateSpecialistComponent/create-specialist.component.html"),
+            styles: [__webpack_require__(/*! ./create-specialist.component.scss */ "./src/app/modules/specialist/components/CreateSpecialistComponent/create-specialist.component.scss")]
+        }),
+        __param(3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"],
+            _services__WEBPACK_IMPORTED_MODULE_5__["SpecialistServices"], _services__WEBPACK_IMPORTED_MODULE_5__["CommonServices"], Object, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]])
+    ], CreateSpecialistComponent);
+    return CreateSpecialistComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/specialist/components/SpecialistComponent/specialist.component.html":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/modules/specialist/components/SpecialistComponent/specialist.component.html ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div fxLayout=\"column\" class=\"components-container-gt-xs\" [ngClass.xs]=\"'components-container-xs'\" fxLayoutGap=\"20px\">\n\n    <div fxFlex class=\"table-component-holder mat-elevation-z4\">\n        <mat-toolbar class=\"table-header\">\n            <h1 class=\"mat-headline center-align\">Danh sách loại tư vấn</h1>\n            <button mat-raised-button color=\"primary\" class=\"btn-add-staff\" (click)=\"onCreateNewType()\">Thêm loại tư vấn</button>\n            <!--<form class=\"center-align\">-->\n                <!--<mat-form-field class=\"margin-left-10\">-->\n                    <!--<input #keyWord matInput [ngModelOptions]=\"{standalone: true}\" placeholder=\"Từ khóa\" maxlength=\"200\" [(ngModel)]=\"model.search_keyword\" (blur)=\"onBlurKeyWord()\" (keyup.enter)=\"onEnterSearchKey()\">-->\n                <!--</mat-form-field>-->\n                <!--<mat-form-field class=\"margin-left-10\">-->\n                    <!--<mat-select placeholder=\"Trạng thái\" (selectionChange)=\"onChangeStatus($event.value)\">-->\n                        <!--<mat-option value=\"1\">Active</mat-option>-->\n                        <!--<mat-option value=\"3\">Block</mat-option>-->\n                        <!--<mat-option value=\"4\">Bác sĩ block</mat-option>-->\n                        <!--<mat-option value=\"2\">Bác sĩ chờ phê duyệt</mat-option>-->\n                    <!--</mat-select>-->\n                <!--</mat-form-field>-->\n                <!--<mat-form-field class=\"margin-left-10\">-->\n                    <!--<mat-select placeholder=\"Role\" (selectionChange)=\"onChangeRole($event.value)\">-->\n                        <!--<mat-option value=\"3\">Admin</mat-option>-->\n                        <!--<mat-option value=\"2\">Bác sĩ</mat-option>-->\n                        <!--<mat-option value=\"1\">Bệnh nhân</mat-option>-->\n                    <!--</mat-select>-->\n                <!--</mat-form-field>-->\n                <!--<button mat-raised-button color=\"primary\" class=\"btn-add-staff\" (click)=\"onCreateNewStaff()\">Thêm nhân viên</button>-->\n            <!--</form>-->\n        </mat-toolbar>\n        <div class=\"table-container\">\n            <table matSort (matSortChange)=\"onSort($event)\" [matSortActive]=\"model.sort.active\"\n                   [matSortDirection]=\"model.sort.direction\">\n                <thead>\n                <tr>\n                    <th mat-sort-header=\"{{th.key}}\" scope=\"col\" *ngFor=\"let th of header\">{{th.name}}</th>\n                    <th class=\"icon\"></th>\n                    <th class=\"icon\"></th>\n                </tr>\n                </thead>\n                <tbody>\n                <tr *ngFor=\"let row of rows let i=index\">\n                    <td [attr.data-label]=\"th.name\" *ngFor=\"let th of header\">\n                        <span *ngIf=\"th.key!='action'\">\n                            {{row[th.key]}}\n                            <mat-chip selected=\"true\"\n                                      color=\"warn\"\n                                      matTooltip=\"{{row['duplicate_applications'].length}} duplicate entries\"\n                                      matTooltipPosition=\"right\"\n                                      *ngIf=\"th.key=='applicationNumber' && row['duplicate_applications'] != 'undefined' && row['duplicate_applications'] && row['duplicate_applications'].length > 0\">\n\t\t\t\t\t\t\t\t\t{{row['duplicate_applications'].length }}\n                            </mat-chip>\n\n                        </span>\n\n                    </td>\n                    <td class=\"icon\"><i class=\"far fa-trash-alt delete-icon\" (click)=\"onConfirmDelete(row)\"></i></td>\n                    <td class=\"icon\"><i class=\"far fa-edit\" (click)=\"openDetail(row)\"></i></td>\n                </tr>\n                <tr *ngIf=\"rows?.length==0 && status==false\">\n                    <td [colSpan]=\"header.length\" style=\"text-align: center;\">\n                        No records found\n                    </td>\n                </tr>\n                </tbody>\n                <!--<thead *matHeaderRowDef=\"displayedColumns\"></thead>-->\n                <!--<tr *matRowDef=\"let row; columns: displayedColumns;\"></tr>-->\n            </table>\n            <mat-paginator [length]=\"pageLength\"\n                           [pageSize]=\"pageSize\"\n                           [pageSizeOptions]=\"[1, 5, 10, 25, 100, 150, 200]\" (page)=\"next($event)\">\n            </mat-paginator>\n        </div>\n    </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/specialist/components/SpecialistComponent/specialist.component.scss":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/modules/specialist/components/SpecialistComponent/specialist.component.scss ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".table-header {\n  background-color: #3BCFAD;\n  color: white;\n  padding: 0 5px; }\n\n.table-container {\n  padding: 5px 15px 15px 15px; }\n\n.table-component-holder {\n  background-color: white; }\n\n.margin-left-10 {\n  margin-left: 10px; }\n\n.content {\n  word-wrap: break-word;\n  word-break: break-all; }\n\n.icon {\n  cursor: pointer;\n  width: 40px; }\n\n:host .delete-icon {\n  color: red;\n  cursor: pointer; }\n\n:host .btn-add-staff {\n  float: right;\n  top: 36px;\n  right: 36px;\n  position: absolute; }\n\ntable {\n  border: 1px solid #ccc;\n  border-collapse: collapse;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n  table-layout: fixed; }\n\ntable caption {\n  font-size: 1.5em;\n  margin: .5em 0 .75em;\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable tr {\n  background: #f8f8f8;\n  border: 1px solid #ddd;\n  padding: .35em; }\n\ntable tr:nth-child(odd) td {\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable tr:nth-child(even) td {\n  background: rgba(145, 151, 187, 0.34);\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\n/deep/ .mat-sort-header-container {\n  justify-content: center; }\n\ntable th,\ntable td {\n  word-break: break-all;\n  word-wrap: break-word;\n  padding: .625em;\n  text-align: center;\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable th {\n  background: #cfcfcf;\n  font-size: .85em;\n  letter-spacing: .1em;\n  text-transform: uppercase; }\n\n@media screen and (max-width: 600px) {\n  .icon {\n    cursor: pointer;\n    width: auto; }\n  table {\n    border: 0; }\n  table caption {\n    font-size: 1.3em; }\n  table thead {\n    border: none;\n    clip: rect(0 0 0 0);\n    height: 1px;\n    margin: -1px;\n    overflow: hidden;\n    padding: 0;\n    position: absolute;\n    width: 1px; }\n  table tr {\n    border-bottom: 3px solid #ddd;\n    display: block;\n    margin-bottom: .625em; }\n  table td {\n    border-bottom: 1px solid #ddd;\n    display: block;\n    font-size: .8em;\n    text-align: right; }\n  table td:before {\n    /*\n        * aria-label has no advantage, it won't be read inside a table\n        content: attr(aria-label);\n        */\n    content: attr(data-label);\n    float: left;\n    font-weight: bold;\n    text-transform: uppercase; }\n  table td:last-child {\n    border-bottom: 0; } }\n\nmat-button-toggle-group {\n  cursor: pointer; }\n\n::ng-deep .mat-sort-header-container {\n  justify-content: center; }\n\n/* Structure */\n\n.example-container {\n  display: flex;\n  flex-direction: column;\n  min-width: 300px; }\n\n.example-header {\n  min-height: 64px;\n  display: flex;\n  align-items: center;\n  padding-left: 24px;\n  font-size: 20px; }\n\n.mat-table {\n  overflow: auto;\n  max-height: 500px; }\n\n.widgetHolder {\n  margin: 0 auto; }\n\n.widgetHolder .widgetHolder-content {\n    padding: 20px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/specialist/components/SpecialistComponent/specialist.component.ts":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/modules/specialist/components/SpecialistComponent/specialist.component.ts ***!
+  \*******************************************************************************************/
+/*! exports provided: SpecialistComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SpecialistComponent", function() { return SpecialistComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _services___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../services/ */ "./src/app/services/index.ts");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../models */ "./src/app/models/index.ts");
+/* harmony import */ var _core_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../core/components */ "./src/app/modules/core/components/index.ts");
+/* harmony import */ var _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _CreateSpecialistComponent_create_specialist_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../CreateSpecialistComponent/create-specialist.component */ "./src/app/modules/specialist/components/CreateSpecialistComponent/create-specialist.component.ts");
+/* harmony import */ var _UpdateSpecialistComponent_update_specialist_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../UpdateSpecialistComponent/update-specialist.component */ "./src/app/modules/specialist/components/UpdateSpecialistComponent/update-specialist.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+
+
+var SpecialistComponent = /** @class */ (function () {
+    function SpecialistComponent(specialistServices, dialog, commonService) {
+        this.specialistServices = specialistServices;
+        this.dialog = dialog;
+        this.commonService = commonService;
+        this.pageLength = 0;
+        this.pageSize = 15;
+        this.header = [
+            {
+                name: 'Tên',
+                key: 'name',
+                order: 'asc'
+            },
+            {
+                name: 'Mô tả',
+                key: 'description',
+                order: 'asc'
+            }
+        ];
+        this.model = {
+            sort: {
+                active: 'name',
+                direction: 'asc'
+            },
+            status: 3,
+            pageIndex: 0
+        };
+        this.rows = [];
+        this.getUserlist();
+    }
+    SpecialistComponent.prototype.ngOnInit = function () {
+        this.getRows();
+    };
+    SpecialistComponent.prototype.next = function (event) {
+        this.rows = [];
+        if ((event.pageIndex + 1) * event.pageSize > event.length) {
+            for (var i = 1 * event.pageIndex * event.pageSize; i < event.length; i++) {
+                this.rows = this.rows.concat([this.sortedlist[i]]);
+            }
+        }
+        else {
+            for (var i = 1 * event.pageIndex * event.pageSize; i < event.pageSize + event.pageIndex * event.pageSize; i++) {
+                this.rows = this.rows.concat([this.sortedlist[i]]);
+            }
+        }
+    };
+    SpecialistComponent.prototype.getRows = function () {
+        if (!this.sortedlist) {
+            return;
+        }
+        this.rows = [];
+        if (this.pageSize < this.sortedlist.length) {
+            for (var i = 0; i < this.pageSize; i++) {
+                this.rows = this.rows.concat([this.sortedlist[i]]);
+            }
+        }
+        else {
+            for (var i = 0; i < this.sortedlist.length; i++) {
+                this.rows = this.rows.concat([this.sortedlist[i]]);
+            }
+        }
+        this.pageLength = this.sortedlist.length;
+    };
+    SpecialistComponent.prototype.onConfirmDelete = function (user) {
+        this.itemDelete = user;
+        this.openModal();
+    };
+    SpecialistComponent.prototype.openModal = function () {
+        var _this = this;
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogConfig"]();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {
+            title: 'Xóa loại tư vấn',
+            message: 'Bạn có muốn xóa ' + this.itemDelete.name + '?'
+        };
+        var dialogRef = this.dialog.open(_core_components__WEBPACK_IMPORTED_MODULE_4__["DeletionConfirmModalComponent"], dialogConfig);
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result && result === 'ok') {
+                _this.deleteType();
+            }
+        });
+    };
+    SpecialistComponent.prototype.openDetail = function (row) {
+        var _this = this;
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogConfig"]();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {
+            id: row.id,
+        };
+        var dialogRef = this.dialog.open(_UpdateSpecialistComponent_update_specialist_component__WEBPACK_IMPORTED_MODULE_7__["UpdateSpecialistComponent"], dialogConfig);
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result && result === 'ok') {
+                _this.getUserlist();
+            }
+        });
+    };
+    SpecialistComponent.prototype.onCreateNewType = function () {
+        var _this = this;
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogConfig"]();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {};
+        var staffRegisterRef = this.dialog.open(_CreateSpecialistComponent_create_specialist_component__WEBPACK_IMPORTED_MODULE_6__["CreateSpecialistComponent"], dialogConfig);
+        staffRegisterRef.afterClosed().subscribe(function (result) {
+            if (result && result === 'ok') {
+                _this.getUserlist();
+            }
+        });
+    };
+    SpecialistComponent.prototype.onSort = function (sort) {
+        var _this = this;
+        if (!sort) {
+            this.model.sort.active = '';
+            this.model.sort.direction = '';
+            return;
+        }
+        if (!this.specialistList) {
+            return;
+        }
+        var data = this.specialistList.slice();
+        this.model.sort.active = sort.active;
+        this.model.sort.direction = sort.direction;
+        this.model.pageIndex = 0;
+        if (!sort || !sort.active || sort.direction === '') {
+            this.sortedlist = data;
+            this.getRows();
+            return;
+        }
+        this.sortedlist = data.sort(function (a, b) {
+            var isAsc = _this.model.sort.direction === 'asc';
+            switch (_this.model.sort.active) {
+                case 'name':
+                    return compare(a.name, b.name, isAsc);
+                case 'description':
+                    return compare(a.description, b.description, isAsc);
+                default:
+                    return 0;
+            }
+        });
+        this.getRows();
+    };
+    SpecialistComponent.prototype.getUserlist = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, listUser, e_1, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.specialistServices.getList().toPromise()];
+                    case 1:
+                        response = _a.sent();
+                        listUser = response && response.listSpecialist;
+                        this.specialistList = [];
+                        if (listUser && listUser.length > 0) {
+                            this.specialistList = listUser.map(function (obj) { return new _models__WEBPACK_IMPORTED_MODULE_3__["Specialist"](obj); });
+                        }
+                        this.onSort(this.model.sort);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_1 = _a.sent();
+                        if (e_1 instanceof _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpErrorResponse"]) {
+                            error = e_1 && e_1.error && e_1.error.error ? e_1.error.error : '';
+                            this.commonService.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_3__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    SpecialistComponent.prototype.deleteType = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, status_1, e_2, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.specialistServices.delete(this.itemDelete).toPromise()];
+                    case 1:
+                        response = _a.sent();
+                        status_1 = response && response.status;
+                        if (status_1) {
+                            this.commonService.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_3__["Message"]({ id: new Date().getTime(), type: 'SUCCESS', content: 'Đã xóa thành công ' + this.itemDelete.name }));
+                            this.getUserlist();
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_2 = _a.sent();
+                        if (e_2 instanceof _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpErrorResponse"]) {
+                            error = e_2 && e_2.error && e_2.error.error ? e_2.error.error : '';
+                            this.commonService.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_3__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatPaginator"]),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatPaginator"])
+    ], SpecialistComponent.prototype, "paginator1", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('keyWord'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], SpecialistComponent.prototype, "keyWord", void 0);
+    SpecialistComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-specialist',
+            template: __webpack_require__(/*! ./specialist.component.html */ "./src/app/modules/specialist/components/SpecialistComponent/specialist.component.html"),
+            styles: [__webpack_require__(/*! ./specialist.component.scss */ "./src/app/modules/specialist/components/SpecialistComponent/specialist.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_services___WEBPACK_IMPORTED_MODULE_2__["SpecialistServices"], _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"], _services___WEBPACK_IMPORTED_MODULE_2__["CommonServices"]])
+    ], SpecialistComponent);
+    return SpecialistComponent;
+}());
+
+function compare(a, b, isAsc) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+
+/***/ }),
+
+/***/ "./src/app/modules/specialist/components/UpdateSpecialistComponent/update-specialist.component.html":
+/*!**********************************************************************************************************!*\
+  !*** ./src/app/modules/specialist/components/UpdateSpecialistComponent/update-specialist.component.html ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2 mat-dialog-title>Thêm loại chuyên khoa</h2>\r\n<mat-dialog-content class=\"min-width-400\" style=\"overflow-x: hidden;\">\r\n    <div class=\"avatar\">\r\n        <img width=\"150px\" height=\"150px\" class=\"avatar\" [src]=\"avatarSrc\">\r\n        <input type=\"file\" id=\"selectedFile\" style=\"display: none;\" (change)=\"onImageChange($event)\"\r\n               accept=\"image/*\"/>\r\n        <span class=\"icon-upload\"><i class=\"fas fa-upload\" style=\"cursor: pointer; font-size: 18px\"\r\n                                     onclick=\"document.getElementById('selectedFile').click();\"></i></span>\r\n    </div>\r\n    <form fxLayout=\"column\" fxLayoutAlign=\"start stretch\" [formGroup]=\"userForm\">\r\n        <mat-form-field class=\"full-width\">\r\n            <input type=\"tel\" class=\"input\" placeholder=\"Tên\"\r\n                   [(ngModel)]=\"model.name\"\r\n                   formControlName=\"specialistName\" required matInput>\r\n        </mat-form-field>\r\n        <mat-error *ngIf=\"userForm.controls['specialistName'].errors && userForm.controls['specialistName'].touched\"\r\n                   class=\"help is-danger\">\r\n            Tên có ít nhất 1 ký tự và dài nhất 100 ký tự\r\n        </mat-error>\r\n        <mat-form-field class=\"full-width\">\r\n            <input type=\"text\" class=\"input\" placeholder=\"Mô tả\" [(ngModel)]=\"model.description\"\r\n                   formControlName=\"description\" matInput>\r\n        </mat-form-field>\r\n        <mat-error *ngIf=\"userForm.controls['description'].errors && userForm.controls['description'].touched\"\r\n                   class=\"help is-danger\">\r\n            Mô tả có nhiều nhất 4000 ký tự\r\n        </mat-error>\r\n        <mat-form-field class=\"full-width\">\r\n                <textarea type=\"text\" class=\"input\" placeholder=\"Câu hỏi thường gặp\" [(ngModel)]=\"model.listQuestion\" rows=\"5\"\r\n                          formControlName=\"listQuestion\" matInput></textarea>\r\n        </mat-form-field>\r\n        <div style=\"color: #ff7500;font-size: 14px; font-weight: bold\">Chú ý: Mỗi câu hỏi được ngăn cách bởi dấu Enter</div>\r\n    </form>\r\n</mat-dialog-content>\r\n<mat-dialog-actions>\r\n    <button mat-raised-button [disabled]=\"userForm.invalid\" color=\"primary\" (click)=\"onSubmit()\">Lưu</button>\r\n    <button mat-raised-button (click)=\"cancel()\">Hủy</button>\r\n</mat-dialog-actions>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/specialist/components/UpdateSpecialistComponent/update-specialist.component.scss":
+/*!**********************************************************************************************************!*\
+  !*** ./src/app/modules/specialist/components/UpdateSpecialistComponent/update-specialist.component.scss ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".is-danger {\n  color: red; }\n\n.min-width-400 {\n  min-width: 400px; }\n\n.avatar {\n  border-radius: 50%;\n  display: block;\n  margin-left: auto;\n  margin-right: auto; }\n\n.btn {\n  display: inline-block;\n  font-weight: 400;\n  text-align: center;\n  white-space: nowrap;\n  vertical-align: middle;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  border: 1px solid transparent;\n  padding: .375rem .75rem;\n  font-size: 1rem;\n  line-height: 1.5;\n  border-radius: .25rem;\n  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out; }\n\n.btn-success {\n  color: #fff;\n  background-color: #28a745;\n  border-color: #28a745; }\n\n.icon-upload {\n  color: #28a745;\n  position: relative;\n  text-align: center;\n  top: -15px;\n  left: 25px;\n  display: block; }\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/specialist/components/UpdateSpecialistComponent/update-specialist.component.ts":
+/*!********************************************************************************************************!*\
+  !*** ./src/app/modules/specialist/components/UpdateSpecialistComponent/update-specialist.component.ts ***!
+  \********************************************************************************************************/
+/*! exports provided: UpdateSpecialistComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateSpecialistComponent", function() { return UpdateSpecialistComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../models */ "./src/app/models/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../services */ "./src/app/services/index.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+var UpdateSpecialistComponent = /** @class */ (function () {
+    function UpdateSpecialistComponent(dialogRef, specialistServices, commonService, data, fb) {
+        this.dialogRef = dialogRef;
+        this.specialistServices = specialistServices;
+        this.commonService = commonService;
+        this.data = data;
+        this.fb = fb;
+        this.model = {
+            id: null,
+            image: null,
+            name: null,
+            description: null,
+            listQuestion: null,
+        };
+        this.avatarSrc = '../../../../../assets/images/noavatar.png';
+        this.getSpecialist(data.id);
+        this.userForm = this.fb.group({
+            'specialistName': ['', [
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(100),
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required
+                ],
+            ],
+            'listQuestion': ['', [],
+            ],
+            'description': ['', [
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(4000)
+                ]
+            ]
+        });
+    }
+    UpdateSpecialistComponent.prototype.ok = function () {
+        this.dialogRef.close('ok');
+    };
+    UpdateSpecialistComponent.prototype.cancel = function () {
+        this.dialogRef.close();
+    };
+    UpdateSpecialistComponent.prototype.onSubmit = function () {
+        this.model.name = this.model.name ? this.model.name.trim() : '';
+        this.model.description = this.model.description ? this.model.description.trim() : '';
+        this.model.listQuestion = this.model.listQuestion ? this.model.listQuestion.trim() : '';
+        if (this.userForm.valid) {
+            var arrayQuestion = [];
+            if (this.model.listQuestion) {
+                var strArray = this.model.listQuestion.split('\n');
+                if (strArray && strArray.length > 0) {
+                    for (var i = 0; i < strArray.length; i++) {
+                        var temp = strArray[i] ? strArray[i].trim() : '';
+                        if (temp && temp.length > 0) {
+                            arrayQuestion.push(temp);
+                        }
+                    }
+                }
+            }
+            var data = {
+                id: this.model.id,
+                name: this.model.name,
+                description: this.model.description,
+                listQuestion: arrayQuestion
+            };
+            var formData = new FormData();
+            if (this.avatar) {
+                formData.append('image', this.avatar);
+            }
+            formData.append('specialist', JSON.stringify(data));
+            this.postType(formData);
+        }
+    };
+    UpdateSpecialistComponent.prototype.onImageChange = function (event) {
+        var _this = this;
+        this.avatar = event && event.target && event.target.files && event.target.files.length > 0 ? event.target.files[0] : null;
+        if (this.avatar) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                _this.avatarSrc = e.target.result;
+            };
+            reader.readAsDataURL(this.avatar);
+        }
+    };
+    UpdateSpecialistComponent.prototype.postType = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, e_1, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.specialistServices.edit(this.model.id, data).toPromise()];
+                    case 1:
+                        response = _a.sent();
+                        if (response) {
+                            this.dialogRef.close('ok');
+                            this.commonService.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_4__["Message"]({ id: new Date().getTime(), type: 'SUCCESS', content: 'Đã sửa thành công ' + this.model.name }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_1 = _a.sent();
+                        if (e_1 instanceof _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpErrorResponse"]) {
+                            error = e_1 && e_1.error && e_1.error.error ? e_1.error.error : '';
+                            this.commonService.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_4__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UpdateSpecialistComponent.prototype.getSpecialist = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res, userRes, data, e_2, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.specialistServices.getById(id).toPromise()];
+                    case 1:
+                        res = _a.sent();
+                        userRes = res && res.objSpecialist ? res.objSpecialist : null;
+                        if (userRes) {
+                            data = new _models__WEBPACK_IMPORTED_MODULE_4__["Specialist"](userRes);
+                            this.model.id = data.id;
+                            this.model.name = data.name;
+                            this.model.description = data.description;
+                            this.model.listQuestion = data.listQuestionString;
+                            this.avatarSrc = data.image;
+                            this.model.image = data.image;
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_2 = _a.sent();
+                        if (e_2 instanceof _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpErrorResponse"]) {
+                            error = e_2 && e_2.error && e_2.error.error ? e_2.error.error : '';
+                            this.commonService.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_4__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UpdateSpecialistComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-update-type-advisory',
+            template: __webpack_require__(/*! ./update-specialist.component.html */ "./src/app/modules/specialist/components/UpdateSpecialistComponent/update-specialist.component.html"),
+            styles: [__webpack_require__(/*! ./update-specialist.component.scss */ "./src/app/modules/specialist/components/UpdateSpecialistComponent/update-specialist.component.scss")]
+        }),
+        __param(3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"],
+            _services__WEBPACK_IMPORTED_MODULE_5__["SpecialistServices"], _services__WEBPACK_IMPORTED_MODULE_5__["CommonServices"], Object, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]])
+    ], UpdateSpecialistComponent);
+    return UpdateSpecialistComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/specialist/components/index.ts":
+/*!********************************************************!*\
+  !*** ./src/app/modules/specialist/components/index.ts ***!
+  \********************************************************/
+/*! exports provided: CreateSpecialistComponent, SpecialistComponent, UpdateSpecialistComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CreateSpecialistComponent_create_specialist_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateSpecialistComponent/create-specialist.component */ "./src/app/modules/specialist/components/CreateSpecialistComponent/create-specialist.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CreateSpecialistComponent", function() { return _CreateSpecialistComponent_create_specialist_component__WEBPACK_IMPORTED_MODULE_0__["CreateSpecialistComponent"]; });
+
+/* harmony import */ var _SpecialistComponent_specialist_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SpecialistComponent/specialist.component */ "./src/app/modules/specialist/components/SpecialistComponent/specialist.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SpecialistComponent", function() { return _SpecialistComponent_specialist_component__WEBPACK_IMPORTED_MODULE_1__["SpecialistComponent"]; });
+
+/* harmony import */ var _UpdateSpecialistComponent_update_specialist_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UpdateSpecialistComponent/update-specialist.component */ "./src/app/modules/specialist/components/UpdateSpecialistComponent/update-specialist.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UpdateSpecialistComponent", function() { return _UpdateSpecialistComponent_update_specialist_component__WEBPACK_IMPORTED_MODULE_2__["UpdateSpecialistComponent"]; });
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/specialist/specialist.module.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/modules/specialist/specialist.module.ts ***!
+  \*********************************************************/
+/*! exports provided: SpecialistModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SpecialistModule", function() { return SpecialistModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/button */ "./node_modules/@angular/material/esm5/button.es5.js");
+/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm5/icon.es5.js");
+/* harmony import */ var _angular_material_tabs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/tabs */ "./node_modules/@angular/material/esm5/tabs.es5.js");
+/* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/toolbar */ "./node_modules/@angular/material/esm5/toolbar.es5.js");
+/* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/list */ "./node_modules/@angular/material/esm5/list.es5.js");
+/* harmony import */ var _angular_material_stepper__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/stepper */ "./node_modules/@angular/material/esm5/stepper.es5.js");
+/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/input */ "./node_modules/@angular/material/esm5/input.es5.js");
+/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/form-field */ "./node_modules/@angular/material/esm5/form-field.es5.js");
+/* harmony import */ var _angular_material_expansion__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/expansion */ "./node_modules/@angular/material/esm5/expansion.es5.js");
+/* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm5/datepicker.es5.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-perfect-scrollbar */ "./node_modules/ngx-perfect-scrollbar/dist/ngx-perfect-scrollbar.es5.js");
+/* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm5/table.es5.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components */ "./src/app/modules/specialist/components/index.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _user_detail_user_detail_module__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../user-detail/user-detail.module */ "./src/app/modules/user-detail/user-detail.module.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var route = [
+    { path: '', component: _components__WEBPACK_IMPORTED_MODULE_17__["SpecialistComponent"], data: { animation: 'responsive' } }
+];
+var DEFAULT_PERFECT_SCROLLBAR_CONFIG = {
+    suppressScrollX: true
+};
+var SpecialistModule = /** @class */ (function () {
+    function SpecialistModule() {
+    }
+    SpecialistModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _user_detail_user_detail_module__WEBPACK_IMPORTED_MODULE_20__["UserDetailModule"],
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _angular_flex_layout__WEBPACK_IMPORTED_MODULE_3__["FlexLayoutModule"],
+                _angular_material_button__WEBPACK_IMPORTED_MODULE_4__["MatButtonModule"],
+                _angular_material_icon__WEBPACK_IMPORTED_MODULE_5__["MatIconModule"],
+                _angular_material_tabs__WEBPACK_IMPORTED_MODULE_6__["MatTabsModule"],
+                _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__["MatToolbarModule"],
+                _angular_material_list__WEBPACK_IMPORTED_MODULE_8__["MatListModule"],
+                _angular_material_stepper__WEBPACK_IMPORTED_MODULE_9__["MatStepperModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
+                _angular_material_form_field__WEBPACK_IMPORTED_MODULE_11__["MatFormFieldModule"],
+                _angular_material_input__WEBPACK_IMPORTED_MODULE_10__["MatInputModule"],
+                _angular_material_expansion__WEBPACK_IMPORTED_MODULE_12__["MatExpansionModule"],
+                _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_13__["MatDatepickerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatNativeDateModule"],
+                _angular_material_table__WEBPACK_IMPORTED_MODULE_16__["MatTableModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatPaginatorModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatSortModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatCheckboxModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatTooltipModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatChipsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatButtonToggleModule"],
+                _angular_material_dialog__WEBPACK_IMPORTED_MODULE_19__["MatDialogModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatSelectModule"],
+                ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_15__["PerfectScrollbarModule"],
+                _angular_router__WEBPACK_IMPORTED_MODULE_18__["RouterModule"].forChild(route),
+            ],
+            declarations: [
+                _components__WEBPACK_IMPORTED_MODULE_17__["SpecialistComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_17__["CreateSpecialistComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_17__["UpdateSpecialistComponent"]
+            ],
+            entryComponents: [
+                _components__WEBPACK_IMPORTED_MODULE_17__["CreateSpecialistComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_17__["UpdateSpecialistComponent"]
+            ],
+            providers: [
+                {
+                    provide: ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_15__["PERFECT_SCROLLBAR_CONFIG"],
+                    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+                }
+            ],
+            exports: [_angular_router__WEBPACK_IMPORTED_MODULE_18__["RouterModule"]]
+        })
+    ], SpecialistModule);
+    return SpecialistModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/type-advisory/components/CreateTypeAdvisoryComponent/create-type-advisory.component.html":
+/*!******************************************************************************************************************!*\
+  !*** ./src/app/modules/type-advisory/components/CreateTypeAdvisoryComponent/create-type-advisory.component.html ***!
+  \******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2 mat-dialog-title>Thêm loại tư vấn</h2>\r\n    <mat-dialog-content class=\"min-width-400\" style=\"overflow-x: hidden;\">\r\n        <form fxLayout=\"column\" fxLayoutAlign=\"start stretch\" [formGroup]=\"userForm\">\r\n            <mat-button-toggle-group style=\"box-shadow: none\" name=\"fontStyle\" aria-label=\"Font Style\" [value]=\"model.type\" (change)=\"onChangeType($event.value)\">\r\n                <mat-button-toggle [value]=\"1\">Chat</mat-button-toggle>\r\n                <mat-button-toggle [value]=\"2\">Video Call</mat-button-toggle>\r\n            </mat-button-toggle-group>\r\n            <mat-form-field class=\"full-width\">\r\n                <input type=\"tel\" class=\"input\" placeholder=\"Tên\"\r\n                       [(ngModel)]=\"model.name\"\r\n                       formControlName=\"typeName\" required matInput>\r\n            </mat-form-field>\r\n            <mat-error *ngIf=\"userForm.controls['typeName'].errors && userForm.controls['typeName'].touched\"\r\n                       class=\"help is-danger\">\r\n                Tên có ít nhất 1 ký tự và dài nhất 100 ký tự\r\n            </mat-error>\r\n            <mat-form-field class=\"full-width\">\r\n                <input type=\"number\" class=\"input\" placeholder=\"Giá\" [(ngModel)]=\"model.price\" [min]=\"0\"\r\n                       formControlName=\"price\" required matInput>\r\n            </mat-form-field>\r\n            <mat-error *ngIf=\"userForm.controls['price'].errors && userForm.controls['price'].touched\"\r\n                       class=\"help is-danger\">\r\n                Vui lòng nhập số lớn hơn 0\r\n            </mat-error>\r\n            <mat-form-field *ngIf=\"model.type === 1\" class=\"full-width\">\r\n                <input type=\"text\" class=\"input\" placeholder=\"Giới hạn\" [(ngModel)]=\"model.limitNumberRecords\"\r\n                       formControlName=\"limitNumberRecords\" required matInput>\r\n            </mat-form-field>\r\n            <mat-error *ngIf=\"userForm.controls['limitNumberRecords'].errors && userForm.controls['limitNumberRecords'].touched && model.type === 1\"\r\n                       class=\"help is-danger\">\r\n                Vui lòng nhập số lớn hơn 0\r\n            </mat-error>\r\n            <mat-form-field class=\"full-width\">\r\n                <input type=\"text\" class=\"input\" placeholder=\"Mô tả\" [(ngModel)]=\"model.description\"\r\n                       formControlName=\"description\" matInput>\r\n            </mat-form-field>\r\n            <mat-error *ngIf=\"userForm.controls['description'].errors && userForm.controls['description'].touched\"\r\n                       class=\"help is-danger\">\r\n               Mô tả có nhiều nhất 4000 ký tự\r\n            </mat-error>\r\n        </form>\r\n    </mat-dialog-content>\r\n<mat-dialog-actions>\r\n    <button mat-raised-button [disabled]=\"!((this.userForm.controls['typeName'].valid && this.userForm.controls['price'].valid\r\n            && this.userForm.controls['limitNumberRecords'].valid && this.model.type === 1) ||\r\n            (this.userForm.controls['typeName'].valid && this.userForm.controls['price'].valid && this.model.type === 2))\" color=\"primary\" (click)=\"onSubmit()\">Lưu</button>\r\n    <button mat-raised-button (click)=\"cancel()\">Hủy</button>\r\n</mat-dialog-actions>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/type-advisory/components/CreateTypeAdvisoryComponent/create-type-advisory.component.scss":
+/*!******************************************************************************************************************!*\
+  !*** ./src/app/modules/type-advisory/components/CreateTypeAdvisoryComponent/create-type-advisory.component.scss ***!
+  \******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".is-danger {\n  color: red; }\n\n.min-width-400 {\n  min-width: 400px; }\n\n.avatar {\n  border-radius: 50%;\n  display: block;\n  margin-left: auto;\n  margin-right: auto; }\n\n.btn {\n  display: inline-block;\n  font-weight: 400;\n  text-align: center;\n  white-space: nowrap;\n  vertical-align: middle;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  border: 1px solid transparent;\n  padding: .375rem .75rem;\n  font-size: 1rem;\n  line-height: 1.5;\n  border-radius: .25rem;\n  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out; }\n\n.btn-success {\n  color: #fff;\n  background-color: #28a745;\n  border-color: #28a745; }\n\n.icon-upload {\n  color: #28a745;\n  position: relative;\n  text-align: center;\n  top: -15px;\n  left: 25px;\n  display: block; }\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/type-advisory/components/CreateTypeAdvisoryComponent/create-type-advisory.component.ts":
+/*!****************************************************************************************************************!*\
+  !*** ./src/app/modules/type-advisory/components/CreateTypeAdvisoryComponent/create-type-advisory.component.ts ***!
+  \****************************************************************************************************************/
+/*! exports provided: CreateTypeAdvisoryComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CreateTypeAdvisoryComponent", function() { return CreateTypeAdvisoryComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../models */ "./src/app/models/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../services */ "./src/app/services/index.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+var CreateTypeAdvisoryComponent = /** @class */ (function () {
+    function CreateTypeAdvisoryComponent(dialogRef, typeAdvisoryServices, commonService, data, fb) {
+        this.dialogRef = dialogRef;
+        this.typeAdvisoryServices = typeAdvisoryServices;
+        this.commonService = commonService;
+        this.data = data;
+        this.fb = fb;
+        this.model = {
+            name: null,
+            type: 1,
+            price: null,
+            limitNumberRecords: null,
+            description: null,
+        };
+        this.userForm = this.fb.group({
+            'type': ['', [],
+            ],
+            'typeName': ['', [
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(100),
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required
+                ],
+            ],
+            'price': ['', [],
+            ],
+            'limitNumberRecords': ['', [],
+            ],
+            'description': ['', [
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(4000)
+                ]
+            ]
+        });
+    }
+    CreateTypeAdvisoryComponent.prototype.ok = function () {
+        this.dialogRef.close('ok');
+    };
+    CreateTypeAdvisoryComponent.prototype.cancel = function () {
+        this.dialogRef.close();
+    };
+    CreateTypeAdvisoryComponent.prototype.onSubmit = function () {
+        this.model.name = this.model.name ? this.model.name.trim() : '';
+        this.model.description = this.model.description ? this.model.description.trim() : '';
+        if ((this.userForm.controls['typeName'].valid && this.userForm.controls['price'].valid
+            && this.userForm.controls['limitNumberRecords'].valid && this.model.type === 1) ||
+            (this.userForm.controls['typeName'].valid && this.userForm.controls['price'].valid && this.model.type === 2)) {
+            this.postType(this.model);
+        }
+    };
+    CreateTypeAdvisoryComponent.prototype.onChangeType = function (type) {
+        this.model.type = type;
+    };
+    CreateTypeAdvisoryComponent.prototype.postType = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, e_1, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.typeAdvisoryServices.createNewType(data).toPromise()];
+                    case 1:
+                        response = _a.sent();
+                        if (response) {
+                            this.dialogRef.close('ok');
+                            this.commonService.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_4__["Message"]({ id: new Date().getTime(), type: 'SUCCESS', content: 'Đã thêm thành công ' + this.model.name }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_1 = _a.sent();
+                        if (e_1 instanceof _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpErrorResponse"]) {
+                            error = e_1 && e_1.error && e_1.error.error ? e_1.error.error : '';
+                            this.commonService.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_4__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('dp3'),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDatepicker"])
+    ], CreateTypeAdvisoryComponent.prototype, "datePicker", void 0);
+    CreateTypeAdvisoryComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-create-type-advisory',
+            template: __webpack_require__(/*! ./create-type-advisory.component.html */ "./src/app/modules/type-advisory/components/CreateTypeAdvisoryComponent/create-type-advisory.component.html"),
+            styles: [__webpack_require__(/*! ./create-type-advisory.component.scss */ "./src/app/modules/type-advisory/components/CreateTypeAdvisoryComponent/create-type-advisory.component.scss")]
+        }),
+        __param(3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"],
+            _services__WEBPACK_IMPORTED_MODULE_5__["TypeAdvisoryServices"], _services__WEBPACK_IMPORTED_MODULE_5__["CommonServices"], Object, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]])
+    ], CreateTypeAdvisoryComponent);
+    return CreateTypeAdvisoryComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/type-advisory/components/TypeAdvisoryComponent/type-advisory-list.component.html":
+/*!**********************************************************************************************************!*\
+  !*** ./src/app/modules/type-advisory/components/TypeAdvisoryComponent/type-advisory-list.component.html ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div fxLayout=\"column\" class=\"components-container-gt-xs\" [ngClass.xs]=\"'components-container-xs'\" fxLayoutGap=\"20px\">\n\n    <div fxFlex class=\"table-component-holder mat-elevation-z4\">\n        <mat-toolbar class=\"table-header\">\n            <h1 class=\"mat-headline center-align\">Danh sách loại tư vấn</h1>\n            <button mat-raised-button color=\"primary\" class=\"btn-add-staff\" (click)=\"onCreateNewType()\">Thêm loại tư vấn</button>\n            <!--<form class=\"center-align\">-->\n                <!--<mat-form-field class=\"margin-left-10\">-->\n                    <!--<input #keyWord matInput [ngModelOptions]=\"{standalone: true}\" placeholder=\"Từ khóa\" maxlength=\"200\" [(ngModel)]=\"model.search_keyword\" (blur)=\"onBlurKeyWord()\" (keyup.enter)=\"onEnterSearchKey()\">-->\n                <!--</mat-form-field>-->\n                <!--<mat-form-field class=\"margin-left-10\">-->\n                    <!--<mat-select placeholder=\"Trạng thái\" (selectionChange)=\"onChangeStatus($event.value)\">-->\n                        <!--<mat-option value=\"1\">Active</mat-option>-->\n                        <!--<mat-option value=\"3\">Block</mat-option>-->\n                        <!--<mat-option value=\"4\">Bác sĩ block</mat-option>-->\n                        <!--<mat-option value=\"2\">Bác sĩ chờ phê duyệt</mat-option>-->\n                    <!--</mat-select>-->\n                <!--</mat-form-field>-->\n                <!--<mat-form-field class=\"margin-left-10\">-->\n                    <!--<mat-select placeholder=\"Role\" (selectionChange)=\"onChangeRole($event.value)\">-->\n                        <!--<mat-option value=\"3\">Admin</mat-option>-->\n                        <!--<mat-option value=\"2\">Bác sĩ</mat-option>-->\n                        <!--<mat-option value=\"1\">Bệnh nhân</mat-option>-->\n                    <!--</mat-select>-->\n                <!--</mat-form-field>-->\n                <!--<button mat-raised-button color=\"primary\" class=\"btn-add-staff\" (click)=\"onCreateNewStaff()\">Thêm nhân viên</button>-->\n            <!--</form>-->\n        </mat-toolbar>\n        <div class=\"table-container\">\n            <table matSort (matSortChange)=\"onSort($event)\" [matSortActive]=\"model.sort.active\"\n                   [matSortDirection]=\"model.sort.direction\">\n                <thead>\n                <tr>\n                    <th mat-sort-header=\"{{th.key}}\" scope=\"col\" *ngFor=\"let th of header\">{{th.name}}</th>\n                    <th class=\"icon\"></th>\n                    <th class=\"icon\"></th>\n                </tr>\n                </thead>\n                <tbody>\n                <tr *ngFor=\"let row of rows let i=index\">\n                    <td [attr.data-label]=\"th.name\" *ngFor=\"let th of header\">\n                        <span *ngIf=\"th.key!='action'\">\n                            {{row[th.key]}}\n                            <mat-chip selected=\"true\"\n                                      color=\"warn\"\n                                      matTooltip=\"{{row['duplicate_applications'].length}} duplicate entries\"\n                                      matTooltipPosition=\"right\"\n                                      *ngIf=\"th.key=='applicationNumber' && row['duplicate_applications'] != 'undefined' && row['duplicate_applications'] && row['duplicate_applications'].length > 0\">\n\t\t\t\t\t\t\t\t\t{{row['duplicate_applications'].length }}\n                            </mat-chip>\n\n                        </span>\n\n                    </td>\n                    <td class=\"icon\"><i class=\"far fa-trash-alt delete-icon\" (click)=\"onConfirmDelete(row)\"></i></td>\n                    <td class=\"icon\"><i class=\"far fa-edit\" (click)=\"openDetail(row)\"></i></td>\n                </tr>\n                <tr *ngIf=\"rows?.length==0 && status==false\">\n                    <td [colSpan]=\"header.length\" style=\"text-align: center;\">\n                        No records found\n                    </td>\n                </tr>\n                </tbody>\n                <!--<thead *matHeaderRowDef=\"displayedColumns\"></thead>-->\n                <!--<tr *matRowDef=\"let row; columns: displayedColumns;\"></tr>-->\n            </table>\n            <mat-paginator [length]=\"pageLength\"\n                           [pageSize]=\"pageSize\"\n                           [pageSizeOptions]=\"[1, 5, 10, 25, 100, 150, 200]\" (page)=\"next($event)\">\n            </mat-paginator>\n        </div>\n    </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/type-advisory/components/TypeAdvisoryComponent/type-advisory-list.component.scss":
+/*!**********************************************************************************************************!*\
+  !*** ./src/app/modules/type-advisory/components/TypeAdvisoryComponent/type-advisory-list.component.scss ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".table-header {\n  background-color: #3BCFAD;\n  color: white;\n  padding: 0 5px; }\n\n.table-container {\n  padding: 5px 15px 15px 15px; }\n\n.table-component-holder {\n  background-color: white; }\n\n.margin-left-10 {\n  margin-left: 10px; }\n\n.content {\n  word-wrap: break-word;\n  word-break: break-all; }\n\n.icon {\n  cursor: pointer;\n  width: 40px; }\n\n:host .delete-icon {\n  color: red;\n  cursor: pointer; }\n\n:host .btn-add-staff {\n  float: right;\n  top: 36px;\n  right: 36px;\n  position: absolute; }\n\ntable {\n  border: 1px solid #ccc;\n  border-collapse: collapse;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n  table-layout: fixed; }\n\ntable caption {\n  font-size: 1.5em;\n  margin: .5em 0 .75em;\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable tr {\n  background: #f8f8f8;\n  border: 1px solid #ddd;\n  padding: .35em; }\n\ntable tr:nth-child(odd) td {\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable tr:nth-child(even) td {\n  background: rgba(145, 151, 187, 0.34);\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\n/deep/ .mat-sort-header-container {\n  justify-content: center; }\n\ntable th,\ntable td {\n  word-break: break-all;\n  word-wrap: break-word;\n  padding: .625em;\n  text-align: center;\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable th {\n  background: #cfcfcf;\n  font-size: .85em;\n  letter-spacing: .1em;\n  text-transform: uppercase; }\n\n@media screen and (max-width: 600px) {\n  .icon {\n    cursor: pointer;\n    width: auto; }\n  table {\n    border: 0; }\n  table caption {\n    font-size: 1.3em; }\n  table thead {\n    border: none;\n    clip: rect(0 0 0 0);\n    height: 1px;\n    margin: -1px;\n    overflow: hidden;\n    padding: 0;\n    position: absolute;\n    width: 1px; }\n  table tr {\n    border-bottom: 3px solid #ddd;\n    display: block;\n    margin-bottom: .625em; }\n  table td {\n    border-bottom: 1px solid #ddd;\n    display: block;\n    font-size: .8em;\n    text-align: right; }\n  table td:before {\n    /*\n        * aria-label has no advantage, it won't be read inside a table\n        content: attr(aria-label);\n        */\n    content: attr(data-label);\n    float: left;\n    font-weight: bold;\n    text-transform: uppercase; }\n  table td:last-child {\n    border-bottom: 0; } }\n\nmat-button-toggle-group {\n  cursor: pointer; }\n\n::ng-deep .mat-sort-header-container {\n  justify-content: center; }\n\n/* Structure */\n\n.example-container {\n  display: flex;\n  flex-direction: column;\n  min-width: 300px; }\n\n.example-header {\n  min-height: 64px;\n  display: flex;\n  align-items: center;\n  padding-left: 24px;\n  font-size: 20px; }\n\n.mat-table {\n  overflow: auto;\n  max-height: 500px; }\n\n.widgetHolder {\n  margin: 0 auto; }\n\n.widgetHolder .widgetHolder-content {\n    padding: 20px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/type-advisory/components/TypeAdvisoryComponent/type-advisory-list.component.ts":
+/*!********************************************************************************************************!*\
+  !*** ./src/app/modules/type-advisory/components/TypeAdvisoryComponent/type-advisory-list.component.ts ***!
+  \********************************************************************************************************/
+/*! exports provided: TypeAdvisoryListComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TypeAdvisoryListComponent", function() { return TypeAdvisoryListComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _services___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../services/ */ "./src/app/services/index.ts");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../models */ "./src/app/models/index.ts");
+/* harmony import */ var _core_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../core/components */ "./src/app/modules/core/components/index.ts");
+/* harmony import */ var _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _CreateTypeAdvisoryComponent_create_type_advisory_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../CreateTypeAdvisoryComponent/create-type-advisory.component */ "./src/app/modules/type-advisory/components/CreateTypeAdvisoryComponent/create-type-advisory.component.ts");
+/* harmony import */ var _UpdateTypeAdvisoryComponent_update_type_advisory_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../UpdateTypeAdvisoryComponent/update-type-advisory.component */ "./src/app/modules/type-advisory/components/UpdateTypeAdvisoryComponent/update-type-advisory.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+
+
+var TypeAdvisoryListComponent = /** @class */ (function () {
+    function TypeAdvisoryListComponent(typeAdvisoryServices, dialog, commonService) {
+        this.typeAdvisoryServices = typeAdvisoryServices;
+        this.dialog = dialog;
+        this.commonService = commonService;
+        this.pageLength = 0;
+        this.pageSize = 15;
+        this.header = [
+            {
+                name: 'Tên',
+                key: 'name',
+                order: 'asc'
+            },
+            {
+                name: 'Loại tư vấn',
+                key: 'typeString',
+                order: 'asc'
+            },
+            {
+                name: 'Giá',
+                key: 'price',
+                order: 'asc'
+            },
+            {
+                name: 'Giới hạn',
+                key: 'limitNumberRecords',
+                order: 'asc'
+            },
+            {
+                name: 'Mô tả',
+                key: 'description',
+                order: 'asc'
+            }
+        ];
+        this.model = {
+            sort: {
+                active: 'name',
+                direction: 'desc'
+            },
+            status: 3,
+            pageIndex: 0
+        };
+        this.rows = [];
+        this.getUserlist();
+    }
+    TypeAdvisoryListComponent.prototype.ngOnInit = function () {
+        this.getRows();
+    };
+    TypeAdvisoryListComponent.prototype.next = function (event) {
+        this.rows = [];
+        if ((event.pageIndex + 1) * event.pageSize > event.length) {
+            for (var i = 1 * event.pageIndex * event.pageSize; i < event.length; i++) {
+                this.rows = this.rows.concat([this.sortedlist[i]]);
+            }
+        }
+        else {
+            for (var i = 1 * event.pageIndex * event.pageSize; i < event.pageSize + event.pageIndex * event.pageSize; i++) {
+                this.rows = this.rows.concat([this.sortedlist[i]]);
+            }
+        }
+    };
+    TypeAdvisoryListComponent.prototype.getRows = function () {
+        if (!this.sortedlist) {
+            return;
+        }
+        this.rows = [];
+        if (this.pageSize < this.sortedlist.length) {
+            for (var i = 0; i < this.pageSize; i++) {
+                this.rows = this.rows.concat([this.sortedlist[i]]);
+            }
+        }
+        else {
+            for (var i = 0; i < this.sortedlist.length; i++) {
+                this.rows = this.rows.concat([this.sortedlist[i]]);
+            }
+        }
+        this.pageLength = this.sortedlist.length;
+    };
+    TypeAdvisoryListComponent.prototype.onConfirmDelete = function (user) {
+        this.itemDelete = user;
+        this.openModal();
+    };
+    TypeAdvisoryListComponent.prototype.openModal = function () {
+        var _this = this;
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogConfig"]();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {
+            title: 'Xóa loại tư vấn',
+            message: 'Bạn có muốn xóa ' + this.itemDelete.name + '?'
+        };
+        var dialogRef = this.dialog.open(_core_components__WEBPACK_IMPORTED_MODULE_4__["DeletionConfirmModalComponent"], dialogConfig);
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result && result === 'ok') {
+                _this.deleteType();
+            }
+        });
+    };
+    TypeAdvisoryListComponent.prototype.openDetail = function (row) {
+        var _this = this;
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogConfig"]();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {
+            id: row.id,
+        };
+        var dialogRef = this.dialog.open(_UpdateTypeAdvisoryComponent_update_type_advisory_component__WEBPACK_IMPORTED_MODULE_7__["UpdateTypeAdvisoryComponent"], dialogConfig);
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result && result === 'ok') {
+                _this.getUserlist();
+            }
+        });
+    };
+    TypeAdvisoryListComponent.prototype.onCreateNewType = function () {
+        var _this = this;
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogConfig"]();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {};
+        var staffRegisterRef = this.dialog.open(_CreateTypeAdvisoryComponent_create_type_advisory_component__WEBPACK_IMPORTED_MODULE_6__["CreateTypeAdvisoryComponent"], dialogConfig);
+        staffRegisterRef.afterClosed().subscribe(function (result) {
+            if (result && result === 'ok') {
+                _this.getUserlist();
+            }
+        });
+    };
+    TypeAdvisoryListComponent.prototype.onSort = function (sort) {
+        var _this = this;
+        if (!sort) {
+            this.model.sort.active = '';
+            this.model.sort.direction = '';
+            return;
+        }
+        if (!this.typeList) {
+            return;
+        }
+        var data = this.typeList.slice();
+        this.model.sort.active = sort.active;
+        this.model.sort.direction = sort.direction;
+        this.model.pageIndex = 0;
+        if (!sort || !sort.active || sort.direction === '') {
+            this.sortedlist = data;
+            this.getRows();
+            return;
+        }
+        this.sortedlist = data.sort(function (a, b) {
+            var isAsc = _this.model.sort.direction === 'asc';
+            switch (_this.model.sort.active) {
+                case 'name':
+                    return compare(a.name, b.name, isAsc);
+                case 'price':
+                    return compare(a.price, b.price, isAsc);
+                case 'limitNumberRecords':
+                    return compare(a.limitNumberRecords, b.limitNumberRecords, isAsc);
+                case 'description':
+                    return compare(a.description, b.description, isAsc);
+                case 'typeString':
+                    return compare(a.typeString, b.typeString, isAsc);
+                default:
+                    return 0;
+            }
+        });
+        this.getRows();
+    };
+    TypeAdvisoryListComponent.prototype.getUserlist = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, listUser, e_1, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.typeAdvisoryServices.getListTypeAdvisories().toPromise()];
+                    case 1:
+                        response = _a.sent();
+                        listUser = response && response.typeAdvisories;
+                        this.typeList = [];
+                        if (listUser && listUser.length > 0) {
+                            this.typeList = listUser.map(function (obj) { return new _models__WEBPACK_IMPORTED_MODULE_3__["TypeAdvisory"](obj); });
+                        }
+                        this.onSort(this.model.sort);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_1 = _a.sent();
+                        if (e_1 instanceof _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpErrorResponse"]) {
+                            error = e_1 && e_1.error && e_1.error.error ? e_1.error.error : '';
+                            this.commonService.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_3__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    TypeAdvisoryListComponent.prototype.deleteType = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, status_1, e_2, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.typeAdvisoryServices.deleteType(this.itemDelete).toPromise()];
+                    case 1:
+                        response = _a.sent();
+                        status_1 = response && response.status;
+                        if (status_1) {
+                            this.commonService.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_3__["Message"]({ id: new Date().getTime(), type: 'SUCCESS', content: 'Đã xóa thành công ' + this.itemDelete.name }));
+                            this.getUserlist();
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_2 = _a.sent();
+                        if (e_2 instanceof _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_5__["HttpErrorResponse"]) {
+                            error = e_2 && e_2.error && e_2.error.error ? e_2.error.error : '';
+                            this.commonService.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_3__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatPaginator"]),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatPaginator"])
+    ], TypeAdvisoryListComponent.prototype, "paginator1", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('keyWord'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], TypeAdvisoryListComponent.prototype, "keyWord", void 0);
+    TypeAdvisoryListComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-type-advisory-list',
+            template: __webpack_require__(/*! ./type-advisory-list.component.html */ "./src/app/modules/type-advisory/components/TypeAdvisoryComponent/type-advisory-list.component.html"),
+            styles: [__webpack_require__(/*! ./type-advisory-list.component.scss */ "./src/app/modules/type-advisory/components/TypeAdvisoryComponent/type-advisory-list.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_services___WEBPACK_IMPORTED_MODULE_2__["TypeAdvisoryServices"], _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"], _services___WEBPACK_IMPORTED_MODULE_2__["CommonServices"]])
+    ], TypeAdvisoryListComponent);
+    return TypeAdvisoryListComponent;
+}());
+
+function compare(a, b, isAsc) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+
+/***/ }),
+
+/***/ "./src/app/modules/type-advisory/components/UpdateTypeAdvisoryComponent/update-type-advisory.component.html":
+/*!******************************************************************************************************************!*\
+  !*** ./src/app/modules/type-advisory/components/UpdateTypeAdvisoryComponent/update-type-advisory.component.html ***!
+  \******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2 mat-dialog-title>Sửa loại tư vấn</h2>\r\n    <mat-dialog-content class=\"min-width-400\" style=\"overflow-x: hidden;\">\r\n        <form fxLayout=\"column\" fxLayoutAlign=\"start stretch\" [formGroup]=\"userForm\">\r\n            <mat-button-toggle-group style=\"box-shadow: none\" name=\"fontStyle\" aria-label=\"Font Style\" [value]=\"model.type\" (change)=\"onChangeType($event.value)\">\r\n                <mat-button-toggle [value]=\"1\">Chat</mat-button-toggle>\r\n                <mat-button-toggle [value]=\"2\">Video Call</mat-button-toggle>\r\n            </mat-button-toggle-group>\r\n            <mat-form-field class=\"full-width\">\r\n                <input type=\"tel\" class=\"input\" placeholder=\"Tên\"\r\n                       [(ngModel)]=\"model.name\"\r\n                       formControlName=\"typeName\" required matInput>\r\n            </mat-form-field>\r\n            <mat-error *ngIf=\"userForm.controls['typeName'].errors && userForm.controls['typeName'].touched\"\r\n                       class=\"help is-danger\">\r\n                Tên có ít nhất một ký tự và dài nhất 100 ký tự\r\n            </mat-error>\r\n            <mat-form-field class=\"full-width\">\r\n                <input type=\"number\" class=\"input\" placeholder=\"Giá\" [(ngModel)]=\"model.price\" [min]=\"0\"\r\n                       formControlName=\"price\" required matInput>\r\n            </mat-form-field>\r\n            <mat-error *ngIf=\"userForm.controls['price'].errors && userForm.controls['price'].touched\"\r\n                       class=\"help is-danger\">\r\n                Vui lòng nhập số lớn hơn 0\r\n            </mat-error>\r\n            <mat-form-field *ngIf=\"model.type === 1\" class=\"full-width\">\r\n                <input type=\"text\" class=\"input\" placeholder=\"Giới hạn\" [(ngModel)]=\"model.limitNumberRecords\"\r\n                       formControlName=\"limitNumberRecords\" required matInput>\r\n            </mat-form-field>\r\n            <mat-error *ngIf=\"userForm.controls['limitNumberRecords'].errors && userForm.controls['limitNumberRecords'].touched && model.type === 1 || false\"\r\n                       class=\"help is-danger\">\r\n                Vui lòng nhập số lớn hơn 0\r\n            </mat-error>\r\n            <mat-form-field class=\"full-width\">\r\n                <input type=\"text\" class=\"input\" placeholder=\"Mô tả\" [(ngModel)]=\"model.description\"\r\n                       formControlName=\"description\" matInput>\r\n            </mat-form-field>\r\n            <mat-error *ngIf=\"userForm.controls['description'].errors && userForm.controls['description'].touched\"\r\n                       class=\"help is-danger\">\r\n               Mô tả có nhiều nhất 4000 ký tự\r\n            </mat-error>\r\n        </form>\r\n    </mat-dialog-content>\r\n<mat-dialog-actions>\r\n    <button mat-raised-button [disabled]=\"!((this.userForm.controls['typeName'].valid && this.userForm.controls['price'].valid\r\n            && this.userForm.controls['limitNumberRecords'].valid && this.model.type === 1) ||\r\n            (this.userForm.controls['typeName'].valid && this.userForm.controls['price'].valid && this.model.type === 2))\" color=\"primary\" (click)=\"onSubmit()\">Lưu</button>\r\n    <button mat-raised-button (click)=\"cancel()\">Hủy</button>\r\n</mat-dialog-actions>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/type-advisory/components/UpdateTypeAdvisoryComponent/update-type-advisory.component.scss":
+/*!******************************************************************************************************************!*\
+  !*** ./src/app/modules/type-advisory/components/UpdateTypeAdvisoryComponent/update-type-advisory.component.scss ***!
+  \******************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".is-danger {\n  color: red; }\n\n.min-width-400 {\n  min-width: 400px; }\n\n.avatar {\n  border-radius: 50%;\n  display: block;\n  margin-left: auto;\n  margin-right: auto; }\n\n.btn {\n  display: inline-block;\n  font-weight: 400;\n  text-align: center;\n  white-space: nowrap;\n  vertical-align: middle;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  border: 1px solid transparent;\n  padding: .375rem .75rem;\n  font-size: 1rem;\n  line-height: 1.5;\n  border-radius: .25rem;\n  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out; }\n\n.btn-success {\n  color: #fff;\n  background-color: #28a745;\n  border-color: #28a745; }\n\n.icon-upload {\n  color: #28a745;\n  position: relative;\n  text-align: center;\n  top: -15px;\n  left: 25px;\n  display: block; }\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/type-advisory/components/UpdateTypeAdvisoryComponent/update-type-advisory.component.ts":
+/*!****************************************************************************************************************!*\
+  !*** ./src/app/modules/type-advisory/components/UpdateTypeAdvisoryComponent/update-type-advisory.component.ts ***!
+  \****************************************************************************************************************/
+/*! exports provided: UpdateTypeAdvisoryComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UpdateTypeAdvisoryComponent", function() { return UpdateTypeAdvisoryComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../models */ "./src/app/models/index.ts");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../services */ "./src/app/services/index.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+var UpdateTypeAdvisoryComponent = /** @class */ (function () {
+    function UpdateTypeAdvisoryComponent(dialogRef, typeAdvisoryServices, commonService, data, fb) {
+        this.dialogRef = dialogRef;
+        this.typeAdvisoryServices = typeAdvisoryServices;
+        this.commonService = commonService;
+        this.data = data;
+        this.fb = fb;
+        this.model = {
+            id: null,
+            name: null,
+            type: 1,
+            price: null,
+            limitNumberRecords: null,
+            description: null,
+        };
+        this.getTypeAdvisory(data.id);
+        this.userForm = this.fb.group({
+            'type': ['', [],
+            ],
+            'typeName': ['', [
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(100),
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required
+                ],
+            ],
+            'price': ['', [],
+            ],
+            'limitNumberRecords': ['', [],
+            ],
+            'description': ['', [
+                    _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].maxLength(4000)
+                ]
+            ]
+        });
+    }
+    UpdateTypeAdvisoryComponent.prototype.ok = function () {
+        this.dialogRef.close('ok');
+    };
+    UpdateTypeAdvisoryComponent.prototype.cancel = function () {
+        this.dialogRef.close();
+    };
+    UpdateTypeAdvisoryComponent.prototype.onSubmit = function () {
+        this.model.name = this.model.name ? this.model.name.trim() : '';
+        this.model.description = this.model.description ? this.model.description.trim() : '';
+        if ((this.userForm.controls['typeName'].valid && this.userForm.controls['price'].valid
+            && this.userForm.controls['limitNumberRecords'].valid && this.model.type === 1) ||
+            (this.userForm.controls['typeName'].valid && this.userForm.controls['price'].valid && this.model.type === 2)) {
+            this.postType(this.model);
+        }
+    };
+    UpdateTypeAdvisoryComponent.prototype.onChangeType = function (type) {
+        this.model.type = type;
+    };
+    UpdateTypeAdvisoryComponent.prototype.postType = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, e_1, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.typeAdvisoryServices.editNewType(data).toPromise()];
+                    case 1:
+                        response = _a.sent();
+                        if (response) {
+                            this.dialogRef.close('ok');
+                            this.commonService.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_4__["Message"]({ id: new Date().getTime(), type: 'SUCCESS', content: 'Đã sửa thành công ' + this.model.name }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_1 = _a.sent();
+                        if (e_1 instanceof _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpErrorResponse"]) {
+                            error = e_1 && e_1.error && e_1.error.error ? e_1.error.error : '';
+                            this.commonService.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_4__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UpdateTypeAdvisoryComponent.prototype.getTypeAdvisory = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res, userRes, e_2, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.typeAdvisoryServices.getById(id).toPromise()];
+                    case 1:
+                        res = _a.sent();
+                        userRes = res && res.objectAdvisory ? res.objectAdvisory : null;
+                        if (userRes) {
+                            this.typeAdvisory = new _models__WEBPACK_IMPORTED_MODULE_4__["TypeAdvisory"](userRes);
+                            this.model.id = this.typeAdvisory.id;
+                            this.model.type = this.typeAdvisory.type;
+                            this.model.name = this.typeAdvisory.name;
+                            this.model.price = userRes.price;
+                            this.model.limitNumberRecords = this.typeAdvisory.limitNumberRecords;
+                            this.model.description = this.typeAdvisory.description;
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_2 = _a.sent();
+                        if (e_2 instanceof _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpErrorResponse"]) {
+                            error = e_2 && e_2.error && e_2.error.error ? e_2.error.error : '';
+                            this.commonService.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_4__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('dp3'),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDatepicker"])
+    ], UpdateTypeAdvisoryComponent.prototype, "datePicker", void 0);
+    UpdateTypeAdvisoryComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-update-type-advisory',
+            template: __webpack_require__(/*! ./update-type-advisory.component.html */ "./src/app/modules/type-advisory/components/UpdateTypeAdvisoryComponent/update-type-advisory.component.html"),
+            styles: [__webpack_require__(/*! ./update-type-advisory.component.scss */ "./src/app/modules/type-advisory/components/UpdateTypeAdvisoryComponent/update-type-advisory.component.scss")]
+        }),
+        __param(3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"],
+            _services__WEBPACK_IMPORTED_MODULE_5__["TypeAdvisoryServices"], _services__WEBPACK_IMPORTED_MODULE_5__["CommonServices"], Object, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormBuilder"]])
+    ], UpdateTypeAdvisoryComponent);
+    return UpdateTypeAdvisoryComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/type-advisory/components/index.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/modules/type-advisory/components/index.ts ***!
+  \***********************************************************/
+/*! exports provided: TypeAdvisoryListComponent, CreateTypeAdvisoryComponent, UpdateTypeAdvisoryComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TypeAdvisoryComponent_type_advisory_list_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TypeAdvisoryComponent/type-advisory-list.component */ "./src/app/modules/type-advisory/components/TypeAdvisoryComponent/type-advisory-list.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TypeAdvisoryListComponent", function() { return _TypeAdvisoryComponent_type_advisory_list_component__WEBPACK_IMPORTED_MODULE_0__["TypeAdvisoryListComponent"]; });
+
+/* harmony import */ var _CreateTypeAdvisoryComponent_create_type_advisory_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateTypeAdvisoryComponent/create-type-advisory.component */ "./src/app/modules/type-advisory/components/CreateTypeAdvisoryComponent/create-type-advisory.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CreateTypeAdvisoryComponent", function() { return _CreateTypeAdvisoryComponent_create_type_advisory_component__WEBPACK_IMPORTED_MODULE_1__["CreateTypeAdvisoryComponent"]; });
+
+/* harmony import */ var _UpdateTypeAdvisoryComponent_update_type_advisory_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UpdateTypeAdvisoryComponent/update-type-advisory.component */ "./src/app/modules/type-advisory/components/UpdateTypeAdvisoryComponent/update-type-advisory.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UpdateTypeAdvisoryComponent", function() { return _UpdateTypeAdvisoryComponent_update_type_advisory_component__WEBPACK_IMPORTED_MODULE_2__["UpdateTypeAdvisoryComponent"]; });
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/type-advisory/type-advisory.module.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/modules/type-advisory/type-advisory.module.ts ***!
+  \***************************************************************/
+/*! exports provided: TypeAdvisoryModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TypeAdvisoryModule", function() { return TypeAdvisoryModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/button */ "./node_modules/@angular/material/esm5/button.es5.js");
+/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm5/icon.es5.js");
+/* harmony import */ var _angular_material_tabs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/tabs */ "./node_modules/@angular/material/esm5/tabs.es5.js");
+/* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/toolbar */ "./node_modules/@angular/material/esm5/toolbar.es5.js");
+/* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/list */ "./node_modules/@angular/material/esm5/list.es5.js");
+/* harmony import */ var _angular_material_stepper__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/stepper */ "./node_modules/@angular/material/esm5/stepper.es5.js");
+/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/input */ "./node_modules/@angular/material/esm5/input.es5.js");
+/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/form-field */ "./node_modules/@angular/material/esm5/form-field.es5.js");
+/* harmony import */ var _angular_material_expansion__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/expansion */ "./node_modules/@angular/material/esm5/expansion.es5.js");
+/* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm5/datepicker.es5.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-perfect-scrollbar */ "./node_modules/ngx-perfect-scrollbar/dist/ngx-perfect-scrollbar.es5.js");
+/* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm5/table.es5.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components */ "./src/app/modules/type-advisory/components/index.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _user_detail_user_detail_module__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../user-detail/user-detail.module */ "./src/app/modules/user-detail/user-detail.module.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var route = [
+    { path: '', component: _components__WEBPACK_IMPORTED_MODULE_17__["TypeAdvisoryListComponent"], data: { animation: 'responsive' } }
+];
+var DEFAULT_PERFECT_SCROLLBAR_CONFIG = {
+    suppressScrollX: true
+};
+var TypeAdvisoryModule = /** @class */ (function () {
+    function TypeAdvisoryModule() {
+    }
+    TypeAdvisoryModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _user_detail_user_detail_module__WEBPACK_IMPORTED_MODULE_20__["UserDetailModule"],
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _angular_flex_layout__WEBPACK_IMPORTED_MODULE_3__["FlexLayoutModule"],
+                _angular_material_button__WEBPACK_IMPORTED_MODULE_4__["MatButtonModule"],
+                _angular_material_icon__WEBPACK_IMPORTED_MODULE_5__["MatIconModule"],
+                _angular_material_tabs__WEBPACK_IMPORTED_MODULE_6__["MatTabsModule"],
+                _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__["MatToolbarModule"],
+                _angular_material_list__WEBPACK_IMPORTED_MODULE_8__["MatListModule"],
+                _angular_material_stepper__WEBPACK_IMPORTED_MODULE_9__["MatStepperModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
+                _angular_material_form_field__WEBPACK_IMPORTED_MODULE_11__["MatFormFieldModule"],
+                _angular_material_input__WEBPACK_IMPORTED_MODULE_10__["MatInputModule"],
+                _angular_material_expansion__WEBPACK_IMPORTED_MODULE_12__["MatExpansionModule"],
+                _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_13__["MatDatepickerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatNativeDateModule"],
+                _angular_material_table__WEBPACK_IMPORTED_MODULE_16__["MatTableModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatPaginatorModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatSortModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatCheckboxModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatTooltipModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatChipsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatButtonToggleModule"],
+                _angular_material_dialog__WEBPACK_IMPORTED_MODULE_19__["MatDialogModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatSelectModule"],
+                ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_15__["PerfectScrollbarModule"],
+                _angular_router__WEBPACK_IMPORTED_MODULE_18__["RouterModule"].forChild(route),
+            ],
+            declarations: [
+                _components__WEBPACK_IMPORTED_MODULE_17__["TypeAdvisoryListComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_17__["CreateTypeAdvisoryComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_17__["UpdateTypeAdvisoryComponent"]
+            ],
+            entryComponents: [
+                _components__WEBPACK_IMPORTED_MODULE_17__["CreateTypeAdvisoryComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_17__["UpdateTypeAdvisoryComponent"]
+            ],
+            providers: [
+                {
+                    provide: ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_15__["PERFECT_SCROLLBAR_CONFIG"],
+                    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+                }
+            ],
+            exports: [_angular_router__WEBPACK_IMPORTED_MODULE_18__["RouterModule"]]
+        })
+    ], TypeAdvisoryModule);
+    return TypeAdvisoryModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/user-detail/components/ChatHistoryComponent/chat-histories.component.html":
+/*!***************************************************************************************************!*\
+  !*** ./src/app/modules/user-detail/components/ChatHistoryComponent/chat-histories.component.html ***!
+  \***************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div fxLayout=\"column\" class=\"components-container-gt-xs\" [ngClass.xs]=\"'components-container-xs'\" fxLayoutGap=\"20px\">\r\n    <div fxFlex class=\"table-component-holder mat-elevation-z4\">\r\n        <mat-toolbar class=\"table-header\" style=\"padding: 16px\">\r\n            <!--<h1 class=\"mat-headline center-align\">Danh sách người dùng</h1>-->\r\n            <form class=\"center-align\">\r\n                <mat-form-field class=\"length-input\">\r\n                    <input #keyWord matInput [ngModelOptions]=\"{standalone: true}\" [placeholder]=\"keywordPlaceHolder\" maxlength=\"200\"\r\n                           [(ngModel)]=\"model.keyword\" (blur)=\"onBlurKeyWord()\" (keyup.enter)=\"onEnterSearchKey()\">\r\n                </mat-form-field>\r\n\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <input matInput [max]=\"endDatetime\" (click)=\"openStartDate()\" [matDatepicker]=\"startDate\" placeholder=\"Từ ngày\" (dateChange)=\"startDateChange($event)\" [readonly]=\"true\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"startDate\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #startDate></mat-datepicker>\r\n                </mat-form-field>\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <input matInput [min]=\"startDatetime\" (click)=\"openEndDate()\" [matDatepicker]=\"endDate\" placeholder=\"Đến ngày\" (dateChange)=\"endDateChange($event)\"[readonly]=\"true\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #endDate></mat-datepicker>\r\n                </mat-form-field>\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <mat-select placeholder=\"Trạng thái\" [(value)]=\"model.status\" (selectionChange)=\"onSearch()\">\r\n                        <mat-option [value]=\"3\">Toàn bộ</mat-option>\r\n                        <mat-option [value]=\"2\">Hoàn Thành</mat-option>\r\n                        <mat-option [value]=\"1\">Chưa Hoàn thành</mat-option>\r\n                    </mat-select>\r\n                </mat-form-field>\r\n            </form>\r\n        </mat-toolbar>\r\n        <div class=\"table-container\">\r\n            <table matSort (matSortChange)=\"onSort($event)\" [matSortActive]=\"model.sort.active\"\r\n                   [matSortDirection]=\"model.sort.direction\">\r\n                <thead>\r\n                <tr>\r\n                    <th mat-sort-header=\"{{th.key}}\" scope=\"col\" *ngFor=\"let th of headers\">\r\n                        {{th.name}}\r\n                    </th>\r\n                    <th class=\"icon\"></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n                <tr *ngFor=\"let row of historyItems let i=index\">\r\n                    <td [attr.data-label]=\"th.name\" *ngFor=\"let th of headers\">\r\n\r\n                        <span *ngIf=\"th.key!='action'\">\r\n                            {{row[th.key]}}\r\n                            <mat-chip selected=\"true\"\r\n                                      color=\"warn\"\r\n                                      matTooltip=\"{{row['duplicate_applications'].length}} duplicate entries\"\r\n                                      matTooltipPosition=\"right\"\r\n                                      *ngIf=\"th.key=='applicationNumber' && row['duplicate_applications'] != 'undefined' && row['duplicate_applications'] && row['duplicate_applications'].length > 0\">\r\n\t\t\t\t\t\t\t\t\t{{row['duplicate_applications'].length }}\r\n                            </mat-chip>\r\n\r\n                        </span>\r\n                    </td>\r\n                    <td class=\"icon\"><i class=\"far fa-envelope-open\"></i></td>\r\n                </tr>\r\n                </tbody>\r\n                <thead *matHeaderRowDef=\"headers\"></thead>\r\n                <tr *matRowDef=\"let row; columns: headers;\"></tr>\r\n            </table>\r\n            <mat-paginator [length]=\"pageLength\"\r\n                           [pageSize]=\"pageSize\"\r\n                           [pageIndex]=\"model.pageIndex\"\r\n                           [pageSizeOptions]=\"[ 5, 10, 25]\"\r\n                           (page)=\"nextPage($event)\">\r\n            </mat-paginator>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/user-detail/components/ChatHistoryComponent/chat-histories.component.scss":
+/*!***************************************************************************************************!*\
+  !*** ./src/app/modules/user-detail/components/ChatHistoryComponent/chat-histories.component.scss ***!
+  \***************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".table-header {\n  background-color: #3BCFAD;\n  color: white;\n  padding: 0 5px; }\n\n.table-container {\n  padding: 5px 15px 15px 15px; }\n\n.table-component-holder {\n  background-color: white; }\n\n.length-input {\n  width: 300px; }\n\n.margin-left-10 {\n  margin-left: 10px; }\n\n.content {\n  word-wrap: break-word;\n  word-break: break-all; }\n\n.icon {\n  cursor: pointer;\n  width: 40px; }\n\n:host .table-header {\n  display: inline-table;\n  white-space: unset; }\n\n:host .delete-icon {\n  color: red;\n  cursor: pointer; }\n\n:host .btn-add-staff {\n  float: right;\n  top: 20px;\n  right: 15px; }\n\ntable {\n  border: 1px solid #ccc;\n  border-collapse: collapse;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n  table-layout: fixed; }\n\ntable caption {\n  font-size: 1.5em;\n  margin: .5em 0 .75em;\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable tr {\n  background: #f8f8f8;\n  border: 1px solid #ddd;\n  padding: .35em; }\n\ntable tr:nth-child(odd) td {\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable tr:nth-child(even) td {\n  background: rgba(145, 151, 187, 0.34);\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\n/deep/ .mat-sort-header-container {\n  justify-content: center; }\n\ntable th,\ntable td {\n  word-break: break-all;\n  word-wrap: break-word;\n  padding: .625em;\n  text-align: center;\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable th {\n  background: #cfcfcf;\n  font-size: .85em;\n  letter-spacing: .1em;\n  text-transform: uppercase; }\n\n@media screen and (max-width: 600px) {\n  .icon {\n    cursor: pointer;\n    width: auto; }\n  table {\n    border: 0; }\n  table caption {\n    font-size: 1.3em; }\n  table thead {\n    border: none;\n    clip: rect(0 0 0 0);\n    height: 1px;\n    margin: -1px;\n    overflow: hidden;\n    padding: 0;\n    position: absolute;\n    width: 1px; }\n  table tr {\n    border-bottom: 3px solid #ddd;\n    display: block;\n    margin-bottom: .625em; }\n  table td {\n    border-bottom: 1px solid #ddd;\n    display: block;\n    font-size: .8em;\n    text-align: right; }\n  table td:before {\n    /*\r\n        * aria-label has no advantage, it won't be read inside a table\r\n        content: attr(aria-label);\r\n        */\n    content: attr(data-label);\n    float: left;\n    font-weight: bold;\n    text-transform: uppercase; }\n  table td:last-child {\n    border-bottom: 0; } }\n\nmat-button-toggle-group {\n  cursor: pointer; }\n\n::ng-deep .mat-sort-header-container {\n  justify-content: center; }\n\n/* Structure */\n\n.example-container {\n  display: flex;\n  flex-direction: column;\n  min-width: 300px; }\n\n.example-header {\n  min-height: 64px;\n  display: flex;\n  align-items: center;\n  padding-left: 24px;\n  font-size: 20px; }\n\n.mat-table {\n  overflow: auto;\n  max-height: 500px; }\n\n.widgetHolder {\n  margin: 0 auto; }\n\n.widgetHolder .widgetHolder-content {\n    padding: 20px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/user-detail/components/ChatHistoryComponent/chat-histories.component.ts":
+/*!*************************************************************************************************!*\
+  !*** ./src/app/modules/user-detail/components/ChatHistoryComponent/chat-histories.component.ts ***!
+  \*************************************************************************************************/
+/*! exports provided: ChatHistoriesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChatHistoriesComponent", function() { return ChatHistoriesComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../models */ "./src/app/models/index.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var ChatHistoriesComponent = /** @class */ (function () {
+    function ChatHistoriesComponent() {
+        this.headerDoctorChatHistories = [
+            {
+                name: 'Bệnh nhân',
+                key: 'fullNamePatient',
+                order: 'asc'
+            },
+            {
+                name: 'Câu hỏi',
+                key: 'content',
+                order: 'asc'
+            },
+            {
+                name: 'Ngày tạo',
+                key: 'createdAtFormatted',
+                order: 'asc'
+            },
+            {
+                name: 'Trạng thái',
+                key: 'statusString',
+                order: 'asc'
+            }
+        ];
+        this.headerPatientChatHistories = [
+            {
+                name: 'Bác sĩ',
+                key: 'fullNameDoctor',
+                order: 'asc'
+            },
+            {
+                name: 'Câu hỏi',
+                key: 'content',
+                order: 'asc'
+            },
+            {
+                name: 'Ngày tạo',
+                key: 'createdAtFormatted',
+                order: 'asc'
+            },
+            {
+                name: 'Trạng thái',
+                key: 'statusString',
+                order: 'asc'
+            }
+        ];
+        this.userInfo = new _models__WEBPACK_IMPORTED_MODULE_1__["User"]();
+        this.model = {
+            keyword: '',
+            startTime: null,
+            endTime: null,
+            sort: {
+                active: 'createdAtFormatted',
+                direction: 'desc'
+            },
+            status: 3,
+            pageIndex: 0
+        };
+        this.pageSize = 10;
+        this.pageLength = 0;
+        this.headers = [];
+    }
+    ChatHistoriesComponent.prototype.nextPage = function (event) {
+        this.historyItems = [];
+        this.model.pageIndex = event.pageIndex;
+        if ((event.pageIndex + 1) * event.pageSize > event.length) {
+            for (var i = 1 * event.pageIndex * event.pageSize; i < event.length; i++) {
+                this.historyItems = this.historyItems.concat([this.chatHistories[i]]);
+            }
+        }
+        else {
+            for (var i = 1 * event.pageIndex * event.pageSize; i < event.pageSize + event.pageIndex * event.pageSize; i++) {
+                this.historyItems = this.historyItems.concat([this.chatHistories[i]]);
+            }
+        }
+    };
+    ChatHistoriesComponent.prototype.getPages = function () {
+        if (!this.sortedlist) {
+            return;
+        }
+        this.historyItems = [];
+        if (this.pageSize < this.sortedlist.length) {
+            for (var i = 0; i < this.pageSize; i++) {
+                this.historyItems = this.historyItems.concat([this.sortedlist[i]]);
+            }
+        }
+        else {
+            for (var i = 0; i < this.sortedlist.length; i++) {
+                this.historyItems = this.historyItems.concat([this.sortedlist[i]]);
+            }
+        }
+        this.pageLength = this.sortedlist.length;
+    };
+    ChatHistoriesComponent.prototype.openStartDate = function () {
+        this.startDatepicker.open();
+    };
+    ChatHistoriesComponent.prototype.openEndDate = function () {
+        this.endDatepicker.open();
+    };
+    ChatHistoriesComponent.prototype.onBlurKeyWord = function () {
+        this.onSearch();
+    };
+    ChatHistoriesComponent.prototype.onEnterSearchKey = function () {
+        this.keyWordRef.nativeElement.blur();
+    };
+    ChatHistoriesComponent.prototype.startDateChange = function (event) {
+        this.startDatetime = event.value;
+        this.model.startTime = event.value ? moment__WEBPACK_IMPORTED_MODULE_3__(event.value).format('YYYY/MM/DD') + ' 00:00' : '';
+        this.onSearch();
+    };
+    ChatHistoriesComponent.prototype.endDateChange = function (event) {
+        this.endDatetime = event.value;
+        this.model.endTime = event.value ? moment__WEBPACK_IMPORTED_MODULE_3__(event.value).format('YYYY/MM/DD') + ' 24:60' : '';
+        this.onSearch();
+    };
+    ChatHistoriesComponent.prototype.onSearch = function () {
+        var _this = this;
+        if (!this.chatHistories || this.chatHistories.length === 0) {
+            return;
+        }
+        this.model.keyword = this.model.keyword ? this.model.keyword.trim() : '';
+        this.searchedList = this.chatHistories.filter(function (obj) {
+            return (obj.fullNameDoctor.toLowerCase().includes(_this.model.keyword.toLowerCase())
+                || obj.fullNamePatient.toLowerCase().includes(_this.model.keyword.toLowerCase())
+                || obj.content.toLowerCase().includes(_this.model.keyword.toLowerCase()));
+        });
+        if (this.model.startTime) {
+            this.searchedList = this.searchedList.filter(function (obj) { return obj.createdAtFormatted >= _this.model.startTime; });
+        }
+        if (this.model.endTime) {
+            this.searchedList = this.searchedList.filter(function (obj) { return obj.createdAtFormatted <= _this.model.endTime; });
+        }
+        if (this.model.status !== 3) {
+            this.searchedList = this.searchedList.filter(function (obj) { return obj.status === _this.model.status; });
+        }
+        this.onSort(this.model.sort);
+    };
+    ChatHistoriesComponent.prototype.onSort = function (sort) {
+        var _this = this;
+        if (!sort) {
+            this.model.sort.active = '';
+            this.model.sort.direction = '';
+            return;
+        }
+        if (!this.searchedList) {
+            return;
+        }
+        var data = this.searchedList.slice();
+        this.model.sort.active = sort.active;
+        this.model.sort.direction = sort.direction;
+        this.model.pageIndex = 0;
+        if (!sort || !sort.active || sort.direction === '') {
+            this.sortedlist = data;
+            this.getPages();
+            return;
+        }
+        this.sortedlist = data.sort(function (a, b) {
+            var isAsc = _this.model.sort.direction === 'asc';
+            switch (_this.model.sort.active) {
+                case 'fullNamePatient':
+                    return compare(a.fullNamePatient, b.fullNamePatient, isAsc);
+                case 'fullNameDoctor':
+                    return compare(a.fullNameDoctor, b.fullNameDoctor, isAsc);
+                case 'content':
+                    return compare(a.content, b.content, isAsc);
+                case 'createdAtFormatted':
+                    return compare(a.createdAtFormatted, b.createdAtFormatted, isAsc);
+                case 'statusString':
+                    return compare(a.statusString, b.statusString, isAsc);
+                default:
+                    return 0;
+            }
+        });
+        this.getPages();
+    };
+    ChatHistoriesComponent.prototype.ngOnChanges = function (changes) {
+        if (this.userInfo) {
+            if (this.userInfo.role === 1) {
+                this.keywordPlaceHolder = 'Tên bác sĩ/Nội dung câu hỏi';
+                this.headers = this.headerPatientChatHistories;
+            }
+            else {
+                this.keywordPlaceHolder = 'Tên bệnh nhân/Nội dung câu hỏi';
+                this.headers = this.headerDoctorChatHistories;
+            }
+        }
+        if (this.chatHistories && this.chatHistories.length > 0) {
+            this.searchedList = this.chatHistories;
+            this.onSort(this.model.sort);
+            this.getPages();
+        }
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('startDate'),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDatepicker"])
+    ], ChatHistoriesComponent.prototype, "startDatepicker", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('endDate'),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDatepicker"])
+    ], ChatHistoriesComponent.prototype, "endDatepicker", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], ChatHistoriesComponent.prototype, "userInfo", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], ChatHistoriesComponent.prototype, "chatHistories", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('keyWord'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], ChatHistoriesComponent.prototype, "keyWordRef", void 0);
+    ChatHistoriesComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-chat-histories',
+            template: __webpack_require__(/*! ./chat-histories.component.html */ "./src/app/modules/user-detail/components/ChatHistoryComponent/chat-histories.component.html"),
+            styles: [__webpack_require__(/*! ./chat-histories.component.scss */ "./src/app/modules/user-detail/components/ChatHistoryComponent/chat-histories.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], ChatHistoriesComponent);
+    return ChatHistoriesComponent;
+}());
+
+function compare(a, b, isAsc) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+
+/***/ }),
+
+/***/ "./src/app/modules/user-detail/components/PaymentHistoryComponent/payment-histories.component.html":
+/*!*********************************************************************************************************!*\
+  !*** ./src/app/modules/user-detail/components/PaymentHistoryComponent/payment-histories.component.html ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div fxLayout=\"column\" class=\"components-container-gt-xs\" [ngClass.xs]=\"'components-container-xs'\" fxLayoutGap=\"20px\">\r\n    <div fxFlex class=\"table-component-holder mat-elevation-z4\">\r\n        <mat-toolbar class=\"table-header\" style=\"padding: 16px\">\r\n            <!--<h1 class=\"mat-headline center-align\">Danh sách người dùng</h1>-->\r\n            <form class=\"center-align\">\r\n                <mat-form-field class=\"length-input\">\r\n                    <input #keyWord matInput [ngModelOptions]=\"{standalone: true}\" [placeholder]=\"keywordPlaceHolder\"\r\n                           maxlength=\"200\"\r\n                           [(ngModel)]=\"model.keyword\" (blur)=\"onBlurKeyWord()\" (keyup.enter)=\"onEnterSearchKey()\">\r\n                </mat-form-field>\r\n\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <input matInput [max]=\"endDatetime\" (click)=\"openStartDate()\" [matDatepicker]=\"startDate\"\r\n                           placeholder=\"Từ ngày\" (dateChange)=\"startDateChange($event)\" [readonly]=\"true\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"startDate\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #startDate></mat-datepicker>\r\n                </mat-form-field>\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <input matInput [min]=\"startDatetime\" (click)=\"openEndDate()\" [matDatepicker]=\"endDate\"\r\n                           placeholder=\"Đến ngày\" (dateChange)=\"endDateChange($event)\" [readonly]=\"true\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #endDate></mat-datepicker>\r\n                </mat-form-field>\r\n            </form>\r\n        </mat-toolbar>\r\n        <div class=\"table-container\">\r\n            <table matSort (matSortChange)=\"onSort($event)\" [matSortActive]=\"model.sort.active\"\r\n                   [matSortDirection]=\"model.sort.direction\">\r\n                <thead>\r\n                <tr>\r\n                    <th mat-sort-header=\"{{th.key}}\" scope=\"col\" *ngFor=\"let th of headers\">\r\n                        {{th.name}}\r\n                    </th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n                <tr *ngFor=\"let row of historyItems let i=index\">\r\n                    <td [attr.data-label]=\"th.name\" *ngFor=\"let th of headers\">\r\n\r\n                        <span *ngIf=\"th.key!='action'\">\r\n                            {{row[th.key]}}\r\n                            <mat-chip selected=\"true\"\r\n                                      color=\"warn\"\r\n                                      matTooltip=\"{{row['duplicate_applications'].length}} duplicate entries\"\r\n                                      matTooltipPosition=\"right\"\r\n                                      *ngIf=\"th.key=='applicationNumber' && row['duplicate_applications'] != 'undefined' && row['duplicate_applications'] && row['duplicate_applications'].length > 0\">\r\n\t\t\t\t\t\t\t\t\t{{row['duplicate_applications'].length }}\r\n                            </mat-chip>\r\n                        </span>\r\n                    </td>\r\n                </tr>\r\n                </tbody>\r\n                <thead *matHeaderRowDef=\"headers\"></thead>\r\n                <tr *matRowDef=\"let row; columns: headers;\"></tr>\r\n            </table>\r\n            <mat-paginator [length]=\"pageLength\"\r\n                           [pageSize]=\"pageSize\"\r\n                           [pageIndex]=\"model.pageIndex\"\r\n                           [pageSizeOptions]=\"[ 5, 10, 25]\"\r\n                           (page)=\"nextPage($event)\">\r\n            </mat-paginator>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/user-detail/components/PaymentHistoryComponent/payment-histories.component.scss":
+/*!*********************************************************************************************************!*\
+  !*** ./src/app/modules/user-detail/components/PaymentHistoryComponent/payment-histories.component.scss ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".table-header {\n  background-color: #3BCFAD;\n  color: white;\n  padding: 0 5px; }\n\n.table-container {\n  padding: 5px 15px 15px 15px; }\n\n.table-component-holder {\n  background-color: white; }\n\n.length-input {\n  width: 300px; }\n\n.margin-left-10 {\n  margin-left: 10px; }\n\n.content {\n  word-wrap: break-word;\n  word-break: break-all; }\n\n.icon {\n  cursor: pointer;\n  width: 40px; }\n\n:host .table-header {\n  display: inline-table;\n  white-space: unset; }\n\n:host .delete-icon {\n  color: red;\n  cursor: pointer; }\n\n:host .btn-add-staff {\n  float: right;\n  top: 20px;\n  right: 15px; }\n\ntable {\n  border: 1px solid #ccc;\n  border-collapse: collapse;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n  table-layout: fixed; }\n\ntable caption {\n  font-size: 1.5em;\n  margin: .5em 0 .75em;\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable tr {\n  background: #f8f8f8;\n  border: 1px solid #ddd;\n  padding: .35em; }\n\ntable tr:nth-child(odd) td {\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable tr:nth-child(even) td {\n  background: rgba(145, 151, 187, 0.34);\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\n/deep/ .mat-sort-header-container {\n  justify-content: center; }\n\ntable th,\ntable td {\n  word-break: break-all;\n  word-wrap: break-word;\n  padding: .625em;\n  text-align: center;\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable th {\n  background: #cfcfcf;\n  font-size: .85em;\n  letter-spacing: .1em;\n  text-transform: uppercase; }\n\n@media screen and (max-width: 600px) {\n  .icon {\n    cursor: pointer;\n    width: auto; }\n  table {\n    border: 0; }\n  table caption {\n    font-size: 1.3em; }\n  table thead {\n    border: none;\n    clip: rect(0 0 0 0);\n    height: 1px;\n    margin: -1px;\n    overflow: hidden;\n    padding: 0;\n    position: absolute;\n    width: 1px; }\n  table tr {\n    border-bottom: 3px solid #ddd;\n    display: block;\n    margin-bottom: .625em; }\n  table td {\n    border-bottom: 1px solid #ddd;\n    display: block;\n    font-size: .8em;\n    text-align: right; }\n  table td:before {\n    /*\r\n        * aria-label has no advantage, it won't be read inside a table\r\n        content: attr(aria-label);\r\n        */\n    content: attr(data-label);\n    float: left;\n    font-weight: bold;\n    text-transform: uppercase; }\n  table td:last-child {\n    border-bottom: 0; } }\n\nmat-button-toggle-group {\n  cursor: pointer; }\n\n::ng-deep .mat-sort-header-container {\n  justify-content: center; }\n\n/* Structure */\n\n.example-container {\n  display: flex;\n  flex-direction: column;\n  min-width: 300px; }\n\n.example-header {\n  min-height: 64px;\n  display: flex;\n  align-items: center;\n  padding-left: 24px;\n  font-size: 20px; }\n\n.mat-table {\n  overflow: auto;\n  max-height: 500px; }\n\n.widgetHolder {\n  margin: 0 auto; }\n\n.widgetHolder .widgetHolder-content {\n    padding: 20px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/user-detail/components/PaymentHistoryComponent/payment-histories.component.ts":
+/*!*******************************************************************************************************!*\
+  !*** ./src/app/modules/user-detail/components/PaymentHistoryComponent/payment-histories.component.ts ***!
+  \*******************************************************************************************************/
+/*! exports provided: PaymentHistoriesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PaymentHistoriesComponent", function() { return PaymentHistoriesComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../models */ "./src/app/models/index.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var PaymentHistoriesComponent = /** @class */ (function () {
+    function PaymentHistoriesComponent() {
+        this.headerDoctorChatHistories = [
+            {
+                name: 'Bệnh nhân',
+                key: 'formUserFullName',
+                order: 'asc'
+            },
+            {
+                name: 'Ngày nhận',
+                key: 'createdAtFormatted',
+                order: 'asc'
+            },
+            {
+                name: 'Số tiền nhận',
+                key: 'amount',
+                order: 'asc'
+            },
+            {
+                name: 'Số dư',
+                key: 'remainMoney',
+                order: 'asc'
+            },
+            {
+                name: 'Loại tư vấn',
+                key: 'typeAdvisory',
+                order: 'asc'
+            }
+        ];
+        this.headerPatientChatHistories = [
+            {
+                name: 'Bác sĩ',
+                key: 'formUserFullName',
+                order: 'asc'
+            },
+            {
+                name: 'Ngày trừ',
+                key: 'createdAtFormatted',
+                order: 'asc'
+            },
+            {
+                name: 'Số tiền true',
+                key: 'amount',
+                order: 'asc'
+            },
+            {
+                name: 'Số dư',
+                key: 'remainMoney',
+                order: 'asc'
+            },
+            {
+                name: 'Loại tư vấn',
+                key: 'typeAdvisory',
+                order: 'asc'
+            }
+        ];
+        this.userInfo = new _models__WEBPACK_IMPORTED_MODULE_1__["User"]();
+        this.model = {
+            keyword: '',
+            startTime: null,
+            endTime: null,
+            sort: {
+                active: 'createdAtFormatted',
+                direction: 'desc'
+            },
+            status: 3,
+            pageIndex: 0
+        };
+        this.pageSize = 10;
+        this.pageLength = 0;
+        this.headers = [];
+    }
+    PaymentHistoriesComponent.prototype.nextPage = function (event) {
+        this.historyItems = [];
+        this.model.pageIndex = event.pageIndex;
+        if ((event.pageIndex + 1) * event.pageSize > event.length) {
+            for (var i = 1 * event.pageIndex * event.pageSize; i < event.length; i++) {
+                this.historyItems = this.historyItems.concat([this.paymentHistories[i]]);
+            }
+        }
+        else {
+            for (var i = 1 * event.pageIndex * event.pageSize; i < event.pageSize + event.pageIndex * event.pageSize; i++) {
+                this.historyItems = this.historyItems.concat([this.paymentHistories[i]]);
+            }
+        }
+    };
+    PaymentHistoriesComponent.prototype.getPages = function () {
+        if (!this.sortedlist) {
+            return;
+        }
+        this.historyItems = [];
+        if (this.pageSize < this.sortedlist.length) {
+            for (var i = 0; i < this.pageSize; i++) {
+                this.historyItems = this.historyItems.concat([this.sortedlist[i]]);
+            }
+        }
+        else {
+            for (var i = 0; i < this.sortedlist.length; i++) {
+                this.historyItems = this.historyItems.concat([this.sortedlist[i]]);
+            }
+        }
+        this.pageLength = this.sortedlist.length;
+    };
+    PaymentHistoriesComponent.prototype.openStartDate = function () {
+        this.startDatepicker.open();
+    };
+    PaymentHistoriesComponent.prototype.openEndDate = function () {
+        this.endDatepicker.open();
+    };
+    PaymentHistoriesComponent.prototype.onBlurKeyWord = function () {
+        this.onSearch();
+    };
+    PaymentHistoriesComponent.prototype.onEnterSearchKey = function () {
+        this.keyWordRef.nativeElement.blur();
+    };
+    PaymentHistoriesComponent.prototype.startDateChange = function (event) {
+        this.startDatetime = event.value;
+        this.model.startTime = event.value ? moment__WEBPACK_IMPORTED_MODULE_3__(event.value).format('YYYY/MM/DD') + ' 00:00' : '';
+        this.onSearch();
+    };
+    PaymentHistoriesComponent.prototype.endDateChange = function (event) {
+        this.endDatetime = event.value;
+        this.model.endTime = event.value ? moment__WEBPACK_IMPORTED_MODULE_3__(event.value).format('YYYY/MM/DD') + ' 24:60' : '';
+        this.onSearch();
+    };
+    PaymentHistoriesComponent.prototype.onSearch = function () {
+        var _this = this;
+        if (!this.paymentHistories || this.paymentHistories.length === 0) {
+            return;
+        }
+        this.model.keyword = this.model.keyword ? this.model.keyword.trim() : '';
+        this.searchedList = this.paymentHistories.filter(function (obj) {
+            return (obj.formUserFullName.toLowerCase().includes(_this.model.keyword.toLowerCase())
+                || obj.formUserFullName.toLowerCase().includes(_this.model.keyword.toLowerCase()));
+        });
+        if (this.model.startTime) {
+            this.searchedList = this.searchedList.filter(function (obj) { return obj.createdAtFormatted >= _this.model.startTime; });
+        }
+        if (this.model.endTime) {
+            this.searchedList = this.searchedList.filter(function (obj) { return obj.createdAtFormatted <= _this.model.endTime; });
+        }
+        this.onSort(this.model.sort);
+    };
+    PaymentHistoriesComponent.prototype.onSort = function (sort) {
+        var _this = this;
+        if (!sort) {
+            this.model.sort.active = '';
+            this.model.sort.direction = '';
+            return;
+        }
+        if (!this.searchedList) {
+            return;
+        }
+        var data = this.searchedList.slice();
+        this.model.sort.active = sort.active;
+        this.model.sort.direction = sort.direction;
+        this.model.pageIndex = 0;
+        if (!sort || !sort.active || sort.direction === '') {
+            this.sortedlist = data;
+            this.getPages();
+            return;
+        }
+        this.sortedlist = data.sort(function (a, b) {
+            var isAsc = _this.model.sort.direction === 'asc';
+            switch (_this.model.sort.active) {
+                case 'formUserFullName':
+                    return compare(a.formUserFullName, b.formUserFullName, isAsc);
+                case 'amount':
+                    return compare(a.amount, b.amount, isAsc);
+                case 'remainMoney':
+                    return compare(a.remainMoney, b.remainMoney, isAsc);
+                case 'typeAdvisory':
+                    return compare(a.typeAdvisory, b.typeAdvisory, isAsc);
+                case 'createdAtFormatted':
+                    return compare(a.createdAtFormatted, b.createdAtFormatted, isAsc);
+                default:
+                    return 0;
+            }
+        });
+        this.getPages();
+    };
+    PaymentHistoriesComponent.prototype.ngOnChanges = function (changes) {
+        if (this.userInfo) {
+            if (this.userInfo.role === 1) {
+                this.keywordPlaceHolder = 'Tên bác sĩ';
+                this.headers = this.headerPatientChatHistories;
+            }
+            else {
+                this.keywordPlaceHolder = 'Tên bệnh nhân';
+                this.headers = this.headerDoctorChatHistories;
+            }
+        }
+        if (this.paymentHistories && this.paymentHistories.length > 0) {
+            this.searchedList = this.paymentHistories;
+            this.onSort(this.model.sort);
+            this.getPages();
+        }
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('startDate'),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDatepicker"])
+    ], PaymentHistoriesComponent.prototype, "startDatepicker", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('endDate'),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDatepicker"])
+    ], PaymentHistoriesComponent.prototype, "endDatepicker", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], PaymentHistoriesComponent.prototype, "userInfo", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], PaymentHistoriesComponent.prototype, "paymentHistories", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('keyWord'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], PaymentHistoriesComponent.prototype, "keyWordRef", void 0);
+    PaymentHistoriesComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-payment-histories',
+            template: __webpack_require__(/*! ./payment-histories.component.html */ "./src/app/modules/user-detail/components/PaymentHistoryComponent/payment-histories.component.html"),
+            styles: [__webpack_require__(/*! ./payment-histories.component.scss */ "./src/app/modules/user-detail/components/PaymentHistoryComponent/payment-histories.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], PaymentHistoriesComponent);
+    return PaymentHistoriesComponent;
+}());
+
+function compare(a, b, isAsc) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+
+/***/ }),
+
+/***/ "./src/app/modules/user-detail/components/UserDetailComponent/user-detail.component.html":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/modules/user-detail/components/UserDetailComponent/user-detail.component.html ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2 mat-dialog-title>{{userInfo?.fullName}}</h2>\r\n<mat-dialog-content style=\"min-width: 500px; min-height: 500px\">\r\n    <mat-tab-group>\r\n        <mat-tab label=\"Thông tin\">\r\n            <ng-template style=\"margin-top: 10px\" matTabContent>\r\n                <div style=\"margin-top: 10px\">\r\n                    <img class=\"avatar\" [src]=\"userInfo?.avatar || '../../../../../assets/images/noavatar.png'\">\r\n                    <table style=\"margin-top: 16px\">\r\n                        <tbody>\r\n                        <tr>\r\n                            <td class=\"label\">Họ tên:</td>\r\n                            <td>{{userInfo?.fullName}}</td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo&& userInfo.birthday\">\r\n                            <td class=\"label\">Ngày sinh:</td>\r\n                            <td>{{userInfo?.birthday}}</td>\r\n                        </tr>\r\n                        <tr>\r\n                            <td class=\"label\">Số điện thoại:</td>\r\n                            <td>{{userInfo?.phoneNumber}}</td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo&& userInfo.address\">\r\n                            <td class=\"label\">Địa chỉ:</td>\r\n                            <td>{{userInfo?.address}}</td>\r\n                        </tr>\r\n                        <tr>\r\n                            <td class=\"label\">Số tiền còn lại:</td>\r\n                            <td>{{userInfo?.remainMoney}}</td>\r\n                        </tr>\r\n\r\n                        <tr>\r\n                            <td class=\"label\">Role:</td>\r\n                            <td>\r\n                                <mat-select [(value)]=\"userInfo.role\">\r\n                                    <mat-option [value]=\"3\">Admin</mat-option>\r\n                                    <mat-option [value]=\"2\">Bác sĩ</mat-option>\r\n                                    <mat-option [value]=\"1\">Bệnh nhân</mat-option>\r\n                                </mat-select>\r\n                            </td>\r\n                        </tr>\r\n                        <tr>\r\n                            <td class=\"label\">Trạng thái:</td>\r\n                            <td>\r\n                                <mat-select [(value)]=\"userInfo.status\">\r\n                                    <mat-option [value]=\"1\">Active</mat-option>\r\n                                    <mat-option [value]=\"3\">Block</mat-option>\r\n                                    <mat-option *ngIf=\"userInfo.role === 2\" [value]=\"4\">Bác sĩ block</mat-option>\r\n                                    <mat-option *ngIf=\"userInfo.role === 2\" [value]=\"2\">Bác sĩ chờ phê duyệt\r\n                                    </mat-option>\r\n                                </mat-select>\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Rating hiện tại:</td>\r\n                            <td>\r\n                                {{userInfo.doctorDetail.currentRating}}\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Rating hệ thống:</td>\r\n                            <td>\r\n                                <mat-select [(value)]=\"userInfo.doctorDetail.systemRating\">\r\n                                    <mat-option [value]=\"1\">1</mat-option>\r\n                                    <mat-option [value]=\"1.5\">1.5</mat-option>\r\n                                    <mat-option [value]=\"2\">2</mat-option>\r\n                                    <mat-option [value]=\"2.5\">2.5</mat-option>\r\n                                    <mat-option [value]=\"3\">3</mat-option>\r\n                                    <mat-option [value]=\"3.5\">3.5</mat-option>\r\n                                    <mat-option [value]=\"4\">4</mat-option>\r\n                                    <mat-option [value]=\"4.5\">4.5</mat-option>\r\n                                    <mat-option [value]=\"5\">5</mat-option>\r\n                                </mat-select>\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Tốt nghiệp trường:</td>\r\n                            <td>\r\n                                {{userInfo.doctorDetail.universityGraduate}}\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Năm tốt nghiệp:</td>\r\n                            <td>\r\n                                {{userInfo.doctorDetail.yearGraduate}}\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Nơi làm việc:</td>\r\n                            <td>\r\n                                {{userInfo.doctorDetail.placeWorking}}\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Chuyên khoa:</td>\r\n                            <td>\r\n                                <span *ngFor=\"let sp of userInfo.doctorDetail.specialists\">{{sp.name}}&emsp;</span>\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Chứng chỉ</td>\r\n                            <td>\r\n                                <mat-grid-list cols=\"2\" rowHeight=\"2:1\">\r\n                                    <mat-grid-tile\r\n                                        *ngFor=\"let cer of userInfo.doctorDetail.certificates;trackBy: trackByFn\">\r\n                                        <div>\r\n                                            <div><img width=\"150px\" height=\"150px\" (click)=\"previewImage(cer)\"\r\n                                                      [src]=\"cer.image\"></div>\r\n                                            <div style=\"text-align: center\">{{cer.name}}</div>\r\n                                        </div>\r\n                                    </mat-grid-tile>\r\n                                </mat-grid-list>\r\n                            </td>\r\n                        </tr>\r\n                        </tbody>\r\n                    </table>\r\n                </div>\r\n            </ng-template>\r\n        </mat-tab>\r\n        <mat-tab *ngIf=\"userInfo?.role !== 3\" label=\"Lịch sử chat\">\r\n            <ng-template matTabContent>\r\n                <app-chat-histories [userInfo]=\"userInfo\" [chatHistories]=\"chatHistories\"></app-chat-histories>\r\n            </ng-template>\r\n        </mat-tab>\r\n        <mat-tab *ngIf=\"userInfo?.role !== 3\" label=\"Lịch sử video call\">\r\n            <ng-template matTabContent>\r\n                <app-video-call-histories [userInfo]=\"userInfo\" [videoCallHistories]=\"videoCallHistories\"> </app-video-call-histories>\r\n            </ng-template>\r\n        </mat-tab>\r\n        <mat-tab *ngIf=\"userInfo?.role !== 3\" label=\"Lịch sử Thanh Toán\">\r\n            <ng-template matTabContent>\r\n                <app-payment-histories [userInfo]=\"userInfo\" [paymentHistories]=\"paymentHistories\"></app-payment-histories>\r\n            </ng-template>\r\n        </mat-tab>\r\n    </mat-tab-group>\r\n\r\n\r\n</mat-dialog-content>\r\n<mat-dialog-actions>\r\n    <button mat-raised-button color=\"primary\" (click)=\"ok()\">Lưu</button>\r\n    <button mat-raised-button (click)=\"cancel()\">Hủy</button>\r\n</mat-dialog-actions>\r\n\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/user-detail/components/UserDetailComponent/user-detail.component.scss":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/modules/user-detail/components/UserDetailComponent/user-detail.component.scss ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".avatar {\n  width: 150px;\n  height: 150px;\n  border-radius: 50%;\n  display: block;\n  margin-left: auto;\n  margin-right: auto; }\n\n.label {\n  padding: 10px 10px 10px 0;\n  font-weight: bold; }\n\n.table-header {\n  background-color: #3BCFAD;\n  color: white;\n  padding: 0 5px; }\n\n.table-container {\n  padding: 5px 15px 15px 15px; }\n\n.table-component-holder {\n  background-color: white; }\n\n.margin-left-10 {\n  margin-left: 10px; }\n\n.content {\n  word-wrap: break-word;\n  word-break: break-all; }\n\n.icon {\n  cursor: pointer;\n  width: 40px; }\n\n:host .table-header {\n  display: inline-table;\n  white-space: unset; }\n\n:host .delete-icon {\n  color: red;\n  cursor: pointer; }\n\n:host .btn-add-staff {\n  float: right;\n  top: 20px;\n  right: 15px; }\n\nmat-button-toggle-group {\n  cursor: pointer; }\n\n::ng-deep .mat-sort-header-container {\n  justify-content: center; }\n\n/* Structure */\n\n.example-container {\n  display: flex;\n  flex-direction: column;\n  min-width: 300px; }\n\n.example-header {\n  min-height: 64px;\n  display: flex;\n  align-items: center;\n  padding-left: 24px;\n  font-size: 20px; }\n\n.mat-table {\n  overflow: auto;\n  max-height: 500px; }\n\n.widgetHolder {\n  margin: 0 auto; }\n\n.widgetHolder .widgetHolder-content {\n    padding: 20px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/user-detail/components/UserDetailComponent/user-detail.component.ts":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/modules/user-detail/components/UserDetailComponent/user-detail.component.ts ***!
+  \*********************************************************************************************/
+/*! exports provided: UserDetailComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserDetailComponent", function() { return UserDetailComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../services */ "./src/app/services/index.ts");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../models */ "./src/app/models/index.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _core_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../core/components */ "./src/app/modules/core/components/index.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+var UserDetailComponent = /** @class */ (function () {
+    function UserDetailComponent(dialogRef, dialog, data, commonServices, userServices, videoCallHistoryServices, paymentHistoryServices, chatServices) {
+        this.dialogRef = dialogRef;
+        this.dialog = dialog;
+        this.data = data;
+        this.commonServices = commonServices;
+        this.userServices = userServices;
+        this.videoCallHistoryServices = videoCallHistoryServices;
+        this.paymentHistoryServices = paymentHistoryServices;
+        this.chatServices = chatServices;
+        this.initData = {
+            id: null,
+            role: null
+        };
+        this.userInfo = new _models__WEBPACK_IMPORTED_MODULE_3__["User"]();
+        this.initData = data;
+        if (this.initData) {
+            this.getUserInfo();
+        }
+    }
+    UserDetailComponent.prototype.ok = function () {
+        this.dialogRef.close('ok');
+    };
+    UserDetailComponent.prototype.cancel = function () {
+        this.dialogRef.close();
+    };
+    UserDetailComponent.prototype.previewImage = function (data) {
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogConfig"]();
+        dialogConfig.disableClose = false;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = data;
+        var dialogRef = this.dialog.open(_core_components__WEBPACK_IMPORTED_MODULE_5__["ImageViewModalComponent"], dialogConfig);
+        dialogRef.afterClosed().subscribe(function (result) {
+        });
+    };
+    UserDetailComponent.prototype.getUserInfo = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var res, userRes, moreDetail, e_1, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.userServices.getUserById(this.initData.id).toPromise()];
+                    case 1:
+                        res = _a.sent();
+                        userRes = res && res.user ? res.user : null;
+                        moreDetail = res && res.moreDoctorDetail ? res.moreDoctorDetail : null;
+                        if (userRes) {
+                            this.userInfo = new _models__WEBPACK_IMPORTED_MODULE_3__["User"](userRes);
+                            this.userInfo.doctorDetail = moreDetail;
+                            this.getChatHistory(this.userInfo);
+                            this.getVideoCallHistory(this.userInfo);
+                            this.getPaymentHistories(this.userInfo);
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_1 = _a.sent();
+                        if (e_1 instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpErrorResponse"]) {
+                            error = e_1 && e_1.error && e_1.error.error ? e_1.error.error : '';
+                            this.commonServices.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_3__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UserDetailComponent.prototype.getChatHistory = function (user) {
+        return __awaiter(this, void 0, void 0, function () {
+            var historiesPatientRes, historiesDoctorRes, resPatient, resDoctor, e_2, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 5, , 6]);
+                        historiesPatientRes = null;
+                        historiesDoctorRes = null;
+                        resPatient = null;
+                        resDoctor = null;
+                        if (!(user && user.role === 2)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.chatServices.getDoctorChatHistories(user.id).toPromise()];
+                    case 1:
+                        resDoctor = _a.sent();
+                        // resPatient = await this.chatServices.getPattientChatHistories(user.id).toPromise();
+                        historiesDoctorRes = resDoctor && resDoctor.listChatsHistory ? resDoctor.listChatsHistory : null;
+                        return [3 /*break*/, 4];
+                    case 2:
+                        if (!(user && user.role === 1)) return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.chatServices.getPattientChatHistories(user.id).toPromise()];
+                    case 3:
+                        resPatient = _a.sent();
+                        historiesPatientRes = resPatient && resPatient.listChatsHistory ? resPatient.listChatsHistory : null;
+                        _a.label = 4;
+                    case 4:
+                        if (historiesDoctorRes && historiesDoctorRes.length > 0) {
+                            this.chatHistories = historiesDoctorRes.map(function (obj) { return new _models__WEBPACK_IMPORTED_MODULE_3__["ChatHistory"](obj); });
+                        }
+                        if (historiesPatientRes && historiesPatientRes.length > 0) {
+                            this.chatHistories = historiesPatientRes.map(function (obj) { return new _models__WEBPACK_IMPORTED_MODULE_3__["ChatHistory"](obj); });
+                        }
+                        return [3 /*break*/, 6];
+                    case 5:
+                        e_2 = _a.sent();
+                        if (e_2 instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpErrorResponse"]) {
+                            error = e_2 && e_2.error && e_2.error.error ? e_2.error.error : '';
+                            this.commonServices.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_3__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UserDetailComponent.prototype.getVideoCallHistory = function (user) {
+        return __awaiter(this, void 0, void 0, function () {
+            var historiesPatientRes, historiesDoctorRes, resPatient, resDoctor, e_3, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 5, , 6]);
+                        historiesPatientRes = null;
+                        historiesDoctorRes = null;
+                        resPatient = null;
+                        resDoctor = null;
+                        if (!(user && user.role === 2)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.videoCallHistoryServices.getDoctorVideoCallHistories(user.id).toPromise()];
+                    case 1:
+                        resDoctor = _a.sent();
+                        // resPatient = await this.chatServices.getPattientChatHistories(user.id).toPromise();
+                        historiesDoctorRes = resDoctor && resDoctor.listVideoCallHistory ? resDoctor.listVideoCallHistory : null;
+                        return [3 /*break*/, 4];
+                    case 2:
+                        if (!(user && user.role === 1)) return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.videoCallHistoryServices.getPattientVideoCallHistories(user.id).toPromise()];
+                    case 3:
+                        resPatient = _a.sent();
+                        historiesPatientRes = resPatient && resPatient.listVideoCallHistory ? resPatient.listVideoCallHistory : null;
+                        _a.label = 4;
+                    case 4:
+                        if (historiesDoctorRes && historiesDoctorRes.length > 0) {
+                            this.videoCallHistories = historiesDoctorRes.map(function (obj) { return new _models__WEBPACK_IMPORTED_MODULE_3__["VideoCallHistory"](obj); });
+                        }
+                        if (historiesPatientRes && historiesPatientRes.length > 0) {
+                            this.videoCallHistories = historiesPatientRes.map(function (obj) { return new _models__WEBPACK_IMPORTED_MODULE_3__["VideoCallHistory"](obj); });
+                        }
+                        console.log(this.videoCallHistories);
+                        return [3 /*break*/, 6];
+                    case 5:
+                        e_3 = _a.sent();
+                        if (e_3 instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpErrorResponse"]) {
+                            error = e_3 && e_3.error && e_3.error.error ? e_3.error.error : '';
+                            this.commonServices.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_3__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 6];
+                    case 6: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UserDetailComponent.prototype.getPaymentHistories = function (user) {
+        return __awaiter(this, void 0, void 0, function () {
+            var historiesRes, res, e_4, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        historiesRes = null;
+                        res = null;
+                        if (!(user && user.role === 2 || user.role === 1)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.paymentHistoryServices.getPaymentHistoriesByUserId(user.id).toPromise()];
+                    case 1:
+                        res = _a.sent();
+                        historiesRes = res && res.listPaymentHistory ? res.listPaymentHistory : null;
+                        _a.label = 2;
+                    case 2:
+                        if (historiesRes && historiesRes.length > 0) {
+                            this.paymentHistories = historiesRes.map(function (obj) { return new _models__WEBPACK_IMPORTED_MODULE_3__["PaymentHistory"](obj); });
+                        }
+                        return [3 /*break*/, 4];
+                    case 3:
+                        e_4 = _a.sent();
+                        if (e_4 instanceof _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpErrorResponse"]) {
+                            error = e_4 && e_4.error && e_4.error.error ? e_4.error.error : '';
+                            this.commonServices.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_3__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UserDetailComponent.prototype.trackByFn = function (index, item) {
+        return index;
+    };
+    UserDetailComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-dialog-user-detail',
+            template: __webpack_require__(/*! ./user-detail.component.html */ "./src/app/modules/user-detail/components/UserDetailComponent/user-detail.component.html"),
+            styles: [__webpack_require__(/*! ./user-detail.component.scss */ "./src/app/modules/user-detail/components/UserDetailComponent/user-detail.component.scss")]
+        }),
+        __param(2, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"], _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"], Object, _services__WEBPACK_IMPORTED_MODULE_2__["CommonServices"], _services__WEBPACK_IMPORTED_MODULE_2__["UserServices"],
+            _services__WEBPACK_IMPORTED_MODULE_2__["VideoCallServices"], _services__WEBPACK_IMPORTED_MODULE_2__["PaymentServices"],
+            _services__WEBPACK_IMPORTED_MODULE_2__["ChatServices"]])
+    ], UserDetailComponent);
+    return UserDetailComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/user-detail/components/VideoCallHistoryComponent/video-call-histories.component.html":
+/*!**************************************************************************************************************!*\
+  !*** ./src/app/modules/user-detail/components/VideoCallHistoryComponent/video-call-histories.component.html ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div fxLayout=\"column\" class=\"components-container-gt-xs\" [ngClass.xs]=\"'components-container-xs'\" fxLayoutGap=\"20px\">\r\n    <div fxFlex class=\"table-component-holder mat-elevation-z4\">\r\n        <mat-toolbar class=\"table-header\" style=\"padding: 16px\">\r\n            <!--<h1 class=\"mat-headline center-align\">Danh sách người dùng</h1>-->\r\n            <form class=\"center-align\">\r\n                <mat-form-field class=\"length-input\">\r\n                    <input #keyWord matInput [ngModelOptions]=\"{standalone: true}\" [placeholder]=\"keywordPlaceHolder\" maxlength=\"200\"\r\n                           [(ngModel)]=\"model.keyword\" (blur)=\"onBlurKeyWord()\" (keyup.enter)=\"onEnterSearchKey()\">\r\n                </mat-form-field>\r\n\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <input matInput [max]=\"endDatetime\" (click)=\"openStartDate()\" [matDatepicker]=\"startDate\" placeholder=\"Từ ngày\" (dateChange)=\"startDateChange($event)\" [readonly]=\"true\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"startDate\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #startDate></mat-datepicker>\r\n                </mat-form-field>\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <input matInput [min]=\"startDatetime\" (click)=\"openEndDate()\" [matDatepicker]=\"endDate\" placeholder=\"Đến ngày\" (dateChange)=\"endDateChange($event)\"[readonly]=\"true\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #endDate></mat-datepicker>\r\n                </mat-form-field>\r\n                <!--<mat-form-field class=\"margin-left-10\">-->\r\n                    <!--<mat-select placeholder=\"Trạng thái\" [(value)]=\"model.status\" (selectionChange)=\"onSearch()\">-->\r\n                        <!--<mat-option [value]=\"3\">Toàn bộ</mat-option>-->\r\n                        <!--<mat-option [value]=\"2\">Hoàn Thành</mat-option>-->\r\n                        <!--<mat-option [value]=\"1\">Chưa Hoàn thành</mat-option>-->\r\n                    <!--</mat-select>-->\r\n                <!--</mat-form-field>-->\r\n            </form>\r\n        </mat-toolbar>\r\n        <div class=\"table-container\">\r\n            <table matSort (matSortChange)=\"onSort($event)\" [matSortActive]=\"model.sort.active\"\r\n                   [matSortDirection]=\"model.sort.direction\">\r\n                <thead>\r\n                <tr>\r\n                    <th mat-sort-header=\"{{th.key}}\" scope=\"col\" *ngFor=\"let th of headers\">\r\n                        {{th.name}}\r\n                    </th>\r\n                    <th class=\"icon\"></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n                <tr *ngFor=\"let row of historyItems let i=index\">\r\n                    <td [attr.data-label]=\"th.name\" *ngFor=\"let th of headers\">\r\n\r\n                        <span *ngIf=\"th.key!='action'\">\r\n                            {{row[th.key]}}\r\n                            <mat-chip selected=\"true\"\r\n                                      color=\"warn\"\r\n                                      matTooltip=\"{{row['duplicate_applications'].length}} duplicate entries\"\r\n                                      matTooltipPosition=\"right\"\r\n                                      *ngIf=\"th.key=='applicationNumber' && row['duplicate_applications'] != 'undefined' && row['duplicate_applications'] && row['duplicate_applications'].length > 0\">\r\n\t\t\t\t\t\t\t\t\t{{row['duplicate_applications'].length }}\r\n                            </mat-chip>\r\n\r\n                        </span>\r\n                    </td>\r\n                    <td class=\"icon\"><i class=\"far fa-envelope-open\"></i></td>\r\n                </tr>\r\n                </tbody>\r\n                <thead *matHeaderRowDef=\"headers\"></thead>\r\n                <tr *matRowDef=\"let row; columns: headers;\"></tr>\r\n            </table>\r\n            <mat-paginator [length]=\"pageLength\"\r\n                           [pageSize]=\"pageSize\"\r\n                           [pageIndex]=\"model.pageIndex\"\r\n                           [pageSizeOptions]=\"[ 5, 10, 25]\"\r\n                           (page)=\"nextPage($event)\">\r\n            </mat-paginator>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/user-detail/components/VideoCallHistoryComponent/video-call-histories.component.scss":
+/*!**************************************************************************************************************!*\
+  !*** ./src/app/modules/user-detail/components/VideoCallHistoryComponent/video-call-histories.component.scss ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".table-header {\n  background-color: #3BCFAD;\n  color: white;\n  padding: 0 5px; }\n\n.table-container {\n  padding: 5px 15px 15px 15px; }\n\n.table-component-holder {\n  background-color: white; }\n\n.length-input {\n  width: 300px; }\n\n.margin-left-10 {\n  margin-left: 10px; }\n\n.content {\n  word-wrap: break-word;\n  word-break: break-all; }\n\n.icon {\n  cursor: pointer;\n  width: 40px; }\n\n:host .table-header {\n  display: inline-table;\n  white-space: unset; }\n\n:host .delete-icon {\n  color: red;\n  cursor: pointer; }\n\n:host .btn-add-staff {\n  float: right;\n  top: 20px;\n  right: 15px; }\n\ntable {\n  border: 1px solid #ccc;\n  border-collapse: collapse;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n  table-layout: fixed; }\n\ntable caption {\n  font-size: 1.5em;\n  margin: .5em 0 .75em;\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable tr {\n  background: #f8f8f8;\n  border: 1px solid #ddd;\n  padding: .35em; }\n\ntable tr:nth-child(odd) td {\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable tr:nth-child(even) td {\n  background: rgba(145, 151, 187, 0.34);\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\n/deep/ .mat-sort-header-container {\n  justify-content: center; }\n\ntable th,\ntable td {\n  word-break: break-all;\n  word-wrap: break-word;\n  padding: .625em;\n  text-align: center;\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable th {\n  background: #cfcfcf;\n  font-size: .85em;\n  letter-spacing: .1em;\n  text-transform: uppercase; }\n\n@media screen and (max-width: 600px) {\n  .icon {\n    cursor: pointer;\n    width: auto; }\n  table {\n    border: 0; }\n  table caption {\n    font-size: 1.3em; }\n  table thead {\n    border: none;\n    clip: rect(0 0 0 0);\n    height: 1px;\n    margin: -1px;\n    overflow: hidden;\n    padding: 0;\n    position: absolute;\n    width: 1px; }\n  table tr {\n    border-bottom: 3px solid #ddd;\n    display: block;\n    margin-bottom: .625em; }\n  table td {\n    border-bottom: 1px solid #ddd;\n    display: block;\n    font-size: .8em;\n    text-align: right; }\n  table td:before {\n    /*\r\n        * aria-label has no advantage, it won't be read inside a table\r\n        content: attr(aria-label);\r\n        */\n    content: attr(data-label);\n    float: left;\n    font-weight: bold;\n    text-transform: uppercase; }\n  table td:last-child {\n    border-bottom: 0; } }\n\nmat-button-toggle-group {\n  cursor: pointer; }\n\n::ng-deep .mat-sort-header-container {\n  justify-content: center; }\n\n/* Structure */\n\n.example-container {\n  display: flex;\n  flex-direction: column;\n  min-width: 300px; }\n\n.example-header {\n  min-height: 64px;\n  display: flex;\n  align-items: center;\n  padding-left: 24px;\n  font-size: 20px; }\n\n.mat-table {\n  overflow: auto;\n  max-height: 500px; }\n\n.widgetHolder {\n  margin: 0 auto; }\n\n.widgetHolder .widgetHolder-content {\n    padding: 20px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/user-detail/components/VideoCallHistoryComponent/video-call-histories.component.ts":
+/*!************************************************************************************************************!*\
+  !*** ./src/app/modules/user-detail/components/VideoCallHistoryComponent/video-call-histories.component.ts ***!
+  \************************************************************************************************************/
+/*! exports provided: VideoCallHistoriesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VideoCallHistoriesComponent", function() { return VideoCallHistoriesComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../models */ "./src/app/models/index.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var VideoCallHistoriesComponent = /** @class */ (function () {
+    function VideoCallHistoriesComponent() {
+        this.headerDoctorChatHistories = [
+            {
+                name: 'Bệnh nhân',
+                key: 'fullNamePatient',
+                order: 'asc'
+            },
+            {
+                name: 'Ngày gọi',
+                key: 'timeStartFormatted',
+                order: 'asc'
+            },
+            {
+                name: 'Thời gian gọi',
+                key: 'callLength',
+                order: 'asc'
+            },
+            {
+                name: 'Link video',
+                key: 'linkVideo',
+                order: 'asc'
+            }
+        ];
+        this.headerPatientVideoCallHistories = [
+            {
+                name: 'Bác sĩ',
+                key: 'fullNameDoctor',
+                order: 'asc'
+            },
+            {
+                name: 'Ngày gọi',
+                key: 'timeStartFormatted',
+                order: 'asc'
+            },
+            {
+                name: 'Thời gian gọi',
+                key: 'callLength',
+                order: 'asc'
+            },
+            {
+                name: 'Link video',
+                key: 'linkVideo',
+                order: 'asc'
+            }
+        ];
+        this.userInfo = new _models__WEBPACK_IMPORTED_MODULE_1__["User"]();
+        this.model = {
+            keyword: '',
+            startTime: null,
+            endTime: null,
+            sort: {
+                active: 'timeStartFormatted',
+                direction: 'desc'
+            },
+            status: 3,
+            pageIndex: 0
+        };
+        this.pageSize = 10;
+        this.pageLength = 0;
+        this.headers = [];
+    }
+    VideoCallHistoriesComponent.prototype.nextPage = function (event) {
+        this.historyItems = [];
+        this.model.pageIndex = event.pageIndex;
+        if ((event.pageIndex + 1) * event.pageSize > event.length) {
+            for (var i = 1 * event.pageIndex * event.pageSize; i < event.length; i++) {
+                this.historyItems = this.historyItems.concat([this.videoCallHistories[i]]);
+            }
+        }
+        else {
+            for (var i = 1 * event.pageIndex * event.pageSize; i < event.pageSize + event.pageIndex * event.pageSize; i++) {
+                this.historyItems = this.historyItems.concat([this.videoCallHistories[i]]);
+            }
+        }
+    };
+    VideoCallHistoriesComponent.prototype.getPages = function () {
+        if (!this.sortedlist) {
+            return;
+        }
+        this.historyItems = [];
+        if (this.pageSize < this.sortedlist.length) {
+            for (var i = 0; i < this.pageSize; i++) {
+                this.historyItems = this.historyItems.concat([this.sortedlist[i]]);
+            }
+        }
+        else {
+            for (var i = 0; i < this.sortedlist.length; i++) {
+                this.historyItems = this.historyItems.concat([this.sortedlist[i]]);
+            }
+        }
+        this.pageLength = this.sortedlist.length;
+    };
+    VideoCallHistoriesComponent.prototype.openStartDate = function () {
+        this.startDatepicker.open();
+    };
+    VideoCallHistoriesComponent.prototype.openEndDate = function () {
+        this.endDatepicker.open();
+    };
+    VideoCallHistoriesComponent.prototype.onBlurKeyWord = function () {
+        this.onSearch();
+    };
+    VideoCallHistoriesComponent.prototype.onEnterSearchKey = function () {
+        this.keyWordRef.nativeElement.blur();
+    };
+    VideoCallHistoriesComponent.prototype.startDateChange = function (event) {
+        this.startDatetime = event.value;
+        this.model.startTime = event.value ? moment__WEBPACK_IMPORTED_MODULE_3__(event.value).format('YYYY/MM/DD') + ' 00:00' : '';
+        this.onSearch();
+    };
+    VideoCallHistoriesComponent.prototype.endDateChange = function (event) {
+        this.endDatetime = event.value;
+        this.model.endTime = event.value ? moment__WEBPACK_IMPORTED_MODULE_3__(event.value).format('YYYY/MM/DD') + ' 24:60' : '';
+        this.onSearch();
+    };
+    VideoCallHistoriesComponent.prototype.onSearch = function () {
+        var _this = this;
+        if (!this.videoCallHistories || this.videoCallHistories.length === 0) {
+            return;
+        }
+        this.model.keyword = this.model.keyword ? this.model.keyword.trim() : '';
+        this.searchedList = this.videoCallHistories.filter(function (obj) {
+            return (obj.fullNameDoctor.toLowerCase().includes(_this.model.keyword.toLowerCase())
+                || obj.fullNamePatient.toLowerCase().includes(_this.model.keyword.toLowerCase()));
+        });
+        if (this.model.startTime) {
+            this.searchedList = this.searchedList.filter(function (obj) { return obj.timeStartFormatted >= _this.model.startTime; });
+        }
+        if (this.model.endTime) {
+            this.searchedList = this.searchedList.filter(function (obj) { return obj.timeStartFormatted <= _this.model.endTime; });
+        }
+        this.onSort(this.model.sort);
+    };
+    VideoCallHistoriesComponent.prototype.onSort = function (sort) {
+        var _this = this;
+        if (!sort) {
+            this.model.sort.active = '';
+            this.model.sort.direction = '';
+            return;
+        }
+        if (!this.searchedList) {
+            return;
+        }
+        var data = this.searchedList.slice();
+        this.model.sort.active = sort.active;
+        this.model.sort.direction = sort.direction;
+        this.model.pageIndex = 0;
+        if (!sort || !sort.active || sort.direction === '') {
+            this.sortedlist = data;
+            this.getPages();
+            return;
+        }
+        this.sortedlist = data.sort(function (a, b) {
+            var isAsc = _this.model.sort.direction === 'asc';
+            switch (_this.model.sort.active) {
+                case 'fullNamePatient':
+                    return compare(a.fullNamePatient, b.fullNamePatient, isAsc);
+                case 'fullNameDoctor':
+                    return compare(a.fullNameDoctor, b.fullNameDoctor, isAsc);
+                case 'timeStartFormatted':
+                    return compare(a.timeStartFormatted, b.timeStartFormatted, isAsc);
+                case 'callLength':
+                    return compare(a.callLength, b.callLength, isAsc);
+                case 'linkVideo':
+                    return compare(a.linkVideo, b.linkVideo, isAsc);
+                default:
+                    return 0;
+            }
+        });
+        this.getPages();
+    };
+    VideoCallHistoriesComponent.prototype.ngOnChanges = function (changes) {
+        if (this.userInfo) {
+            if (this.userInfo.role === 1) {
+                this.keywordPlaceHolder = 'Tên bác sĩ';
+                this.headers = this.headerPatientVideoCallHistories;
+            }
+            else {
+                this.keywordPlaceHolder = 'Tên bệnh nhân';
+                this.headers = this.headerDoctorChatHistories;
+            }
+        }
+        if (this.videoCallHistories && this.videoCallHistories.length > 0) {
+            this.searchedList = this.videoCallHistories;
+            this.onSort(this.model.sort);
+            this.getPages();
+        }
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('startDate'),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDatepicker"])
+    ], VideoCallHistoriesComponent.prototype, "startDatepicker", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('endDate'),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDatepicker"])
+    ], VideoCallHistoriesComponent.prototype, "endDatepicker", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], VideoCallHistoriesComponent.prototype, "userInfo", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Array)
+    ], VideoCallHistoriesComponent.prototype, "videoCallHistories", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('keyWord'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], VideoCallHistoriesComponent.prototype, "keyWordRef", void 0);
+    VideoCallHistoriesComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-video-call-histories',
+            template: __webpack_require__(/*! ./video-call-histories.component.html */ "./src/app/modules/user-detail/components/VideoCallHistoryComponent/video-call-histories.component.html"),
+            styles: [__webpack_require__(/*! ./video-call-histories.component.scss */ "./src/app/modules/user-detail/components/VideoCallHistoryComponent/video-call-histories.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], VideoCallHistoriesComponent);
+    return VideoCallHistoriesComponent;
+}());
+
+function compare(a, b, isAsc) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+
+/***/ }),
+
+/***/ "./src/app/modules/user-detail/components/index.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/modules/user-detail/components/index.ts ***!
+  \*********************************************************/
+/*! exports provided: UserDetailComponent, ChatHistoriesComponent, VideoCallHistoriesComponent, PaymentHistoriesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _UserDetailComponent_user_detail_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UserDetailComponent/user-detail.component */ "./src/app/modules/user-detail/components/UserDetailComponent/user-detail.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "UserDetailComponent", function() { return _UserDetailComponent_user_detail_component__WEBPACK_IMPORTED_MODULE_0__["UserDetailComponent"]; });
+
+/* harmony import */ var _ChatHistoryComponent_chat_histories_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ChatHistoryComponent/chat-histories.component */ "./src/app/modules/user-detail/components/ChatHistoryComponent/chat-histories.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChatHistoriesComponent", function() { return _ChatHistoryComponent_chat_histories_component__WEBPACK_IMPORTED_MODULE_1__["ChatHistoriesComponent"]; });
+
+/* harmony import */ var _VideoCallHistoryComponent_video_call_histories_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./VideoCallHistoryComponent/video-call-histories.component */ "./src/app/modules/user-detail/components/VideoCallHistoryComponent/video-call-histories.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VideoCallHistoriesComponent", function() { return _VideoCallHistoryComponent_video_call_histories_component__WEBPACK_IMPORTED_MODULE_2__["VideoCallHistoriesComponent"]; });
+
+/* harmony import */ var _PaymentHistoryComponent_payment_histories_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./PaymentHistoryComponent/payment-histories.component */ "./src/app/modules/user-detail/components/PaymentHistoryComponent/payment-histories.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PaymentHistoriesComponent", function() { return _PaymentHistoryComponent_payment_histories_component__WEBPACK_IMPORTED_MODULE_3__["PaymentHistoriesComponent"]; });
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/user-detail/user-detail.module.ts":
+/*!***********************************************************!*\
+  !*** ./src/app/modules/user-detail/user-detail.module.ts ***!
+  \***********************************************************/
+/*! exports provided: UserDetailModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserDetailModule", function() { return UserDetailModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ngx-translate/core */ "./node_modules/@ngx-translate/core/fesm5/ngx-translate-core.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components */ "./src/app/modules/user-detail/components/index.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+var UserDetailModule = /** @class */ (function () {
+    function UserDetailModule() {
+    }
+    UserDetailModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatCardModule"],
+                _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
+                _angular_flex_layout__WEBPACK_IMPORTED_MODULE_3__["FlexLayoutModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatButtonModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatButtonToggleModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatInputModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatToolbarModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_5__["ReactiveFormsModule"],
+                _ngx_translate_core__WEBPACK_IMPORTED_MODULE_6__["TranslateModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTabsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSelectModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatGridListModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTableModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatSortModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatPaginatorModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatChipsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatTooltipModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDatepickerModule"]
+            ],
+            declarations: [
+                _components__WEBPACK_IMPORTED_MODULE_7__["UserDetailComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_7__["ChatHistoriesComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_7__["VideoCallHistoriesComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_7__["PaymentHistoriesComponent"]
+            ],
+            exports: [
+                _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"]
+            ],
+            entryComponents: [
+                _components__WEBPACK_IMPORTED_MODULE_7__["UserDetailComponent"]
+            ],
+            providers: []
+        })
+    ], UserDetailModule);
+    return UserDetailModule;
 }());
 
 
@@ -2665,8 +7070,6 @@ var StaffRegisterComponent = /** @class */ (function () {
                     if (!patt.test(c.value)) {
                         return { pattern: { valid: false, value: c.value } };
                     }
-                    console.log(_this.model.password);
-                    console.log(_this.model.confirmPassword);
                     if (_this.model.password !== c.value) {
                         return { invalid_confirm: { valid: false, value: c.value } };
                     }
@@ -2775,7 +7178,7 @@ var StaffRegisterComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" class=\"components-container-gt-xs\" [ngClass.xs]=\"'components-container-xs'\" fxLayoutGap=\"20px\">\n\n    <div fxFlex class=\"table-component-holder mat-elevation-z4\">\n        <mat-toolbar class=\"table-header\">\n            <!--<h1 class=\"mat-headline center-align\">Danh sách người dùng</h1>-->\n            <form class=\"center-align\">\n                <mat-form-field class=\"margin-left-10\">\n                    <input #keyWord matInput [ngModelOptions]=\"{standalone: true}\" placeholder=\"Từ khóa\" maxlength=\"200\" [(ngModel)]=\"model.search_keyword\" (blur)=\"onBlurKeyWord()\" (keyup.enter)=\"onEnterSearchKey()\">\n                </mat-form-field>\n                <mat-form-field class=\"margin-left-10\">\n                    <mat-select placeholder=\"Trạng thái\" (selectionChange)=\"onChangeStatus($event.value)\">\n                        <mat-option value=\"1\">Active</mat-option>\n                        <mat-option value=\"3\">Block</mat-option>\n                        <mat-option value=\"4\">Bác sĩ block</mat-option>\n                        <mat-option value=\"2\">Bác sĩ chờ phê duyệt</mat-option>\n                    </mat-select>\n                </mat-form-field>\n                <mat-form-field class=\"margin-left-10\">\n                    <mat-select placeholder=\"Role\" (selectionChange)=\"onChangeRole($event.value)\">\n                        <mat-option value=\"3\">Admin</mat-option>\n                        <mat-option value=\"2\">Bác sĩ</mat-option>\n                        <mat-option value=\"1\">Bệnh nhân</mat-option>\n                    </mat-select>\n                </mat-form-field>\n                <button mat-raised-button color=\"primary\" class=\"btn-add-staff\" (click)=\"onCreateNewStaff()\">Thêm nhân viên</button>\n            </form>\n        </mat-toolbar>\n        <div class=\"table-container\">\n            <table matSort (matSortChange)=\"sortData($event)\">\n                <thead>\n                <tr>\n                    <th mat-sort-header=\"{{th.key}}\" scope=\"col\" *ngFor=\"let th of header\">{{th.name}}</th>\n                    <th class=\"icon\"></th>\n                    <th class=\"icon\"></th>\n                </tr>\n                </thead>\n                <tbody>\n                <tr *ngFor=\"let row of rows let i=index\">\n                    <td [attr.data-label]=\"th.name\" *ngFor=\"let th of header\">\n                        <span *ngIf=\"th.key!='action'\">\n                            {{row[th.key]}}\n                            <mat-chip selected=\"true\"\n                                      color=\"warn\"\n                                      matTooltip=\"{{row['duplicate_applications'].length}} duplicate entries\"\n                                      matTooltipPosition=\"right\"\n                                      *ngIf=\"th.key=='applicationNumber' && row['duplicate_applications'] != 'undefined' && row['duplicate_applications'] && row['duplicate_applications'].length > 0\">\n\t\t\t\t\t\t\t\t\t{{row['duplicate_applications'].length }}\n                            </mat-chip>\n\n                        </span>\n\n                    </td>\n                    <td class=\"icon\"><i class=\"far fa-trash-alt delete-icon\" (click)=\"onConfirmDelete(row)\"></i></td>\n                    <td class=\"icon\"><i class=\"far fa-edit\"></i></td>\n                </tr>\n                <tr *ngIf=\"rows?.length==0 && status==false\">\n                    <td [colSpan]=\"header.length\" style=\"text-align: center;\">\n                        No records found\n                    </td>\n                </tr>\n                </tbody>\n                <thead *matHeaderRowDef=\"displayedColumns\"></thead>\n                <tr *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n            </table>\n            <mat-paginator [length]=\"pageLength\"\n                           [pageSize]=\"pageSize\"\n                           [pageSizeOptions]=\"[1, 5, 10, 25, 100, 150, 200]\" (page)=\"next($event)\">\n            </mat-paginator>\n        </div>\n    </div>\n</div>\n"
+module.exports = "<div fxLayout=\"column\" class=\"components-container-gt-xs\" [ngClass.xs]=\"'components-container-xs'\" fxLayoutGap=\"20px\">\n\n    <div fxFlex class=\"table-component-holder mat-elevation-z4\">\n        <mat-toolbar class=\"table-header\">\n            <!--<h1 class=\"mat-headline center-align\">Danh sách người dùng</h1>-->\n            <form class=\"center-align\">\n                <mat-form-field class=\"margin-left-10\">\n                    <input #keyWord matInput [ngModelOptions]=\"{standalone: true}\" placeholder=\"Từ khóa\" maxlength=\"200\" [(ngModel)]=\"model.search_keyword\" (blur)=\"onBlurKeyWord()\" (keyup.enter)=\"onEnterSearchKey()\">\n                </mat-form-field>\n                <mat-form-field class=\"margin-left-10\">\n                    <mat-select placeholder=\"Trạng thái\" (selectionChange)=\"onChangeStatus($event.value)\">\n                        <mat-option value=\"1\">Active</mat-option>\n                        <mat-option value=\"3\">Block</mat-option>\n                        <mat-option value=\"4\">Bác sĩ block</mat-option>\n                        <mat-option value=\"2\">Bác sĩ chờ phê duyệt</mat-option>\n                    </mat-select>\n                </mat-form-field>\n                <mat-form-field class=\"margin-left-10\">\n                    <mat-select placeholder=\"Role\" (selectionChange)=\"onChangeRole($event.value)\">\n                        <mat-option value=\"3\">Admin</mat-option>\n                        <mat-option value=\"2\">Bác sĩ</mat-option>\n                        <mat-option value=\"1\">Bệnh nhân</mat-option>\n                    </mat-select>\n                </mat-form-field>\n                <button mat-raised-button color=\"primary\" class=\"btn-add-staff\" (click)=\"onCreateNewStaff()\">Thêm nhân viên</button>\n            </form>\n        </mat-toolbar>\n        <div class=\"table-container\">\n            <table matSort (matSortChange)=\"sortData($event)\">\n                <thead>\n                <tr>\n                    <th mat-sort-header=\"{{th.key}}\" scope=\"col\" *ngFor=\"let th of header\">{{th.name}}</th>\n                    <th class=\"icon\"></th>\n                    <th class=\"icon\"></th>\n                </tr>\n                </thead>\n                <tbody>\n                <tr *ngFor=\"let row of rows let i=index\">\n                    <td [attr.data-label]=\"th.name\" *ngFor=\"let th of header\">\n                        <span *ngIf=\"th.key!='action'\">\n                            {{row[th.key]}}\n                            <mat-chip selected=\"true\"\n                                      color=\"warn\"\n                                      matTooltip=\"{{row['duplicate_applications'].length}} duplicate entries\"\n                                      matTooltipPosition=\"right\"\n                                      *ngIf=\"th.key=='applicationNumber' && row['duplicate_applications'] != 'undefined' && row['duplicate_applications'] && row['duplicate_applications'].length > 0\">\n\t\t\t\t\t\t\t\t\t{{row['duplicate_applications'].length }}\n                            </mat-chip>\n\n                        </span>\n\n                    </td>\n                    <td class=\"icon\"><i class=\"far fa-trash-alt delete-icon\" (click)=\"onConfirmDelete(row)\"></i></td>\n                    <td class=\"icon\"><i class=\"far fa-edit\" (click)=\"openDetail(row)\"></i></td>\n                </tr>\n                <tr *ngIf=\"rows?.length==0 && status==false\">\n                    <td [colSpan]=\"header.length\" style=\"text-align: center;\">\n                        No records found\n                    </td>\n                </tr>\n                </tbody>\n                <thead *matHeaderRowDef=\"displayedColumns\"></thead>\n                <tr *matRowDef=\"let row; columns: displayedColumns;\"></tr>\n            </table>\n            <mat-paginator [length]=\"pageLength\"\n                           [pageSize]=\"pageSize\"\n                           [pageSizeOptions]=\"[1, 5, 10, 25, 100, 150, 200]\" (page)=\"next($event)\">\n            </mat-paginator>\n        </div>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -2807,6 +7210,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../core/components */ "./src/app/modules/core/components/index.ts");
 /* harmony import */ var _StaffRegisterComponent_staff_register_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../StaffRegisterComponent/staff-register.component */ "./src/app/modules/user-list/components/StaffRegisterComponent/staff-register.component.ts");
 /* harmony import */ var _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _user_detail_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../user-detail/components */ "./src/app/modules/user-detail/components/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2851,6 +7255,7 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+
 
 
 
@@ -2976,6 +7381,23 @@ var UserListComponent = /** @class */ (function () {
             }
         });
     };
+    UserListComponent.prototype.openDetail = function (row) {
+        var _this = this;
+        var deleteUser = this.userList.filter(function (obj) { return obj.phoneNumber === row.phoneNumber; });
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogConfig"]();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {
+            id: deleteUser[0].id,
+            role: deleteUser[0].role
+        };
+        var dialogRef = this.dialog.open(_user_detail_components__WEBPACK_IMPORTED_MODULE_7__["UserDetailComponent"], dialogConfig);
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result && result === 'ok') {
+                _this.getUserlist();
+            }
+        });
+    };
     UserListComponent.prototype.onCreateNewStaff = function () {
         var _this = this;
         var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogConfig"]();
@@ -3020,12 +7442,14 @@ var UserListComponent = /** @class */ (function () {
     };
     UserListComponent.prototype.deleteUser = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var response, status_1, e_2, error;
+            var _this = this;
+            var deleteUser, response, status_1, e_2, error;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, this.userServices.deleteUser(this.userDelete).toPromise()];
+                        deleteUser = this.userList.filter(function (obj) { return obj.phoneNumber === _this.userDelete.phoneNumber; });
+                        return [4 /*yield*/, this.userServices.deleteUser(deleteUser[0]).toPromise()];
                     case 1:
                         response = _a.sent();
                         status_1 = response && response.status;
@@ -3157,12 +7581,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components */ "./src/app/modules/user-list/components/index.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _user_detail_user_detail_module__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../user-detail/user-detail.module */ "./src/app/modules/user-detail/user-detail.module.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -3204,6 +7630,7 @@ var UserListModule = /** @class */ (function () {
     UserListModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [
+                _user_detail_user_detail_module__WEBPACK_IMPORTED_MODULE_23__["UserDetailModule"],
                 _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
                 _angular_flex_layout__WEBPACK_IMPORTED_MODULE_3__["FlexLayoutModule"],
                 _angular_material_button__WEBPACK_IMPORTED_MODULE_4__["MatButtonModule"],
@@ -3315,6 +7742,63 @@ var AuthServices = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/services/ChatServices.ts":
+/*!******************************************!*\
+  !*** ./src/app/services/ChatServices.ts ***!
+  \******************************************/
+/*! exports provided: ChatServices */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChatServices", function() { return ChatServices; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs-compat/add/operator/retry */ "./node_modules/rxjs-compat/add/operator/retry.js");
+/* harmony import */ var rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3__);
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var ChatServices = /** @class */ (function () {
+    function ChatServices(http) {
+        this.http = http;
+    }
+    ChatServices.prototype.getPattientChatHistories = function (patientId) {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'chatshistorys/getAllConversationByPatient/' + patientId);
+    };
+    ChatServices.prototype.getDoctorChatHistories = function (doctorId) {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'chatshistorys/getAllConversationByDoctor/' + doctorId);
+    };
+    ChatServices.prototype.register = function (formData) {
+        // const headers = new HttpHeaders({
+        //     'Content-Type': null,
+        // });
+        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'auth/register', formData);
+    };
+    ChatServices = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root',
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], ChatServices);
+    return ChatServices;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/CommonServices.ts":
 /*!********************************************!*\
   !*** ./src/app/services/CommonServices.ts ***!
@@ -3369,6 +7853,180 @@ var CommonServices = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], CommonServices);
     return CommonServices;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/PaymentServices.ts":
+/*!*********************************************!*\
+  !*** ./src/app/services/PaymentServices.ts ***!
+  \*********************************************/
+/*! exports provided: PaymentServices */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PaymentServices", function() { return PaymentServices; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs-compat/add/operator/retry */ "./node_modules/rxjs-compat/add/operator/retry.js");
+/* harmony import */ var rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3__);
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var PaymentServices = /** @class */ (function () {
+    function PaymentServices(http) {
+        this.http = http;
+    }
+    PaymentServices.prototype.getPaymentHistoriesByUserId = function (userId) {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'paymentshistorys/getPaymentHistoryByUser/' + userId);
+    };
+    PaymentServices = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root',
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], PaymentServices);
+    return PaymentServices;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/SpecialistServices.ts":
+/*!************************************************!*\
+  !*** ./src/app/services/SpecialistServices.ts ***!
+  \************************************************/
+/*! exports provided: SpecialistServices */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SpecialistServices", function() { return SpecialistServices; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs-compat/add/operator/retry */ "./node_modules/rxjs-compat/add/operator/retry.js");
+/* harmony import */ var rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3__);
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var SpecialistServices = /** @class */ (function () {
+    function SpecialistServices(http) {
+        this.http = http;
+    }
+    SpecialistServices.prototype.getList = function () {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'specialists/get-all-specialist');
+    };
+    SpecialistServices.prototype.delete = function (params) {
+        var httpParams = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]();
+        httpParams = httpParams.set('updateTime', params.updatedAt);
+        return this.http.delete(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'specialists/' + params.id, { params: httpParams });
+    };
+    SpecialistServices.prototype.create = function (data) {
+        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'specialists/', data);
+    };
+    SpecialistServices.prototype.edit = function (id, data) {
+        return this.http.put(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'specialists/' + id, data);
+    };
+    SpecialistServices.prototype.getById = function (id) {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'specialists/getDetailSpecialist/' + id);
+    };
+    SpecialistServices = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root',
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], SpecialistServices);
+    return SpecialistServices;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/TypeAdvisoryServices.ts":
+/*!**************************************************!*\
+  !*** ./src/app/services/TypeAdvisoryServices.ts ***!
+  \**************************************************/
+/*! exports provided: TypeAdvisoryServices */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TypeAdvisoryServices", function() { return TypeAdvisoryServices; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs-compat/add/operator/retry */ "./node_modules/rxjs-compat/add/operator/retry.js");
+/* harmony import */ var rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3__);
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var TypeAdvisoryServices = /** @class */ (function () {
+    function TypeAdvisoryServices(http) {
+        this.http = http;
+    }
+    TypeAdvisoryServices.prototype.getListTypeAdvisories = function () {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'typeadvisorys/getAllTypeAdvisories/');
+    };
+    TypeAdvisoryServices.prototype.deleteType = function (params) {
+        var httpParams = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]();
+        httpParams = httpParams.set('updateTime', params.updatedAt);
+        return this.http.delete(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'typeadvisorys/' + params.id, { params: httpParams });
+    };
+    TypeAdvisoryServices.prototype.createNewType = function (data) {
+        return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'typeadvisorys/', data);
+    };
+    TypeAdvisoryServices.prototype.editNewType = function (data) {
+        return this.http.put(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'typeadvisorys/' + data.id, data);
+    };
+    TypeAdvisoryServices.prototype.getById = function (id) {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + '/typeadvisorys/getTypeAdvisoriesById/' + id);
+    };
+    TypeAdvisoryServices = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root',
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], TypeAdvisoryServices);
+    return TypeAdvisoryServices;
 }());
 
 
@@ -3431,6 +8089,12 @@ var UserServices = /** @class */ (function () {
         httpParams = httpParams.set('updateTime', params.updatedAt);
         return this.http.delete(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_ENDPOINT + 'users/' + params.id, { params: httpParams });
     };
+    UserServices.prototype.getUserById = function (userId) {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_ENDPOINT + 'users/detail/' + userId);
+    };
+    UserServices.prototype.getDoctorDetail = function (doctorId) {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_ENDPOINT + 'doctors/getDetailDoctor/' + doctorId);
+    };
     UserServices = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root',
@@ -3444,11 +8108,62 @@ var UserServices = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/services/VideoCallServices.ts":
+/*!***********************************************!*\
+  !*** ./src/app/services/VideoCallServices.ts ***!
+  \***********************************************/
+/*! exports provided: VideoCallServices */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VideoCallServices", function() { return VideoCallServices; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs-compat/add/operator/retry */ "./node_modules/rxjs-compat/add/operator/retry.js");
+/* harmony import */ var rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3__);
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var VideoCallServices = /** @class */ (function () {
+    function VideoCallServices(http) {
+        this.http = http;
+    }
+    VideoCallServices.prototype.getPattientVideoCallHistories = function (patientId) {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'videcallhistories/getHistoryVideoCallPatient/' + patientId);
+    };
+    VideoCallServices.prototype.getDoctorVideoCallHistories = function (doctorId) {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'videcallhistories/getHistoryVideoCallDoctor/' + doctorId);
+    };
+    VideoCallServices = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root',
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], VideoCallServices);
+    return VideoCallServices;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/index.ts":
 /*!***********************************!*\
   !*** ./src/app/services/index.ts ***!
   \***********************************/
-/*! exports provided: UserServices, AuthServices, CommonServices */
+/*! exports provided: UserServices, AuthServices, CommonServices, ChatServices, VideoCallServices, PaymentServices, TypeAdvisoryServices, SpecialistServices */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3461,6 +8176,26 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _CommonServices__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CommonServices */ "./src/app/services/CommonServices.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CommonServices", function() { return _CommonServices__WEBPACK_IMPORTED_MODULE_2__["CommonServices"]; });
+
+/* harmony import */ var _ChatServices__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ChatServices */ "./src/app/services/ChatServices.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ChatServices", function() { return _ChatServices__WEBPACK_IMPORTED_MODULE_3__["ChatServices"]; });
+
+/* harmony import */ var _VideoCallServices__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./VideoCallServices */ "./src/app/services/VideoCallServices.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "VideoCallServices", function() { return _VideoCallServices__WEBPACK_IMPORTED_MODULE_4__["VideoCallServices"]; });
+
+/* harmony import */ var _PaymentServices__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./PaymentServices */ "./src/app/services/PaymentServices.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PaymentServices", function() { return _PaymentServices__WEBPACK_IMPORTED_MODULE_5__["PaymentServices"]; });
+
+/* harmony import */ var _TypeAdvisoryServices__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TypeAdvisoryServices */ "./src/app/services/TypeAdvisoryServices.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TypeAdvisoryServices", function() { return _TypeAdvisoryServices__WEBPACK_IMPORTED_MODULE_6__["TypeAdvisoryServices"]; });
+
+/* harmony import */ var _SpecialistServices__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./SpecialistServices */ "./src/app/services/SpecialistServices.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SpecialistServices", function() { return _SpecialistServices__WEBPACK_IMPORTED_MODULE_7__["SpecialistServices"]; });
+
+
+
+
+
 
 
 

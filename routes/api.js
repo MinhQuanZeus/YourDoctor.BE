@@ -97,12 +97,15 @@ router.get('/specialists/get-all-specialist', passport.authenticate('jwt', {
 }), SpecialistController.getAllSpecialist)
 router.get('/specialists/getListSpecialist', SpecialistController.getListSpecialist)
 router.get('/specialists/getDetailSpecialist/:specialistId', SpecialistController.getDetailSpecialist)
-router.put('/specialists', passport.authenticate('jwt', {
+router.put('/specialists/:id', passport.authenticate('jwt', {
     session: false,
 }), SpecialistController.update)
 router.delete('/specialists', passport.authenticate('jwt', {
     session: false,
 }), SpecialistController.remove)
+router.delete('/specialists/:id', passport.authenticate('jwt', {
+    session: false,
+}), SpecialistController.deleteById)
 
 //--------------- Rating
 router.post('/ratings', passport.authenticate('jwt', {
@@ -125,12 +128,16 @@ router.get('/typeadvisorys/getAllTypeAdvisories', passport.authenticate('jwt', {
 router.get('/typeadvisorys/getTypeAdvisoriesById/:id', passport.authenticate('jwt', {
     session: false,
 }), TypeAdvisoriesController.getTypeAdvisoriesById)
-router.put('/typeadvisorys', passport.authenticate('jwt', {
+router.put('/typeadvisorys/:typeId', passport.authenticate('jwt', {
     session: false,
 }), TypeAdvisoriesController.update)
 router.delete('/typeadvisorys', passport.authenticate('jwt', {
     session: false,
 }), TypeAdvisoriesController.remove)
+
+router.delete('/typeadvisorys/:typeId', passport.authenticate('jwt', {
+    session: false,
+}), TypeAdvisoriesController.deleteById)
 
 //---------------Banking_history
 router.post('/bankinghistorys/doctorWithdrawal', passport.authenticate('jwt', {
