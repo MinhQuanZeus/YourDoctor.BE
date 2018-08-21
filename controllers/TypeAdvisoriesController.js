@@ -4,9 +4,10 @@ const create = async function (req, res) {
     if (!body.name || !body.price || (!body.limitNumberRecords && body.type === 1) || !body.description) {
         return ReE(res, 'ERROR0011', 400);
     }
-    let duplicateTypeAdvisory = await TypeAdvisory.findOne({type: body.type});
-
-    if (duplicateTypeAdvisory) return ReE(res, 'ERROR0014', 409);
+    if (data.type === 2) {
+        let duplicateTypeAdvisory = await TypeAdvisory.findOne({ type: body.type });
+        if (duplicateTypeAdvisory) return ReE(res, 'ERROR0014', 409);
+    }
     let typeAdvisories = new TypeAdvisory({
         name: body.name,
         price: body.price,
@@ -30,7 +31,6 @@ const getAllTypeAdvisories = async function (req, res) {
 module.exports.getAllTypeAdvisories = getAllTypeAdvisories;
 
 const getTypeAdvisoriesById = async function (req, res) {
-    console.log(req.params.id);
     if (!req.params.id) return ReS(res, 'ERROR0010', 400);
     TypeAdvisory.findById(req.params.id, function (err, objectAdvisory) {
         if (err) return ReS(res, 'ERROR0012', 404);
@@ -41,8 +41,10 @@ module.exports.getTypeAdvisoriesById = getTypeAdvisoriesById;
 
 const update = async function (req, res) {
     let data = req.body;
-    let duplicateTypeAdvisory = await TypeAdvisory.findOne({type: data.type, _id: { $ne: data.id }, deletionFlag: { $ne: true }});
-    if (duplicateTypeAdvisory) return ReE(res, 'ERROR0014', 409);
+    if (data.type === 2) {
+        let duplicateTypeAdvisory = await TypeAdvisory.findOne({type: 2, _id: { $ne: data.id }, deletionFlag: { $ne: true }});
+        if (duplicateTypeAdvisory) return ReE(res, 'ERROR0014', 409);
+    }
     TypeAdvisory.findByIdAndUpdate(data.id,
         { $set: { name: data.name, price:data.price,limitNumberRecords:data.limitNumberRecords, description:data.description }},
         { new: true },

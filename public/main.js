@@ -2816,7 +2816,7 @@ var ToolbarNotificationComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <stbui-loading *ngIf=\"showLoading\"></stbui-loading> -->\n<mat-toolbar   class=\"mat-elevation-z4\">\n\t<button mat-icon-button (click)=\"sidenav.toggle();drawer.toggle();\" *ngIf=\"matDrawerShow\">\n        <i class=\"material-icons app-toolbar-menu\">menu </i>\n    </button>\n    <button mat-icon-button (click)=\"sidenav.toggle();\" *ngIf=\"!matDrawerShow\">\n        <i class=\"material-icons app-toolbar-menu\">menu </i>\n    </button>\n\n    <span class=\"spacer\"></span>\n\n    <button  mat-icon-button (click)=\"searchOpen = !searchOpen\" fxHide=\"true\" [fxHide.gt-xs]=\"false\">\n        <i class=\"material-icons\">search</i>\n    </button>\n    <!--<cdk-search-bar [open]=\"searchOpen\"></cdk-search-bar>-->\n\n    <cdk-fullscreen></cdk-fullscreen>\n\n    <cdk-toolbar-notification [notifications]=\"toolbarHelpers?.notifications\"></cdk-toolbar-notification>\n\n    <cdk-user-menu [currentUser]=\"toolbarHelpers?.currentUser\"></cdk-user-menu>\n\n     <!--<button mat-icon-button (click)=\"sidebar.toggle();\">-->\n        <!--<i class=\"material-icons app-toolbar-menu\">menu </i>-->\n    <!--</button>-->\n\n</mat-toolbar>\n"
+module.exports = "<!-- <stbui-loading *ngIf=\"showLoading\"></stbui-loading> -->\n<mat-toolbar   class=\"mat-elevation-z4\">\n\t<button mat-icon-button (click)=\"sidenav.toggle();drawer.toggle();\" *ngIf=\"matDrawerShow\">\n        <i class=\"material-icons app-toolbar-menu\">menu </i>\n    </button>\n    <button mat-icon-button (click)=\"sidenav.toggle();\" *ngIf=\"!matDrawerShow\">\n        <i class=\"material-icons app-toolbar-menu\">menu </i>\n    </button>\n\n    <span class=\"spacer\"></span>\n\n    <!--<button  mat-icon-button (click)=\"searchOpen = !searchOpen\" fxHide=\"true\" [fxHide.gt-xs]=\"false\">-->\n        <!--<i class=\"material-icons\">search</i>-->\n    <!--</button>-->\n    <!--<cdk-search-bar [open]=\"searchOpen\"></cdk-search-bar>-->\n\n    <cdk-fullscreen></cdk-fullscreen>\n\n    <!--<cdk-toolbar-notification [notifications]=\"toolbarHelpers?.notifications\"></cdk-toolbar-notification>-->\n\n    <cdk-user-menu [currentUser]=\"toolbarHelpers?.currentUser\"></cdk-user-menu>\n\n     <!--<button mat-icon-button (click)=\"sidebar.toggle();\">-->\n        <!--<i class=\"material-icons app-toolbar-menu\">menu </i>-->\n    <!--</button>-->\n\n</mat-toolbar>\n"
 
 /***/ }),
 
@@ -2939,7 +2939,7 @@ var ToolbarHelpers = {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"toolbar-user-container\">\n\t<button mat-button (click)=\"isOpen = !isOpen\" class=\"toolbar-user-btn\" [class.open]=\"isOpen\" [ngStyle.xs]=\"{'min-width': '70px'}\">\n  \t\t<span fxLayout=\"row\" fxLayoutAlign=\"start center\">\n    \t\t<img class=\"avatar\" [src]=\"user?.avatar || 'assets/images/avatars/noavatar.png'\">\n    \t\t<span class=\"name\" fxHide fxShow.gt-xs>{{user?.fullName || 'YourDoctor'}}</span>\n    \t\t<mat-icon class=\"icon\" fxHide fxShow.gt-xs>keyboard_arrow_down</mat-icon>\n  \t\t</span>\n  \t</button>\n\n\n  \t<div class=\"dropdown mat-elevation-z1\" [class.open]=\"isOpen\">\n    \t<div class=\"content\">\n      \t\t<mat-nav-list>\n      \t\t\t<mat-list-item>\n      \t\t\t\t<a matLine >Profile</a>\n\t\t\t\t    <button mat-icon-button>\n\t\t\t\t       <mat-icon>account_circle</mat-icon>\n\t\t\t\t    </button>\n      \t\t\t</mat-list-item>\n      \t\t\t<!--<mat-list-item>-->\n      \t\t\t\t<!--<a matLine >Settings</a>-->\n\t\t\t\t    <!--<button mat-icon-button>-->\n\t\t\t\t       <!--<mat-icon>settings</mat-icon>-->\n\t\t\t\t    <!--</button>-->\n      \t\t\t<!--</mat-list-item>-->\n      \t\t\t<!--<mat-list-item>-->\n      \t\t\t\t<!--<a matLine >Help</a>-->\n\t\t\t\t    <!--<button mat-icon-button>-->\n\t\t\t\t       <!--<mat-icon>help</mat-icon>-->\n\t\t\t\t    <!--</button>-->\n      \t\t\t<!--</mat-list-item>-->\n\n      \t\t\t<mat-divider></mat-divider>\n\n      \t\t\t<mat-list-item>\n      \t\t\t\t<a matLine (click)=\"onLogout()\">Logout</a>\n\t\t\t\t    <button mat-icon-button>\n\t\t\t\t       <mat-icon>exit_to_app</mat-icon>\n\t\t\t\t    </button>\n      \t\t\t</mat-list-item>\n      \t\t</mat-nav-list>\n    \t</div>\n  \t</div>\n</div>\n"
+module.exports = "<div class=\"toolbar-user-container\">\n\t<button mat-button (click)=\"isOpen = !isOpen\" class=\"toolbar-user-btn\" [class.open]=\"isOpen\" [ngStyle.xs]=\"{'min-width': '70px'}\">\n  \t\t<span fxLayout=\"row\" fxLayoutAlign=\"start center\">\n    \t\t<img class=\"avatar\" [src]=\"user?.avatar || 'assets/images/avatars/noavatar.png'\">\n    \t\t<span class=\"name\" fxHide fxShow.gt-xs>{{user?.fullName || 'YourDoctor'}}</span>\n    \t\t<mat-icon class=\"icon\" fxHide fxShow.gt-xs>keyboard_arrow_down</mat-icon>\n  \t\t</span>\n  \t</button>\n\n\n  \t<div class=\"dropdown mat-elevation-z1\" [class.open]=\"isOpen\">\n    \t<div class=\"content\">\n      \t\t<mat-nav-list>\n      \t\t\t<!--<mat-list-item>-->\n      \t\t\t\t<!--<a matLine >Profile</a>-->\n\t\t\t\t    <!--<button mat-icon-button>-->\n\t\t\t\t       <!--<mat-icon>account_circle</mat-icon>-->\n\t\t\t\t    <!--</button>-->\n      \t\t\t<!--</mat-list-item>-->\n      \t\t\t<!--<mat-list-item>-->\n      \t\t\t\t<!--<a matLine >Settings</a>-->\n\t\t\t\t    <!--<button mat-icon-button>-->\n\t\t\t\t       <!--<mat-icon>settings</mat-icon>-->\n\t\t\t\t    <!--</button>-->\n      \t\t\t<!--</mat-list-item>-->\n      \t\t\t<!--<mat-list-item>-->\n      \t\t\t\t<!--<a matLine >Help</a>-->\n\t\t\t\t    <!--<button mat-icon-button>-->\n\t\t\t\t       <!--<mat-icon>help</mat-icon>-->\n\t\t\t\t    <!--</button>-->\n      \t\t\t<!--</mat-list-item>-->\n\n      \t\t\t<mat-divider></mat-divider>\n\n      \t\t\t<mat-list-item>\n      \t\t\t\t<a matLine (click)=\"onLogout()\">Logout</a>\n\t\t\t\t    <button mat-icon-button>\n\t\t\t\t       <mat-icon>exit_to_app</mat-icon>\n\t\t\t\t    </button>\n      \t\t\t</mat-list-item>\n      \t\t</mat-nav-list>\n    \t</div>\n  \t</div>\n</div>\n"
 
 /***/ }),
 
@@ -4159,6 +4159,7 @@ var SpecialistComponent = /** @class */ (function () {
         this.commonService = commonService;
         this.pageLength = 0;
         this.pageSize = 15;
+        this.status = false;
         this.header = [
             {
                 name: 'Tên',
@@ -5060,6 +5061,7 @@ var TypeAdvisoryListComponent = /** @class */ (function () {
         this.commonService = commonService;
         this.pageLength = 0;
         this.pageSize = 15;
+        this.status = false;
         this.header = [
             {
                 name: 'Tên',
@@ -5092,7 +5094,6 @@ var TypeAdvisoryListComponent = /** @class */ (function () {
                 active: 'name',
                 direction: 'desc'
             },
-            status: 3,
             pageIndex: 0
         };
         this.rows = [];
