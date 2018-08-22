@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const constant = require('../constants');
 let BankingHistorySchema = mongoose.Schema({
     userId: {
-        type: String
+        type: String,
+        ref: 'User'
     },
     amount: {
         type: Number

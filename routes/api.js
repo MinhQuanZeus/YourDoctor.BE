@@ -166,6 +166,10 @@ router.delete('/bankinghistorys/:id', passport.authenticate('jwt', {
     session: false,
 }), BankingHistoryController.removeLogic)
 
+router.get('/bankinghistorys', passport.authenticate('jwt', {
+    session: false,
+}), BankingHistoryController.getAllBanking)
+
 //---------------Doctor
 router.post('/doctors', DoctorController.registerDoctor)
 router.get('/doctors', passport.authenticate('jwt', {

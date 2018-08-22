@@ -251,7 +251,11 @@ module.exports.getListBankingPendingVerify = getListBankingPendingVerify;
 const getDetailHistoryById = async function (req, res) {
     try{
         if(req.params.id){
-            let objDetail = await BankingHistory.findById({_id:req.params.id});
+            let objDetail = await BankingHistory.findById({_id:req.params.id}).populate(
+                    {
+                        path: 'userId',
+                        select: 'firstName middleName lastName avatar remainMoney role',
+                    });
             if(objDetail){
                 return ReS(res, {
                     status: true,
@@ -370,3 +374,23 @@ const createNotification = async function (body) {
         console.log(e)
     }
 };
+
+const getAllBanking = async function (req, res) {
+    try {
+        const bankHistories = await BankingHistory.find({deletionFlag: {$ne: true}}).populate(
+                {
+                    path: 'userId',
+                    select: 'firstName middleName lastName avatar remainMoney role',
+                },
+        );
+        if (bankHistories) {
+            return ReS(res, { message: 'Lấy danh sách banking thành công', listBanking: bankHistories }, 200)
+        }
+        else {
+            return ReE(res, { message: 'Lấy danh sách banking không thành công' }, 404)
+        }
+    }catch (e) {
+        return ReE(res, { message: 'Lấy danh sách banking không thành công' }, 404)
+    }
+};
+module.exports.getAllBanking = getAllBanking;
