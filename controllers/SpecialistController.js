@@ -174,6 +174,7 @@ const update = async function (req, res) {
                 }, 200)
             })
         } catch (error) {
+            console.log(error);
             return ReE(res, 'Cập nhật chuyên khoa không thành công, vui lòng thử lại sau', 400);
         }
     })

@@ -33,3 +33,12 @@ CONFIG.ACCOUNT =
     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-3unoc%40yourdoctor7-2db28.iam.gserviceaccount.com"
 }
+
+CONFIG.REPORT_HANDLE = {
+    1: 'Trừ 1 sao đánh giá hệ thống',
+    2: 'Trừ 1.5 sao đánh giá hệ thống',
+    3: 'Trừ 2 sao đánh giá hệ thống',
+    4: 'Trừ 2.5 sao đánh giá hệ thống',
+    5: 'Block',
+    6: 'Không xử lý',
+}

@@ -287,6 +287,10 @@ router.get('/reportConversations/get-list-report-conversation', passport.authent
 router.get('/reportConversations/get-detail-report-conversation', passport.authenticate('jwt', {
     session: false,
 }), ReportConversationController.getDetailReport)
+
+router.get('/reportConversations/:reportId', passport.authenticate('jwt', {
+    session: false,
+}), ReportConversationController.getReportById)
 //
 router.post('/banks',passport.authenticate('jwt', {
     session: false
@@ -304,4 +308,15 @@ router.get('/videcallhistories/getHistoryVideoCallPatient/:patientId',passport.a
 router.get('/videcallhistories/getHistoryVideoCallDoctor/:doctorId',passport.authenticate('jwt', {
     session: false
 }), VideoCallHistoryController.getHistoryVideoCallDoctor);
+
+router.get('/videcallhistories/:id',passport.authenticate('jwt', {
+    session: false
+}), VideoCallHistoryController.getById);
+
+router.get('/download/:file(*)',(req, res) => {
+    const file = req.params.file;
+    const fileLocation = path.join('../../../../tmp/videos',file);
+    console.log(fileLocation);
+    res.download(fileLocation, file);
+});
 module.exports = router;

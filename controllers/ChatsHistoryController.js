@@ -293,7 +293,7 @@ const getConversationByID = async function (req, res) {
             _id: req.params.id
         }).populate({
             path: 'patientId doctorId',
-            select: 'firstName middleName lastName'
+            select: 'firstName middleName lastName avatar'
         });
         if (!objConversation) {
             return ReE(res, "Không tìm thấy cuộc trò chuyện", 404);
