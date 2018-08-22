@@ -147,7 +147,7 @@ router.post('/bankinghistorys/doctorWithdrawal', passport.authenticate('jwt', {
 router.post('/bankinghistorys/checkCodeVerify', BankingHistoryController.checkCodeVerify);
 
 router.get('/bankinghistorys/getHistoryBanking/:userId', passport.authenticate('jwt', {
-	session: false,
+    session: false,
 }), BankingHistoryController.getHistoryBanking);
 
 router.get('/bankinghistorys/get-detail-banking/:id',passport.authenticate('jwt', {
