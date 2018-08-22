@@ -469,6 +469,115 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/app/models/Chat.ts":
+/*!********************************!*\
+  !*** ./src/app/models/Chat.ts ***!
+  \********************************/
+/*! exports provided: Chat */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Chat", function() { return Chat; });
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Record__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Record */ "./src/app/models/Record.ts");
+/* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./User */ "./src/app/models/User.ts");
+
+
+
+var Chat = /** @class */ (function () {
+    function Chat(props) {
+        if (props === void 0) { props = {
+            createdAt: null,
+            updatedAt: null,
+            _id: null,
+            contentTopic: null,
+            patientId: null,
+            doctorId: null,
+            status: null,
+            records: null
+        }; }
+        this.props = props;
+    }
+    Object.defineProperty(Chat.prototype, "contentTopic", {
+        get: function () {
+            return this.props.contentTopic;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Chat.prototype, "createdAt", {
+        get: function () {
+            return this.props.createdAt;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Chat.prototype, "createdAtFormatted", {
+        get: function () {
+            if (!this.props.createdAt) {
+                return '';
+            }
+            return moment__WEBPACK_IMPORTED_MODULE_0__(this.props.createdAt).format('YYYY/MM/DD hh:mm');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Chat.prototype, "updatedAt", {
+        get: function () {
+            return this.props.updatedAt;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Chat.prototype, "record", {
+        get: function () {
+            return this.props.records && this.props.records.length > 0 ? this.props.records.map(function (obj) { return new _Record__WEBPACK_IMPORTED_MODULE_1__["Record"](obj); }) : [];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Chat.prototype, "doctorInfo", {
+        get: function () {
+            return new _User__WEBPACK_IMPORTED_MODULE_2__["User"](this.props.doctorId);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Chat.prototype, "patientInfo", {
+        get: function () {
+            return new _User__WEBPACK_IMPORTED_MODULE_2__["User"](this.props.patientId);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Chat.prototype, "status", {
+        get: function () {
+            return this.props.status;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Chat.prototype, "statusString", {
+        get: function () {
+            if (this.props.status === 2) {
+                return 'Đã hoàn thành';
+            }
+            else {
+                return 'Chưa hoàn thành';
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Chat;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/models/ChatHistory.ts":
 /*!***************************************!*\
   !*** ./src/app/models/ChatHistory.ts ***!
@@ -989,6 +1098,233 @@ var FromUserInfo = /** @class */ (function () {
     });
     return FromUserInfo;
 }());
+
+
+/***/ }),
+
+/***/ "./src/app/models/Record.ts":
+/*!**********************************!*\
+  !*** ./src/app/models/Record.ts ***!
+  \**********************************/
+/*! exports provided: Record */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Record", function() { return Record; });
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+
+var Record = /** @class */ (function () {
+    function Record(props) {
+        if (props === void 0) { props = {
+            createdAt: null,
+            recorderID: null,
+            type: null,
+            value: null
+        }; }
+        this.props = props;
+    }
+    Object.defineProperty(Record.prototype, "createdAt", {
+        get: function () {
+            return this.props.createdAt;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Record.prototype, "createdAtFormatted", {
+        get: function () {
+            if (!this.props.createdAt) {
+                return '';
+            }
+            return moment__WEBPACK_IMPORTED_MODULE_0__(this.props.createdAt).format('YYYY/MM/DD hh:mm');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Record.prototype, "recorderId", {
+        get: function () {
+            return this.props.recorderID;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Record.prototype, "type", {
+        get: function () {
+            return this.props.type;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Record.prototype, "value", {
+        get: function () {
+            return this.props.value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Record;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/models/Report.ts":
+/*!**********************************!*\
+  !*** ./src/app/models/Report.ts ***!
+  \**********************************/
+/*! exports provided: Report */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Report", function() { return Report; });
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _User__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./User */ "./src/app/models/User.ts");
+
+
+var Report = /** @class */ (function () {
+    function Report(props) {
+        if (props === void 0) { props = {
+            status: null,
+            createdAt: null,
+            updatedAt: null,
+            _id: null,
+            idReporter: null,
+            idPersonBeingReported: null,
+            reason: null,
+            idConversation: null,
+            type: null,
+            punish: null,
+        }; }
+        this.props = props;
+    }
+    Object.defineProperty(Report.prototype, "status", {
+        get: function () {
+            return this.props.status;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Report.prototype, "punish", {
+        get: function () {
+            return this.props.punish;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Report.prototype, "statusString", {
+        get: function () {
+            if (this.status) {
+                return 'Đã xử lý';
+            }
+            else {
+                return 'Chưa xử lý';
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Report.prototype, "createdAt", {
+        get: function () {
+            return this.props.createdAt;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Report.prototype, "createdAtFormatted", {
+        get: function () {
+            if (!this.props.createdAt) {
+                return '';
+            }
+            return moment__WEBPACK_IMPORTED_MODULE_0__(this.props.createdAt).format('YYYY/MM/DD hh:mm');
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Report.prototype, "updatedAt", {
+        get: function () {
+            return this.props.updatedAt;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Report.prototype, "id", {
+        get: function () {
+            return this.props._id;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Report.prototype, "reason", {
+        get: function () {
+            return this.props.reason;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Report.prototype, "idConversation", {
+        get: function () {
+            return this.props.idConversation;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Report.prototype, "reporter", {
+        get: function () {
+            return new _User__WEBPACK_IMPORTED_MODULE_1__["User"](this.props.idReporter);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Report.prototype, "fullNameReporter", {
+        get: function () {
+            return this.reporter.fullName;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Report.prototype, "personBeingReported", {
+        get: function () {
+            return new _User__WEBPACK_IMPORTED_MODULE_1__["User"](this.props.idPersonBeingReported);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Report.prototype, "fullNamePersonBeingReported", {
+        get: function () {
+            return this.personBeingReported.fullName;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Report.prototype, "type", {
+        get: function () {
+            return this.props.type;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Report.prototype, "typeString", {
+        get: function () {
+            if (this.props.type === 1) {
+                return 'chat';
+            }
+            else if (this.props.type === 2) {
+                return 'video call';
+            }
+            else {
+                return '';
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Report;
+}());
+
 
 
 /***/ }),
@@ -1664,7 +2000,7 @@ var PatientInfo = /** @class */ (function () {
 /*!*********************************!*\
   !*** ./src/app/models/index.ts ***!
   \*********************************/
-/*! exports provided: User, Message, Specialist, ChatHistory, VideoCallHistory, PaymentHistory, TypeAdvisory */
+/*! exports provided: User, Message, Specialist, ChatHistory, VideoCallHistory, PaymentHistory, TypeAdvisory, Report, Record, Chat */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1689,6 +2025,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _TypeAdvisory__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TypeAdvisory */ "./src/app/models/TypeAdvisory.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TypeAdvisory", function() { return _TypeAdvisory__WEBPACK_IMPORTED_MODULE_6__["TypeAdvisory"]; });
+
+/* harmony import */ var _Report__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Report */ "./src/app/models/Report.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Report", function() { return _Report__WEBPACK_IMPORTED_MODULE_7__["Report"]; });
+
+/* harmony import */ var _Record__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Record */ "./src/app/models/Record.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Record", function() { return _Record__WEBPACK_IMPORTED_MODULE_8__["Record"]; });
+
+/* harmony import */ var _Chat__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Chat */ "./src/app/models/Chat.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Chat", function() { return _Chat__WEBPACK_IMPORTED_MODULE_9__["Chat"]; });
+
+
+
 
 
 
@@ -1786,7 +2134,8 @@ var AppModule = /** @class */ (function () {
                 _services__WEBPACK_IMPORTED_MODULE_8__["VideoCallServices"],
                 _services__WEBPACK_IMPORTED_MODULE_8__["PaymentServices"],
                 _services__WEBPACK_IMPORTED_MODULE_8__["TypeAdvisoryServices"],
-                _services__WEBPACK_IMPORTED_MODULE_8__["SpecialistServices"]
+                _services__WEBPACK_IMPORTED_MODULE_8__["SpecialistServices"],
+                _services__WEBPACK_IMPORTED_MODULE_8__["ReportServices"]
             ],
             bootstrap: [_components__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]]
         })
@@ -1950,6 +2299,328 @@ var DeletionConfirmModalComponent = /** @class */ (function () {
 }());
 
 
+
+/***/ }),
+
+/***/ "./src/app/modules/core/components/DetailChatComponent/detail-chat-modal.component.html":
+/*!**********************************************************************************************!*\
+  !*** ./src/app/modules/core/components/DetailChatComponent/detail-chat-modal.component.html ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2 mat-dialog-title>Thông tin chi tiết chat</h2>\r\n<mat-dialog-content style=\"min-width: 500px\">\r\n    <table>\r\n        <tbody>\r\n        <tr>\r\n            <td class=\"label\">Bệnh nhân:</td>\r\n            <td>{{chatDetail?.patientInfo.fullName}}</td>\r\n        </tr>\r\n        <tr>\r\n            <td class=\"label\">Bác sĩ:</td>\r\n            <td>{{chatDetail?.doctorInfo.fullName}}</td>\r\n        </tr>\r\n        <tr>\r\n            <td class=\"label\">Ngày tạo:</td>\r\n            <td>{{chatDetail?.createdAtFormatted}}</td>\r\n        </tr>\r\n        <tr>\r\n            <td class=\"label\">Trạng thái:</td>\r\n            <td>{{chatDetail?.statusString}}</td>\r\n        </tr>\r\n        <tr>\r\n            <td class=\"label\">Nội dung câu hỏi:</td>\r\n            <td>{{chatDetail?.contentTopic}}</td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n    <mat-accordion>\r\n        <mat-expansion-panel>\r\n            <mat-expansion-panel-header (click)=\"panelOpenState = !panelOpenState\">\r\n                <mat-panel-title>\r\n                    Chi tiết cuộc chat\r\n                </mat-panel-title>\r\n                <mat-panel-description>\r\n                    Click để {{panelOpenState ? 'mở' : 'đóng'}}\r\n                </mat-panel-description>\r\n            </mat-expansion-panel-header>\r\n            <div *ngIf=\"chatDetail.record.length === 0\">\r\n                Không có record chat nào\r\n            </div>\r\n            <div id=\"chat-messages\" *ngIf=\"chatDetail.record.length > 0\">\r\n                <div *ngFor=\"let record of chatDetail?.record;trackBy: trackByFn\" >\r\n                    <div *ngIf=\"record?.recorderId === chatDetail.doctorInfo.id\" class=\"message\">\r\n                        <img [src]=\"chatDetail.doctorInfo.avatar\" />\r\n                        <div class=\"bubble\">\r\n                            <p *ngIf=\"record.type === 1\">{{record.value}}</p>\r\n                            <p *ngIf=\"record.type === 2\"><img class=\"chat-img\" [src]=\"record.value\" (click)=\"previewImage(record.value)\"></p>\r\n                            <div class=\"corner\"></div>\r\n                            <span>{{record?.createdAtFormatted}}</span>\r\n                        </div>\r\n                    </div>\r\n                    <div *ngIf=\"record?.recorderId === chatDetail.patientInfo.id\" class=\"message right\">\r\n                        <img [src]=\"chatDetail.patientInfo.avatar\" />\r\n                        <div class=\"bubble\">\r\n                            <p *ngIf=\"record.type === 1\">{{record.value}}</p>\r\n                            <p *ngIf=\"record.type === 2\"><img class=\"chat-img\" [src]=\"record.value\" (click)=\"previewImage(record.value)\"></p>\r\n                            <div class=\"corner\"></div>\r\n                            <span>{{record?.createdAtFormatted}}</span>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </mat-expansion-panel>\r\n    </mat-accordion>\r\n</mat-dialog-content>\r\n<mat-dialog-actions>\r\n    <button mat-raised-button color=\"primary\" (click)=\"ok()\">OK</button>\r\n</mat-dialog-actions>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/core/components/DetailChatComponent/detail-chat-modal.component.ts":
+/*!********************************************************************************************!*\
+  !*** ./src/app/modules/core/components/DetailChatComponent/detail-chat-modal.component.ts ***!
+  \********************************************************************************************/
+/*! exports provided: DetailChatModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DetailChatModalComponent", function() { return DetailChatModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../models */ "./src/app/models/index.ts");
+/* harmony import */ var _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../services */ "./src/app/services/index.ts");
+/* harmony import */ var _ImageViewModalComponent_image_view_modal_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../ImageViewModalComponent/image-view-modal.component */ "./src/app/modules/core/components/ImageViewModalComponent/image-view-modal.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+var DetailChatModalComponent = /** @class */ (function () {
+    function DetailChatModalComponent(dialogRef, chatServices, dialog, commonServices, data) {
+        this.dialogRef = dialogRef;
+        this.chatServices = chatServices;
+        this.dialog = dialog;
+        this.commonServices = commonServices;
+        this.data = data;
+        this.panelOpenState = true;
+        if (data && data.id) {
+            this.getReport(data.id);
+        }
+    }
+    DetailChatModalComponent.prototype.ok = function () {
+        this.dialogRef.close('ok');
+    };
+    DetailChatModalComponent.prototype.cancel = function () {
+        this.dialogRef.close();
+    };
+    DetailChatModalComponent.prototype.previewImage = function (data) {
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogConfig"]();
+        dialogConfig.disableClose = false;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {
+            image: data
+        };
+        var dialogRef = this.dialog.open(_ImageViewModalComponent_image_view_modal_component__WEBPACK_IMPORTED_MODULE_5__["ImageViewModalComponent"], dialogConfig);
+        dialogRef.afterClosed().subscribe(function (result) {
+        });
+    };
+    DetailChatModalComponent.prototype.getReport = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res, userRes, e_1, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.chatServices.getChatTopicById(id).toPromise()];
+                    case 1:
+                        res = _a.sent();
+                        userRes = res && res.objConversation ? res.objConversation : null;
+                        if (userRes) {
+                            this.chatDetail = new _models__WEBPACK_IMPORTED_MODULE_2__["Chat"](userRes);
+                            console.log(this.chatDetail.record);
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_1 = _a.sent();
+                        if (e_1 instanceof _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpErrorResponse"]) {
+                            error = e_1 && e_1.error && e_1.error.error ? e_1.error.error : '';
+                            this.commonServices.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_2__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    DetailChatModalComponent.prototype.trackByFn = function (index, item) {
+        return index;
+    };
+    DetailChatModalComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-dialog-confirm-delete',
+            template: __webpack_require__(/*! ./detail-chat-modal.component.html */ "./src/app/modules/core/components/DetailChatComponent/detail-chat-modal.component.html"),
+            styles: [__webpack_require__(/*! ./detail-chat-model.component.scss */ "./src/app/modules/core/components/DetailChatComponent/detail-chat-model.component.scss")]
+        }),
+        __param(4, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"],
+            _services__WEBPACK_IMPORTED_MODULE_4__["ChatServices"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"],
+            _services__WEBPACK_IMPORTED_MODULE_4__["CommonServices"], Object])
+    ], DetailChatModalComponent);
+    return DetailChatModalComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/core/components/DetailChatComponent/detail-chat-model.component.scss":
+/*!**********************************************************************************************!*\
+  !*** ./src/app/modules/core/components/DetailChatComponent/detail-chat-model.component.scss ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".label {\n  padding: 10px 10px 10px 0;\n  font-weight: bold; }\n\n.detail {\n  font-size: 18px;\n  min-width: 400px;\n  min-height: 300px; }\n\n.icon {\n  cursor: pointer;\n  margin-left: 8px;\n  color: #00a5ff; }\n\n#chat-messages {\n  margin-top: 30px;\n  overflow-x: hidden;\n  overflow-y: hidden;\n  padding-right: 20px;\n  transition: all 200ms cubic-bezier(0, 0.995, 0.99, 1); }\n\n#chat-messages.animate {\n  opacity: 1;\n  margin-top: 0; }\n\n#chat-messages div label {\n  color: #aab8c2;\n  font-weight: 600;\n  font-size: 12px;\n  text-align: center;\n  margin: 15px 0;\n  width: 290px;\n  display: block; }\n\n#chat-messages div div.message {\n  padding: 0 0 30px 58px;\n  clear: both;\n  margin-bottom: 65px;\n  word-break: break-all;\n  word-wrap: break-word; }\n\n#chat-messages div div.message.right {\n  padding: 0 58px 30px 0;\n  margin-right: -19px;\n  margin-left: 19px; }\n\n#chat-messages div .message img {\n  float: left;\n  margin-left: -38px;\n  border-radius: 50%;\n  width: 30px;\n  margin-top: 12px; }\n\n#chat-messages div div.message.right img {\n  float: right;\n  margin-left: 0;\n  margin-right: -38px; }\n\n.message .bubble {\n  background: #f0f4f7;\n  font-size: 13px;\n  font-weight: 600;\n  padding: 12px 13px;\n  border-radius: 5px 5px 5px 0px;\n  color: #8495a3;\n  position: relative;\n  float: left;\n  min-width: 80px; }\n\n#chat-messages div div.message.right .bubble {\n  float: right;\n  border-radius: 5px 5px 0px 5px; }\n\n.bubble .corner {\n  background: url(\"https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/bubble-corner.png\") 0 0 no-repeat;\n  position: absolute;\n  width: 7px;\n  height: 7px;\n  left: -5px;\n  bottom: 0; }\n\ndiv.message.right .corner {\n  background: url(\"https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/bubble-cornerR.png\") 0 0 no-repeat;\n  left: auto;\n  right: -5px; }\n\n.bubble span {\n  color: #aab8c2;\n  font-size: 11px;\n  position: absolute;\n  right: 0;\n  bottom: -22px; }\n\n.chat-img {\n  border-radius: 0% !important;\n  width: 100px !important;\n  margin-left: 0px !important;\n  margin-top: 0px !important;\n  margin-right: 0px !important;\n  float: unset !important; }\n\n#chatview {\n  overflow: hidden;\n  border-radius: 6px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/core/components/DetailVideoCallComponent/detail-video-call-modal.component.html":
+/*!*********************************************************************************************************!*\
+  !*** ./src/app/modules/core/components/DetailVideoCallComponent/detail-video-call-modal.component.html ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2 mat-dialog-title>Thông tin chi tiết chat</h2>\r\n<mat-dialog-content style=\"min-width: 500px\">\r\n    <table>\r\n        <tbody>\r\n        <tr>\r\n            <td class=\"label\">Bệnh nhân:</td>\r\n            <td>{{videoCallDetail?.patientDetail.fullName}}</td>\r\n        </tr>\r\n        <tr>\r\n            <td class=\"label\">Bác sĩ:</td>\r\n            <td>{{videoCallDetail?.doctorDetail.fullName}}</td>\r\n        </tr>\r\n        <tr>\r\n            <td class=\"label\">Ngày tạo:</td>\r\n            <td>{{videoCallDetail?.createdAtFormatted}}</td>\r\n        </tr>\r\n        <tr>\r\n            <td class=\"label\">Thời gian gọi:</td>\r\n            <td>{{videoCallDetail?.callLength}}</td>\r\n        </tr>\r\n        <tr>\r\n            <td class=\"label\">Link video:</td>\r\n            <td><a target=\"_blank\" routerLink=\"/api/download/{{videoCallDetail.linkVideo}}\"><i class=\"icon fas fa-download\"></i></a></td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n</mat-dialog-content>\r\n<mat-dialog-actions>\r\n    <button mat-raised-button color=\"primary\" (click)=\"ok()\">OK</button>\r\n</mat-dialog-actions>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/core/components/DetailVideoCallComponent/detail-video-call-modal.component.ts":
+/*!*******************************************************************************************************!*\
+  !*** ./src/app/modules/core/components/DetailVideoCallComponent/detail-video-call-modal.component.ts ***!
+  \*******************************************************************************************************/
+/*! exports provided: DetailVideoCallModalComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DetailVideoCallModalComponent", function() { return DetailVideoCallModalComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../models */ "./src/app/models/index.ts");
+/* harmony import */ var _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../services */ "./src/app/services/index.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+var DetailVideoCallModalComponent = /** @class */ (function () {
+    function DetailVideoCallModalComponent(dialogRef, videoCallServices, dialog, commonServices, data) {
+        this.dialogRef = dialogRef;
+        this.videoCallServices = videoCallServices;
+        this.dialog = dialog;
+        this.commonServices = commonServices;
+        this.data = data;
+        if (data && data.id) {
+            this.getReport(data.id);
+        }
+    }
+    DetailVideoCallModalComponent.prototype.ok = function () {
+        this.dialogRef.close('ok');
+    };
+    DetailVideoCallModalComponent.prototype.cancel = function () {
+        this.dialogRef.close();
+    };
+    DetailVideoCallModalComponent.prototype.getReport = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res, userRes, e_1, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.videoCallServices.getVideoCallHistoryById(id).toPromise()];
+                    case 1:
+                        res = _a.sent();
+                        userRes = res && res.objDetailVideo ? res.objDetailVideo : null;
+                        if (userRes) {
+                            this.videoCallDetail = new _models__WEBPACK_IMPORTED_MODULE_2__["VideoCallHistory"](userRes);
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_1 = _a.sent();
+                        if (e_1 instanceof _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpErrorResponse"]) {
+                            error = e_1 && e_1.error && e_1.error.error ? e_1.error.error : '';
+                            this.commonServices.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_2__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    DetailVideoCallModalComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-dialog-confirm-delete',
+            template: __webpack_require__(/*! ./detail-video-call-modal.component.html */ "./src/app/modules/core/components/DetailVideoCallComponent/detail-video-call-modal.component.html"),
+            styles: [__webpack_require__(/*! ./detail-video-call-model.component.scss */ "./src/app/modules/core/components/DetailVideoCallComponent/detail-video-call-model.component.scss")]
+        }),
+        __param(4, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"],
+            _services__WEBPACK_IMPORTED_MODULE_4__["VideoCallServices"],
+            _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"],
+            _services__WEBPACK_IMPORTED_MODULE_4__["CommonServices"], Object])
+    ], DetailVideoCallModalComponent);
+    return DetailVideoCallModalComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/core/components/DetailVideoCallComponent/detail-video-call-model.component.scss":
+/*!*********************************************************************************************************!*\
+  !*** ./src/app/modules/core/components/DetailVideoCallComponent/detail-video-call-model.component.scss ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".label {\n  padding: 10px 10px 10px 0;\n  font-weight: bold; }\n\n.detail {\n  font-size: 18px;\n  min-width: 400px;\n  min-height: 300px; }\n\n.icon {\n  cursor: pointer;\n  margin-left: 8px;\n  color: #00a5ff; }\n\na:focus {\n  border: none;\n  box-shadow: none; }\n"
 
 /***/ }),
 
@@ -2266,7 +2937,7 @@ var FullscreenComponent = /** @class */ (function () {
 /*!**************************************************!*\
   !*** ./src/app/modules/core/components/index.ts ***!
   \**************************************************/
-/*! exports provided: DeletionConfirmModalComponent, FullscreenComponent, SearchBarComponent, SidebarComponent, SidemenuComponent, SidemenuItemComponent, ToolbarComponent, ToolbarNotificationComponent, UserMenuComponent, FlashMessageComponent, FlashMessageContainerComponent, ImageViewModalComponent */
+/*! exports provided: DeletionConfirmModalComponent, FullscreenComponent, SearchBarComponent, SidebarComponent, SidemenuComponent, SidemenuItemComponent, ToolbarComponent, ToolbarNotificationComponent, UserMenuComponent, FlashMessageComponent, FlashMessageContainerComponent, ImageViewModalComponent, DetailChatModalComponent, DetailVideoCallModalComponent */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2306,6 +2977,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _ImageViewModalComponent_image_view_modal_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ImageViewModalComponent/image-view-modal.component */ "./src/app/modules/core/components/ImageViewModalComponent/image-view-modal.component.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ImageViewModalComponent", function() { return _ImageViewModalComponent_image_view_modal_component__WEBPACK_IMPORTED_MODULE_11__["ImageViewModalComponent"]; });
+
+/* harmony import */ var _DetailChatComponent_detail_chat_modal_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./DetailChatComponent/detail-chat-modal.component */ "./src/app/modules/core/components/DetailChatComponent/detail-chat-modal.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DetailChatModalComponent", function() { return _DetailChatComponent_detail_chat_modal_component__WEBPACK_IMPORTED_MODULE_12__["DetailChatModalComponent"]; });
+
+/* harmony import */ var _DetailVideoCallComponent_detail_video_call_modal_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./DetailVideoCallComponent/detail-video-call-modal.component */ "./src/app/modules/core/components/DetailVideoCallComponent/detail-video-call-modal.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DetailVideoCallModalComponent", function() { return _DetailVideoCallComponent_detail_video_call_modal_component__WEBPACK_IMPORTED_MODULE_13__["DetailVideoCallModalComponent"]; });
+
+
 
 
 
@@ -3124,7 +3803,9 @@ var CoreModule = /** @class */ (function () {
                 _components__WEBPACK_IMPORTED_MODULE_2__["DeletionConfirmModalComponent"],
                 _components__WEBPACK_IMPORTED_MODULE_2__["FlashMessageComponent"],
                 _components__WEBPACK_IMPORTED_MODULE_2__["FlashMessageContainerComponent"],
-                _components__WEBPACK_IMPORTED_MODULE_2__["ImageViewModalComponent"]
+                _components__WEBPACK_IMPORTED_MODULE_2__["ImageViewModalComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_2__["DetailChatModalComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_2__["DetailVideoCallModalComponent"]
             ],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
@@ -3135,6 +3816,7 @@ var CoreModule = /** @class */ (function () {
                 _angular_material_chips__WEBPACK_IMPORTED_MODULE_8__["MatChipsModule"],
                 _angular_router__WEBPACK_IMPORTED_MODULE_11__["RouterModule"],
                 _ngx_translate_core__WEBPACK_IMPORTED_MODULE_14__["TranslateModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_10__["MatExpansionModule"],
                 ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_12__["PerfectScrollbarModule"],
                 _angular_flex_layout__WEBPACK_IMPORTED_MODULE_13__["FlexLayoutModule"],
                 _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__["MatToolbarModule"],
@@ -3155,9 +3837,10 @@ var CoreModule = /** @class */ (function () {
                 _components__WEBPACK_IMPORTED_MODULE_2__["SidebarComponent"],
                 _components__WEBPACK_IMPORTED_MODULE_2__["UserMenuComponent"],
                 _components__WEBPACK_IMPORTED_MODULE_2__["FlashMessageComponent"],
-                _components__WEBPACK_IMPORTED_MODULE_2__["FlashMessageContainerComponent"]
+                _components__WEBPACK_IMPORTED_MODULE_2__["FlashMessageContainerComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_2__["DetailVideoCallModalComponent"]
             ],
-            entryComponents: [_components__WEBPACK_IMPORTED_MODULE_2__["DeletionConfirmModalComponent"], _components__WEBPACK_IMPORTED_MODULE_2__["ImageViewModalComponent"]],
+            entryComponents: [_components__WEBPACK_IMPORTED_MODULE_2__["DeletionConfirmModalComponent"], _components__WEBPACK_IMPORTED_MODULE_2__["ImageViewModalComponent"], _components__WEBPACK_IMPORTED_MODULE_2__["DetailChatModalComponent"], _components__WEBPACK_IMPORTED_MODULE_2__["DetailVideoCallModalComponent"]],
             providers: [
                 {
                     provide: ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_12__["PERFECT_SCROLLBAR_CONFIG"],
@@ -3177,7 +3860,7 @@ var CoreModule = /** @class */ (function () {
 /*!**********************************!*\
   !*** ./src/app/modules/index.ts ***!
   \**********************************/
-/*! exports provided: LoginModule, LazyLoadModule, CoreModule, MainModule, highlightJsFactory, UserListModule, TypeAdvisoryModule */
+/*! exports provided: LoginModule, LazyLoadModule, CoreModule, MainModule, highlightJsFactory, UserListModule, TypeAdvisoryModule, ReportsModule */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3201,6 +3884,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _type_advisory_type_advisory_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./type-advisory/type-advisory.module */ "./src/app/modules/type-advisory/type-advisory.module.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TypeAdvisoryModule", function() { return _type_advisory_type_advisory_module__WEBPACK_IMPORTED_MODULE_5__["TypeAdvisoryModule"]; });
+
+/* harmony import */ var _reports_reports_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./reports/reports.module */ "./src/app/modules/reports/reports.module.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReportsModule", function() { return _reports_reports_module__WEBPACK_IMPORTED_MODULE_6__["ReportsModule"]; });
+
 
 
 
@@ -3736,7 +4423,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************************!*\
   !*** ./src/app/modules/main/lazyloader.routes.ts ***!
   \***************************************************/
-/*! exports provided: appRoutes, userList, typeAdvisoryList, specialist */
+/*! exports provided: appRoutes, userList, typeAdvisoryList, specialist, reports */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3745,10 +4432,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userList", function() { return userList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "typeAdvisoryList", function() { return typeAdvisoryList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "specialist", function() { return specialist; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reports", function() { return reports; });
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components */ "./src/app/modules/main/components/index.ts");
 /* harmony import */ var _user_list_user_list_module__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../user-list/user-list.module */ "./src/app/modules/user-list/user-list.module.ts");
 /* harmony import */ var _type_advisory_type_advisory_module__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../type-advisory/type-advisory.module */ "./src/app/modules/type-advisory/type-advisory.module.ts");
 /* harmony import */ var _specialist_specialist_module__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../specialist/specialist.module */ "./src/app/modules/specialist/specialist.module.ts");
+/* harmony import */ var _reports_reports_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../reports/reports.module */ "./src/app/modules/reports/reports.module.ts");
+
 
 
 
@@ -3760,6 +4450,7 @@ var appRoutes = [{
             { path: 'users', loadChildren: userList },
             { path: 'type-advisories', loadChildren: typeAdvisoryList },
             { path: 'specialist', loadChildren: specialist },
+            { path: 'reports', loadChildren: reports },
         ]
     }];
 function userList() {
@@ -3770,6 +4461,9 @@ function typeAdvisoryList() {
 }
 function specialist() {
     return _specialist_specialist_module__WEBPACK_IMPORTED_MODULE_3__["SpecialistModule"];
+}
+function reports() {
+    return _reports_reports_module__WEBPACK_IMPORTED_MODULE_4__["ReportsModule"];
 }
 
 
@@ -3845,6 +4539,693 @@ var MainModule = /** @class */ (function () {
         })
     ], MainModule);
     return MainModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/reports/components/ReportDetailComponent/report-detail.component.html":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/modules/reports/components/ReportDetailComponent/report-detail.component.html ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<h2 mat-dialog-title>Thông tin report</h2>\r\n<mat-dialog-content class=\"detail\">\r\n    <table>\r\n        <tbody>\r\n        <tr>\r\n            <td class=\"label\">Người report:</td>\r\n            <td >{{report?.fullNameReporter}}<i class=\"icon fas fa-info-circle\" (click)=\"openUserDetail(report?.reporter?.id)\"></i></td>\r\n        </tr>\r\n        <tr>\r\n            <td class=\"label\">Người bị report:</td>\r\n            <td >{{report?.fullNamePersonBeingReported}}<i class=\"icon fas fa-info-circle\" (click)=\"openUserDetail(report?.personBeingReported?.id)\"></i></td>\r\n        </tr>\r\n        <tr >\r\n            <td class=\"label\">Ngày report:</td>\r\n            <td>{{report?.createdAtFormatted}}</td>\r\n        </tr>\r\n        <tr>\r\n            <td class=\"label\">Loại tư vấn:</td>\r\n            <td>{{report?.typeString}}&emsp;<i class=\"icon fas fa-info-circle\" (click)=\"openDetail()\"></i></td>\r\n        </tr>\r\n        <tr>\r\n            <td class=\"label\">Lý do:</td>\r\n            <td>{{report?.reason}}&emsp;</td>\r\n        </tr>\r\n        <tr>\r\n            <td class=\"label\">Trạng thái:</td>\r\n            <td>{{report?.statusString}}&emsp;</td>\r\n        </tr>\r\n        <tr>\r\n            <td class=\"label\">Xử lý:</td>\r\n            <td>\r\n                <mat-select style=\"width: 230px\" [disabled]=\"report?.status\" placeholder=\"Chọn 1 hình thức xử lý\" (selectionChange)=\"changeSolution($event.value)\">\r\n                    <mat-option [value]=\"1\">Trừ 1 sao đánh giá hệ thống</mat-option>\r\n                    <mat-option [value]=\"2\">Trừ 1.5 sao đánh giá hệ thống</mat-option>\r\n                    <mat-option [value]=\"3\">Trừ 2 sao đánh giá hệ thống</mat-option>\r\n                    <mat-option [value]=\"4\">Trừ 2.5 sao đánh giá hệ thống</mat-option>\r\n                    <mat-option [value]=\"5\">Block</mat-option>\r\n                    <mat-option [value]=\"6\">Không xử lý</mat-option>\r\n                </mat-select>\r\n            </td>\r\n        </tr>\r\n        </tbody>\r\n    </table>\r\n</mat-dialog-content>\r\n<mat-dialog-actions>\r\n    <button *ngIf=\"!report.status\" [disabled]=\"solution === -1\" mat-raised-button color=\"primary\" (click)=\"ok()\">Lưu</button>\r\n    <button *ngIf=\"report.status\" mat-raised-button color=\"primary\" (click)=\"ok()\">Ok</button>\r\n    <button *ngIf=\"!report.status\" mat-raised-button (click)=\"cancel()\">Hủy</button>\r\n</mat-dialog-actions>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/reports/components/ReportDetailComponent/report-detail.component.scss":
+/*!***********************************************************************************************!*\
+  !*** ./src/app/modules/reports/components/ReportDetailComponent/report-detail.component.scss ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".label {\n  padding: 10px 10px 10px 0;\n  font-weight: bold; }\n\n.detail {\n  font-size: 18px;\n  min-width: 400px;\n  min-height: 300px; }\n\n.icon {\n  cursor: pointer;\n  margin-left: 8px;\n  color: #00a5ff; }\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/reports/components/ReportDetailComponent/report-detail.component.ts":
+/*!*********************************************************************************************!*\
+  !*** ./src/app/modules/reports/components/ReportDetailComponent/report-detail.component.ts ***!
+  \*********************************************************************************************/
+/*! exports provided: ReportDetailComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReportDetailComponent", function() { return ReportDetailComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../models */ "./src/app/models/index.ts");
+/* harmony import */ var _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../services */ "./src/app/services/index.ts");
+/* harmony import */ var _user_detail_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../user-detail/components */ "./src/app/modules/user-detail/components/index.ts");
+/* harmony import */ var _core_components_DetailChatComponent_detail_chat_modal_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../core/components/DetailChatComponent/detail-chat-modal.component */ "./src/app/modules/core/components/DetailChatComponent/detail-chat-modal.component.ts");
+/* harmony import */ var _core_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../core/components */ "./src/app/modules/core/components/index.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (undefined && undefined.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+
+
+var ReportDetailComponent = /** @class */ (function () {
+    function ReportDetailComponent(dialogRef, commonServices, dialog, data, reportServices) {
+        this.dialogRef = dialogRef;
+        this.commonServices = commonServices;
+        this.dialog = dialog;
+        this.data = data;
+        this.reportServices = reportServices;
+        this.solution = -1;
+        this.getReport(data.id);
+    }
+    ReportDetailComponent.prototype.ok = function () {
+        this.dialogRef.close('ok');
+    };
+    ReportDetailComponent.prototype.cancel = function () {
+        this.dialogRef.close();
+    };
+    ReportDetailComponent.prototype.changeSolution = function (value) {
+        this.solution = value;
+    };
+    ReportDetailComponent.prototype.openUserDetail = function (userId) {
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogConfig"]();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {
+            id: userId,
+            type: 2
+        };
+        var dialogRef = this.dialog.open(_user_detail_components__WEBPACK_IMPORTED_MODULE_5__["UserDetailComponent"], dialogConfig);
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result && result === 'ok') {
+            }
+        });
+    };
+    ReportDetailComponent.prototype.openDetail = function () {
+        if (this.report.type === 1) {
+            this.openDetailChat(this.report.idConversation);
+        }
+        else if (this.report.type === 2) {
+            this.openDetailVideoCall(this.report.idConversation);
+        }
+    };
+    ReportDetailComponent.prototype.openDetailChat = function (idChat) {
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogConfig"]();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {
+            id: idChat,
+        };
+        var dialogRef = this.dialog.open(_core_components_DetailChatComponent_detail_chat_modal_component__WEBPACK_IMPORTED_MODULE_6__["DetailChatModalComponent"], dialogConfig);
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result && result === 'ok') {
+            }
+        });
+    };
+    ReportDetailComponent.prototype.openDetailVideoCall = function (idVideoCall) {
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogConfig"]();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {
+            id: idVideoCall,
+        };
+        var dialogRef = this.dialog.open(_core_components__WEBPACK_IMPORTED_MODULE_7__["DetailVideoCallModalComponent"], dialogConfig);
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result && result === 'ok') {
+            }
+        });
+    };
+    ReportDetailComponent.prototype.getReport = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res, userRes, e_1, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.reportServices.getById(id).toPromise()];
+                    case 1:
+                        res = _a.sent();
+                        userRes = res && res.report ? res.report : null;
+                        if (userRes) {
+                            this.report = new _models__WEBPACK_IMPORTED_MODULE_2__["Report"](userRes);
+                            this.solution = this.report.punish ? this.report.punish : -1;
+                        }
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_1 = _a.sent();
+                        if (e_1 instanceof _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpErrorResponse"]) {
+                            error = e_1 && e_1.error && e_1.error.error ? e_1.error.error : '';
+                            this.commonServices.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_2__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ReportDetailComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-report-detail',
+            template: __webpack_require__(/*! ./report-detail.component.html */ "./src/app/modules/reports/components/ReportDetailComponent/report-detail.component.html"),
+            styles: [__webpack_require__(/*! ./report-detail.component.scss */ "./src/app/modules/reports/components/ReportDetailComponent/report-detail.component.scss")]
+        }),
+        __param(3, Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Inject"])(_angular_material__WEBPACK_IMPORTED_MODULE_1__["MAT_DIALOG_DATA"])),
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialogRef"],
+            _services__WEBPACK_IMPORTED_MODULE_4__["CommonServices"], _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatDialog"], Object, _services__WEBPACK_IMPORTED_MODULE_4__["ReportServices"]])
+    ], ReportDetailComponent);
+    return ReportDetailComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/reports/components/ReportListComponent/report-list.component.html":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/modules/reports/components/ReportListComponent/report-list.component.html ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div fxLayout=\"column\" class=\"components-container-gt-xs\" [ngClass.xs]=\"'components-container-xs'\" fxLayoutGap=\"20px\">\r\n    <div fxFlex class=\"table-component-holder mat-elevation-z4\">\r\n        <mat-toolbar class=\"table-header\" style=\"padding: 16px\">\r\n            <!--<h1 class=\"mat-headline center-align\">Danh sách người dùng</h1>-->\r\n            <form class=\"center-align\">\r\n                <mat-form-field class=\"length-input\">\r\n                    <input #keyWord matInput [ngModelOptions]=\"{standalone: true}\" [placeholder]=\"'Tên người report/người bị report'\"\r\n                           maxlength=\"200\"\r\n                           [(ngModel)]=\"model.keyword\" (blur)=\"onBlurKeyWord()\" (keyup.enter)=\"onEnterSearchKey()\">\r\n                </mat-form-field>\r\n\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <input matInput [max]=\"endDatetime\" (click)=\"openStartDate()\" [matDatepicker]=\"startDate\"\r\n                           placeholder=\"Từ ngày\" (dateChange)=\"startDateChange($event)\" [readonly]=\"true\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"startDate\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #startDate></mat-datepicker>\r\n                </mat-form-field>\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <input matInput [min]=\"startDatetime\" (click)=\"openEndDate()\" [matDatepicker]=\"endDate\"\r\n                           placeholder=\"Đến ngày\" (dateChange)=\"endDateChange($event)\" [readonly]=\"true\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #endDate></mat-datepicker>\r\n                </mat-form-field>\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <mat-select placeholder=\"Trạng thái\" (selectionChange)=\"onChangeStatus($event.value)\">\r\n                        <mat-option [value]=\"'all'\">Toàn bộ</mat-option>\r\n                        <mat-option [value]=\"'Chưa xử lý'\">Chưa xử lý</mat-option>\r\n                        <mat-option [value]=\"'Đã xử lý'\">Đã xử lý</mat-option>\r\n                    </mat-select>\r\n                </mat-form-field>\r\n            </form>\r\n        </mat-toolbar>\r\n        <div class=\"table-container\">\r\n            <table matSort (matSortChange)=\"onSort($event)\" [matSortActive]=\"model.sort.active\"\r\n                   [matSortDirection]=\"model.sort.direction\">\r\n                <thead>\r\n                <tr>\r\n                    <th mat-sort-header=\"{{th.key}}\" scope=\"col\" *ngFor=\"let th of headers\">\r\n                        {{th.name}}\r\n                    </th>\r\n                    <th class=\"icon\"></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n                <tr *ngFor=\"let row of historyItems let i=index\">\r\n                    <td [attr.data-label]=\"th.name\" *ngFor=\"let th of headers\">\r\n\r\n                        <span *ngIf=\"th.key!='action'\">\r\n                            {{row[th.key]}}\r\n                            <mat-chip selected=\"true\"\r\n                                      color=\"warn\"\r\n                                      matTooltip=\"{{row['duplicate_applications'].length}} duplicate entries\"\r\n                                      matTooltipPosition=\"right\"\r\n                                      *ngIf=\"th.key=='applicationNumber' && row['duplicate_applications'] != 'undefined' && row['duplicate_applications'] && row['duplicate_applications'].length > 0\">\r\n\t\t\t\t\t\t\t\t\t{{row['duplicate_applications'].length }}\r\n                            </mat-chip>\r\n                        </span>\r\n                    </td>\r\n                    <td class=\"icon\"><i class=\"far fa-edit\" (click)=\"openDetail(row)\"></i></td>\r\n                </tr>\r\n                </tbody>\r\n                <thead *matHeaderRowDef=\"headers\"></thead>\r\n                <tr *matRowDef=\"let row; columns: headers;\"></tr>\r\n            </table>\r\n            <mat-paginator [length]=\"pageLength\"\r\n                           [pageSize]=\"pageSize\"\r\n                           [pageIndex]=\"model.pageIndex\"\r\n                           [pageSizeOptions]=\"[ 5, 10, 25]\"\r\n                           (page)=\"nextPage($event)\">\r\n            </mat-paginator>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/reports/components/ReportListComponent/report-list.component.scss":
+/*!*******************************************************************************************!*\
+  !*** ./src/app/modules/reports/components/ReportListComponent/report-list.component.scss ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".table-header {\n  background-color: #3BCFAD;\n  color: white;\n  padding: 0 5px; }\n\n.table-container {\n  padding: 5px 15px 15px 15px; }\n\n.table-component-holder {\n  background-color: white; }\n\n.length-input {\n  width: 300px; }\n\n.margin-left-10 {\n  margin-left: 10px; }\n\n.content {\n  word-wrap: break-word;\n  word-break: break-all; }\n\n.icon {\n  cursor: pointer;\n  width: 40px; }\n\n:host .table-header {\n  display: inline-table;\n  white-space: unset; }\n\n:host .delete-icon {\n  color: red;\n  cursor: pointer; }\n\n:host .btn-add-staff {\n  float: right;\n  top: 20px;\n  right: 15px; }\n\ntable {\n  border: 1px solid #ccc;\n  border-collapse: collapse;\n  margin: 0;\n  padding: 0;\n  width: 100%;\n  table-layout: fixed; }\n\ntable caption {\n  font-size: 1.5em;\n  margin: .5em 0 .75em;\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable tr {\n  background: #f8f8f8;\n  border: 1px solid #ddd;\n  padding: .35em; }\n\ntable tr:nth-child(odd) td {\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable tr:nth-child(even) td {\n  background: rgba(145, 151, 187, 0.34);\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\n/deep/ .mat-sort-header-container {\n  justify-content: center; }\n\ntable th,\ntable td {\n  word-break: break-all;\n  word-wrap: break-word;\n  padding: .625em;\n  text-align: center;\n  font-family: Roboto,\"Helvetica Neue\",sans-serif; }\n\ntable th {\n  background: #cfcfcf;\n  font-size: .85em;\n  letter-spacing: .1em;\n  text-transform: uppercase; }\n\n@media screen and (max-width: 600px) {\n  .icon {\n    cursor: pointer;\n    width: auto; }\n  table {\n    border: 0; }\n  table caption {\n    font-size: 1.3em; }\n  table thead {\n    border: none;\n    clip: rect(0 0 0 0);\n    height: 1px;\n    margin: -1px;\n    overflow: hidden;\n    padding: 0;\n    position: absolute;\n    width: 1px; }\n  table tr {\n    border-bottom: 3px solid #ddd;\n    display: block;\n    margin-bottom: .625em; }\n  table td {\n    border-bottom: 1px solid #ddd;\n    display: block;\n    font-size: .8em;\n    text-align: right; }\n  table td:before {\n    /*\r\n        * aria-label has no advantage, it won't be read inside a table\r\n        content: attr(aria-label);\r\n        */\n    content: attr(data-label);\n    float: left;\n    font-weight: bold;\n    text-transform: uppercase; }\n  table td:last-child {\n    border-bottom: 0; } }\n\nmat-button-toggle-group {\n  cursor: pointer; }\n\n::ng-deep .mat-sort-header-container {\n  justify-content: center; }\n\n/* Structure */\n\n.example-container {\n  display: flex;\n  flex-direction: column;\n  min-width: 300px; }\n\n.example-header {\n  min-height: 64px;\n  display: flex;\n  align-items: center;\n  padding-left: 24px;\n  font-size: 20px; }\n\n.mat-table {\n  overflow: auto;\n  max-height: 500px; }\n\n.widgetHolder {\n  margin: 0 auto; }\n\n.widgetHolder .widgetHolder-content {\n    padding: 20px; }\n"
+
+/***/ }),
+
+/***/ "./src/app/modules/reports/components/ReportListComponent/report-list.component.ts":
+/*!*****************************************************************************************!*\
+  !*** ./src/app/modules/reports/components/ReportListComponent/report-list.component.ts ***!
+  \*****************************************************************************************/
+/*! exports provided: ReportListComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReportListComponent", function() { return ReportListComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _models__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../models */ "./src/app/models/index.ts");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../node_modules/@angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../services */ "./src/app/services/index.ts");
+/* harmony import */ var _ReportDetailComponent_report_detail_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../ReportDetailComponent/report-detail.component */ "./src/app/modules/reports/components/ReportDetailComponent/report-detail.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
+
+
+
+
+
+
+var ReportListComponent = /** @class */ (function () {
+    function ReportListComponent(reportServices, commonServices, dialog) {
+        this.reportServices = reportServices;
+        this.commonServices = commonServices;
+        this.dialog = dialog;
+        this.headers = [
+            {
+                name: 'Người tạo',
+                key: 'fullNameReporter',
+                order: 'asc'
+            },
+            {
+                name: 'Người bị report',
+                key: 'fullNamePersonBeingReported',
+                order: 'asc'
+            },
+            {
+                name: 'Ngày tạo',
+                key: 'createdAtFormatted',
+                order: 'asc'
+            },
+            {
+                name: 'Lý do',
+                key: 'reason',
+                order: 'asc'
+            },
+            {
+                name: 'Loại tư vấn',
+                key: 'typeString',
+                order: 'asc'
+            },
+            {
+                name: 'Trạng thái',
+                key: 'statusString',
+                order: 'asc'
+            }
+        ];
+        this.model = {
+            keyword: '',
+            startTime: null,
+            endTime: null,
+            sort: {
+                active: 'createdAtFormatted',
+                direction: 'desc'
+            },
+            status: 'all',
+            pageIndex: 0
+        };
+        this.pageSize = 10;
+        this.pageLength = 0;
+        this.getUserlist();
+    }
+    ReportListComponent.prototype.nextPage = function (event) {
+        this.historyItems = [];
+        this.model.pageIndex = event.pageIndex;
+        if ((event.pageIndex + 1) * event.pageSize > event.length) {
+            for (var i = 1 * event.pageIndex * event.pageSize; i < event.length; i++) {
+                this.historyItems = this.historyItems.concat([this.sortedlist[i]]);
+            }
+        }
+        else {
+            for (var i = 1 * event.pageIndex * event.pageSize; i < event.pageSize + event.pageIndex * event.pageSize; i++) {
+                this.historyItems = this.historyItems.concat([this.sortedlist[i]]);
+            }
+        }
+    };
+    ReportListComponent.prototype.onChangeStatus = function (value) {
+        this.model.status = value;
+        this.onSearch();
+    };
+    ReportListComponent.prototype.getPages = function () {
+        if (!this.sortedlist) {
+            return;
+        }
+        this.historyItems = [];
+        if (this.pageSize < this.sortedlist.length) {
+            for (var i = 0; i < this.pageSize; i++) {
+                this.historyItems = this.historyItems.concat([this.sortedlist[i]]);
+            }
+        }
+        else {
+            for (var i = 0; i < this.sortedlist.length; i++) {
+                this.historyItems = this.historyItems.concat([this.sortedlist[i]]);
+            }
+        }
+        this.pageLength = this.sortedlist.length;
+    };
+    ReportListComponent.prototype.openStartDate = function () {
+        this.startDatepicker.open();
+    };
+    ReportListComponent.prototype.openEndDate = function () {
+        this.endDatepicker.open();
+    };
+    ReportListComponent.prototype.onBlurKeyWord = function () {
+        this.onSearch();
+    };
+    ReportListComponent.prototype.onEnterSearchKey = function () {
+        this.keyWordRef.nativeElement.blur();
+    };
+    ReportListComponent.prototype.startDateChange = function (event) {
+        this.startDatetime = event.value;
+        this.model.startTime = event.value ? moment__WEBPACK_IMPORTED_MODULE_3__(event.value).format('YYYY/MM/DD') + ' 00:00' : '';
+        this.onSearch();
+    };
+    ReportListComponent.prototype.endDateChange = function (event) {
+        this.endDatetime = event.value;
+        this.model.endTime = event.value ? moment__WEBPACK_IMPORTED_MODULE_3__(event.value).format('YYYY/MM/DD') + ' 24:60' : '';
+        this.onSearch();
+    };
+    ReportListComponent.prototype.onSearch = function () {
+        var _this = this;
+        if (!this.reportList || this.reportList.length === 0) {
+            return;
+        }
+        this.model.keyword = this.model.keyword ? this.model.keyword.trim() : '';
+        this.searchedList = this.reportList.filter(function (obj) {
+            return (obj.fullNameReporter.toLowerCase().includes(_this.model.keyword.toLowerCase())
+                || obj.fullNamePersonBeingReported.toLowerCase().includes(_this.model.keyword.toLowerCase()));
+        });
+        if (this.model.startTime) {
+            this.searchedList = this.searchedList.filter(function (obj) { return obj.createdAtFormatted >= _this.model.startTime; });
+        }
+        if (this.model.endTime) {
+            this.searchedList = this.searchedList.filter(function (obj) { return obj.createdAtFormatted <= _this.model.endTime; });
+        }
+        if (this.model.status !== 'all') {
+            this.searchedList = this.searchedList.filter(function (obj) { return obj.statusString === _this.model.status; });
+        }
+        this.onSort(this.model.sort);
+    };
+    ReportListComponent.prototype.openDetail = function (row) {
+        var _this = this;
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogConfig"]();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {
+            id: row.id,
+        };
+        var dialogRef = this.dialog.open(_ReportDetailComponent_report_detail_component__WEBPACK_IMPORTED_MODULE_6__["ReportDetailComponent"], dialogConfig);
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result && result === 'ok') {
+                _this.getUserlist();
+            }
+        });
+    };
+    ReportListComponent.prototype.onSort = function (sort) {
+        var _this = this;
+        if (!sort) {
+            this.model.sort.active = '';
+            this.model.sort.direction = '';
+            return;
+        }
+        if (!this.searchedList) {
+            return;
+        }
+        var data = this.searchedList.slice();
+        this.model.sort.active = sort.active;
+        this.model.sort.direction = sort.direction;
+        this.model.pageIndex = 0;
+        if (!sort || !sort.active || sort.direction === '') {
+            this.sortedlist = data;
+            this.getPages();
+            return;
+        }
+        this.sortedlist = data.sort(function (a, b) {
+            var isAsc = _this.model.sort.direction === 'asc';
+            switch (_this.model.sort.active) {
+                case 'fullNameReporter':
+                    return compare(a.fullNameReporter, b.fullNameReporter, isAsc);
+                case 'fullNamePersonBeingReported':
+                    return compare(a.fullNamePersonBeingReported, b.fullNamePersonBeingReported, isAsc);
+                case 'createdAtFormatted':
+                    return compare(a.createdAtFormatted, b.createdAtFormatted, isAsc);
+                case 'reason':
+                    return compare(a.reason, b.reason, isAsc);
+                case 'typeString':
+                    return compare(a.typeString, b.typeString, isAsc);
+                default:
+                    return 0;
+            }
+        });
+        this.getPages();
+    };
+    ReportListComponent.prototype.ngOnChanges = function (changes) {
+    };
+    ReportListComponent.prototype.getUserlist = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, data, e_1, error;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.reportServices.getReports().toPromise()];
+                    case 1:
+                        response = _a.sent();
+                        data = response && response.listReport;
+                        this.reportList = [];
+                        if (data && data.length > 0) {
+                            this.reportList = data.map(function (obj) { return new _models__WEBPACK_IMPORTED_MODULE_1__["Report"](obj); });
+                        }
+                        this.searchedList = this.reportList.slice();
+                        console.log(this.reportList);
+                        this.onSort(this.model.sort);
+                        this.getPages();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_1 = _a.sent();
+                        if (e_1 instanceof _node_modules_angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpErrorResponse"]) {
+                            error = e_1 && e_1.error && e_1.error.error ? e_1.error.error : '';
+                            this.commonServices.showFlashMessage(new _models__WEBPACK_IMPORTED_MODULE_1__["Message"]({ id: new Date().getTime(), type: 'ERROR', content: error }));
+                        }
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('startDate'),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDatepicker"])
+    ], ReportListComponent.prototype, "startDatepicker", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('endDate'),
+        __metadata("design:type", _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDatepicker"])
+    ], ReportListComponent.prototype, "endDatepicker", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChild"])('keyWord'),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ElementRef"])
+    ], ReportListComponent.prototype, "keyWordRef", void 0);
+    ReportListComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-payment-histories',
+            template: __webpack_require__(/*! ./report-list.component.html */ "./src/app/modules/reports/components/ReportListComponent/report-list.component.html"),
+            styles: [__webpack_require__(/*! ./report-list.component.scss */ "./src/app/modules/reports/components/ReportListComponent/report-list.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_5__["ReportServices"], _services__WEBPACK_IMPORTED_MODULE_5__["CommonServices"], _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"]])
+    ], ReportListComponent);
+    return ReportListComponent;
+}());
+
+function compare(a, b, isAsc) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+
+/***/ }),
+
+/***/ "./src/app/modules/reports/components/index.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/modules/reports/components/index.ts ***!
+  \*****************************************************/
+/*! exports provided: ReportListComponent, ReportDetailComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ReportListComponent_report_list_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ReportListComponent/report-list.component */ "./src/app/modules/reports/components/ReportListComponent/report-list.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReportListComponent", function() { return _ReportListComponent_report_list_component__WEBPACK_IMPORTED_MODULE_0__["ReportListComponent"]; });
+
+/* harmony import */ var _ReportDetailComponent_report_detail_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ReportDetailComponent/report-detail.component */ "./src/app/modules/reports/components/ReportDetailComponent/report-detail.component.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReportDetailComponent", function() { return _ReportDetailComponent_report_detail_component__WEBPACK_IMPORTED_MODULE_1__["ReportDetailComponent"]; });
+
+
+
+
+
+/***/ }),
+
+/***/ "./src/app/modules/reports/reports.module.ts":
+/*!***************************************************!*\
+  !*** ./src/app/modules/reports/reports.module.ts ***!
+  \***************************************************/
+/*! exports provided: ReportsModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReportsModule", function() { return ReportsModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_flex_layout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/flex-layout */ "./node_modules/@angular/flex-layout/esm5/flex-layout.es5.js");
+/* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/material/button */ "./node_modules/@angular/material/esm5/button.es5.js");
+/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/material/icon */ "./node_modules/@angular/material/esm5/icon.es5.js");
+/* harmony import */ var _angular_material_tabs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/material/tabs */ "./node_modules/@angular/material/esm5/tabs.es5.js");
+/* harmony import */ var _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/material/toolbar */ "./node_modules/@angular/material/esm5/toolbar.es5.js");
+/* harmony import */ var _angular_material_list__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/material/list */ "./node_modules/@angular/material/esm5/list.es5.js");
+/* harmony import */ var _angular_material_stepper__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/material/stepper */ "./node_modules/@angular/material/esm5/stepper.es5.js");
+/* harmony import */ var _angular_material_input__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/input */ "./node_modules/@angular/material/esm5/input.es5.js");
+/* harmony import */ var _angular_material_form_field__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/material/form-field */ "./node_modules/@angular/material/esm5/form-field.es5.js");
+/* harmony import */ var _angular_material_expansion__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/expansion */ "./node_modules/@angular/material/esm5/expansion.es5.js");
+/* harmony import */ var _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/material/datepicker */ "./node_modules/@angular/material/esm5/datepicker.es5.js");
+/* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ngx-perfect-scrollbar */ "./node_modules/ngx-perfect-scrollbar/dist/ngx-perfect-scrollbar.es5.js");
+/* harmony import */ var _angular_material_table__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @angular/material/table */ "./node_modules/@angular/material/esm5/table.es5.js");
+/* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components */ "./src/app/modules/reports/components/index.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _angular_material_dialog__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/material/dialog */ "./node_modules/@angular/material/esm5/dialog.es5.js");
+/* harmony import */ var _user_detail_user_detail_module__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../user-detail/user-detail.module */ "./src/app/modules/user-detail/user-detail.module.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var route = [
+    { path: '', component: _components__WEBPACK_IMPORTED_MODULE_17__["ReportListComponent"], data: { animation: 'responsive' } }
+];
+var DEFAULT_PERFECT_SCROLLBAR_CONFIG = {
+    suppressScrollX: true
+};
+var ReportsModule = /** @class */ (function () {
+    function ReportsModule() {
+    }
+    ReportsModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            imports: [
+                _user_detail_user_detail_module__WEBPACK_IMPORTED_MODULE_20__["UserDetailModule"],
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"],
+                _angular_flex_layout__WEBPACK_IMPORTED_MODULE_3__["FlexLayoutModule"],
+                _angular_material_button__WEBPACK_IMPORTED_MODULE_4__["MatButtonModule"],
+                _angular_material_icon__WEBPACK_IMPORTED_MODULE_5__["MatIconModule"],
+                _angular_material_tabs__WEBPACK_IMPORTED_MODULE_6__["MatTabsModule"],
+                _angular_material_toolbar__WEBPACK_IMPORTED_MODULE_7__["MatToolbarModule"],
+                _angular_material_list__WEBPACK_IMPORTED_MODULE_8__["MatListModule"],
+                _angular_material_stepper__WEBPACK_IMPORTED_MODULE_9__["MatStepperModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["ReactiveFormsModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormsModule"],
+                _angular_material_form_field__WEBPACK_IMPORTED_MODULE_11__["MatFormFieldModule"],
+                _angular_material_input__WEBPACK_IMPORTED_MODULE_10__["MatInputModule"],
+                _angular_material_expansion__WEBPACK_IMPORTED_MODULE_12__["MatExpansionModule"],
+                _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_13__["MatDatepickerModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatNativeDateModule"],
+                _angular_material_table__WEBPACK_IMPORTED_MODULE_16__["MatTableModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatPaginatorModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatSortModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatCheckboxModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatTooltipModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatChipsModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatButtonToggleModule"],
+                _angular_material_dialog__WEBPACK_IMPORTED_MODULE_19__["MatDialogModule"],
+                _angular_material__WEBPACK_IMPORTED_MODULE_14__["MatSelectModule"],
+                ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_15__["PerfectScrollbarModule"],
+                _angular_router__WEBPACK_IMPORTED_MODULE_18__["RouterModule"].forChild(route),
+            ],
+            declarations: [
+                _components__WEBPACK_IMPORTED_MODULE_17__["ReportListComponent"],
+                _components__WEBPACK_IMPORTED_MODULE_17__["ReportDetailComponent"]
+            ],
+            entryComponents: [
+                _components__WEBPACK_IMPORTED_MODULE_17__["ReportDetailComponent"]
+            ],
+            providers: [
+                {
+                    provide: ngx_perfect_scrollbar__WEBPACK_IMPORTED_MODULE_15__["PERFECT_SCROLLBAR_CONFIG"],
+                    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+                }
+            ],
+            exports: [_angular_router__WEBPACK_IMPORTED_MODULE_18__["RouterModule"]]
+        })
+    ], ReportsModule);
+    return ReportsModule;
 }());
 
 
@@ -5680,7 +7061,7 @@ var TypeAdvisoryModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" class=\"components-container-gt-xs\" [ngClass.xs]=\"'components-container-xs'\" fxLayoutGap=\"20px\">\r\n    <div fxFlex class=\"table-component-holder mat-elevation-z4\">\r\n        <mat-toolbar class=\"table-header\" style=\"padding: 16px\">\r\n            <!--<h1 class=\"mat-headline center-align\">Danh sách người dùng</h1>-->\r\n            <form class=\"center-align\">\r\n                <mat-form-field class=\"length-input\">\r\n                    <input #keyWord matInput [ngModelOptions]=\"{standalone: true}\" [placeholder]=\"keywordPlaceHolder\" maxlength=\"200\"\r\n                           [(ngModel)]=\"model.keyword\" (blur)=\"onBlurKeyWord()\" (keyup.enter)=\"onEnterSearchKey()\">\r\n                </mat-form-field>\r\n\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <input matInput [max]=\"endDatetime\" (click)=\"openStartDate()\" [matDatepicker]=\"startDate\" placeholder=\"Từ ngày\" (dateChange)=\"startDateChange($event)\" [readonly]=\"true\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"startDate\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #startDate></mat-datepicker>\r\n                </mat-form-field>\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <input matInput [min]=\"startDatetime\" (click)=\"openEndDate()\" [matDatepicker]=\"endDate\" placeholder=\"Đến ngày\" (dateChange)=\"endDateChange($event)\"[readonly]=\"true\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #endDate></mat-datepicker>\r\n                </mat-form-field>\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <mat-select placeholder=\"Trạng thái\" [(value)]=\"model.status\" (selectionChange)=\"onSearch()\">\r\n                        <mat-option [value]=\"3\">Toàn bộ</mat-option>\r\n                        <mat-option [value]=\"2\">Hoàn Thành</mat-option>\r\n                        <mat-option [value]=\"1\">Chưa Hoàn thành</mat-option>\r\n                    </mat-select>\r\n                </mat-form-field>\r\n            </form>\r\n        </mat-toolbar>\r\n        <div class=\"table-container\">\r\n            <table matSort (matSortChange)=\"onSort($event)\" [matSortActive]=\"model.sort.active\"\r\n                   [matSortDirection]=\"model.sort.direction\">\r\n                <thead>\r\n                <tr>\r\n                    <th mat-sort-header=\"{{th.key}}\" scope=\"col\" *ngFor=\"let th of headers\">\r\n                        {{th.name}}\r\n                    </th>\r\n                    <th class=\"icon\"></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n                <tr *ngFor=\"let row of historyItems let i=index\">\r\n                    <td [attr.data-label]=\"th.name\" *ngFor=\"let th of headers\">\r\n\r\n                        <span *ngIf=\"th.key!='action'\">\r\n                            {{row[th.key]}}\r\n                            <mat-chip selected=\"true\"\r\n                                      color=\"warn\"\r\n                                      matTooltip=\"{{row['duplicate_applications'].length}} duplicate entries\"\r\n                                      matTooltipPosition=\"right\"\r\n                                      *ngIf=\"th.key=='applicationNumber' && row['duplicate_applications'] != 'undefined' && row['duplicate_applications'] && row['duplicate_applications'].length > 0\">\r\n\t\t\t\t\t\t\t\t\t{{row['duplicate_applications'].length }}\r\n                            </mat-chip>\r\n\r\n                        </span>\r\n                    </td>\r\n                    <td class=\"icon\"><i class=\"far fa-envelope-open\"></i></td>\r\n                </tr>\r\n                </tbody>\r\n                <thead *matHeaderRowDef=\"headers\"></thead>\r\n                <tr *matRowDef=\"let row; columns: headers;\"></tr>\r\n            </table>\r\n            <mat-paginator [length]=\"pageLength\"\r\n                           [pageSize]=\"pageSize\"\r\n                           [pageIndex]=\"model.pageIndex\"\r\n                           [pageSizeOptions]=\"[ 5, 10, 25]\"\r\n                           (page)=\"nextPage($event)\">\r\n            </mat-paginator>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<div fxLayout=\"column\" class=\"components-container-gt-xs\" [ngClass.xs]=\"'components-container-xs'\" fxLayoutGap=\"20px\">\r\n    <div fxFlex class=\"table-component-holder mat-elevation-z4\">\r\n        <mat-toolbar class=\"table-header\" style=\"padding: 16px\">\r\n            <!--<h1 class=\"mat-headline center-align\">Danh sách người dùng</h1>-->\r\n            <form class=\"center-align\">\r\n                <mat-form-field class=\"length-input\">\r\n                    <input #keyWord matInput [ngModelOptions]=\"{standalone: true}\" [placeholder]=\"keywordPlaceHolder\" maxlength=\"200\"\r\n                           [(ngModel)]=\"model.keyword\" (blur)=\"onBlurKeyWord()\" (keyup.enter)=\"onEnterSearchKey()\">\r\n                </mat-form-field>\r\n\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <input matInput [max]=\"endDatetime\" (click)=\"openStartDate()\" [matDatepicker]=\"startDate\" placeholder=\"Từ ngày\" (dateChange)=\"startDateChange($event)\" [readonly]=\"true\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"startDate\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #startDate></mat-datepicker>\r\n                </mat-form-field>\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <input matInput [min]=\"startDatetime\" (click)=\"openEndDate()\" [matDatepicker]=\"endDate\" placeholder=\"Đến ngày\" (dateChange)=\"endDateChange($event)\"[readonly]=\"true\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #endDate></mat-datepicker>\r\n                </mat-form-field>\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <mat-select placeholder=\"Trạng thái\" [(value)]=\"model.status\" (selectionChange)=\"onSearch()\">\r\n                        <mat-option [value]=\"3\">Toàn bộ</mat-option>\r\n                        <mat-option [value]=\"2\">Hoàn Thành</mat-option>\r\n                        <mat-option [value]=\"1\">Chưa Hoàn thành</mat-option>\r\n                    </mat-select>\r\n                </mat-form-field>\r\n            </form>\r\n        </mat-toolbar>\r\n        <div class=\"table-container\">\r\n            <table matSort (matSortChange)=\"onSort($event)\" [matSortActive]=\"model.sort.active\"\r\n                   [matSortDirection]=\"model.sort.direction\">\r\n                <thead>\r\n                <tr>\r\n                    <th mat-sort-header=\"{{th.key}}\" scope=\"col\" *ngFor=\"let th of headers\">\r\n                        {{th.name}}\r\n                    </th>\r\n                    <th class=\"icon\"></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n                <tr *ngFor=\"let row of historyItems let i=index\">\r\n                    <td [attr.data-label]=\"th.name\" *ngFor=\"let th of headers\">\r\n\r\n                        <span *ngIf=\"th.key!='action'\">\r\n                            {{row[th.key]}}\r\n                            <mat-chip selected=\"true\"\r\n                                      color=\"warn\"\r\n                                      matTooltip=\"{{row['duplicate_applications'].length}} duplicate entries\"\r\n                                      matTooltipPosition=\"right\"\r\n                                      *ngIf=\"th.key=='applicationNumber' && row['duplicate_applications'] != 'undefined' && row['duplicate_applications'] && row['duplicate_applications'].length > 0\">\r\n\t\t\t\t\t\t\t\t\t{{row['duplicate_applications'].length }}\r\n                            </mat-chip>\r\n\r\n                        </span>\r\n                    </td>\r\n                    <td class=\"icon\"><i class=\"far fa-envelope-open\" (click)=\"openDetailChat(row)\"></i></td>\r\n                </tr>\r\n                </tbody>\r\n                <thead *matHeaderRowDef=\"headers\"></thead>\r\n                <tr *matRowDef=\"let row; columns: headers;\"></tr>\r\n            </table>\r\n            <mat-paginator [length]=\"pageLength\"\r\n                           [pageSize]=\"pageSize\"\r\n                           [pageIndex]=\"model.pageIndex\"\r\n                           [pageSizeOptions]=\"[ 5, 10, 25]\"\r\n                           (page)=\"nextPage($event)\">\r\n            </mat-paginator>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -5710,6 +7091,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _core_components_DetailChatComponent_detail_chat_modal_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../core/components/DetailChatComponent/detail-chat-modal.component */ "./src/app/modules/core/components/DetailChatComponent/detail-chat-modal.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5723,8 +7105,10 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var ChatHistoriesComponent = /** @class */ (function () {
-    function ChatHistoriesComponent() {
+    function ChatHistoriesComponent(dialog) {
+        this.dialog = dialog;
         this.headerDoctorChatHistories = [
             {
                 name: 'Bệnh nhân',
@@ -5790,12 +7174,12 @@ var ChatHistoriesComponent = /** @class */ (function () {
         this.model.pageIndex = event.pageIndex;
         if ((event.pageIndex + 1) * event.pageSize > event.length) {
             for (var i = 1 * event.pageIndex * event.pageSize; i < event.length; i++) {
-                this.historyItems = this.historyItems.concat([this.chatHistories[i]]);
+                this.historyItems = this.historyItems.concat([this.sortedlist[i]]);
             }
         }
         else {
             for (var i = 1 * event.pageIndex * event.pageSize; i < event.pageSize + event.pageIndex * event.pageSize; i++) {
-                this.historyItems = this.historyItems.concat([this.chatHistories[i]]);
+                this.historyItems = this.historyItems.concat([this.sortedlist[i]]);
             }
         }
     };
@@ -5837,6 +7221,19 @@ var ChatHistoriesComponent = /** @class */ (function () {
         this.endDatetime = event.value;
         this.model.endTime = event.value ? moment__WEBPACK_IMPORTED_MODULE_3__(event.value).format('YYYY/MM/DD') + ' 24:60' : '';
         this.onSearch();
+    };
+    ChatHistoriesComponent.prototype.openDetailChat = function (row) {
+        var dialogConfig = new _angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialogConfig"]();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.data = {
+            id: row.id,
+        };
+        var dialogRef = this.dialog.open(_core_components_DetailChatComponent_detail_chat_modal_component__WEBPACK_IMPORTED_MODULE_4__["DetailChatModalComponent"], dialogConfig);
+        dialogRef.afterClosed().subscribe(function (result) {
+            if (result && result === 'ok') {
+            }
+        });
     };
     ChatHistoriesComponent.prototype.onSearch = function () {
         var _this = this;
@@ -5941,7 +7338,7 @@ var ChatHistoriesComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./chat-histories.component.html */ "./src/app/modules/user-detail/components/ChatHistoryComponent/chat-histories.component.html"),
             styles: [__webpack_require__(/*! ./chat-histories.component.scss */ "./src/app/modules/user-detail/components/ChatHistoryComponent/chat-histories.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_material__WEBPACK_IMPORTED_MODULE_2__["MatDialog"]])
     ], ChatHistoriesComponent);
     return ChatHistoriesComponent;
 }());
@@ -6080,12 +7477,12 @@ var PaymentHistoriesComponent = /** @class */ (function () {
         this.model.pageIndex = event.pageIndex;
         if ((event.pageIndex + 1) * event.pageSize > event.length) {
             for (var i = 1 * event.pageIndex * event.pageSize; i < event.length; i++) {
-                this.historyItems = this.historyItems.concat([this.paymentHistories[i]]);
+                this.historyItems = this.historyItems.concat([this.sortedlist[i]]);
             }
         }
         else {
             for (var i = 1 * event.pageIndex * event.pageSize; i < event.pageSize + event.pageIndex * event.pageSize; i++) {
-                this.historyItems = this.historyItems.concat([this.paymentHistories[i]]);
+                this.historyItems = this.historyItems.concat([this.sortedlist[i]]);
             }
         }
     };
@@ -6246,7 +7643,7 @@ function compare(a, b, isAsc) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h2 mat-dialog-title>{{userInfo?.fullName}}</h2>\r\n<mat-dialog-content style=\"min-width: 500px; min-height: 500px\">\r\n    <mat-tab-group>\r\n        <mat-tab label=\"Thông tin\">\r\n            <ng-template style=\"margin-top: 10px\" matTabContent>\r\n                <div style=\"margin-top: 10px\">\r\n                    <img class=\"avatar\" [src]=\"userInfo?.avatar || '../../../../../assets/images/noavatar.png'\">\r\n                    <table style=\"margin-top: 16px\">\r\n                        <tbody>\r\n                        <tr>\r\n                            <td class=\"label\">Họ tên:</td>\r\n                            <td>{{userInfo?.fullName}}</td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo&& userInfo.birthday\">\r\n                            <td class=\"label\">Ngày sinh:</td>\r\n                            <td>{{userInfo?.birthday}}</td>\r\n                        </tr>\r\n                        <tr>\r\n                            <td class=\"label\">Số điện thoại:</td>\r\n                            <td>{{userInfo?.phoneNumber}}</td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo&& userInfo.address\">\r\n                            <td class=\"label\">Địa chỉ:</td>\r\n                            <td>{{userInfo?.address}}</td>\r\n                        </tr>\r\n                        <tr>\r\n                            <td class=\"label\">Số tiền còn lại:</td>\r\n                            <td>{{userInfo?.remainMoney}}</td>\r\n                        </tr>\r\n\r\n                        <tr>\r\n                            <td class=\"label\">Role:</td>\r\n                            <td>\r\n                                <mat-select [(value)]=\"userInfo.role\">\r\n                                    <mat-option [value]=\"3\">Admin</mat-option>\r\n                                    <mat-option [value]=\"2\">Bác sĩ</mat-option>\r\n                                    <mat-option [value]=\"1\">Bệnh nhân</mat-option>\r\n                                </mat-select>\r\n                            </td>\r\n                        </tr>\r\n                        <tr>\r\n                            <td class=\"label\">Trạng thái:</td>\r\n                            <td>\r\n                                <mat-select [(value)]=\"userInfo.status\">\r\n                                    <mat-option [value]=\"1\">Active</mat-option>\r\n                                    <mat-option [value]=\"3\">Block</mat-option>\r\n                                    <mat-option *ngIf=\"userInfo.role === 2\" [value]=\"4\">Bác sĩ block</mat-option>\r\n                                    <mat-option *ngIf=\"userInfo.role === 2\" [value]=\"2\">Bác sĩ chờ phê duyệt\r\n                                    </mat-option>\r\n                                </mat-select>\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Rating hiện tại:</td>\r\n                            <td>\r\n                                {{userInfo.doctorDetail.currentRating}}\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Rating hệ thống:</td>\r\n                            <td>\r\n                                <mat-select [(value)]=\"userInfo.doctorDetail.systemRating\">\r\n                                    <mat-option [value]=\"1\">1</mat-option>\r\n                                    <mat-option [value]=\"1.5\">1.5</mat-option>\r\n                                    <mat-option [value]=\"2\">2</mat-option>\r\n                                    <mat-option [value]=\"2.5\">2.5</mat-option>\r\n                                    <mat-option [value]=\"3\">3</mat-option>\r\n                                    <mat-option [value]=\"3.5\">3.5</mat-option>\r\n                                    <mat-option [value]=\"4\">4</mat-option>\r\n                                    <mat-option [value]=\"4.5\">4.5</mat-option>\r\n                                    <mat-option [value]=\"5\">5</mat-option>\r\n                                </mat-select>\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Tốt nghiệp trường:</td>\r\n                            <td>\r\n                                {{userInfo.doctorDetail.universityGraduate}}\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Năm tốt nghiệp:</td>\r\n                            <td>\r\n                                {{userInfo.doctorDetail.yearGraduate}}\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Nơi làm việc:</td>\r\n                            <td>\r\n                                {{userInfo.doctorDetail.placeWorking}}\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Chuyên khoa:</td>\r\n                            <td>\r\n                                <span *ngFor=\"let sp of userInfo.doctorDetail.specialists\">{{sp.name}}&emsp;</span>\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Chứng chỉ</td>\r\n                            <td>\r\n                                <mat-grid-list cols=\"2\" rowHeight=\"2:1\">\r\n                                    <mat-grid-tile\r\n                                        *ngFor=\"let cer of userInfo.doctorDetail.certificates;trackBy: trackByFn\">\r\n                                        <div>\r\n                                            <div><img width=\"150px\" height=\"150px\" (click)=\"previewImage(cer)\"\r\n                                                      [src]=\"cer.image\"></div>\r\n                                            <div style=\"text-align: center\">{{cer.name}}</div>\r\n                                        </div>\r\n                                    </mat-grid-tile>\r\n                                </mat-grid-list>\r\n                            </td>\r\n                        </tr>\r\n                        </tbody>\r\n                    </table>\r\n                </div>\r\n            </ng-template>\r\n        </mat-tab>\r\n        <mat-tab *ngIf=\"userInfo?.role !== 3\" label=\"Lịch sử chat\">\r\n            <ng-template matTabContent>\r\n                <app-chat-histories [userInfo]=\"userInfo\" [chatHistories]=\"chatHistories\"></app-chat-histories>\r\n            </ng-template>\r\n        </mat-tab>\r\n        <mat-tab *ngIf=\"userInfo?.role !== 3\" label=\"Lịch sử video call\">\r\n            <ng-template matTabContent>\r\n                <app-video-call-histories [userInfo]=\"userInfo\" [videoCallHistories]=\"videoCallHistories\"> </app-video-call-histories>\r\n            </ng-template>\r\n        </mat-tab>\r\n        <mat-tab *ngIf=\"userInfo?.role !== 3\" label=\"Lịch sử Thanh Toán\">\r\n            <ng-template matTabContent>\r\n                <app-payment-histories [userInfo]=\"userInfo\" [paymentHistories]=\"paymentHistories\"></app-payment-histories>\r\n            </ng-template>\r\n        </mat-tab>\r\n    </mat-tab-group>\r\n\r\n\r\n</mat-dialog-content>\r\n<mat-dialog-actions>\r\n    <button mat-raised-button color=\"primary\" (click)=\"ok()\">Lưu</button>\r\n    <button mat-raised-button (click)=\"cancel()\">Hủy</button>\r\n</mat-dialog-actions>\r\n\r\n"
+module.exports = "<h2 mat-dialog-title>{{userInfo?.fullName}}</h2>\r\n<mat-dialog-content style=\"min-width: 500px; min-height: 500px\">\r\n    <mat-tab-group>\r\n        <mat-tab label=\"Thông tin\">\r\n            <ng-template style=\"margin-top: 10px\" matTabContent>\r\n                <div style=\"margin-top: 10px\">\r\n                    <img class=\"avatar\" [src]=\"userInfo?.avatar || '../../../../../assets/images/noavatar.png'\">\r\n                    <table style=\"margin-top: 16px\">\r\n                        <tbody>\r\n                        <tr>\r\n                            <td class=\"label\">Họ tên:</td>\r\n                            <td>{{userInfo?.fullName}}</td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo&& userInfo.birthday\">\r\n                            <td class=\"label\">Ngày sinh:</td>\r\n                            <td>{{userInfo?.birthday}}</td>\r\n                        </tr>\r\n                        <tr>\r\n                            <td class=\"label\">Số điện thoại:</td>\r\n                            <td>{{userInfo?.phoneNumber}}</td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo&& userInfo.address\">\r\n                            <td class=\"label\">Địa chỉ:</td>\r\n                            <td>{{userInfo?.address}}</td>\r\n                        </tr>\r\n                        <tr>\r\n                            <td class=\"label\">Số tiền còn lại:</td>\r\n                            <td>{{userInfo?.remainMoney}}</td>\r\n                        </tr>\r\n\r\n                        <tr>\r\n                            <td class=\"label\">Role:</td>\r\n                            <td>\r\n                                <mat-select [disabled]=\"type === 2\" [(value)]=\"userInfo.role\">\r\n                                    <mat-option [value]=\"3\">Admin</mat-option>\r\n                                    <mat-option [value]=\"2\">Bác sĩ</mat-option>\r\n                                    <mat-option [value]=\"1\">Bệnh nhân</mat-option>\r\n                                </mat-select>\r\n                            </td>\r\n                        </tr>\r\n                        <tr>\r\n                            <td class=\"label\">Trạng thái:</td>\r\n                            <td>\r\n                                <mat-select [disabled]=\"type === 2\" [(value)]=\"userInfo.status\">\r\n                                    <mat-option [value]=\"1\">Active</mat-option>\r\n                                    <mat-option [value]=\"3\">Block</mat-option>\r\n                                    <mat-option *ngIf=\"userInfo.role === 2\" [value]=\"4\">Bác sĩ block</mat-option>\r\n                                    <mat-option *ngIf=\"userInfo.role === 2\" [value]=\"2\">Bác sĩ chờ phê duyệt\r\n                                    </mat-option>\r\n                                </mat-select>\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Rating hiện tại:</td>\r\n                            <td>\r\n                                {{userInfo.doctorDetail.currentRating}}\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Rating hệ thống:</td>\r\n                            <td>\r\n                                <mat-select [disabled]=\"type === 2\" [(value)]=\"userInfo.doctorDetail.systemRating\">\r\n                                    <mat-option [value]=\"1\">1</mat-option>\r\n                                    <mat-option [value]=\"1.5\">1.5</mat-option>\r\n                                    <mat-option [value]=\"2\">2</mat-option>\r\n                                    <mat-option [value]=\"2.5\">2.5</mat-option>\r\n                                    <mat-option [value]=\"3\">3</mat-option>\r\n                                    <mat-option [value]=\"3.5\">3.5</mat-option>\r\n                                    <mat-option [value]=\"4\">4</mat-option>\r\n                                    <mat-option [value]=\"4.5\">4.5</mat-option>\r\n                                    <mat-option [value]=\"5\">5</mat-option>\r\n                                </mat-select>\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Tốt nghiệp trường:</td>\r\n                            <td>\r\n                                {{userInfo.doctorDetail.universityGraduate}}\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Năm tốt nghiệp:</td>\r\n                            <td>\r\n                                {{userInfo.doctorDetail.yearGraduate}}\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Nơi làm việc:</td>\r\n                            <td>\r\n                                {{userInfo.doctorDetail.placeWorking}}\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Chuyên khoa:</td>\r\n                            <td>\r\n                                <span *ngFor=\"let sp of userInfo.doctorDetail.specialists\">{{sp.name}}&emsp;</span>\r\n                            </td>\r\n                        </tr>\r\n                        <tr *ngIf=\"userInfo.role === 2\">\r\n                            <td class=\"label\">Chứng chỉ</td>\r\n                            <td>\r\n                                <mat-grid-list cols=\"2\" rowHeight=\"2:1\">\r\n                                    <mat-grid-tile\r\n                                        *ngFor=\"let cer of userInfo.doctorDetail.certificates;trackBy: trackByFn\">\r\n                                        <div>\r\n                                            <div><img width=\"150px\" height=\"150px\" (click)=\"previewImage(cer)\"\r\n                                                      [src]=\"cer.image\"></div>\r\n                                            <div style=\"text-align: center\">{{cer.name}}</div>\r\n                                        </div>\r\n                                    </mat-grid-tile>\r\n                                </mat-grid-list>\r\n                            </td>\r\n                        </tr>\r\n                        </tbody>\r\n                    </table>\r\n                </div>\r\n            </ng-template>\r\n        </mat-tab>\r\n        <mat-tab *ngIf=\"userInfo?.role !== 3\" label=\"Lịch sử chat\">\r\n            <ng-template matTabContent>\r\n                <app-chat-histories [userInfo]=\"userInfo\" [chatHistories]=\"chatHistories\"></app-chat-histories>\r\n            </ng-template>\r\n        </mat-tab>\r\n        <mat-tab *ngIf=\"userInfo?.role !== 3\" label=\"Lịch sử video call\">\r\n            <ng-template matTabContent>\r\n                <app-video-call-histories [userInfo]=\"userInfo\" [videoCallHistories]=\"videoCallHistories\"> </app-video-call-histories>\r\n            </ng-template>\r\n        </mat-tab>\r\n        <mat-tab *ngIf=\"userInfo?.role !== 3\" label=\"Lịch sử Thanh Toán\">\r\n            <ng-template matTabContent>\r\n                <app-payment-histories [userInfo]=\"userInfo\" [paymentHistories]=\"paymentHistories\"></app-payment-histories>\r\n            </ng-template>\r\n        </mat-tab>\r\n    </mat-tab-group>\r\n\r\n\r\n</mat-dialog-content>\r\n<mat-dialog-actions>\r\n    <button *ngIf=\"type !== 2\" mat-raised-button color=\"primary\" (click)=\"ok()\">Lưu</button>\r\n    <button *ngIf=\"type === 2\" mat-raised-button color=\"primary\" (click)=\"ok()\">OK</button>\r\n    <button *ngIf=\"type !== 2\" mat-raised-button (click)=\"cancel()\">Hủy</button>\r\n</mat-dialog-actions>\r\n\r\n"
 
 /***/ }),
 
@@ -6345,7 +7742,9 @@ var UserDetailComponent = /** @class */ (function () {
             role: null
         };
         this.userInfo = new _models__WEBPACK_IMPORTED_MODULE_3__["User"]();
+        this.type = 1;
         this.initData = data;
+        this.type = data.type;
         if (this.initData) {
             this.getUserInfo();
         }
@@ -6474,7 +7873,6 @@ var UserDetailComponent = /** @class */ (function () {
                         if (historiesPatientRes && historiesPatientRes.length > 0) {
                             this.videoCallHistories = historiesPatientRes.map(function (obj) { return new _models__WEBPACK_IMPORTED_MODULE_3__["VideoCallHistory"](obj); });
                         }
-                        console.log(this.videoCallHistories);
                         return [3 /*break*/, 6];
                     case 5:
                         e_3 = _a.sent();
@@ -6548,7 +7946,7 @@ var UserDetailComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div fxLayout=\"column\" class=\"components-container-gt-xs\" [ngClass.xs]=\"'components-container-xs'\" fxLayoutGap=\"20px\">\r\n    <div fxFlex class=\"table-component-holder mat-elevation-z4\">\r\n        <mat-toolbar class=\"table-header\" style=\"padding: 16px\">\r\n            <!--<h1 class=\"mat-headline center-align\">Danh sách người dùng</h1>-->\r\n            <form class=\"center-align\">\r\n                <mat-form-field class=\"length-input\">\r\n                    <input #keyWord matInput [ngModelOptions]=\"{standalone: true}\" [placeholder]=\"keywordPlaceHolder\" maxlength=\"200\"\r\n                           [(ngModel)]=\"model.keyword\" (blur)=\"onBlurKeyWord()\" (keyup.enter)=\"onEnterSearchKey()\">\r\n                </mat-form-field>\r\n\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <input matInput [max]=\"endDatetime\" (click)=\"openStartDate()\" [matDatepicker]=\"startDate\" placeholder=\"Từ ngày\" (dateChange)=\"startDateChange($event)\" [readonly]=\"true\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"startDate\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #startDate></mat-datepicker>\r\n                </mat-form-field>\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <input matInput [min]=\"startDatetime\" (click)=\"openEndDate()\" [matDatepicker]=\"endDate\" placeholder=\"Đến ngày\" (dateChange)=\"endDateChange($event)\"[readonly]=\"true\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #endDate></mat-datepicker>\r\n                </mat-form-field>\r\n                <!--<mat-form-field class=\"margin-left-10\">-->\r\n                    <!--<mat-select placeholder=\"Trạng thái\" [(value)]=\"model.status\" (selectionChange)=\"onSearch()\">-->\r\n                        <!--<mat-option [value]=\"3\">Toàn bộ</mat-option>-->\r\n                        <!--<mat-option [value]=\"2\">Hoàn Thành</mat-option>-->\r\n                        <!--<mat-option [value]=\"1\">Chưa Hoàn thành</mat-option>-->\r\n                    <!--</mat-select>-->\r\n                <!--</mat-form-field>-->\r\n            </form>\r\n        </mat-toolbar>\r\n        <div class=\"table-container\">\r\n            <table matSort (matSortChange)=\"onSort($event)\" [matSortActive]=\"model.sort.active\"\r\n                   [matSortDirection]=\"model.sort.direction\">\r\n                <thead>\r\n                <tr>\r\n                    <th mat-sort-header=\"{{th.key}}\" scope=\"col\" *ngFor=\"let th of headers\">\r\n                        {{th.name}}\r\n                    </th>\r\n                    <th class=\"icon\"></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n                <tr *ngFor=\"let row of historyItems let i=index\">\r\n                    <td [attr.data-label]=\"th.name\" *ngFor=\"let th of headers\">\r\n\r\n                        <span *ngIf=\"th.key!='action'\">\r\n                            {{row[th.key]}}\r\n                            <mat-chip selected=\"true\"\r\n                                      color=\"warn\"\r\n                                      matTooltip=\"{{row['duplicate_applications'].length}} duplicate entries\"\r\n                                      matTooltipPosition=\"right\"\r\n                                      *ngIf=\"th.key=='applicationNumber' && row['duplicate_applications'] != 'undefined' && row['duplicate_applications'] && row['duplicate_applications'].length > 0\">\r\n\t\t\t\t\t\t\t\t\t{{row['duplicate_applications'].length }}\r\n                            </mat-chip>\r\n\r\n                        </span>\r\n                    </td>\r\n                    <td class=\"icon\"><i class=\"far fa-envelope-open\"></i></td>\r\n                </tr>\r\n                </tbody>\r\n                <thead *matHeaderRowDef=\"headers\"></thead>\r\n                <tr *matRowDef=\"let row; columns: headers;\"></tr>\r\n            </table>\r\n            <mat-paginator [length]=\"pageLength\"\r\n                           [pageSize]=\"pageSize\"\r\n                           [pageIndex]=\"model.pageIndex\"\r\n                           [pageSizeOptions]=\"[ 5, 10, 25]\"\r\n                           (page)=\"nextPage($event)\">\r\n            </mat-paginator>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+module.exports = "<div fxLayout=\"column\" class=\"components-container-gt-xs\" [ngClass.xs]=\"'components-container-xs'\" fxLayoutGap=\"20px\">\r\n    <div fxFlex class=\"table-component-holder mat-elevation-z4\">\r\n        <mat-toolbar class=\"table-header\" style=\"padding: 16px\">\r\n            <!--<h1 class=\"mat-headline center-align\">Danh sách người dùng</h1>-->\r\n            <form class=\"center-align\">\r\n                <mat-form-field class=\"length-input\">\r\n                    <input #keyWord matInput [ngModelOptions]=\"{standalone: true}\" [placeholder]=\"keywordPlaceHolder\" maxlength=\"200\"\r\n                           [(ngModel)]=\"model.keyword\" (blur)=\"onBlurKeyWord()\" (keyup.enter)=\"onEnterSearchKey()\">\r\n                </mat-form-field>\r\n\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <input matInput [max]=\"endDatetime\" (click)=\"openStartDate()\" [matDatepicker]=\"startDate\" placeholder=\"Từ ngày\" (dateChange)=\"startDateChange($event)\" [readonly]=\"true\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"startDate\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #startDate></mat-datepicker>\r\n                </mat-form-field>\r\n                <mat-form-field class=\"margin-left-10\">\r\n                    <input matInput [min]=\"startDatetime\" (click)=\"openEndDate()\" [matDatepicker]=\"endDate\" placeholder=\"Đến ngày\" (dateChange)=\"endDateChange($event)\"[readonly]=\"true\">\r\n                    <mat-datepicker-toggle matSuffix [for]=\"endDate\"></mat-datepicker-toggle>\r\n                    <mat-datepicker #endDate></mat-datepicker>\r\n                </mat-form-field>\r\n                <!--<mat-form-field class=\"margin-left-10\">-->\r\n                    <!--<mat-select placeholder=\"Trạng thái\" [(value)]=\"model.status\" (selectionChange)=\"onSearch()\">-->\r\n                        <!--<mat-option [value]=\"3\">Toàn bộ</mat-option>-->\r\n                        <!--<mat-option [value]=\"2\">Hoàn Thành</mat-option>-->\r\n                        <!--<mat-option [value]=\"1\">Chưa Hoàn thành</mat-option>-->\r\n                    <!--</mat-select>-->\r\n                <!--</mat-form-field>-->\r\n            </form>\r\n        </mat-toolbar>\r\n        <div class=\"table-container\">\r\n            <table matSort (matSortChange)=\"onSort($event)\" [matSortActive]=\"model.sort.active\"\r\n                   [matSortDirection]=\"model.sort.direction\">\r\n                <thead>\r\n                <tr>\r\n                    <th mat-sort-header=\"{{th.key}}\" scope=\"col\" *ngFor=\"let th of headers\">\r\n                        {{th.name}}\r\n                    </th>\r\n                    <th class=\"icon\"></th>\r\n                </tr>\r\n                </thead>\r\n                <tbody>\r\n                <tr *ngFor=\"let row of historyItems let i=index\">\r\n                    <td [attr.data-label]=\"th.name\" *ngFor=\"let th of headers\">\r\n\r\n                        <span *ngIf=\"th.key!='action'\">\r\n                            {{row[th.key]}}\r\n                            <mat-chip selected=\"true\"\r\n                                      color=\"warn\"\r\n                                      matTooltip=\"{{row['duplicate_applications'].length}} duplicate entries\"\r\n                                      matTooltipPosition=\"right\"\r\n                                      *ngIf=\"th.key=='applicationNumber' && row['duplicate_applications'] != 'undefined' && row['duplicate_applications'] && row['duplicate_applications'].length > 0\">\r\n\t\t\t\t\t\t\t\t\t{{row['duplicate_applications'].length }}\r\n                            </mat-chip>\r\n\r\n                        </span>\r\n                    </td>\r\n                    <td class=\"icon\"><a target=\"_blank\" routerLink=\"/api/download/{{row.linkVideo}}\"><i style=\"color: #00a5ff\" class=\"fas fa-download\"></i></a></td>\r\n                </tr>\r\n                </tbody>\r\n                <thead *matHeaderRowDef=\"headers\"></thead>\r\n                <tr *matRowDef=\"let row; columns: headers;\"></tr>\r\n            </table>\r\n            <mat-paginator [length]=\"pageLength\"\r\n                           [pageSize]=\"pageSize\"\r\n                           [pageIndex]=\"model.pageIndex\"\r\n                           [pageSizeOptions]=\"[ 5, 10, 25]\"\r\n                           (page)=\"nextPage($event)\">\r\n            </mat-paginator>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -6630,11 +8028,6 @@ var VideoCallHistoriesComponent = /** @class */ (function () {
                 name: 'Thời gian gọi',
                 key: 'callLength',
                 order: 'asc'
-            },
-            {
-                name: 'Link video',
-                key: 'linkVideo',
-                order: 'asc'
             }
         ];
         this.userInfo = new _models__WEBPACK_IMPORTED_MODULE_1__["User"]();
@@ -6658,12 +8051,12 @@ var VideoCallHistoriesComponent = /** @class */ (function () {
         this.model.pageIndex = event.pageIndex;
         if ((event.pageIndex + 1) * event.pageSize > event.length) {
             for (var i = 1 * event.pageIndex * event.pageSize; i < event.length; i++) {
-                this.historyItems = this.historyItems.concat([this.videoCallHistories[i]]);
+                this.historyItems = this.historyItems.concat([this.sortedlist[i]]);
             }
         }
         else {
             for (var i = 1 * event.pageIndex * event.pageSize; i < event.pageSize + event.pageIndex * event.pageSize; i++) {
-                this.historyItems = this.historyItems.concat([this.videoCallHistories[i]]);
+                this.historyItems = this.historyItems.concat([this.sortedlist[i]]);
             }
         }
     };
@@ -6884,6 +8277,7 @@ var UserDetailModule = /** @class */ (function () {
     UserDetailModule = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
             imports: [
+                _angular_router__WEBPACK_IMPORTED_MODULE_4__["RouterModule"],
                 _angular_material__WEBPACK_IMPORTED_MODULE_1__["MatCardModule"],
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                 _angular_flex_layout__WEBPACK_IMPORTED_MODULE_3__["FlexLayoutModule"],
@@ -7787,6 +9181,9 @@ var ChatServices = /** @class */ (function () {
         // });
         return this.http.post(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'auth/register', formData);
     };
+    ChatServices.prototype.getChatTopicById = function (id) {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'chatshistorys/getConversationByID/' + id);
+    };
     ChatServices = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root',
@@ -7902,6 +9299,57 @@ var PaymentServices = /** @class */ (function () {
         __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
     ], PaymentServices);
     return PaymentServices;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/ReportServices.ts":
+/*!********************************************!*\
+  !*** ./src/app/services/ReportServices.ts ***!
+  \********************************************/
+/*! exports provided: ReportServices */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReportServices", function() { return ReportServices; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs-compat/add/operator/retry */ "./node_modules/rxjs-compat/add/operator/retry.js");
+/* harmony import */ var rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(rxjs_compat_add_operator_retry__WEBPACK_IMPORTED_MODULE_3__);
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var ReportServices = /** @class */ (function () {
+    function ReportServices(http) {
+        this.http = http;
+    }
+    ReportServices.prototype.getReports = function () {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'reportConversations/get-list-report-conversation/');
+    };
+    ReportServices.prototype.getById = function (id) {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'reportConversations/' + id);
+    };
+    ReportServices = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root',
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], ReportServices);
+    return ReportServices;
 }());
 
 
@@ -8147,6 +9595,9 @@ var VideoCallServices = /** @class */ (function () {
     VideoCallServices.prototype.getDoctorVideoCallHistories = function (doctorId) {
         return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'videcallhistories/getHistoryVideoCallDoctor/' + doctorId);
     };
+    VideoCallServices.prototype.getVideoCallHistoryById = function (id) {
+        return this.http.get(_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].API_ENDPOINT + 'videcallhistories/' + id);
+    };
     VideoCallServices = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root',
@@ -8164,7 +9615,7 @@ var VideoCallServices = /** @class */ (function () {
 /*!***********************************!*\
   !*** ./src/app/services/index.ts ***!
   \***********************************/
-/*! exports provided: UserServices, AuthServices, CommonServices, ChatServices, VideoCallServices, PaymentServices, TypeAdvisoryServices, SpecialistServices */
+/*! exports provided: UserServices, AuthServices, CommonServices, ChatServices, VideoCallServices, PaymentServices, TypeAdvisoryServices, SpecialistServices, ReportServices */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8192,6 +9643,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _SpecialistServices__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./SpecialistServices */ "./src/app/services/SpecialistServices.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SpecialistServices", function() { return _SpecialistServices__WEBPACK_IMPORTED_MODULE_7__["SpecialistServices"]; });
+
+/* harmony import */ var _ReportServices__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./ReportServices */ "./src/app/services/ReportServices.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ReportServices", function() { return _ReportServices__WEBPACK_IMPORTED_MODULE_8__["ReportServices"]; });
+
 
 
 
