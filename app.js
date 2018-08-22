@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', express.static(path.join(__dirname, 'public')));
+// app.use('/', express.static(path.join(__dirname, 'public')));
 
 //Passport
 app.use(passport.initialize());
@@ -42,14 +42,14 @@ app.use('/api', apiRouter);
 // app.use('/', indexRouter);
 
 // all unmatched requests to this path, with no file extension, redirect to the dash page
-// app.use('/', function ( req, res, next ) {
-//     // uri has a forward slash followed any number of any characters except full stops (up until the end of the string)
-//     if (/\/[^.]*$/.test(req.url)) {
-//         res.sendfile(__dirname + '/public/index.html');
-//     } else {
-//         next();
-//     }
-// });
+app.use('/', function ( req, res, next ) {
+    // uri has a forward slash followed any number of any characters except full stops (up until the end of the string)
+    if (/\/[^.]*$/.test(req.url)) {
+        res.sendfile(__dirname + '/public/index.html');
+    } else {
+        next();
+    }
+});
 
 
 // catch 404 and forward to error handler
