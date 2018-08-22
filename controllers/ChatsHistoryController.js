@@ -157,32 +157,61 @@ const getAllConversationByPatient = async function (req, res) {
     if (req.query.page) {
         page = req.query.page * 1;
     }
-    try {
-        ChatsHistory.find({
-            patientId: req.params.patientId,
-            deletionFlag: {$ne: constants.CHAT_HISTORY_PATIENT_DELETE}
-        })
-            .select('contentTopic doctorId records status createdAt updatedAt')
-            .sort([['status', 'ascending'], ['updatedAt', -1]])
-            .limit(pageSize)
-            .skip(pageSize * page)
-            .populate(
-                {
-                    path: 'doctorId',
-                    select: 'firstName middleName lastName avatar'
+    if(req.query.pageSize && req.query.page){
+        try {
+            ChatsHistory.find({
+                patientId: req.params.patientId,
+                deletionFlag: {$ne: constants.CHAT_HISTORY_PATIENT_DELETE}
+            })
+                .select('contentTopic doctorId records status createdAt updatedAt')
+                .sort([['status', 'ascending'], ['updatedAt', -1]])
+                .limit(pageSize)
+                .skip(pageSize * page)
+                .populate(
+                    {
+                        path: 'doctorId',
+                        select: 'firstName middleName lastName avatar'
+                    }
+                ).exec(function (err, listChatsHistory) {
+                if (err) {
+                    return ReS(res, {message: 'Not found'}, 503);
                 }
-            ).exec(function (err, listChatsHistory) {
-            if (err) {
-                return ReS(res, {message: 'Not found'}, 503);
-            }
-            return ReS(res, {
-                message: 'Tạo danh sách lịch sử chat thành công',
-                listChatsHistory: listChatsHistory
-            }, 200);
-        });
-    } catch (e) {
-        return ReS(res, {message: 'Not found'}, 503);
+                return ReS(res, {
+                    message: 'Tạo danh sách lịch sử chat thành công',
+                    listChatsHistory: listChatsHistory
+                }, 200);
+            });
+        } catch (e) {
+            return ReS(res, {message: 'Not found'}, 503);
+        }
     }
+    else {
+        try {
+            ChatsHistory.find({
+                patientId: req.params.patientId,
+                deletionFlag: {$ne: constants.CHAT_HISTORY_PATIENT_DELETE}
+            })
+                .select('contentTopic doctorId records status createdAt updatedAt')
+                .sort([['status', 'ascending'], ['updatedAt', -1]])
+                .populate(
+                    {
+                        path: 'doctorId',
+                        select: 'firstName middleName lastName avatar'
+                    }
+                ).exec(function (err, listChatsHistory) {
+                if (err) {
+                    return ReS(res, {message: 'Not found'}, 503);
+                }
+                return ReS(res, {
+                    message: 'Tạo danh sách lịch sử chat thành công',
+                    listChatsHistory: listChatsHistory
+                }, 200);
+            });
+        } catch (e) {
+            return ReS(res, {message: 'Not found'}, 503);
+        }
+    }
+
 };
 
 module.exports.getAllConversationByPatient = getAllConversationByPatient;
@@ -199,33 +228,60 @@ const getAllConversationByDoctor = async function (req, res) {
     if (req.query.page) {
         page = req.query.page * 1;
     }
-    try {
-        ChatsHistory.find({
-            doctorId: req.params.doctorId,
-            deletionFlag: {$ne: constants.CHAT_HISTORY_DOCTOR_DELETE}
-        })
-            .select('contentTopic patientId records status createdAt updatedAt')
-            .sort([['status', 1], ['updatedAt', -1]])
-            .limit(pageSize)
-            .skip(pageSize * page)
-            .populate(
-                {
-                    path: 'patientId',
-                    select: 'firstName middleName lastName avatar'
+    if(req.query.pageSize && req.query.page){
+        try {
+            ChatsHistory.find({
+                doctorId: req.params.doctorId,
+                deletionFlag: {$ne: constants.CHAT_HISTORY_DOCTOR_DELETE}
+            })
+                .select('contentTopic patientId records status createdAt updatedAt')
+                .sort([['status', 1], ['updatedAt', -1]])
+                .limit(pageSize)
+                .skip(pageSize * page)
+                .populate(
+                    {
+                        path: 'patientId',
+                        select: 'firstName middleName lastName avatar'
+                    }
+                ).exec(function (err, listChatsHistory) {
+                if (err) {
+                    return ReS(res, {message: 'Not found'}, 503);
                 }
-            ).exec(function (err, listChatsHistory) {
-            if (err) {
-                return ReS(res, {message: 'Not found'}, 503);
-            }
-            return ReS(res, {
-                message: 'Tạo danh sách lịch sử chat thành công',
-                listChatsHistory: listChatsHistory
-            }, 200);
-        });
-    } catch (e) {
-        return ReS(res, {message: 'Not found'}, 503);
+                return ReS(res, {
+                    message: 'Tạo danh sách lịch sử chat thành công',
+                    listChatsHistory: listChatsHistory
+                }, 200);
+            });
+        } catch (e) {
+            return ReS(res, {message: 'Not found'}, 503);
+        }
     }
-
+    else {
+        try {
+            ChatsHistory.find({
+                doctorId: req.params.doctorId,
+                deletionFlag: {$ne: constants.CHAT_HISTORY_DOCTOR_DELETE}
+            })
+                .select('contentTopic patientId records status createdAt updatedAt')
+                .sort([['status', 1], ['updatedAt', -1]])
+                .populate(
+                    {
+                        path: 'patientId',
+                        select: 'firstName middleName lastName avatar'
+                    }
+                ).exec(function (err, listChatsHistory) {
+                if (err) {
+                    return ReS(res, {message: 'Not found'}, 503);
+                }
+                return ReS(res, {
+                    message: 'Tạo danh sách lịch sử chat thành công',
+                    listChatsHistory: listChatsHistory
+                }, 200);
+            });
+        } catch (e) {
+            return ReS(res, {message: 'Not found'}, 503);
+        }
+    }
 };
 
 module.exports.getAllConversationByDoctor = getAllConversationByDoctor;
@@ -237,7 +293,7 @@ const getConversationByID = async function (req, res) {
             _id: req.params.id
         }).populate({
             path: 'patientId doctorId',
-            select: 'firstName middleName lastName'
+            select: 'firstName middleName lastName avatar'
         });
         if (!objConversation) {
             return ReE(res, "Không tìm thấy cuộc trò chuyện", 404);
@@ -513,6 +569,7 @@ const getListConversationPending = async function (req, res) {
         return ReE(res, "Not found", 503);
     }
 };
+
 module.exports.getListConversationPending = getListConversationPending;
 
 //
@@ -536,7 +593,6 @@ const createNotification = async function (body) {
         console.log(e)
     }
 };
-
 
 ///
 async function createPaymentForDoctor(conversationID) {
@@ -575,16 +631,6 @@ async function createPaymentForDoctor(conversationID) {
     }
     return paymentID;
 }
-
-async function getUser(userId) {
-    let fullName;
-    let objUser = await User.findById({_id: userId});
-    if (objUser) {
-        fullName = " " + objUser.firstName + " " + objUser.middleName + " " + objUser.lastName + "";
-    }
-    return fullName
-}
-
 
 const checkStatusChatsHistory = async function (req, res) {
     let arrayResult = [];

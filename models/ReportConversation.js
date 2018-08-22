@@ -12,11 +12,14 @@ let ReportConversationSchema = mongoose.Schema({
     reason: {
         type: String
     },
+    punish: {
+        type: Number
+    },
     idConversation: {
         type: String
     },
     type: {
-        type: String
+        type: Number
     },
     status: {
         type: Boolean,

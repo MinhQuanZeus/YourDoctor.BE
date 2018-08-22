@@ -50,6 +50,10 @@ let UserSchema = mongoose.Schema({
     status:{
             type:Number,
     },
+    reportCount: {
+        type: Number,
+        default: 0
+    },
     deletionFlag: {
         type: Boolean,
         default: false
