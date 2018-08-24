@@ -3,24 +3,47 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "run": "node ./bin/www"
   },
   "dependencies": {
+    "aws-sdk": "^2.279.1",
     "bcrypt": "^2.0.1",
     "bcrypt-promise": "^2.0.0",
+    "bluebird": "^3.5.1",
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "debug": "~3.1.0",
     "dotenv": "^5.0.1",
-    "express": "~4.16.0",
+    "express": "^4.16.3",
+    "express-redis-cache": "^1.1.3",
+    "fcm-push": "^1.1.3",
+    "file-type": "^9.0.0",
+    "firebase-admin": "^5.13.0",
+    "g": "^2.0.1",
+    "install": "^0.12.1",
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.21",
     "mongoose": "^5.0.1",
+    "mongoose-paginate": "^5.0.3",
     "mongoose-validator": "^2.0.2",
     "morgan": "~1.9.0",
+    "multer": "^1.3.1",
+    "multer-s3": "^2.7.0",
+    "multiparty": "^4.1.4",
+    "nodemon": "^1.17.5",
     "parse-error": "^0.2.0",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "pug": "~2.0.3",
+    "redis": "^2.8.0",
     "serve-favicon": "~2.5.0",
-    "validator": "^10.2.0"
+    "socket.io": "2.1.1",
+    "uuid": "^3.3.2",
+    "validator": "^10.2.0",
+    "wait-for-stuff": "^1.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0"
   }
 }

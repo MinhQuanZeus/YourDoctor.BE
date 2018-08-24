@@ -46,3 +46,4 @@ Thumbs.db
 api/node_modules.7z
 node_modules.7z
 npm.7z
+package-lock.json
