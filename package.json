@@ -44,6 +44,6 @@
     "wait-for-stuff": "^1.4.0"
   },
   "devDependencies": {
-    "eslint": "^5.0.1"
+    "eslint": "^5.4.0"
   }
 }

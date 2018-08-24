@@ -10,7 +10,7 @@ var router = express.Router();
 // });
 
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Your Doctor'});
+	res.render('index', {title: 'Your Doctor'});
 });
 
 module.exports = router;
