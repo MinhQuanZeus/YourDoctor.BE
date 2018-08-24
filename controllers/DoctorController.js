@@ -5,9 +5,6 @@ const constants = require('../constants');
 const registerDoctor = async function (req, res) {
 	res.setHeader('Content-Type', 'application/json');
 	const body = req.body;
-	if (!body.doctorId) {
-		return ReE(res, 'ERROR0008', 400);
-	}
 	try {
 		let createObjUser = new User({
 			phoneNumber: body.phoneNumber,
@@ -35,13 +32,8 @@ const registerDoctor = async function (req, res) {
 				yearGraduate: body.yearGraduate,
 				placeWorking: body.placeWorking
 			});
-			let objDoctorReturn = await  doctor.save();
-
-			let patient = new Patient({
-				patientId: objUserReturn.id
-			});
-			let objPatientReturn = patient.save();
-			if (objDoctorReturn && objPatientReturn) {
+			let objDoctorReturn = await doctor.save();
+			if (objDoctorReturn && objUserReturn) {
 				// send notification to staff or admin
 				return ReS(res, {
 					status: true,
