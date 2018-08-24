@@ -119,9 +119,12 @@ module.exports.remove = remove;
 const getListFavoriteDoctor = async function (req, res) {
     let s = 0;
     let p = 0;
-    if(req.query.start && req.query.end){
-        s = parseInt(req.query.start);
-        p = parseInt(req.query.end);
+    if(req.query.skip && req.query.pageSize){
+        s = parseInt(req.query.skip);
+        p = parseInt(req.query.pageSize);
+    }
+    else {
+        ReE(res, "Lỗi pagination", 404);
     }
     const patientId = req.params.patientId;
     try {
@@ -155,13 +158,7 @@ const getListFavoriteDoctor = async function (req, res) {
                 results.push(itemInfoDoctor);
             }
         }
-        if(req.query.start && req.query.end){
-            return ReS(res, {message: "Tạo danh sách bác sỹ được yêu thích thành công", listFavoriteDoctor: results.slice(s,p)}, 200);
-        }
-        else {
-            return ReS(res, {message: "Tạo danh sách bác sỹ được yêu thích thành công", listFavoriteDoctor: results}, 200);
-        }
-
+        return ReS(res, {message: "Tạo danh sách bác sỹ được yêu thích thành công", listFavoriteDoctor: results.slice(s,p)}, 200);
     } catch (e) {
         console.log(e);
         ReE(res, "Không thể lấy được data");
