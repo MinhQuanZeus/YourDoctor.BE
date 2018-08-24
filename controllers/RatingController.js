@@ -59,11 +59,11 @@ async function updateCurrentRating(doctorId, res) {
 				finalRate = ((averagePatientRate * (1-constants.SYSTEM_RATE_PERCENT)) + (updateToDoctor.systemRating * constants.SYSTEM_RATE_PERCENT)).toFixed(2);
 			}
 			else {
-				finalRate = updateToDoctor.systemRating;
+				finalRate = (updateToDoctor.systemRating).toFixed(2);
 			}
 		}
 	});
-	await updateToDoctor.set({currentRating: finalRate.toFixed(2)});
+	await updateToDoctor.set({currentRating: finalRate});
 	await updateToDoctor.save(function (err, newRating) {
 		if (err) ReS(res, 'Update Failed', 503);
 		return ReS(res, {message: 'Update rating bác sỹ thành công', newRating: newRating.currentRating}, 200);

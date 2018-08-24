@@ -187,7 +187,7 @@ module.exports.patientRecharge = patientRecharge;
 
 const getHistoryBanking = async function (req, res) {
 	try {
-		if (req.query.pageSize && req.query.page) {
+		if(req.query.pageSize && req.query.page){
 			let pageSize = 0;
 			let page = 0;
 			if (req.query.pageSize) {
@@ -199,51 +199,51 @@ const getHistoryBanking = async function (req, res) {
 			if (req.params.userId) {
 				let listBankingHistory = await BankingHistory.find({
 					userId: req.params.userId,
-					deletionFlag: false,
+					deletionFlag : false
 				})
 					.select('-timeInputCode -code')
 					.limit(pageSize)
 					.skip(pageSize * page);
-				if (listBankingHistory) {
+				if(listBankingHistory){
 					return ReS(res, {
 						status: true,
 						message: 'Danh sách giao dịch ngân hàng.',
-						listBankingHistory: listBankingHistory,
+						listBankingHistory: listBankingHistory
 					}, 200);
 				}
 				else {
-					return ReE(res, { message: 'Không tìm thấy lịch sử giao dịch' }, 400);
+					return ReE(res, {message: 'Không tìm thấy lịch sử giao dịch'}, 400);
 				}
 			}
 			else {
-				return ReE(res, { message: 'BAD REQUEST' }, 400);
+				return ReE(res, {message: 'BAD REQUEST'}, 400);
 			}
 		}
 		else {
 			if (req.params.userId) {
 				let listBankingHistory = await BankingHistory.find({
 					userId: req.params.userId,
-					deletionFlag: false,
+					deletionFlag : false
 				})
 					.select('-timeInputCode -code');
-				if (listBankingHistory) {
+				if(listBankingHistory){
 					return ReS(res, {
 						status: true,
 						message: 'Danh sách giao dịch ngân hàng.',
-						listBankingHistory: listBankingHistory,
+						listBankingHistory: listBankingHistory
 					}, 200);
 				}
 				else {
-					return ReE(res, { message: 'Không tìm thấy lịch sử giao dịch' }, 400);
+					return ReE(res, {message: 'Không tìm thấy lịch sử giao dịch'}, 400);
 				}
 			}
 			else {
-				return ReE(res, { message: 'BAD REQUEST' }, 400);
+				return ReE(res, {message: 'BAD REQUEST'}, 400);
 			}
 		}
 	}
 	catch (e) {
-		return ReE(res, { message: 'ERROR' }, 400);
+		return ReE(res, {message: 'ERROR'}, 400);
 	}
 };
 module.exports.getHistoryBanking = getHistoryBanking;
