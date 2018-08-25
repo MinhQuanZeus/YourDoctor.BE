@@ -48,7 +48,7 @@ module.exports.create = create;
 
 const getAllSpecialist = async function (req, res) {
 	try {
-		let listSpecialist = await Specialist.find({ deletionFlag: { $ne: true } });
+		let listSpecialist = await Specialist.find({ deletionFlag: false });
 		if (listSpecialist) {
 			return ReS(res, { message: 'Tạo danh sách chuyên khoa thành công', listSpecialist: listSpecialist }, 200);
 		}
@@ -66,7 +66,7 @@ module.exports.getAllSpecialist = getAllSpecialist;
 
 const getListSpecialist = async function (req, res) {
 	try {
-		let listSpecialist = await Specialist.find({}).select('name image');
+		let listSpecialist = await Specialist.find({deletionFlag: false}).select('name image');
 		if (listSpecialist) {
 			return ReS(res, { message: 'Tạo danh sách chuyên khoa thành công', listSpecialist: listSpecialist }, 200);
 		}
