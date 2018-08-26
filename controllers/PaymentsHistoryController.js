@@ -18,7 +18,7 @@ const create = async function (req, res) {
 		await  paymentsHistory.save();
 		return ReS(res, {message: 'Tạo lịch sử thanh toán thành công thành công', paymentsHistory: paymentsHistory.id}, 200);
 	}catch (e) {
-		ReS(res, 'ERROR0040', 503);
+		ReE(res, 'ERROR0040', 503);
 	}
 
 };
@@ -27,7 +27,7 @@ module.exports.create = create;
 
 const getPaymentHistoryByUser = async function (req, res) {
 	if (!req.params.userID) {
-		return ReS(res, {message: 'Bad request'}, 400);
+		return ReE(res, {message: 'Bad request'}, 400);
 	}
 	let pageSize = 0;
 	let page = 0;
@@ -39,8 +39,7 @@ const getPaymentHistoryByUser = async function (req, res) {
 	}
 	try {
 		let listPaymentHistory = await PaymentsHistory.find({
-			userID: req.params.userID,
-			deletionFlag: false
+			userID: req.params.userID
 		})
 			.sort([['createdAt', -1]])
 			.limit(pageSize)
@@ -55,11 +54,11 @@ const getPaymentHistoryByUser = async function (req, res) {
 				select:'name -_id'
 			});
 		if(!listPaymentHistory){
-			return ReS(res, {message: 'Not found'}, 404);
+			return ReE(res, {message: 'Not found'}, 404);
 		}
 		return ReS(res, {message: 'Tạo danh sách payment history thành công', listPaymentHistory: listPaymentHistory}, 200);
 	} catch (e) {
-		return ReS(res, {message: 'Not found'}, 503);
+		return ReE(res, {message: 'Not found'}, 503);
 	}
 };
 module.exports.getPaymentHistoryByUser = getPaymentHistoryByUser;

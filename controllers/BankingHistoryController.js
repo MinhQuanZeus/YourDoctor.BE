@@ -202,6 +202,7 @@ const getHistoryBanking = async function (req, res) {
 					deletionFlag : false
 				})
 					.select('-timeInputCode -code')
+					.sort([['updatedAt', -1]])
 					.limit(pageSize)
 					.skip(pageSize * page);
 				if(listBankingHistory){
@@ -225,7 +226,8 @@ const getHistoryBanking = async function (req, res) {
 					userId: req.params.userId,
 					deletionFlag : false
 				})
-					.select('-timeInputCode -code');
+					.select('-timeInputCode -code')
+					.sort([['createdAt', -1]]);
 				if(listBankingHistory){
 					return ReS(res, {
 						status: true,
