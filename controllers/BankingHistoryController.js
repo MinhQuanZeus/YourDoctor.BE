@@ -301,6 +301,8 @@ module.exports.getDetailHistoryById = getDetailHistoryById;
 
 const handleBankingHistory = async function (req, res) {
 	try {
+		let objAdmin = await User.findOne({role:constants.ROLE_ADMIN});
+		let fullNameAdmin = await getUser(objAdmin.id);
 		if (req.params.id) {
 			let objDetail = await BankingHistory.findById({ _id: req.params.id });
 			if (objDetail) {
@@ -309,8 +311,8 @@ const handleBankingHistory = async function (req, res) {
 				if (objDetailReturn) {
 					// save notification
 					let notificationDoctor = {
-						senderId: constants.ID_ADMIN,
-						nameSender: 'ADMIN',
+						senderId: objAdmin.id,
+						nameSender: fullNameAdmin,
 						receiverId: objDetailReturn.userId,
 						type: constants.NOTIFICATION_TYPE_BANKING,
 						storageId: objDetailReturn.id,
@@ -321,8 +323,8 @@ const handleBankingHistory = async function (req, res) {
 					//send notification to doctor
 					let payLoadDoctor = {
 						data: {
-							senderId: constants.ID_ADMIN,
-							nameSender: 'ADMIN',
+                            senderId: objAdmin.id,
+                            nameSender: fullNameAdmin,
 							receiverId: objDetailReturn.userId,
 							type: constants.NOTIFICATION_TYPE_BANKING,
 							storageId: objDetailReturn.id,
