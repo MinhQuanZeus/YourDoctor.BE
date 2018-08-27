@@ -295,6 +295,11 @@ router.get('/reportConversations/get-detail-report-conversation', passport.authe
 router.get('/reportConversations/:reportId', passport.authenticate('jwt', {
 	session: false,
 }), ReportConversationController.getReportById);
+
+router.put('/reportConversations/reportPunish', passport.authenticate('jwt', {
+    session: false,
+}), ReportConversationController.reportPunish);
+
 //
 router.post('/banks',passport.authenticate('jwt', {
 	session: false

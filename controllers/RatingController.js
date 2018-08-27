@@ -29,7 +29,7 @@ const create = async function (req, res) {
         return ReS(res, {message: 'Update rating bác sỹ thành công', newRating: objDoctorReturn.currentRating}, 200);
     }
     else {
-        return ReS(res, {message: 'Failed'}, 503);
+        return ReE(res, {message: 'Failed'}, 503);
     }
 };
 
@@ -90,13 +90,13 @@ const getCommentAndRating = async function (req, res) {
                 select: 'firstName middleName lastName avatar'
             });
         if (!listComment) {
-            return ReS(res, {message: 'Not found list comment'}, 404);
+            return ReE(res, {message: 'Not found list comment'}, 404);
         }
         else {
             return ReS(res, {message: 'Get list comment success', listComment: listComment}, 404);
         }
     } catch (e) {
-        return ReS(res, {message: 'Not found list comment'}, 503);
+        return ReE(res, {message: 'Not found list comment'}, 503);
     }
 };
 
@@ -108,7 +108,7 @@ const countPatientRatingForDoctor = async function (req, res) {
             doctorId: req.params.doctorId
         }).count(function (err, count) {
             if (err) {
-                return ReS(res, {message: 'Error count'}, 503);
+                return ReE(res, {message: 'Error count'}, 503);
             }
             else {
                 return ReS(res, {message: 'Count success', numberOfRecordRate: count}, 200);
@@ -117,7 +117,7 @@ const countPatientRatingForDoctor = async function (req, res) {
     }
     catch (e) {
         console.log(e);
-        return ReS(res, {message: 'Error count'}, 503);
+        return ReE(res, {message: 'Error count'}, 503);
     }
 };
 
