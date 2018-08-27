@@ -161,14 +161,14 @@ module.exports.updateReportConversationProcessing = updateReportConversationProc
 
 const reportPunish = async function (req, res) {
     try {
-        let doctorId = req.params.doctorId;
-        let reportLevel = req.query.reportLevel;
-        let idReportConversation = req.query.idReportConversation;
-        let objReport = ReportConversation.findById({_id: idReportConversation});
-        let objDoctor = await Doctor.findOne({doctorId: doctorId});
-        let objAdmin = await User.findOne({role: constants.ROLE_ADMIN});
-        let fullNameAdmin = ' ' + objAdmin.firstName + ' ' + objAdmin.middleName + ' ' + objAdmin.lastName + '';
-        if (doctorId && reportLevel) {
+        let body = req.body;
+        if (body) {
+            let objReport = ReportConversation.findById({_id: body.id});
+            let doctorId = objReport.idPersonBeingReported;
+            let reportLevel = body.type;
+            let objDoctor = await Doctor.findOne({doctorId: doctorId});
+            let objAdmin = await User.findOne({role: constants.ROLE_ADMIN});
+            let fullNameAdmin = ' ' + objAdmin.firstName + ' ' + objAdmin.middleName + ' ' + objAdmin.lastName + '';
             switch (reportLevel) {
                 case constants.REPORT_PUNISH_LEVEL_ONE: {
                     // trừ sao hệ thống
