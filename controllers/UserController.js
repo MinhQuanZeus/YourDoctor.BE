@@ -5,6 +5,7 @@ const Rating = require('../models').Rating;
 const Doctor = require('../models').Doctor;
 const SendNotification = require('./NotificationFCMController');
 const constants = require('../constants');
+const phoneService = require('./../services/PhoneService');
 // const create = async function (req, res) {
 //     res.setHeader('Content-Type', 'application/json');
 //     const body = req.body;
@@ -95,7 +96,6 @@ const changePassword = async function (req, res) {
 	}
 };
 module.exports.changePassword = changePassword;
-const phoneService = require('./../services/PhoneService');
 const forgotPassword = async function (req, res) {
 	if (!req.params.phoneNumber) {
 		ReS(res, { message: 'Bad request' }, 400);
@@ -268,23 +268,23 @@ const updateUser = async function (req, res) {
 				}
 				if (body.status === '3') {
 					let message = 'Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT, message);
+					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT,"", message);
 				}
 				if (body.status === '4') {
 					let message = 'Tài khoản của bạn đã bị khóa tạm thời sử dụng ứng dụng YourDoctor Partner. Bạn vẫn có thể đăng nhập ứng dụng dành cho bệnh nhân.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT, message);
+					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT,"", message);
 				}
 				if (body.systemRating < objDoctor.systemRating) {
 					let message = 'Bạn đã bị giảm chỉ số Rate do những báo cáo về chất lượng các cuộc tư vấn.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT, message);
+					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT,"", message);
 				}
 				if (body.role === '1') {
 					let message = 'Tài khoản của bạn đã được cập nhật thành Bệnh nhân.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE, message);
+					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE,"", message);
 				}
 				if (body.role === '3') {
 					let message = 'Tài khoản của bạn đã được cập nhật thành Admin.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE, message);
+					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE,"", message);
 				}
 				let finalRate = await calculateRate(body.id, body.systemRating);
 				objDoctor.set({ systemRating: body.systemRating, currentRating: finalRate });
@@ -301,15 +301,15 @@ const updateUser = async function (req, res) {
 			else if (objUser.role === '1') {
 				if (body.status === '3') {
 					let message = 'Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT, message);
+					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT,"", message);
 				}
 				if (body.role === '2') {
 					let message = 'Tài khoản của bạn đã được cập nhật thành Bác sỹ.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE, message);
+					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE,"", message);
 				}
 				if (body.role === '3') {
 					let message = 'Tài khoản của bạn đã được cập nhật thành Admin.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE, message);
+					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE,"", message);
 				}
 				objUser.set({ status: body.status });
 				let objUserReturn = objUser.save();
@@ -491,14 +491,14 @@ async function calculateRate (doctorId, newSystemRating) {
 		} else {
 			if (result[0].totalRating > 0) {
 				averagePatientRate = ((result[0].totalRating) / (result[0].count));
-				finalRate = ((averagePatientRate * (1 - constants.SYSTEM_RATE_PERCENT)) + (newSystemRating * constants.SYSTEM_RATE_PERCENT));
+				finalRate = ((averagePatientRate * (1 - constants.SYSTEM_RATE_PERCENT)) + (newSystemRating * constants.SYSTEM_RATE_PERCENT)).toFixed(2);
 			}
 			else {
 				finalRate = newSystemRating;
 			}
 		}
 	});
-	return finalRate.toFixed(2);
+	return finalRate;
 }
 
 
