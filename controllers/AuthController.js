@@ -36,7 +36,7 @@ const register = async function (req, res) {
 			return ReS(res, {
 				message: 'Successfully created new user.',
 				user: user.toWeb(),
-				jwt_token: user.getJWT(),
+				token: user.getJWT(),
 			}, 200);
 		} catch (error) {
 			return ReE(res, 'Đăng ký không thành công, vui lòng thử lại sau', 400);
