@@ -1,56 +1,25 @@
-const AWS = require('aws-sdk');
-const s3Client = new AWS.S3({
-	accessKeyId: CONFIG.AWS_S3_ACCESS_KEY,
-	secretAccessKey: CONFIG.AWS_S3_SECRET_ACCESS_KEY,
-	signatureVersion: 'v2',
-});
-let wait = require('wait-for-stuff');
+const uploadServices = require('./../services/UploadServices');
 const multiparty = require('multiparty');
-const bucket = CONFIG.AWS_BUKET_PUBLIC;
-
-const uploadImageChat = async (part) => {
-	if (part.filename) {
-		await s3Client.putObject({
-			Bucket: bucket,
-			Key: part.filename,
-			ACL: 'public-read',
-			Body: part,
-			ContentLength: part.byteCount,
-		}, async (err, data) => {
-			if (err) TE(err);
-			console.log('upload done ' + part.filename);
-			return 'done';
-		});
-	}
-};
-module.exports.uploadImageChat = uploadImageChat;
-
-//////////
 
 const upload = async function (req, res) {
-	res.setHeader('Content-Type', 'application/json');
-	const form = new multiparty.Form();
-	let filePath = '';
-	let filePart = '';
-	form.on('part', async function (part) {
-		if (part.filename) {
-			filePart = part;
-			let status;
-			try {
-				status = await to(uploadImageChat(part));
-			} catch (ex) {
-				RE(res, ex, 422);
-			}
-		}
+    const form = new multiparty.Form();
+    form.parse(req, async (error, fields, files) => {
+        if(error){
+            return ReE(res, 'Upload ảnh không thành công, vui lòng thử lại sau', 400);
+        }
+        let image = 'http://dnr-live.ru/wp-content/uploads/2017/03/noavatar.png';
+        if (files && files.imageChat && files.imageChat.length > 0) {
+            let [error, imageURL] = await to(uploadServices.uploadService(files.imageChat[0]));
+            if (error) {
+                console.log(error);
+                return ReE(res, 'Upload ảnh không thành công, vui lòng thử lại sau', 400);
+            }
+            image = imageURL;
+        }
+        else {
+            return ReE(res, 'Không tồn tại ảnh để upload', 400);
+        }
+        return ReS(res, { message: 'Link image', filePath: image }, 200);
 	});
-	form.on('close', async function () {
-		filePath = CONFIG.AWS_S3_DOMAIN + CONFIG.AWS_BUKET_PUBLIC + '/' + filePart.filename;
-		return ReS(res, { message: 'Link ảnh chat', filePath: filePath }, 200);
-	});
-	form.on('error', function (err) {
-		if (erro) return ReE(res, err, 422);
-	});
-	form.parse(req);
-
 };
 module.exports.upload = upload;
