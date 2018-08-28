@@ -305,6 +305,23 @@ const updateUser = async function (req, res) {
                     return ReE(res, { success: false, message:'Update failed' }, 503);
 				}
 			}
+            else if (objUser.role+"" === '3') {
+                if (body.status === 3) {
+                    let message = 'Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
+                    [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+                    if(errors){
+                        return ReE(res, { success: false, message:'Update user failed!' }, 503);
+                    }
+                }
+                objUser.set({ status: body.status });
+                let objUserReturn = await objUser.save();
+                if (objUserReturn) {
+                    return ReS(res, { success: true, message:'Update success'}, 200);
+                }
+                else {
+                    return ReE(res, { success: false, message:'Update failed' }, 503);
+                }
+            }
 		}
 		else {
 			ReE(res, { message: 'Bad request' }, 400);
