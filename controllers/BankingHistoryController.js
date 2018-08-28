@@ -69,6 +69,8 @@ const checkCodeVerify = async function (req, res) {
 	try {
 		let body = req.body;
 		if (body) {
+			let objAdmin = await User.findOne({role:constants.ROLE_ADMIN});
+			let fullNameAdmin = objAdmin.firstName+' '+objAdmin.middleName+' '+objAdmin.lastName;
 			let objBanking = await BankingHistory.findById({ _id: body.id });
 			if ('2' === objBanking.status + '') {
 				return ReE(res, { message: 'Giao dịch đã được xác mminh.' }, 503);
@@ -81,8 +83,8 @@ const checkCodeVerify = async function (req, res) {
 
 						// save
 						let notificationDoctor = {
-							senderId: constants.ID_ADMIN,
-							nameSender: 'ADMIN',
+							senderId: objAdmin.id,
+							nameSender: fullNameAdmin,
 							receiverId: objBanking.userId,
 							type: constants.NOTIFICATION_TYPE_BANKING,
 							storageId: objBanking.id,
@@ -93,8 +95,8 @@ const checkCodeVerify = async function (req, res) {
 						//send notification to doctor
 						let payLoadDoctor = {
 							data: {
-								senderId: constants.ID_ADMIN,
-								nameSender: 'ADMIN',
+                                senderId: objAdmin.id,
+                                nameSender: fullNameAdmin,
 								receiverId: objBanking.userId,
 								type: constants.NOTIFICATION_TYPE_BANKING,
 								storageId: objBanking.id,
