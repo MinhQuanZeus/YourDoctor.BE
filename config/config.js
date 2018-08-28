@@ -19,6 +19,8 @@ CONFIG.SPEED_SMS_URL = 'api.speedsms.vn';
 CONFIG.SPEED_SMS_AUTH_TOKEN = 'dIWnxXVIOUNgoBD1zagC8HXJEBHDCnjT';
 CONFIG.SPEED_SMS_TYPE = 2;
 CONFIG.EXPIRATION_SMS_CODE = 600000;
+CONFIG.UPLOAD_FOLDER = '../public/uploads/images/';
+CONFIG.BASE_UPLOAD_IMAGES_URL = 'https://yourdoctorfu.com/uploads/images/';
 
 CONFIG.ACCOUNT =
 {

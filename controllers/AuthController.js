@@ -1,11 +1,7 @@
-const Account = require('../models').Account;
-const fs = require('fs');
-const fileType = require('file-type');
 const multiparty = require('multiparty');
 const authService = require('./../services/AuthService');
-const awsService = require('./../services/AWSService');
+const uploadServices = require('./../services/UploadServices');
 const constants = require('./../constants');
-const uuidv4 = require('uuid/v4');
 
 const register = async function (req, res) {
 	res.setHeader('Content-Type', 'application/json');
@@ -13,31 +9,42 @@ const register = async function (req, res) {
 	form.parse(req, async (error, fields, files) => {
 		if (error) throw new Error(error);
 		try {
-			let image = '';
+			let image = 'http://dnr-live.ru/wp-content/uploads/2017/03/noavatar.png';
 			if (files && files.avatar) {
-				const path = files.avatar[0].path;
-				const buffer = fs.readFileSync(path);
-				const type = fileType(buffer);
-				const timestamp = uuidv4();
-				const fileName = `${timestamp}-lg`;
-				const data = await awsService.uploadFile(buffer, fileName, type);
-				image = data.Location;
-			}
-			// Insert database
-			const requestData = fields && fields.user && fields.user[0];
-			let erro, user;
-			[erro, user] = await to(authService.createUser(requestData, image));
-			if (erro) return ReE(res, erro, 422);
-			if (user.role === constants.ROLE_STAFF) {
+				let [error, imageURL] = await to(uploadServices.uploadService(files.avatar[0]));
+				if (error) {
+					return ReE(res, 'Đăng ký không thành công, vui lòng thử lại sau', 400);
+				}
+				image = imageURL;
+				const requestData = fields && fields.user && fields.user[0];
+				let [erro, user] = await to(authService.createUser(requestData, image));
+				if (erro) return ReE(res, erro, 422);
+				if (user.role === constants.ROLE_STAFF) {
+					return ReS(res, {
+						message: 'Successfully created new user.',
+					}, 200);
+				}
 				return ReS(res, {
 					message: 'Successfully created new user.',
+					user: user.toWeb(),
+					token: user.getJWT(),
+				}, 200);
+			}else {
+				const requestData = fields && fields.user && fields.user[0];
+				let erro, user;
+				[erro, user] = await to(authService.createUser(requestData, image));
+				if (erro) return ReE(res, erro, 422);
+				if (user.role === constants.ROLE_STAFF) {
+					return ReS(res, {
+						message: 'Successfully created new user.',
+					}, 200);
+				}
+				return ReS(res, {
+					message: 'Successfully created new user.',
+					user: user.toWeb(),
+					token: user.getJWT(),
 				}, 200);
 			}
-			return ReS(res, {
-				message: 'Successfully created new user.',
-				user: user.toWeb(),
-				token: user.getJWT(),
-			}, 200);
 		} catch (error) {
 			return ReE(res, 'Đăng ký không thành công, vui lòng thử lại sau', 400);
 		}
