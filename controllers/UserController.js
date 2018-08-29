@@ -261,72 +261,74 @@ const updateUser = async function (req, res) {
 		if (body) {
 			let objUser = await User.findById({ _id: body.id });
 			let objDoctor = await Doctor.findOne({ doctorId: body.id });
-			if (objUser.role === '2') {
-				if (body.status === '1') {
-					let message = 'Tài khoản bác sỹ của bạn đã được xác minh. Bạn đã có thể đăng nhập vào hệ thống ứng dụng của YourDoctor';
+			if (objUser.role+"" === '2') {
+				console.log('vao day');
+				if (body.status === 1) {
+					let message = 'Tài khoản bác sỹ của bạn đã được xác minh. Bạn đã có thể đăng nhập vào hệ thống ứng dụng của Your Doctor';
 					[errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+					if(errors){
+                        return ReE(res, { success: false, message:'Update user failed!' }, 503);
+					}
 				}
-				if (body.status === '3') {
+				if (body.status === 3) {
 					let message = 'Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT,"", message);
+                    [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+                    if(errors){
+                        return ReE(res, { success: false, message:'Update user failed!' }, 503);
+                    }
 				}
-				if (body.status === '4') {
-					let message = 'Tài khoản của bạn đã bị khóa tạm thời sử dụng ứng dụng YourDoctor Partner. Bạn vẫn có thể đăng nhập ứng dụng dành cho bệnh nhân.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT,"", message);
-				}
-				if (body.systemRating < objDoctor.systemRating) {
-					let message = 'Bạn đã bị giảm chỉ số Rate do những báo cáo về chất lượng các cuộc tư vấn.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT,"", message);
-				}
-				if (body.role === '1') {
-					let message = 'Tài khoản của bạn đã được cập nhật thành Bệnh nhân.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE,"", message);
-				}
-				if (body.role === '3') {
-					let message = 'Tài khoản của bạn đã được cập nhật thành Admin.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE,"", message);
-				}
-				let finalRate = await calculateRate(body.id, body.systemRating);
-				objDoctor.set({ systemRating: body.systemRating, currentRating: finalRate });
+				objDoctor.set({ systemRating: body.systemRating, currentRating: body.systemRating });
 				let objDoctorReturn = await objDoctor.save();
-				objUser.set({ status: body.status, role: body.role });
-				let objUserReturn = objUser.save();
+				objUser.set({ status: body.status});
+				let objUserReturn = await objUser.save();
 				if (objDoctorReturn && objUserReturn) {
-					return ReS(res, { success: true }, 200);
+					return ReS(res, { success: true, message:'Update success'}, 200);
 				}
 				else {
-					return ReS(res, { success: false }, 503);
+					return ReE(res, { success: false, message:'Update failed' }, 503);
 				}
 			}
-			else if (objUser.role === '1') {
-				if (body.status === '3') {
+			else if (objUser.role+"" === '1') {
+				if (body.status === 3) {
 					let message = 'Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT,"", message);
-				}
-				if (body.role === '2') {
-					let message = 'Tài khoản của bạn đã được cập nhật thành Bác sỹ.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE,"", message);
-				}
-				if (body.role === '3') {
-					let message = 'Tài khoản của bạn đã được cập nhật thành Admin.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE,"", message);
+                    [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+                    if(errors){
+                        return ReE(res, { success: false, message:'Update user failed!' }, 503);
+                    }
 				}
 				objUser.set({ status: body.status });
-				let objUserReturn = objUser.save();
+				let objUserReturn = await objUser.save();
 				if (objUserReturn) {
-					return ReS(res, { success: true }, 200);
+                    return ReS(res, { success: true, message:'Update success'}, 200);
 				}
 				else {
-					return ReS(res, { success: false }, 503);
+                    return ReE(res, { success: false, message:'Update failed' }, 503);
 				}
 			}
+            else if (objUser.role+"" === '3') {
+                if (body.status === 3) {
+                    let message = 'Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
+                    [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+                    if(errors){
+                        return ReE(res, { success: false, message:'Update user failed!' }, 503);
+                    }
+                }
+                objUser.set({ status: body.status });
+                let objUserReturn = await objUser.save();
+                if (objUserReturn) {
+                    return ReS(res, { success: true, message:'Update success'}, 200);
+                }
+                else {
+                    return ReE(res, { success: false, message:'Update failed' }, 503);
+                }
+            }
 		}
 		else {
 			ReE(res, { message: 'Bad request' }, 400);
 		}
 	}
 	catch (e) {
-
+        ReE(res, { message: 'ERROR' }, 503);
 	}
 };
 
@@ -368,11 +370,7 @@ const createNotification = async function (body) {
 			storageId: body.storageId,
 			message: body.message,
 		});
-		await notification.save(function (err, success) {
-			if (err) {
-				console.log(err);
-			}
-		});
+		await notification.save();
 	}
 	catch (e) {
 		console.log(e);
@@ -467,38 +465,5 @@ const getUserById = async function (req, res) {
 	});
 };
 module.exports.getUserById = getUserById;
-
-async function calculateRate (doctorId, newSystemRating) {
-	let averagePatientRate = 0;
-	let finalRate = 0;
-	// update to doctor table
-	await Rating.aggregate([
-		{
-			$match: { doctorId: { $eq: doctorId } },
-		},
-		{
-			$group: {
-				_id: '$doctorId',  //$doctorId is the column name in collection
-				totalRating: {
-					$sum: '$rating',
-				},
-				count: { $sum: 1 },
-			},
-		},
-	], function (err, result) {
-		if (err) {
-			console.log(err);
-		} else {
-			if (result[0].totalRating > 0) {
-				averagePatientRate = ((result[0].totalRating) / (result[0].count));
-				finalRate = ((averagePatientRate * (1 - constants.SYSTEM_RATE_PERCENT)) + (newSystemRating * constants.SYSTEM_RATE_PERCENT)).toFixed(2);
-			}
-			else {
-				finalRate = newSystemRating;
-			}
-		}
-	});
-	return finalRate;
-}
 
 

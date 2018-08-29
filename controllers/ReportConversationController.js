@@ -5,6 +5,9 @@ const SendNotification = require('./NotificationFCMController');
 const phoneService = require('./../services/PhoneService');
 const constants = require('./../constants');
 const Doctor = require('../models').Doctor;
+const Rating = require('../models').Rating;
+const User = require('../models').User;
+const Notification = require('../models').Notification;
 const createReportConveration = async function (req, res) {
     try {
         let body = req.body;
@@ -53,7 +56,7 @@ const getListReport = async function (req, res) {
             .populate(
                 {
                     path: 'idReporter idPersonBeingReported',
-                    select: 'firstName middleName lastName birthday avatar',
+                    select: 'firstName middleName lastName birthday avatar role',
                 },
             );
         if (listReport) {
@@ -84,7 +87,7 @@ const getReportById = async function (req, res) {
             .populate(
                 {
                     path: 'idReporter idPersonBeingReported',
-                    select: 'firstName middleName lastName birthday avatar',
+                    select: 'firstName middleName lastName birthday avatar role',
                 },
             );
         if (!listReport || listReport.length === 0) {
@@ -163,110 +166,261 @@ const reportPunish = async function (req, res) {
     try {
         let body = req.body;
         if (body) {
-            let objReport = ReportConversation.findById({_id: body.id});
-            let doctorId = objReport.idPersonBeingReported;
-            let reportLevel = body.type;
-            let objDoctor = await Doctor.findOne({doctorId: doctorId});
+            let objReport = await ReportConversation.findById({_id: body.id});
+            let objUser = await User.findById({_id: objReport.idPersonBeingReported});
             let objAdmin = await User.findOne({role: constants.ROLE_ADMIN});
             let fullNameAdmin = ' ' + objAdmin.firstName + ' ' + objAdmin.middleName + ' ' + objAdmin.lastName + '';
-            switch (reportLevel) {
-                case constants.REPORT_PUNISH_LEVEL_ONE: {
-                    // trừ sao hệ thống
-                    let newSystemRate = objDoctor.systemRating - 1;
-                    // tính lại current rate
-                    let newCurrentRate = await newCurrentRate(objDoctor.id, newSystemRate);
-                    // set rate
-                    objDoctor.set({systemRating: newSystemRate, currentRating: newCurrentRate});
-                    let objDoctorReturn = await objDoctor.save();
-                    // update status report true
-                    objReport.set({status: true});
-                    let objReturn = await objReport.save();
-                    // notification
-                    if (objDoctorReturn && objReturn) {
-                        let message = "Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Bạn bị trừ 1 * hệ thống.";
-                        await Notification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, "", message);
-                        return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
+            let reportLevel = body.type;
+            if (objUser.role + "" === '2') {
+                // doctor
+                let doctorId = objReport.idPersonBeingReported;
+                let objDoctor = await Doctor.findOne({doctorId: doctorId});
+                switch (reportLevel) {
+                    case constants.REPORT_PUNISH_LEVEL_ONE: {
+                        // trừ sao hệ thống
+                        let newSystemRate = objDoctor.systemRating - 1;
+                        if (newSystemRate < 1) {
+                            newSystemRate = 1;
+                        }
+                        // tính lại current rate
+                        let currentRating = await newCurrentRate(objDoctor.id, newSystemRate);
+                        // set rate
+                        objDoctor.set({systemRating: newSystemRate, currentRating: currentRating});
+                        let objDoctorReturn = await objDoctor.save();
+                        // update status report true
+                        objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_ONE});
+                        let objReturn = await objReport.save();
+                        // add report count
+                        User.findByIdAndUpdate({_id: doctorId}, {$inc: {reportCount: 1}}, {lean: true}, function (err, resUser) {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                        // notification
+                        if (objDoctorReturn && objReturn) {
+                            let message = "Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Bạn bị trừ 1 * hệ thống.";
+                            await sendNotification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message);
+                            return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
+                        }
+                        break;
                     }
-                    break;
-                }
-                case constants.REPORT_PUNISH_LEVEL_TWO: {
-                    // trừ sao hệ thống
-                    let newSystemRate = objDoctor.systemRating - 1.5;
-                    // tính lại current rate
-                    let newCurrentRate = await newCurrentRate(objDoctor.id, newSystemRate);
-                    // set rate
-                    objDoctor.set({systemRating: newSystemRate, currentRating: newCurrentRate});
-                    let objDoctorReturn = await objDoctor.save();
-                    // update status report true
-                    objReport.set({status: true});
-                    let objReturn = await objReport.save();
-                    // notification
-                    if (objDoctorReturn && objReturn) {
-                        let message = "Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Bạn bị trừ 1.5 * hệ thống.";
-                        await Notification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, "", message);
-                        return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
-                    }
-                    break;
-                }
-                case constants.REPORT_PUNISH_LEVEL_THREE: {
-                    // trừ sao hệ thống
-                    let newSystemRate = objDoctor.systemRating - 2;
-                    // tính lại current rate
-                    let newCurrentRate = await newCurrentRate(objDoctor.id, newSystemRate);
-                    // set rate
-                    objDoctor.set({systemRating: newSystemRate, currentRating: newCurrentRate});
-                    let objDoctorReturn = await objDoctor.save();
-                    // update status report true
-                    objReport.set({status: true});
-                    let objReturn = await objReport.save();
-                    // notification
-                    if (objDoctorReturn && objReturn) {
-                        let message = "Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Bạn bị trừ 2 * hệ thống.";
-                        await Notification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, "", message);
-                        return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
-                    }
-                    break;
-                }
-                case constants.REPORT_PUNISH_LEVEL_FOUR: {
-                    // trừ sao hệ thống
-                    let newSystemRate = objDoctor.systemRating - 2.5;
-                    // tính lại current rate
-                    let newCurrentRate = await newCurrentRate(objDoctor.id, newSystemRate);
-                    // set rate
-                    objDoctor.set({systemRating: newSystemRate, currentRating: newCurrentRate});
-                    let objDoctorReturn = await objDoctor.save();
-                    // update status report true
-                    objReport.set({status: true});
-                    let objReturn = await objReport.save();
-                    // notification
-                    if (objDoctorReturn && objReturn) {
-                        let message = "Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Bạn bị trừ 2.5 * hệ thống.";
-                        await Notification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, "", message);
-                        return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
-                    }
-                    break;
-                }
-                case constants.REPORT_PUNISH_LEVEL_FIVE: {
-                    let objUser = await User.findById({_id: doctorId});
-                    let message = "Tài khoản của bạn đã bị khóa do có quá nhiều báo cáo về chất lượng phục vụ không tốt. Mọi thắc mắc gửi về: yourdoctorFU@gmail.com";
-                    [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
-                    objReport.set({status: true});
-                    let objReturn = await objReport.save();
-                    if(status && objReturn){
-                        return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
-                    }
-                    break;
-                }
-                case constants.REPORT_PUNISH_LEVEL_SIX: {
-                    objReport.set({status: true});
-                    let objReturn = await objReport.save();
-                    if(objReturn){
-                        return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
-                    }
-                    break;
-                }
-                default: {
+                    case constants.REPORT_PUNISH_LEVEL_TWO: {
+                        // trừ sao hệ thống
+                        let newSystemRate = objDoctor.systemRating - 1.5;
+                        if (newSystemRate < 1) {
+                            newSystemRate = 1;
+                        }
+                        // tính lại current rate
+                        let currentRating = await newCurrentRate(objDoctor.id, newSystemRate);
+                        // set rate
+                        objDoctor.set({systemRating: newSystemRate, currentRating: currentRating});
+                        let objDoctorReturn = await objDoctor.save();
+                        // update status report true
+                        objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_TWO});
+                        let objReturn = await objReport.save();
+                        // add report count
+                        User.findOneAndUpdate({id: doctorId}, {$inc: {reportCount: 1}}, {new: true}, function (err, resUser) {
+                            if (err) {
 
+                            }
+                        });
+                        // notification
+                        if (objDoctorReturn && objReturn) {
+                            let message = "Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Bạn bị trừ 1.5 * hệ thống.";
+                            await sendNotification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message);
+                            return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
+                        }
+                        break;
+                    }
+                    case constants.REPORT_PUNISH_LEVEL_THREE: {
+                        // trừ sao hệ thống
+                        let newSystemRate = objDoctor.systemRating - 2;
+                        if (newSystemRate < 1) {
+                            newSystemRate = 1;
+                        }
+                        // tính lại current rate
+                        let currentRating = await newCurrentRate(objDoctor.id, newSystemRate);
+                        // set rate
+                        objDoctor.set({systemRating: newSystemRate, currentRating: currentRating});
+                        let objDoctorReturn = await objDoctor.save();
+                        // update status report true
+                        objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_THREE});
+                        let objReturn = await objReport.save();
+                        // add report count
+                        User.findOneAndUpdate({id: doctorId}, {$inc: {reportCount: 1}}, {new: true}, function (err, resUser) {
+                            if (err) {
+
+                            }
+                        });
+                        // notification
+                        if (objDoctorReturn && objReturn) {
+                            let message = "Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Bạn bị trừ 2 * hệ thống.";
+                            await sendNotification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message);
+                            return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
+                        }
+                        break;
+                    }
+                    case constants.REPORT_PUNISH_LEVEL_FOUR: {
+                        // trừ sao hệ thống
+                        let newSystemRate = objDoctor.systemRating - 2.5;
+                        if (newSystemRate < 1) {
+                            newSystemRate = 1;
+                        }
+                        // tính lại current rate
+                        let currentRating = await newCurrentRate(objDoctor.id, newSystemRate);
+                        // set rate
+                        objDoctor.set({systemRating: newSystemRate, currentRating: currentRating});
+                        let objDoctorReturn = await objDoctor.save();
+                        // update status report true
+                        objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_FOUR});
+                        let objReturn = await objReport.save();
+                        // add report count
+                        User.findOneAndUpdate({id: doctorId}, {$inc: {reportCount: 1}}, {new: true}, function (err, resUser) {
+                            if (err) {
+
+                            }
+                        });
+                        // notification
+                        if (objDoctorReturn && objReturn) {
+                            let message = "Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Bạn bị trừ 2.5 * hệ thống.";
+                            await sendNotification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message);
+                            return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
+                        }
+                        break;
+                    }
+                    case constants.REPORT_PUNISH_LEVEL_FIVE: {
+                        let objUser = await User.findById({_id: doctorId});
+                        let message = "Tài khoản của bạn đã bị khóa do có quá nhiều báo cáo về chất lượng phục vụ không tốt. Mọi thắc mắc gửi về: yourdoctorFU@gmail.com";
+                        [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+                        objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_FIVE});
+                        let objReturn = await objReport.save();
+                        // add report count
+                        User.findOneAndUpdate({id: doctorId}, {$inc: {reportCount: 1}}, {new: true}, function (err, resUser) {
+                            if (err) {
+
+                            }
+                        });
+                        if (status && objReturn) {
+                            return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
+                        }
+                        break;
+                    }
+                    case constants.REPORT_PUNISH_LEVEL_SIX: {
+                        objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_SIX});
+                        let objReturn = await objReport.save();
+                        if (objReturn) {
+                            return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
+                        }
+                        break;
+                    }
+                    default: {
+
+                    }
+                }
+            }
+            else if (objUser.role + "" === '1') {
+                // patient
+                let patientId = objReport.idPersonBeingReported;
+                switch (reportLevel) {
+                    case constants.REPORT_PUNISH_LEVEL_ONE: {
+                        // update status report true
+                        objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_ONE});
+                        let objReturn = await objReport.save();
+                        // add report count
+                        User.findByIdAndUpdate({_id: patientId}, {$inc: {reportCount: 1}}, {lean: true}, function (err, resUser) {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                        if (objReturn) {
+                            // notification
+                            let message = "Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Cảnh báo mức độ 1. Bạn sẽ bị block nếu vi phạm mức độ 5.";
+                            await sendNotification(objAdmin.id, fullNameAdmin, patientId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message);
+                            return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
+                        }
+                        break;
+                    }
+                    case constants.REPORT_PUNISH_LEVEL_TWO: {
+                        // update status report true
+                        objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_TWO});
+                        let objReturn = await objReport.save();
+                        // add report count
+                        User.findByIdAndUpdate({_id: patientId}, {$inc: {reportCount: 1}}, {lean: true}, function (err, resUser) {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                        if (objReturn) {
+                            // notification
+                            let message = "Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Cảnh báo mức độ 2. Bạn sẽ bị block nếu vi phạm mức độ 5.";
+                            await sendNotification(objAdmin.id, fullNameAdmin, patientId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message);
+                            return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
+                        }
+                        break;
+                    }
+                    case constants.REPORT_PUNISH_LEVEL_THREE: {
+                        // update status report true
+                        objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_THREE});
+                        let objReturn = await objReport.save();
+                        // add report count
+                        User.findByIdAndUpdate({_id: patientId}, {$inc: {reportCount: 1}}, {lean: true}, function (err, resUser) {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                        if (objReturn) {
+                            // notification
+                            let message = "Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Cảnh báo mức độ 3. Bạn sẽ bị block nếu vi phạm mức độ 5.";
+                            await sendNotification(objAdmin.id, fullNameAdmin, patientId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message);
+                            return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
+                        }
+                        break;
+                    }
+                    case constants.REPORT_PUNISH_LEVEL_FOUR: {
+                        // update status report true
+                        objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_ONE});
+                        let objReturn = await objReport.save();
+                        // add report count
+                        User.findByIdAndUpdate({_id: patientId}, {$inc: {reportCount: 1}}, {lean: true}, function (err, resUser) {
+                            if (err) {
+                                console.log(err);
+                            }
+                        });
+                        if (objReturn) {
+                            // notification
+                            let message = "Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Cảnh báo mức độ 4. Bạn sẽ bị block nếu tiếp tục vi phạm.";
+                            await sendNotification(objAdmin.id, fullNameAdmin, patientId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message);
+                            return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
+                        }
+                        break;
+                    }
+                    case constants.REPORT_PUNISH_LEVEL_FIVE: {
+                        let message = "Tài khoản của bạn đã bị khóa do vi phạm qui định sử dụng hệ thống. Mọi thắc mắc gửi về: yourdoctorFU@gmail.com";
+                        [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+                        objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_FIVE});
+                        let objReturn = await objReport.save();
+                        // add report count
+                        User.findOneAndUpdate({id: patientId}, {$inc: {reportCount: 1}}, {new: true}, function (err, resUser) {
+                            if (err) {
+
+                            }
+                        });
+                        if (status && objReturn) {
+                            return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
+                        }
+                        break;
+                    }
+                    case constants.REPORT_PUNISH_LEVEL_SIX: {
+                        objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_SIX});
+                        let objReturn = await objReport.save();
+                        if (objReturn) {
+                            return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
+                        }
+                        break;
+                    }
+                    default: {
+
+                    }
                 }
             }
         }
@@ -275,6 +429,7 @@ const reportPunish = async function (req, res) {
         }
     }
     catch (e) {
+        console.log(e);
         return ReE(res, {message: 'ERROR'}, 503);
     }
 };
@@ -298,17 +453,18 @@ async function newCurrentRate(doctorId, newSystemRate) {
             }
         }
     ]);
-    if (result[0].totalRating > 0) {
+    if (result.length > 0) {
         averagePatientRate = ((result[0].totalRating) / (result[0].count));
         finalRate = ((averagePatientRate * (1 - constants.SYSTEM_RATE_PERCENT)) + (newSystemRate * constants.SYSTEM_RATE_PERCENT)).toFixed(2);
     }
     else {
         finalRate = newSystemRate;
     }
+    console.log(finalRate);
     return finalRate;
 }
 
-async function Notification(senderId, nameSender, receiverId, type, storageId, message) {
+async function sendNotification(senderId, nameSender, receiverId, type, storageId, message) {
     let notification = {
         senderId: senderId,
         nameSender: nameSender,
@@ -324,7 +480,7 @@ async function Notification(senderId, nameSender, receiverId, type, storageId, m
             senderId: senderId,
             nameSender: nameSender,
             receiverId: receiverId,
-            type: type,
+            type: type + '',
             storageId: storageId,
             message: message,
             createTime: Date.now().toString(),
