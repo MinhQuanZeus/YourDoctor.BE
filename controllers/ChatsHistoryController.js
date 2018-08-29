@@ -611,6 +611,7 @@ async function createPaymentForDoctor(conversationID) {
 				userID: objChatHistory.doctorId,
 				amount: objTypeAdvisory.price * 1 * constants.PERCENT_PAY_FOR_DOCTOR,
 				remainMoney: remainMoney,
+                fromUser: objChatHistory.patientId,
 				typeAdvisoryID: objChatHistory.typeAdvisoryID,
 				status: constants.PAYMENT_SUCCESS
 			});
