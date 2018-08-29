@@ -154,7 +154,7 @@ router.get('/bankinghistorys/get-detail-banking/:id',passport.authenticate('jwt'
 	session: false,
 }), BankingHistoryController.getDetailHistoryById);
 
-router.put('/bankinghistorys/handleBankingHistory', passport.authenticate('jwt', {
+router.put('/bankinghistorys/handleBankingHistory/:id', passport.authenticate('jwt', {
 	session: false,
 }),BankingHistoryController.handleBankingHistory);
 

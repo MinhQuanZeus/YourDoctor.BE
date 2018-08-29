@@ -4,6 +4,8 @@ const User = require('../models').User;
 const SendNotification = require('./NotificationFCMController');
 const Notification = require('../models').Notification;
 const constants = require('../constants');
+const uploadServices = require('./../services/UploadServices');
+const multiparty = require('multiparty');
 const doctorWithdrawal = async function (req, res) {
     res.setHeader('Content-Type', 'application/json');
     try {
@@ -305,18 +307,38 @@ module.exports.getDetailHistoryById = getDetailHistoryById;
 
 const handleBankingHistory = async function (req, res) {
     try {
-        let body = req.body;
-        if (body) {
-            let objAdmin = await User.findById({_id: body.handler});
-            let fullNameAdmin = objAdmin.firstName+' '+ objAdmin.middleName+' '+objAdmin.lastName;
-            let objDetail = await BankingHistory.findById({_id: body.id});
+        let imageEvidence = 'http://dnr-live.ru/wp-content/uploads/2017/03/noavatar.png';
+        const form = new multiparty.Form();
+        form.parse(req, async (error, fields, files) => {
+            if (error) throw new Error(error);
+            // get id Admin
+            let handler = req.query.handler;
+            // get id Banking
+            let idBanking = req.params.id;
+            // get object Admin
+            let objAdminHandler = await User.findById({_id: handler});
+            // get full name admin
+            let fullNameAdmin = objAdminHandler.firstName + ' ' + objAdminHandler.middleName + ' ' + objAdminHandler.lastName;
+            // get object Banking
+            let objDetail = await BankingHistory.findById({_id: idBanking});
+            // upload image
+            if (files && files.evidence) {
+                let [error, imageURL] = await to(uploadServices.uploadService(files.evidence[0]));
+                if (error) {
+                    return ReE(res, 'Xử lí yêu cầu không thành công, vui lòng thử lại.', 400);
+                }
+                // get link image
+                imageEvidence = imageURL;
+            }
             if (objDetail) {
-                objDetail.set({status: constants.BANKING_HISTORY_DONE, evidence: body.evidence, handler: body.handler});
+                // set data to update banking
+                objDetail.set({status: constants.BANKING_HISTORY_DONE, evidence: imageEvidence, handler: handler});
+                // save banking
                 let objDetailReturn = await objDetail.save();
                 if (objDetailReturn) {
                     // save notification
                     let notificationDoctor = {
-                        senderId: objAdmin.id,
+                        senderId: objAdminHandler.id,
                         nameSender: fullNameAdmin,
                         receiverId: objDetailReturn.userId,
                         type: constants.NOTIFICATION_TYPE_BANKING,
@@ -328,10 +350,10 @@ const handleBankingHistory = async function (req, res) {
                     //send notification to doctor
                     let payLoadDoctor = {
                         data: {
-                            senderId: objAdmin.id,
-                            nameSender: fullNameAdmin+'',
+                            senderId: objAdminHandler.id,
+                            nameSender: fullNameAdmin + '',
                             receiverId: objDetailReturn.userId,
-                            type: constants.NOTIFICATION_TYPE_BANKING+'',
+                            type: constants.NOTIFICATION_TYPE_BANKING + '',
                             storageId: objDetailReturn.id,
                             message: 'Yêu cầu rút tiền đã được xử lí. Số tiền: ' + objDetailReturn.amount + ' VND đã được chuyển tới STK: ' + objDetailReturn.accountNumber,
                             createTime: Date.now().toString(),
@@ -351,10 +373,7 @@ const handleBankingHistory = async function (req, res) {
             else {
                 return ReE(res, {message: 'NOT FOUND BANKING REQUEST'}, 404);
             }
-        }
-        else {
-            return ReE(res, {message: 'BAD REQUEST'}, 400);
-        }
+        });
     }
     catch (e) {
         console.log(e)
