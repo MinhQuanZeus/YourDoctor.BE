@@ -405,8 +405,8 @@ const handleBankingHistory = async function (req, res) {
 								receiverId: objDetailReturn.userId,
 								type: constants.NOTIFICATION_TYPE_BANKING + '',
 								storageId: objDetailReturn.id,
-								message: 'Yêu cầu rút tiền thất bại.Hoàn trả: ' + objDetail.amount + 'VND. Lý do: ' + note,
-								remainMoney: resUser.remainMoney + '',
+								message: 'Yêu cầu rút tiền thất bại.Hoàn trả: '+objDetail.amount+'VND. Lý do: '+note,
+								remainMoney: resUser.remainMoney+'',
 								createTime: Date.now().toString(),
 							},
 						};
@@ -421,7 +421,7 @@ const handleBankingHistory = async function (req, res) {
 							receiverId: objDetailReturn.userId,
 							type: constants.NOTIFICATION_TYPE_BANKING,
 							storageId: objDetailReturn.id,
-							message: 'Yêu cầu rút tiền thất bại.Hoàn trả: ' + objDetail.amount + 'VND. Lý do: ' + note,
+							message: 'Yêu cầu rút tiền thất bại.Hoàn trả: '+objDetail.amount+'VND. Lý do: '+note,
 						};
 						await createNotification(notificationDoctor);
 						return ReS(res, {
@@ -430,17 +430,17 @@ const handleBankingHistory = async function (req, res) {
 						}, 200);
 					}
 					else {
-						return ReE(res, { message: 'ERROR SAVE' }, 503);
+						return ReE(res, {message: 'ERROR SAVE'}, 503);
 					}
 				}
 			}
 			else {
-				return ReE(res, { message: 'NOT FOUND BANKING REQUEST' }, 404);
+				return ReE(res, {message: 'NOT FOUND BANKING REQUEST'}, 404);
 			}
 		});
 	}
 	catch (e) {
-		return ReE(res, { message: 'ERROR' }, 503);
+		return ReE(res, {message: 'ERROR'}, 503);
 	}
 };
 
