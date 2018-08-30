@@ -469,6 +469,10 @@ THE SOFTWARE.
 MIT
 MIT
 
+ngx-spinner@6.1.2
+MIT
+MIT
+
 @angular/forms@6.1.2
 MIT
 MIT
