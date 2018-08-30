@@ -147,7 +147,7 @@ router.post('/bankinghistorys/doctorWithdrawal', passport.authenticate('jwt', {
 router.post('/bankinghistorys/checkCodeVerify', BankingHistoryController.checkCodeVerify);
 
 router.get('/bankinghistorys/getHistoryBanking/:userId', passport.authenticate('jwt', {
-    session: false,
+	session: false,
 }), BankingHistoryController.getHistoryBanking);
 
 router.get('/bankinghistorys/get-detail-banking/:id',passport.authenticate('jwt', {
@@ -297,7 +297,7 @@ router.get('/reportConversations/:reportId', passport.authenticate('jwt', {
 }), ReportConversationController.getReportById);
 
 router.put('/reportConversations/reportPunish', passport.authenticate('jwt', {
-    session: false,
+	session: false,
 }), ReportConversationController.reportPunish);
 
 //

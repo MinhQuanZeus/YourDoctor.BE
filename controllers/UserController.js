@@ -71,12 +71,12 @@ const changePassword = async function (req, res) {
 		ReS(res, { message: 'Not found user' }, 404);
 	}
 	else {
-		[err, checkPassword] = await to(objUpdateUser.comparePassword(data.oldPassword));
+		let [err, checkPassword] = await to(objUpdateUser.comparePassword(data.oldPassword));
 		if (err) {
 			ReS(res, { message: 'Password cũ không chính xác' }, 503);
 		}
 		else if (checkPassword) {
-			[err, objDuplicatePassword] = await to(objUpdateUser.comparePassword(data.newPassword));
+			let [err, objDuplicatePassword] = await to(objUpdateUser.comparePassword(data.newPassword));
 			if (objDuplicatePassword) {
 				ReS(res, { message: 'Password mới không được trùng password cũ' }, 503);
 			} else {
@@ -107,7 +107,7 @@ const forgotPassword = async function (req, res) {
 			objUser.set({ password: newPassword });
 			let objUserReturn = await objUser.save();
 			if (objUserReturn) {
-				[errors, status] = await to(phoneService.sendSMSPassword(req.params.phoneNumber, newPassword));
+				let [errors, status] = await to(phoneService.sendSMSPassword(req.params.phoneNumber, newPassword));
 				if (errors) {
 					return ReE(res, {
 						status: false,
@@ -261,21 +261,21 @@ const updateUser = async function (req, res) {
 		if (body) {
 			let objUser = await User.findById({ _id: body.id });
 			let objDoctor = await Doctor.findOne({ doctorId: body.id });
-			if (objUser.role+"" === '2') {
+			if (objUser.role+'' === '2') {
 				console.log('vao day');
 				if (body.status === 1) {
 					let message = 'Tài khoản bác sỹ của bạn đã được xác minh. Bạn đã có thể đăng nhập vào hệ thống ứng dụng của Your Doctor';
-					[errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+					let [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
 					if(errors){
-                        return ReE(res, { success: false, message:'Update user failed!' }, 503);
+						return ReE(res, { success: false, message:'Update user failed!' }, 503);
 					}
 				}
 				if (body.status === 3) {
 					let message = 'Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
-                    [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
-                    if(errors){
-                        return ReE(res, { success: false, message:'Update user failed!' }, 503);
-                    }
+					let [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+					if(errors){
+						return ReE(res, { success: false, message:'Update user failed!' }, 503);
+					}
 				}
 				objDoctor.set({ systemRating: body.systemRating, currentRating: body.systemRating });
 				let objDoctorReturn = await objDoctor.save();
@@ -288,47 +288,47 @@ const updateUser = async function (req, res) {
 					return ReE(res, { success: false, message:'Update failed' }, 503);
 				}
 			}
-			else if (objUser.role+"" === '1') {
+			else if (objUser.role+'' === '1') {
 				if (body.status === 3) {
 					let message = 'Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
-                    [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
-                    if(errors){
-                        return ReE(res, { success: false, message:'Update user failed!' }, 503);
-                    }
+					let [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+					if(errors){
+						return ReE(res, { success: false, message:'Update user failed!' }, 503);
+					}
 				}
 				objUser.set({ status: body.status });
 				let objUserReturn = await objUser.save();
 				if (objUserReturn) {
-                    return ReS(res, { success: true, message:'Update success'}, 200);
+					return ReS(res, { success: true, message:'Update success'}, 200);
 				}
 				else {
-                    return ReE(res, { success: false, message:'Update failed' }, 503);
+					return ReE(res, { success: false, message:'Update failed' }, 503);
 				}
 			}
-            else if (objUser.role+"" === '3') {
-                if (body.status === 3) {
-                    let message = 'Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
-                    [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
-                    if(errors){
-                        return ReE(res, { success: false, message:'Update user failed!' }, 503);
-                    }
-                }
-                objUser.set({ status: body.status });
-                let objUserReturn = await objUser.save();
-                if (objUserReturn) {
-                    return ReS(res, { success: true, message:'Update success'}, 200);
-                }
-                else {
-                    return ReE(res, { success: false, message:'Update failed' }, 503);
-                }
-            }
+			else if (objUser.role+'' === '3') {
+				if (body.status === 3) {
+					let message = 'Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
+					let [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+					if(errors){
+						return ReE(res, { success: false, message:'Update user failed!' }, 503);
+					}
+				}
+				objUser.set({ status: body.status });
+				let objUserReturn = await objUser.save();
+				if (objUserReturn) {
+					return ReS(res, { success: true, message:'Update success'}, 200);
+				}
+				else {
+					return ReE(res, { success: false, message:'Update failed' }, 503);
+				}
+			}
 		}
 		else {
 			ReE(res, { message: 'Bad request' }, 400);
 		}
 	}
 	catch (e) {
-        ReE(res, { message: 'ERROR' }, 503);
+		ReE(res, { message: 'ERROR' }, 503);
 	}
 };
 
@@ -396,7 +396,7 @@ const deleteUserById = async function (req, res) {
 		if (results && results.length === 0) {
 			return ReE(res, 'Người dùng không tồn tại', 404);
 		}
-		user = results[0];
+		let user = results[0];
 		if (Number(user.updatedAt) !== Number(updateTime)) {
 			return ReE(res, 'Người dùng đã được chỉnh sửa, vui lòng refresh và thử lại', 400);
 		}
@@ -417,7 +417,7 @@ const deleteUserById = async function (req, res) {
 
 module.exports.deleteUserById = deleteUserById;
 
-const getUserById = async function (req, res) {
+const getUserById = async function (req, res, next) {
 	console.log('getUser');
 	const userId = req.params.userId;
 	if (!userId) {
@@ -437,7 +437,7 @@ const getUserById = async function (req, res) {
 		if (results && results.length === 0) {
 			return ReE(res, 'Người dùng không tồn tại', 404);
 		}
-		user = results[0];
+		let user = results[0];
 		if (user && user.role === constants.ROLE_DOCTOR) {
 			Doctor.find({ doctorId: user._id }, function (err, getDoctor) {
 				if (err) {

@@ -76,7 +76,7 @@ const sendSMS = async (phoneNumber, content) => {
 		let req = https.request(options);
 		req.on('response', res => {
 			res.setEncoding('utf8');
-			var body = '';
+			let body = '';
 			res.on('data', function (d) {
 				body += d;
 			});
