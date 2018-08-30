@@ -203,8 +203,8 @@ const getAllUser = async function (req, res) {
 						break;
 					}
 					case 'fullName': {
-						let aSize = a.fullName;
-						let bSize = b.fullName;
+						let aSize = a.fullName.toLowerCase();
+						let bSize = b.fullName.toLowerCase();
 						if (query.sort_direction.includes('desc')) {
 							return (aSize > bSize) ? -1 : 1;
 						} else if (query.sort_direction.includes('asc')) {
