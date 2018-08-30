@@ -430,7 +430,6 @@ const handleBankingHistory = async function (req, res) {
 		});
 	}
 	catch (e) {
-		console.log(e);
 		return ReE(res, {message: 'ERROR'}, 503);
 	}
 };
@@ -467,6 +466,7 @@ const createNotification = async function (body) {
 	}
 	catch (e) {
 
+	}
 	}
 };
 
