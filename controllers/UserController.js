@@ -264,15 +264,15 @@ const updateUser = async function (req, res) {
 			if (objUser.role+'' === '2') {
 				console.log('vao day');
 				if (body.status === 1) {
-					let message = 'Your Doctor! Tài khoản bác sỹ của bạn đã được xác minh. Bạn đã có thể đăng nhập vào hệ thống ứng dụng của Your Doctor';
-					[errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+					let message = 'Your Doctor! Tài khoản bác sỹ của bạn đã được kích hoạt. Bạn đã có thể đăng nhập vào hệ thống ứng dụng của Your Doctor';
+					let [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
 					if(errors){
 						return ReE(res, { success: false, message:'Update user failed!' }, 503);
 					}
 				}
 				if (body.status === 3) {
 					let message = 'Your Doctor! Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
-					[errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+					let [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
 					if(errors){
 						return ReE(res, { success: false, message:'Update user failed!' }, 503);
 					}
@@ -291,7 +291,7 @@ const updateUser = async function (req, res) {
 			else if (objUser.role+'' === '1') {
 				if (body.status === 3) {
 					let message = 'Your Doctor! Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
-					[errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+					let [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
 					if(errors){
 						return ReE(res, { success: false, message:'Update user failed!' }, 503);
 					}
@@ -308,7 +308,7 @@ const updateUser = async function (req, res) {
 			else if (objUser.role+'' === '3') {
 				if (body.status === 3) {
 					let message = 'Your Doctor! Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
-					[errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+					let [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
 					if(errors){
 						return ReE(res, { success: false, message:'Update user failed!' }, 503);
 					}

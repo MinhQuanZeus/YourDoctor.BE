@@ -395,7 +395,7 @@ const handleBankingHistory = async function (req, res) {
                                 receiverId: objDetailReturn.userId,
                                 type: constants.NOTIFICATION_TYPE_BANKING + '',
                                 storageId: objDetailReturn.id,
-                                message: 'Yêu cầu rút tiền thất bại. Lý do: '+note,
+                                message: 'Yêu cầu rút tiền thất bại.Hoàn trả: '+objDetail.amount+'VND. Lý do: '+note,
                                 remainMoney: resUser.remainMoney+'',
                                 createTime: Date.now().toString(),
                             },
@@ -411,7 +411,7 @@ const handleBankingHistory = async function (req, res) {
                             receiverId: objDetailReturn.userId,
                             type: constants.NOTIFICATION_TYPE_BANKING,
                             storageId: objDetailReturn.id,
-                            message: 'Yêu cầu rút tiền thất bại. Lý do: '+note,
+                            message: 'Yêu cầu rút tiền thất bại.Hoàn trả: '+objDetail.amount+'VND. Lý do: '+note,
                         };
                         await createNotification(notificationDoctor);
                         return ReS(res, {
