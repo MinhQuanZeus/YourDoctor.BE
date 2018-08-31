@@ -205,10 +205,10 @@ const getHistoryBanking = async function (req, res) {
 					userId: req.params.userId,
 					deletionFlag: false,
 				})
-				.select('-timeInputCode -code')
-				.sort([['updatedAt', -1]])
-				.limit(pageSize)
-				.skip(pageSize * page);
+					.select('-timeInputCode -code')
+					.sort([['updatedAt', -1]])
+					.limit(pageSize)
+					.skip(pageSize * page);
 				if (listBankingHistory) {
 					return ReS(res, {
 						status: true,
@@ -230,8 +230,8 @@ const getHistoryBanking = async function (req, res) {
 					userId: req.params.userId,
 					deletionFlag: false,
 				})
-				.select('-timeInputCode -code')
-				.sort([['createdAt', -1]]);
+					.select('-timeInputCode -code')
+					.sort([['createdAt', -1]]);
 				if (listBankingHistory) {
 					return ReS(res, {
 						status: true,
@@ -280,10 +280,10 @@ const getDetailHistoryById = async function (req, res) {
 	try {
 		if (req.params.id) {
 			let objDetail = await BankingHistory.findById({ _id: req.params.id }).populate(
-					{
-						path: 'userId',
-						select: 'firstName middleName lastName avatar remainMoney role',
-					});
+				{
+					path: 'userId',
+					select: 'firstName middleName lastName avatar remainMoney role',
+				});
 			if (objDetail) {
 				return ReS(res, {
 					status: true,
@@ -482,10 +482,10 @@ const createNotification = async function (body) {
 const getAllBanking = async function (req, res) {
 	try {
 		const bankHistories = await BankingHistory.find({ deletionFlag: { $ne: true } }).populate(
-				{
-					path: 'userId',
-					select: 'firstName middleName lastName avatar remainMoney role',
-				},
+			{
+				path: 'userId',
+				select: 'firstName middleName lastName avatar remainMoney role',
+			},
 		);
 		if (bankHistories) {
 			return ReS(res, { message: 'Lấy danh sách banking thành công', listBanking: bankHistories }, 200);
