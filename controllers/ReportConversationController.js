@@ -289,18 +289,16 @@ const reportPunish = async function (req, res) {
 					break;
 				}
 				case constants.REPORT_PUNISH_LEVEL_FIVE: {
-					let objUser = await User.findById({_id: doctorId});
 					let message = 'Tài khoản của bạn đã bị khóa do có quá nhiều báo cáo về chất lượng phục vụ không tốt. Mọi thắc mắc gửi về: yourdoctorFU@gmail.com';
 					[errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
 					objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_FIVE});
 					let objReturn = await objReport.save();
 					// add report count
-					User.findOneAndUpdate({id: doctorId}, {$inc: {reportCount: 1},status:constants.STATUS_USER_BLOCK}, {new: true}, function (err, resUser) {
-						if (err) {
-
-						}
-					});
-					if (objReturn) {
+					let newReportCount = objUser.reportCount + 1;
+					// set user
+					objUser.set({reportCount:newReportCount, status:constants.STATUS_USER_BLOCK});
+					let objUserReturn = await objUser.save();
+					if (objReturn && objUserReturn) {
 						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
 					}
 					break;
@@ -399,14 +397,13 @@ const reportPunish = async function (req, res) {
 					[errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
 					objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_FIVE});
 					let objReturn = await objReport.save();
-					// add report count
-					User.findOneAndUpdate({id: patientId}, {$inc: {reportCount: 1},status:constants.STATUS_USER_BLOCK}, {new: true}, function (err, resUser) {
-						if (err) {
-
-						}
-					});
-					if (objReturn) {
-						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
+                    // add report count
+                    let newReportCount = objUser.reportCount + 1;
+                    // set user
+                    objUser.set({reportCount:newReportCount, status:constants.STATUS_USER_BLOCK});
+                    let objUserReturn = await objUser.save();
+					if (objReturn && objUserReturn) {
+						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công',}, 200);
 					}
 					break;
 				}
