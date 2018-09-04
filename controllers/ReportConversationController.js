@@ -199,7 +199,7 @@ const reportPunish = async function (req, res) {
 					// notification
 					if (objDoctorReturn && objReturn) {
 						let message = 'Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Bạn bị trừ 1 * hệ thống.';
-						await sendNotification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message);
+						await sendNotification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message,constants.REPORT_PUNISH_LEVEL_ONE);
 						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
 					}
 					break;
@@ -227,7 +227,7 @@ const reportPunish = async function (req, res) {
 					// notification
 					if (objDoctorReturn && objReturn) {
 						let message = 'Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Bạn bị trừ 1.5 * hệ thống.';
-						await sendNotification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message);
+						await sendNotification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message,constants.REPORT_PUNISH_LEVEL_TWO);
 						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
 					}
 					break;
@@ -255,7 +255,7 @@ const reportPunish = async function (req, res) {
 					// notification
 					if (objDoctorReturn && objReturn) {
 						let message = 'Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Bạn bị trừ 2 * hệ thống.';
-						await sendNotification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message);
+						await sendNotification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message,constants.REPORT_PUNISH_LEVEL_THREE);
 						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
 					}
 					break;
@@ -283,24 +283,23 @@ const reportPunish = async function (req, res) {
 					// notification
 					if (objDoctorReturn && objReturn) {
 						let message = 'Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Bạn bị trừ 2.5 * hệ thống.';
-						await sendNotification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message);
+						await sendNotification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message,constants.REPORT_PUNISH_LEVEL_FOUR);
 						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
 					}
 					break;
 				}
 				case constants.REPORT_PUNISH_LEVEL_FIVE: {
-					let objUser = await User.findById({_id: doctorId});
 					let message = 'Tài khoản của bạn đã bị khóa do có quá nhiều báo cáo về chất lượng phục vụ không tốt. Mọi thắc mắc gửi về: yourdoctorFU@gmail.com';
 					[errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+                    await sendNotification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message,constants.REPORT_PUNISH_LEVEL_FIVE);
 					objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_FIVE});
 					let objReturn = await objReport.save();
 					// add report count
-					User.findOneAndUpdate({id: doctorId}, {$inc: {reportCount: 1},status:constants.STATUS_USER_BLOCK}, {new: true}, function (err, resUser) {
-						if (err) {
-
-						}
-					});
-					if (objReturn) {
+					let newReportCount = objUser.reportCount + 1;
+					// set user
+					objUser.set({reportCount:newReportCount, status:constants.STATUS_USER_BLOCK});
+					let objUserReturn = await objUser.save();
+					if (objReturn && objUserReturn) {
 						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
 					}
 					break;
@@ -335,7 +334,7 @@ const reportPunish = async function (req, res) {
 					if (objReturn) {
 						// notification
 						let message = 'Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Cảnh báo mức độ 1. Bạn sẽ bị block nếu vi phạm mức độ 5.';
-						await sendNotification(objAdmin.id, fullNameAdmin, patientId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message);
+						await sendNotification(objAdmin.id, fullNameAdmin, patientId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message,constants.REPORT_PUNISH_LEVEL_ONE);
 						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
 					}
 					break;
@@ -353,7 +352,7 @@ const reportPunish = async function (req, res) {
 					if (objReturn) {
 						// notification
 						let message = 'Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Cảnh báo mức độ 2. Bạn sẽ bị block nếu vi phạm mức độ 5.';
-						await sendNotification(objAdmin.id, fullNameAdmin, patientId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message);
+						await sendNotification(objAdmin.id, fullNameAdmin, patientId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message,constants.REPORT_PUNISH_LEVEL_TWO);
 						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
 					}
 					break;
@@ -371,7 +370,7 @@ const reportPunish = async function (req, res) {
 					if (objReturn) {
 						// notification
 						let message = 'Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Cảnh báo mức độ 3. Bạn sẽ bị block nếu vi phạm mức độ 5.';
-						await sendNotification(objAdmin.id, fullNameAdmin, patientId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message);
+						await sendNotification(objAdmin.id, fullNameAdmin, patientId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message,constants.REPORT_PUNISH_LEVEL_THREE);
 						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
 					}
 					break;
@@ -389,7 +388,7 @@ const reportPunish = async function (req, res) {
 					if (objReturn) {
 						// notification
 						let message = 'Chúng tôi đã xem xét tất cả những báo cáo tới bạn. Cảnh báo mức độ 4. Bạn sẽ bị block nếu tiếp tục vi phạm.';
-						await sendNotification(objAdmin.id, fullNameAdmin, patientId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message);
+						await sendNotification(objAdmin.id, fullNameAdmin, patientId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message,constants.REPORT_PUNISH_LEVEL_FOUR);
 						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
 					}
 					break;
@@ -397,16 +396,16 @@ const reportPunish = async function (req, res) {
 				case constants.REPORT_PUNISH_LEVEL_FIVE: {
 					let message = 'Tài khoản của bạn đã bị khóa do vi phạm qui định sử dụng hệ thống. Mọi thắc mắc gửi về: yourdoctorFU@gmail.com';
 					[errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+                    await sendNotification(objAdmin.id, fullNameAdmin, patientId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message,constants.REPORT_PUNISH_LEVEL_FIVE);
 					objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_FIVE});
 					let objReturn = await objReport.save();
-					// add report count
-					User.findOneAndUpdate({id: patientId}, {$inc: {reportCount: 1},status:constants.STATUS_USER_BLOCK}, {new: true}, function (err, resUser) {
-						if (err) {
-
-						}
-					});
-					if (objReturn) {
-						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
+                    // add report count
+                    let newReportCount = objUser.reportCount + 1;
+                    // set user
+                    objUser.set({reportCount:newReportCount, status:constants.STATUS_USER_BLOCK});
+                    let objUserReturn = await objUser.save();
+					if (objReturn && objUserReturn) {
+						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công',}, 200);
 					}
 					break;
 				}
@@ -464,7 +463,7 @@ async function newCurrentRate(doctorId, newSystemRate) {
 	return finalRate;
 }
 
-async function sendNotification(senderId, nameSender, receiverId, type, storageId, message) {
+async function sendNotification(senderId, nameSender, receiverId, type, storageId, message, levelReport) {
 	let notification = {
 		senderId: senderId,
 		nameSender: nameSender,
@@ -483,6 +482,7 @@ async function sendNotification(senderId, nameSender, receiverId, type, storageI
 			type: type + '',
 			storageId: storageId,
 			message: message,
+            levelReport: levelReport+'',
 			createTime: Date.now().toString(),
 		},
 	};
@@ -500,22 +500,9 @@ const createNotification = async function (body) {
 			storageId: body.storageId,
 			message: body.message,
 		});
-		await notification.save(function (err, success) {
-			if (err) {
-				console.log(err);
-			}
-		});
+		await notification.save();
 	}
 	catch (e) {
 		console.log(e);
 	}
 };
-
-async function getUser(userId) {
-	let fullName;
-	let objUser = await User.findById({_id: userId});
-	if (objUser) {
-		fullName = ' ' + objUser.firstName + ' ' + objUser.middleName + ' ' + objUser.lastName + '';
-	}
-	return fullName;
-}
