@@ -300,7 +300,7 @@ const reportPunish = async function (req, res) {
 
 						}
 					});
-					if (status && objReturn) {
+					if (objReturn) {
 						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
 					}
 					break;
@@ -405,7 +405,7 @@ const reportPunish = async function (req, res) {
 
 						}
 					});
-					if (status && objReturn) {
+					if (objReturn) {
 						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công'}, 200);
 					}
 					break;
