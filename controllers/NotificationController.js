@@ -18,7 +18,6 @@ const create = async function (req, res) {
 		return ReS(res, {message: 'insert notification thành công', notification: notification}, 200);
 	}
 	catch (e) {
-		console.log(e);
 	}
 };
 

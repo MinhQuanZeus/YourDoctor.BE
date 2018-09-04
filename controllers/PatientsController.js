@@ -23,12 +23,11 @@ const create = async function (req, res) {
 module.exports.create = create;
 
 // admin get all patients to view
-const getPatients = async function (req, res) {
+const getPatients = async function (req, res, next) {
 	// get all patients nếu không có param truyền lên
 	// get all patients nếu có param truyền lên ( chỉ dùng để get all patients chưa bị xóa logic)
 	let query = {};
 	if (req.query.deletionFlag) query.deletionFlag = req.query.deletionFlag;
-	console.log(query);
 	Patient.find(query, function (err, getPatient) {
 		if (err) {
 			if (err) return ReE(res, 'ERROR0016', 404);
@@ -117,71 +116,70 @@ const remove = async function (req, res) {
 module.exports.remove = remove;
 
 const getListFavoriteDoctor = async function (req, res) {
-    let s = 0;
-    let p = 0;
-    if(req.query.start && req.query.end){
-        s = parseInt(req.query.start);
-        p = parseInt(req.query.end);
-    }
-    const patientId = req.params.patientId;
-    try {
-        let patient = await Patient.find({
-            patientId: patientId
-        });
-        if (patient.length === 0) {
-            ReE(res, "Bệnh nhân không tồn tại");
-        }
-        const favoriteDoctors = patient[0].favoriteDoctors;
-        let doctors = await Doctor.find({})
-            .select("currentRating idSpecialist.name -_id")
-            .sort([["currentRating", "descending"]])
-            .populate({
-                path: "doctorId",
-                select: "firstName middleName lastName avatar"
-            });
-        let results = [];
-        for (let doctor of doctors) {
-            const temp = favoriteDoctors.filter(obj => obj === (doctor.doctorId._id + ''));
-            let itemInfoDoctor = {
-                doctorId: doctor.doctorId._id,
-                firstName: doctor.doctorId.firstName,
-                middleName: doctor.doctorId.middleName,
-                lastName: doctor.doctorId.lastName,
-                avatar: doctor.doctorId.avatar,
-                currentRating: doctor.currentRating,
-                specialist: doctor.idSpecialist[0].name
-            };
-            if (temp && temp.length > 0) {
-                results.push(itemInfoDoctor);
-            }
-        }
-        if(req.query.start && req.query.end){
-            return ReS(res, {message: "Tạo danh sách bác sỹ được yêu thích thành công", listFavoriteDoctor: results.slice(s,p)}, 200);
-        }
-        else {
-            return ReS(res, {message: "Tạo danh sách bác sỹ được yêu thích thành công", listFavoriteDoctor: results}, 200);
-        }
+	let s = 0;
+	let p = 0;
+	if(req.query.start && req.query.end){
+		s = parseInt(req.query.start);
+		p = parseInt(req.query.end);
+	}
+	const patientId = req.params.patientId;
+	try {
+		let patient = await Patient.find({
+			patientId: patientId
+		});
+		if (patient.length === 0) {
+			ReE(res, 'Bệnh nhân không tồn tại');
+		}
+		const favoriteDoctors = patient[0].favoriteDoctors;
+		let doctors = await Doctor.find({})
+			.select('currentRating idSpecialist.name -_id')
+			.sort([['currentRating', 'descending']])
+			.populate({
+				path: 'doctorId',
+				select: 'firstName middleName lastName avatar'
+			});
+		let results = [];
+		for (let doctor of doctors) {
+			const temp = favoriteDoctors.filter(obj => obj === (doctor.doctorId._id + ''));
+			let itemInfoDoctor = {
+				doctorId: doctor.doctorId._id,
+				firstName: doctor.doctorId.firstName,
+				middleName: doctor.doctorId.middleName,
+				lastName: doctor.doctorId.lastName,
+				avatar: doctor.doctorId.avatar,
+				currentRating: doctor.currentRating,
+				specialist: doctor.idSpecialist[0].name
+			};
+			if (temp && temp.length > 0) {
+				results.push(itemInfoDoctor);
+			}
+		}
+		if(req.query.start && req.query.end){
+			return ReS(res, {message: 'Tạo danh sách bác sỹ được yêu thích thành công', listFavoriteDoctor: results.slice(s,p)}, 200);
+		}
+		else {
+			return ReS(res, {message: 'Tạo danh sách bác sỹ được yêu thích thành công', listFavoriteDoctor: results}, 200);
+		}
 
-    } catch (e) {
-        console.log(e);
-        ReE(res, "Không thể lấy được data");
-    }
+	} catch (e) {
+		ReE(res, 'Không thể lấy được data');
+	}
 };
 module.exports.getListFavoriteDoctor = getListFavoriteDoctor;
 
 const getListIDFavoriteDoctor = async function (req, res) {
-    if (!req.params.patientId) return ReE(res, "ERROR0031", 404);
-    try {
-        Patient.findOne({patientId: req.params.patientId}, function (err, listIDFavoriteDoctor) {
-            if (err) TE(err);
-            return ReS(res, {
-                message: 'Tạo danh sách bác sỹ được yêu thích thành công',
-                listIDFavoriteDoctor: listIDFavoriteDoctor.favoriteDoctors
-            }, 200);
-        });
-    } catch (e) {
-        return ReE(res, "ERROR0031", 404);
-    }
+	if (!req.params.patientId) return ReE(res, 'ERROR0031', 404);
+	try {
+		Patient.findOne({patientId: req.params.patientId}, function (err, listIDFavoriteDoctor) {
+			if (err) TE(err);
+			return ReS(res, {
+				message: 'Tạo danh sách bác sỹ được yêu thích thành công',
+				listIDFavoriteDoctor: listIDFavoriteDoctor.favoriteDoctors
+			}, 200);
+		});
+	} catch (e) {
+		return ReE(res, 'ERROR0031', 404);
+	}
 };
 module.exports.getListIDFavoriteDoctor = getListIDFavoriteDoctor;
 

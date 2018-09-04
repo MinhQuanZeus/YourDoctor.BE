@@ -395,7 +395,7 @@ const handleBankingHistory = async function (req, res) {
 					let amountAdmin = objDetail.amount;
 					User.findByIdAndUpdate({ _id: objDetail.userId }, { $inc: { remainMoney: amountAdmin } }, { lean: true }, function (err, resUser) {
 						if (err) {
-
+							return ReE(res, {message: 'ERROR SAVE'}, 503);
 						}
 						//send notification to doctor
 						let payLoadDoctor = {

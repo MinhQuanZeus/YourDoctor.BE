@@ -291,7 +291,7 @@ const reportPunish = async function (req, res) {
 				case constants.REPORT_PUNISH_LEVEL_FIVE: {
 					let message = 'Tài khoản của bạn đã bị khóa do có quá nhiều báo cáo về chất lượng phục vụ không tốt. Mọi thắc mắc gửi về: yourdoctorFU@gmail.com';
 					[errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
-                    await sendNotification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message,constants.REPORT_PUNISH_LEVEL_FIVE);
+					await sendNotification(objAdmin.id, fullNameAdmin, doctorId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message,constants.REPORT_PUNISH_LEVEL_FIVE);
 					objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_FIVE});
 					let objReturn = await objReport.save();
 					// add report count
@@ -396,14 +396,14 @@ const reportPunish = async function (req, res) {
 				case constants.REPORT_PUNISH_LEVEL_FIVE: {
 					let message = 'Tài khoản của bạn đã bị khóa do vi phạm qui định sử dụng hệ thống. Mọi thắc mắc gửi về: yourdoctorFU@gmail.com';
 					[errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
-                    await sendNotification(objAdmin.id, fullNameAdmin, patientId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message,constants.REPORT_PUNISH_LEVEL_FIVE);
+					await sendNotification(objAdmin.id, fullNameAdmin, patientId, constants.NOTIFICATION_TYPE_REPORT, objReport.id, message,constants.REPORT_PUNISH_LEVEL_FIVE);
 					objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_FIVE});
 					let objReturn = await objReport.save();
-                    // add report count
-                    let newReportCount = objUser.reportCount + 1;
-                    // set user
-                    objUser.set({reportCount:newReportCount, status:constants.STATUS_USER_BLOCK});
-                    let objUserReturn = await objUser.save();
+					// add report count
+					let newReportCount = objUser.reportCount + 1;
+					// set user
+					objUser.set({reportCount:newReportCount, status:constants.STATUS_USER_BLOCK});
+					let objUserReturn = await objUser.save();
 					if (objReturn && objUserReturn) {
 						return ReS(res, {success: true, message: 'Xử lý báo cáo thành công',}, 200);
 					}
@@ -482,7 +482,7 @@ async function sendNotification(senderId, nameSender, receiverId, type, storageI
 			type: type + '',
 			storageId: storageId,
 			message: message,
-            levelReport: levelReport+'',
+			levelReport: levelReport+'',
 			createTime: Date.now().toString(),
 		},
 	};
@@ -503,6 +503,5 @@ const createNotification = async function (body) {
 		await notification.save();
 	}
 	catch (e) {
-		console.log(e);
 	}
 };
