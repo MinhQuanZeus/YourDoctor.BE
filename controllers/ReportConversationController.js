@@ -487,7 +487,6 @@ async function sendNotification(senderId, nameSender, receiverId, type, storageI
 		},
 	};
 	// send
-	console.log(payLoad);
 	await SendNotification.sendNotification(receiverId, payLoad);
 }
 
@@ -501,22 +500,9 @@ const createNotification = async function (body) {
 			storageId: body.storageId,
 			message: body.message,
 		});
-		await notification.save(function (err, success) {
-			if (err) {
-				console.log(err);
-			}
-		});
+		await notification.save();
 	}
 	catch (e) {
 		console.log(e);
 	}
 };
-
-async function getUser(userId) {
-	let fullName;
-	let objUser = await User.findById({_id: userId});
-	if (objUser) {
-		fullName = ' ' + objUser.firstName + ' ' + objUser.middleName + ' ' + objUser.lastName + '';
-	}
-	return fullName;
-}
