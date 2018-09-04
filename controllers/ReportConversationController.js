@@ -83,7 +83,7 @@ const getReportById = async function (req, res) {
 			{
 				_id: id,
 			})
-			.select('idReporter idPersonBeingReported reason solution idConversation type status createdAt updatedAt')
+			.select('idReporter idPersonBeingReported reason punish idConversation type status createdAt updatedAt')
 			.populate(
 				{
 					path: 'idReporter idPersonBeingReported',
@@ -295,7 +295,7 @@ const reportPunish = async function (req, res) {
 					objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_FIVE});
 					let objReturn = await objReport.save();
 					// add report count
-					User.findOneAndUpdate({id: doctorId}, {$inc: {reportCount: 1}}, {new: true}, function (err, resUser) {
+					User.findOneAndUpdate({id: doctorId}, {$inc: {reportCount: 1},status:constants.STATUS_USER_BLOCK}, {new: true}, function (err, resUser) {
 						if (err) {
 
 						}
@@ -400,7 +400,7 @@ const reportPunish = async function (req, res) {
 					objReport.set({status: true, punish: constants.REPORT_PUNISH_LEVEL_FIVE});
 					let objReturn = await objReport.save();
 					// add report count
-					User.findOneAndUpdate({id: patientId}, {$inc: {reportCount: 1}}, {new: true}, function (err, resUser) {
+					User.findOneAndUpdate({id: patientId}, {$inc: {reportCount: 1},status:constants.STATUS_USER_BLOCK}, {new: true}, function (err, resUser) {
 						if (err) {
 
 						}
