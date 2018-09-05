@@ -4,7 +4,7 @@ const ACCESS_TOKEN = CONFIG.SPEED_SMS_AUTH_TOKEN;
 
 const sendSMSVerification = async (phoneNumber) => {
 	const code = Math.floor(10000 + 89999 * Math.random());
-	const message = 'Your doctor! ' + code + ' là mã xác thực số điện thoại của Quý khách';
+	const message = 'Your doctor! ' + code + ' là mã xác thực số điện thoại của bạn.';
 	try {
 		const statusSendSMS = await sendSMS(phoneNumber, message);
 		if (statusSendSMS === 'success') {
@@ -20,7 +20,7 @@ const sendSMSVerification = async (phoneNumber) => {
 module.exports.sendSMSVerification = sendSMSVerification;
 
 const sendSMSPassword = async (phoneNumber, newPassword) => {
-	const mesage = 'Your doctor! Mật khẩu tài khoản của Quý khách là: ' + newPassword;
+	const mesage = 'Your doctor! Mật khẩu tài khoản của bạn là: ' + newPassword;
 	try {
 		const statusSendSMS = await sendSMS(phoneNumber, mesage);
 	} catch (error) {
@@ -41,7 +41,7 @@ const adminSendSMS = async (phoneNumber, message) => {
 module.exports.adminSendSMS = adminSendSMS;
 
 const sendSMSVerifyBanking = async (phoneNumber, verifyCode) => {
-	const mesage = 'Mã xác nhận giao dịch của bạn là: ' + verifyCode;
+	const mesage = 'Your Doctor! Mã xác nhận giao dịch của bạn là: ' + verifyCode;
 	try {
 		const statusSendSMS = await sendSMS(phoneNumber, mesage);
 	} catch (error) {
@@ -76,7 +76,7 @@ const sendSMS = async (phoneNumber, content) => {
 		let req = https.request(options);
 		req.on('response', res => {
 			res.setEncoding('utf8');
-			var body = '';
+			let body = '';
 			res.on('data', function (d) {
 				body += d;
 			});

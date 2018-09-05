@@ -5,9 +5,6 @@ const constants = require('../constants');
 const registerDoctor = async function (req, res) {
 	res.setHeader('Content-Type', 'application/json');
 	const body = req.body;
-	if (!body.doctorId) {
-		return ReE(res, 'ERROR0008', 400);
-	}
 	try {
 		let createObjUser = new User({
 			phoneNumber: body.phoneNumber,
@@ -35,13 +32,8 @@ const registerDoctor = async function (req, res) {
 				yearGraduate: body.yearGraduate,
 				placeWorking: body.placeWorking
 			});
-			let objDoctorReturn = await  doctor.save();
-
-			let patient = new Patient({
-				patientId: objUserReturn.id
-			});
-			let objPatientReturn = patient.save();
-			if (objDoctorReturn && objPatientReturn) {
+			let objDoctorReturn = await doctor.save();
+			if (objDoctorReturn && objUserReturn) {
 				// send notification to staff or admin
 				return ReS(res, {
 					status: true,
@@ -93,7 +85,6 @@ const getListDoctorPending = async function (req, res) {
 		}, 503);
 	}
 	catch (e) {
-		console.log(e);
 	}
 };
 
@@ -167,19 +158,17 @@ const getDetailDoctor = async function (req, res) {
 module.exports.getDetailDoctor = getDetailDoctor;
 
 // admin get all doctor to view
-const getDoctor = async function (req, res) {
+const getDoctor = async function (req, res, next) {
 	// get all doctor nếu không có param truyền lên
 	// get all doctor nếu có param truyền lên ( chỉ dùng để get all doctor chưa bị xóa logic)
 	let query = {};
 	if (req.query.deletionFlag) query.deletionFlag = req.query.deletionFlag;
-	console.log(query);
 	try {
 		Doctor.find(query, function (err, getDoctor) {
 			if (err) {
 				if (err) return ReE(res, 'ERROR0009', 404);
 				next();
 			}
-			console.log(getDoctor);
 			res.json(getDoctor);
 		});
 	} catch (e) {
@@ -341,14 +330,12 @@ const getListSpecialistDoctor = async function (req, res) {
 		});
 		let finalList = [];
 		for (let i = 0; i < results.length; i++) {
-			console.log(results[i]);
 			if ('1' === results[i].status + '') {
 				finalList.push(results[i]);
 			}
 		}
 		return ReS(res, {message: 'success', doctorList: finalList}, 200);
 	} catch (e) {
-		console.log(e);
 		ReE(res, 'Không thể lấy được data');
 	}
 };
@@ -452,7 +439,6 @@ const getDoctorsBySpecialist = async function (req, res) {
 		}
 		let finalList = [];
 		for (let i = 0; i < results.length; i++) {
-			console.log(results[i]);
 			if ('1' === results[i].status + '') {
 				finalList.push(results[i]);
 			}

@@ -34,7 +34,7 @@ const get = async function (req, res) {
 			return ReS(res, {message: 'Tải danh sách ngân hàng không thành công'}, 503);
 		}
 	}catch (e) {
-		console.log(e);
+
 	}
 };
 

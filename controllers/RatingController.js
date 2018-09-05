@@ -6,24 +6,29 @@ const create = async function (req, res) {
 	if (!body) {
 		return ReE(res, 'Tạo đánh giá thất bại', 400);
 	}
+	let duplicateRating = await Rating.findOne({patientId: body.patientId, doctorId: body.doctorId});
+	if (duplicateRating) {
+		await duplicateRating.set(body);
+		await duplicateRating.save();
+	}
 	else {
-		let duplicateRating = await Rating.findOne({patientId: body.patientId, doctorId: body.doctorId});
-		if (duplicateRating) {
-			await duplicateRating.set(body);
-			await duplicateRating.save();
-			await updateCurrentRating(body.doctorId, res);
-		}
-		else {
-			let rating = new Rating({
-				patientId: body.patientId,
-				doctorId: body.doctorId,
-				rating: body.rating,
-				comment: body.comment
-			});
-			await rating.save();
-			await updateCurrentRating(body.doctorId, res);
-			//return ReS(res, {message: 'Đánh giá bác sỹ thành công', rating: rating}, 200);
-		}
+		let rating = new Rating({
+			patientId: body.patientId,
+			doctorId: body.doctorId,
+			rating: body.rating,
+			comment: body.comment
+		});
+		await rating.save();
+	}
+	let currentRating = await updateCurrentRating(body.doctorId, res);
+	let objDoctor = await Doctor.findOne({doctorId:body.doctorId});
+	objDoctor.set({currentRating:currentRating});
+	let objDoctorReturn = await objDoctor.save();
+	if (objDoctorReturn) {
+		return ReS(res, {message: 'Update rating bác sỹ thành công', newRating: objDoctorReturn.currentRating}, 200);
+	}
+	else {
+		return ReE(res, {message: 'Failed'}, 503);
 	}
 };
 
@@ -37,7 +42,7 @@ async function updateCurrentRating(doctorId, res) {
 	if (!updateToDoctor) {
 		ReS(res, 'Update Failed', 503);
 	}
-	await Rating.aggregate([
+	let result = await Rating.aggregate([
 		{
 			$match: {doctorId: {$eq: doctorId}}
 		},
@@ -50,24 +55,15 @@ async function updateCurrentRating(doctorId, res) {
 				count: {$sum: 1}
 			}
 		}
-	], function (err, result) {
-		if (err) {
-			next(err);
-		} else {
-			if (result[0].totalRating > 0) {
-				averagePatientRate = ((result[0].totalRating) / (result[0].count));
-				finalRate = ((averagePatientRate * (1-constants.SYSTEM_RATE_PERCENT)) + (updateToDoctor.systemRating * constants.SYSTEM_RATE_PERCENT)).toFixed(2);
-			}
-			else {
-				finalRate = updateToDoctor.systemRating;
-			}
-		}
-	});
-	await updateToDoctor.set({currentRating: finalRate.toFixed(2)});
-	await updateToDoctor.save(function (err, newRating) {
-		if (err) ReS(res, 'Update Failed', 503);
-		return ReS(res, {message: 'Update rating bác sỹ thành công', newRating: newRating.currentRating}, 200);
-	});
+	]);
+	if (result[0].totalRating > 0) {
+		averagePatientRate = ((result[0].totalRating) / (result[0].count));
+		finalRate = ((averagePatientRate * (1 - constants.SYSTEM_RATE_PERCENT)) + (updateToDoctor.systemRating * constants.SYSTEM_RATE_PERCENT)).toFixed(2);
+	}
+	else {
+		finalRate = (updateToDoctor.systemRating).toFixed(2);
+	}
+	return finalRate;
 }
 
 const getCommentAndRating = async function (req, res) {
@@ -92,13 +88,13 @@ const getCommentAndRating = async function (req, res) {
 				select: 'firstName middleName lastName avatar'
 			});
 		if (!listComment) {
-			return ReS(res, {message: 'Not found list comment'}, 404);
+			return ReE(res, {message: 'Not found list comment'}, 404);
 		}
 		else {
 			return ReS(res, {message: 'Get list comment success', listComment: listComment}, 404);
 		}
 	} catch (e) {
-		return ReS(res, {message: 'Not found list comment'}, 503);
+		return ReE(res, {message: 'Not found list comment'}, 503);
 	}
 };
 
@@ -110,7 +106,7 @@ const countPatientRatingForDoctor = async function (req, res) {
 			doctorId: req.params.doctorId
 		}).count(function (err, count) {
 			if (err) {
-				return ReS(res, {message: 'Error count'}, 503);
+				return ReE(res, {message: 'Error count'}, 503);
 			}
 			else {
 				return ReS(res, {message: 'Count success', numberOfRecordRate: count}, 200);
@@ -118,8 +114,7 @@ const countPatientRatingForDoctor = async function (req, res) {
 		});
 	}
 	catch (e) {
-		console.log(e);
-		return ReS(res, {message: 'Error count'}, 503);
+		return ReE(res, {message: 'Error count'}, 503);
 	}
 };
 

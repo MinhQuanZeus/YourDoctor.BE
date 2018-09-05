@@ -15,72 +15,70 @@ let UserSchema = mongoose.Schema({
 			validator: 'isNumeric',
 			arguments: [7, 20],
 			message: 'Not a valid phone number.',
-		})]
+		})],
 	},
 	password: {
-		type: String
+		type: String,
 	},
 	firstName: {
-		type: String
+		type: String,
 	},
 	middleName: {
-		type: String
+		type: String,
 	},
 	lastName: {
-		type: String
+		type: String,
 	},
 	birthday: {
-		type: String
+		type: String,
 	},
 	address: {
-		type: String
+		type: String,
 	},
 	avatar: {
-		type: String
+		type: String,
 	},
-	remainMoney:{
-		type: Number
+	remainMoney: {
+		type: Number,
 	},
 	role: {
-		type: Number
+		type: Number,
 	},
-	gender:{
-		type:Number
+	gender: {
+		type: Number,
 	},
-	status:{
-		type:Number,
+	status: {
+		type: Number,
 	},
 	reportCount: {
 		type: Number,
-		default: 0
+		default: 0,
 	},
 	deletionFlag: {
 		type: Boolean,
-		default: false
+		default: false,
 	},
 	createdAt: {
 		type: Number,
-		default: new Date().getTime()
+		default: new Date().getTime(),
 	},
 	updatedAt: {
 		type: Number,
-		default: new Date().getTime()
-	}
+		default: new Date().getTime(),
+	},
 });
 
 UserSchema.pre('save', async function (next) {
 
 	if (this.isModified('password') || this.isNew) {
-
-		let err, salt, hash;
+		let err, salt, hash, error;
 		[err, salt] = await to(bcrypt.genSalt(10));
-		if (err) TE(err.message, true)
-
-			[err, hash] = await to(bcrypt.hash(this.password, salt));
 		if (err) TE(err.message, true);
-
-		this.password = hash;
-
+		{
+			[error, hash] = await to(bcrypt.hash(this.password, salt));
+			if (error) TE(err.message, true);
+			this.password = hash;
+		}
 	}
 	const currTime = new Date().getTime();
 	this.updatedAt = currTime;
@@ -120,9 +118,9 @@ UserSchema.virtual('full_name').get(function () {
 UserSchema.methods.getJWT = function () {
 	let expiration_time = parseInt(CONFIG.jwt_expiration);
 	return 'Bearer ' + jwt.sign({
-		user_id: this._id
+		user_id: this._id,
 	}, CONFIG.jwt_encryption, {
-		expiresIn: expiration_time
+		expiresIn: expiration_time,
 	});
 };
 

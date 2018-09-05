@@ -13,9 +13,7 @@ const sendNotification = function (topicUserId, payload) {
 		timeToLive: 60 * 60 * 24 * 7
 	};
 	admin.messaging().sendToTopic(topicUserId, payload, options).then(function (response) {
-		console.log('successfull', response);
 	}).catch(function (error) {
-		console.log('loi roi', error);
 	});
 };
 module.exports.sendNotification = sendNotification;

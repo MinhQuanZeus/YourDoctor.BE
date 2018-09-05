@@ -27,9 +27,19 @@ let BankingHistorySchema = mongoose.Schema({
 	code: {
 		type: String
 	},
-	timeInputCode:{
+	timeInputCode: {
 		type: Number,
 		default: 1
+	},
+	evidence: {
+		type: String
+	},
+	handler: {
+		type: String,
+		ref: 'User'
+	},
+	note: {
+		type: String
 	},
 	createdAt: {
 		type: Number,

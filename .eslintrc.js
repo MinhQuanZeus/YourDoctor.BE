@@ -22,6 +22,7 @@ module.exports = {
     },
     "rules": {
 	    "no-unused-vars": 0,
+	    "no-empty": ["error", { "allowEmptyCatch": true }],
         "indent": [
             "error",
             "tab"

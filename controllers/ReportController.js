@@ -4,7 +4,7 @@ const create = async function (req, res) {
 	const body = req.body;
 	try {
 		if(!body){
-			return ReS(report, 'Bad request', 400);
+			return ReS(res, 'Bad request', 400);
 		}else {
 			let objReport = await Report.findOne({idReporter:body.idReporter, idPersonBeingReported: body.idPersonBeingReported});
 			if(objReport){
@@ -34,7 +34,6 @@ const create = async function (req, res) {
 		}
 	}
 	catch (e) {
-		console.log(e);
 	}
 };
 
@@ -52,7 +51,6 @@ const get = async function (req, res) {
 		});
 	}
 	catch (e) {
-		console.log(e);
 		return ReS(res, {message:'Tải danh sách báo cáo không thành công'}, 503);
 	}
 };

@@ -4,6 +4,8 @@ const User = require('../models').User;
 const SendNotification = require('./NotificationFCMController');
 const Notification = require('../models').Notification;
 const constants = require('../constants');
+const uploadServices = require('./../services/UploadServices');
+const multiparty = require('multiparty');
 const doctorWithdrawal = async function (req, res) {
 	res.setHeader('Content-Type', 'application/json');
 	try {
@@ -69,6 +71,8 @@ const checkCodeVerify = async function (req, res) {
 	try {
 		let body = req.body;
 		if (body) {
+			let objAdmin = await User.findOne({ role: constants.ROLE_ADMIN });
+			let fullNameAdmin = objAdmin.firstName + ' ' + objAdmin.middleName + ' ' + objAdmin.lastName;
 			let objBanking = await BankingHistory.findById({ _id: body.id });
 			if ('2' === objBanking.status + '') {
 				return ReE(res, { message: 'Giao dịch đã được xác mminh.' }, 503);
@@ -81,8 +85,8 @@ const checkCodeVerify = async function (req, res) {
 
 						// save
 						let notificationDoctor = {
-							senderId: constants.ID_ADMIN,
-							nameSender: 'ADMIN',
+							senderId: objAdmin.id,
+							nameSender: fullNameAdmin,
 							receiverId: objBanking.userId,
 							type: constants.NOTIFICATION_TYPE_BANKING,
 							storageId: objBanking.id,
@@ -93,8 +97,8 @@ const checkCodeVerify = async function (req, res) {
 						//send notification to doctor
 						let payLoadDoctor = {
 							data: {
-								senderId: constants.ID_ADMIN,
-								nameSender: 'ADMIN',
+								senderId: objAdmin.id,
+								nameSender: fullNameAdmin,
 								receiverId: objBanking.userId,
 								type: constants.NOTIFICATION_TYPE_BANKING,
 								storageId: objBanking.id,
@@ -187,35 +191,61 @@ module.exports.patientRecharge = patientRecharge;
 
 const getHistoryBanking = async function (req, res) {
 	try {
-		let pageSize = 0;
-		let page = 0;
-		if (req.query.pageSize) {
-			pageSize = req.query.pageSize * 1;
-		}
-		if (req.query.page) {
-			page = req.query.page * 1;
-		}
-		if (req.params.userId) {
-			let listBankingHistory = await BankingHistory.find({
-				userId: req.params.userId,
-				deletionFlag: false,
-			})
-				.select('-timeInputCode -code')
-				.limit(pageSize)
-				.skip(pageSize * page);
-			if (listBankingHistory) {
-				return ReS(res, {
-					status: true,
-					message: 'Danh sách giao dịch ngân hàng.',
-					listBankingHistory: listBankingHistory,
-				}, 200);
+		if (req.query.pageSize && req.query.page) {
+			let pageSize = 0;
+			let page = 0;
+			if (req.query.pageSize) {
+				pageSize = req.query.pageSize * 1;
+			}
+			if (req.query.page) {
+				page = req.query.page * 1;
+			}
+			if (req.params.userId) {
+				let listBankingHistory = await BankingHistory.find({
+					userId: req.params.userId,
+					deletionFlag: false,
+				})
+					.select('-timeInputCode -code')
+					.sort([['updatedAt', -1]])
+					.limit(pageSize)
+					.skip(pageSize * page);
+				if (listBankingHistory) {
+					return ReS(res, {
+						status: true,
+						message: 'Danh sách giao dịch ngân hàng.',
+						listBankingHistory: listBankingHistory,
+					}, 200);
+				}
+				else {
+					return ReE(res, { message: 'Không tìm thấy lịch sử giao dịch' }, 400);
+				}
 			}
 			else {
-				return ReE(res, { message: 'Không tìm thấy lịch sử giao dịch' }, 400);
+				return ReE(res, { message: 'BAD REQUEST' }, 400);
 			}
 		}
 		else {
-			return ReE(res, { message: 'BAD REQUEST' }, 400);
+			if (req.params.userId) {
+				let listBankingHistory = await BankingHistory.find({
+					userId: req.params.userId,
+					deletionFlag: false,
+				})
+					.select('-timeInputCode -code')
+					.sort([['createdAt', -1]]);
+				if (listBankingHistory) {
+					return ReS(res, {
+						status: true,
+						message: 'Danh sách giao dịch ngân hàng.',
+						listBankingHistory: listBankingHistory,
+					}, 200);
+				}
+				else {
+					return ReE(res, { message: 'Không tìm thấy lịch sử giao dịch' }, 400);
+				}
+			}
+			else {
+				return ReE(res, { message: 'BAD REQUEST' }, 400);
+			}
 		}
 	}
 	catch (e) {
@@ -277,56 +307,140 @@ module.exports.getDetailHistoryById = getDetailHistoryById;
 
 const handleBankingHistory = async function (req, res) {
 	try {
-		if (req.params.id) {
-			let objDetail = await BankingHistory.findById({ _id: req.params.id });
+		let imageEvidence = 'http://dnr-live.ru/wp-content/uploads/2017/03/noavatar.png';
+		const form = new multiparty.Form();
+		form.parse(req, async (error, fields, files) => {
+			let body = JSON.parse(fields.body[0]);
+			if (error) throw new Error(error);
+			// get id Admin
+			let handler = req.user.id;
+			// get id Banking
+			let idBanking = req.params.id;
+			// get note
+			let note = body.note;
+			//get status
+			let status = body.status;
+			// get object Admin
+			let objAdminHandler = await User.findById({ _id: handler });
+			// get full name admin
+			let fullNameAdmin = objAdminHandler.firstName + ' ' + objAdminHandler.middleName + ' ' + objAdminHandler.lastName;
+			// get object Banking
+			let objDetail = await BankingHistory.findById({ _id: idBanking });
+			// upload image
+			if (files && files.evidence) {
+				let [error, imageURL] = await to(uploadServices.uploadService(files.evidence[0]));
+				if (error) {
+					return ReE(res, 'Xử lí yêu cầu không thành công, vui lòng thử lại.', 400);
+				}
+				// get link image
+				imageEvidence = imageURL;
+			}
 			if (objDetail) {
-				objDetail.set({ status: constants.BANKING_HISTORY_DONE });
-				let objDetailReturn = await objDetail.save();
-				if (objDetailReturn) {
-					// save notification
-					let notificationDoctor = {
-						senderId: constants.ID_ADMIN,
-						nameSender: 'ADMIN',
-						receiverId: objDetailReturn.userId,
-						type: constants.NOTIFICATION_TYPE_BANKING,
-						storageId: objDetailReturn.id,
-						message: 'Yêu cầu rút tiền thành công. Số tiền: ' + objDetailReturn.amount + ' VND đã được chuyển tới STK: ' + objDetailReturn.accountNumber,
-					};
-					await createNotification(notificationDoctor);
-
-					//send notification to doctor
-					let payLoadDoctor = {
-						data: {
-							senderId: constants.ID_ADMIN,
-							nameSender: 'ADMIN',
+				if (status === constants.BANKING_HISTORY_DONE) {
+					// set data to update banking
+					objDetail.set({
+						status: constants.BANKING_HISTORY_DONE,
+						evidence: imageEvidence,
+						handler: handler,
+						note: note,
+					});
+					// save banking
+					let objDetailReturn = await objDetail.save();
+					if (objDetailReturn) {
+						// save notification
+						let notificationDoctor = {
+							senderId: objAdminHandler.id,
+							nameSender: fullNameAdmin,
 							receiverId: objDetailReturn.userId,
 							type: constants.NOTIFICATION_TYPE_BANKING,
 							storageId: objDetailReturn.id,
-							message: 'Yêu cầu rút tiền thành công. Số tiền: ' + objDetailReturn.amount + ' VND đã được chuyển tới STK: ' + objDetailReturn.accountNumber,
-							createTime: Date.now().toString(),
-						},
-					};
-					// send
-					await SendNotification.sendNotification(objDetailReturn.userId, payLoadDoctor);
-					return ReS(res, {
-						status: true,
-						message: 'Update trạng thái giao dịch thành công.',
-					}, 200);
+							message: 'Yêu cầu rút tiền đã được xử lí. Số tiền: ' + objDetailReturn.amount + ' VND đã được chuyển tới STK: ' + objDetailReturn.accountNumber,
+						};
+						await createNotification(notificationDoctor);
+
+						//send notification to doctor
+						let payLoadDoctor = {
+							data: {
+								senderId: objAdminHandler.id,
+								nameSender: fullNameAdmin + '',
+								receiverId: objDetailReturn.userId,
+								type: constants.NOTIFICATION_TYPE_BANKING + '',
+								storageId: objDetailReturn.id,
+								message: 'Yêu cầu rút tiền đã được xử lí. Số tiền: ' + objDetailReturn.amount + ' VND đã được chuyển tới STK: ' + objDetailReturn.accountNumber,
+								createTime: Date.now().toString(),
+							},
+						};
+						// send
+						await SendNotification.sendNotification(objDetailReturn.userId, payLoadDoctor);
+						return ReS(res, {
+							success: true,
+							message: 'Update trạng thái giao dịch thành công.',
+						}, 200);
+					}
+					else {
+						return ReE(res, { message: 'ERROR SAVE' }, 503);
+					}
 				}
-				else {
-					return ReE(res, { message: 'ERROR' }, 503);
+				else if (status === constants.BANKING_HISTORY_FAILED) {
+					// set data to update banking
+					objDetail.set({
+						status: constants.BANKING_HISTORY_FAILED,
+						evidence: imageEvidence,
+						handler: handler,
+						note: note,
+					});
+					// save banking
+					let objDetailReturn = await objDetail.save();
+					// trả lại tiền cho bác sỹ
+					let amountAdmin = objDetail.amount;
+					User.findByIdAndUpdate({ _id: objDetail.userId }, { $inc: { remainMoney: amountAdmin } }, { lean: true }, function (err, resUser) {
+						if (err) {
+							return ReE(res, {message: 'ERROR SAVE'}, 503);
+						}
+						//send notification to doctor
+						let payLoadDoctor = {
+							data: {
+								senderId: objAdminHandler.id,
+								nameSender: fullNameAdmin + '',
+								receiverId: objDetailReturn.userId,
+								type: constants.NOTIFICATION_TYPE_BANKING + '',
+								storageId: objDetailReturn.id,
+								message: 'Yêu cầu rút tiền thất bại.Hoàn trả: '+objDetail.amount+'VND. Lý do: '+note,
+								remainMoney: resUser.remainMoney+'',
+								createTime: Date.now().toString(),
+							},
+						};
+						// send
+						SendNotification.sendNotification(objDetailReturn.userId, payLoadDoctor);
+					});
+					if (objDetailReturn) {
+						// save notification
+						let notificationDoctor = {
+							senderId: objAdminHandler.id,
+							nameSender: fullNameAdmin,
+							receiverId: objDetailReturn.userId,
+							type: constants.NOTIFICATION_TYPE_BANKING,
+							storageId: objDetailReturn.id,
+							message: 'Yêu cầu rút tiền thất bại.Hoàn trả: '+objDetail.amount+'VND. Lý do: '+note,
+						};
+						await createNotification(notificationDoctor);
+						return ReS(res, {
+							success: true,
+							message: 'Update trạng thái giao dịch thành công.',
+						}, 200);
+					}
+					else {
+						return ReE(res, {message: 'ERROR SAVE'}, 503);
+					}
 				}
 			}
 			else {
-				return ReE(res, { message: 'NOT FOUND' }, 404);
+				return ReE(res, {message: 'NOT FOUND BANKING REQUEST'}, 404);
 			}
-		}
-		else {
-			return ReE(res, { message: 'BAD REQUEST' }, 400);
-		}
+		});
 	}
 	catch (e) {
-		return ReE(res, { message: 'ERROR' }, 503);
+		return ReE(res, {message: 'ERROR'}, 503);
 	}
 };
 
@@ -338,10 +452,6 @@ const removeLogic = async function (req, res) {
 	});
 };
 module.exports.removeLogic = removeLogic;
-
-const payCashForDoctor = async function (req, res) {
-
-};
 
 async function getUser (userId) {
 	let fullName;
@@ -362,9 +472,7 @@ const createNotification = async function (body) {
 			storageId: body.storageId,
 			message: body.message,
 		});
-		await notification.save(function (err, success) {
-
-		});
+		await notification.save();
 	}
 	catch (e) {
 

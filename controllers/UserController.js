@@ -5,6 +5,7 @@ const Rating = require('../models').Rating;
 const Doctor = require('../models').Doctor;
 const SendNotification = require('./NotificationFCMController');
 const constants = require('../constants');
+const phoneService = require('./../services/PhoneService');
 // const create = async function (req, res) {
 //     res.setHeader('Content-Type', 'application/json');
 //     const body = req.body;
@@ -70,12 +71,12 @@ const changePassword = async function (req, res) {
 		ReS(res, { message: 'Not found user' }, 404);
 	}
 	else {
-		[err, checkPassword] = await to(objUpdateUser.comparePassword(data.oldPassword));
+		let [err, checkPassword] = await to(objUpdateUser.comparePassword(data.oldPassword));
 		if (err) {
 			ReS(res, { message: 'Password cũ không chính xác' }, 503);
 		}
 		else if (checkPassword) {
-			[err, objDuplicatePassword] = await to(objUpdateUser.comparePassword(data.newPassword));
+			let [err, objDuplicatePassword] = await to(objUpdateUser.comparePassword(data.newPassword));
 			if (objDuplicatePassword) {
 				ReS(res, { message: 'Password mới không được trùng password cũ' }, 503);
 			} else {
@@ -95,7 +96,6 @@ const changePassword = async function (req, res) {
 	}
 };
 module.exports.changePassword = changePassword;
-const phoneService = require('./../services/PhoneService');
 const forgotPassword = async function (req, res) {
 	if (!req.params.phoneNumber) {
 		ReS(res, { message: 'Bad request' }, 400);
@@ -103,11 +103,11 @@ const forgotPassword = async function (req, res) {
 	else {
 		let objUser = await User.findOne({ phoneNumber: req.params.phoneNumber });
 		if (objUser) {
-			const newPassword = 'yd@' + Math.floor(10000 + 89999 * Math.random());
+			const newPassword = 'Yd@' + Math.floor(10000 + 89999 * Math.random());
 			objUser.set({ password: newPassword });
 			let objUserReturn = await objUser.save();
 			if (objUserReturn) {
-				[errors, status] = await to(phoneService.sendSMSPassword(req.params.phoneNumber, newPassword));
+				let [errors, status] = await to(phoneService.sendSMSPassword(req.params.phoneNumber, newPassword));
 				if (errors) {
 					return ReE(res, {
 						status: false,
@@ -203,8 +203,8 @@ const getAllUser = async function (req, res) {
 						break;
 					}
 					case 'fullName': {
-						let aSize = a.fullName;
-						let bSize = b.fullName;
+						let aSize = a.fullName.toLowerCase();
+						let bSize = b.fullName.toLowerCase();
 						if (query.sort_direction.includes('desc')) {
 							return (aSize > bSize) ? -1 : 1;
 						} else if (query.sort_direction.includes('asc')) {
@@ -261,63 +261,65 @@ const updateUser = async function (req, res) {
 		if (body) {
 			let objUser = await User.findById({ _id: body.id });
 			let objDoctor = await Doctor.findOne({ doctorId: body.id });
-			if (objUser.role === '2') {
-				if (body.status === '1') {
-					let message = 'Tài khoản bác sỹ của bạn đã được xác minh. Bạn đã có thể đăng nhập vào hệ thống ứng dụng của YourDoctor';
-					[errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+			if (objUser.role+'' === '2') {
+				console.log('vao day');
+				if (body.status === 1) {
+					let message = 'Your Doctor! Tài khoản bác sỹ của bạn đã được kích hoạt. Bạn đã có thể đăng nhập vào hệ thống ứng dụng của Your Doctor';
+					let [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+					if(errors){
+						return ReE(res, { success: false, message:'Update user failed!' }, 503);
+					}
 				}
-				if (body.status === '3') {
-					let message = 'Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT, message);
+				if (body.status === 3) {
+					let message = 'Your Doctor! Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
+					let [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+					if(errors){
+						return ReE(res, { success: false, message:'Update user failed!' }, 503);
+					}
 				}
-				if (body.status === '4') {
-					let message = 'Tài khoản của bạn đã bị khóa tạm thời sử dụng ứng dụng YourDoctor Partner. Bạn vẫn có thể đăng nhập ứng dụng dành cho bệnh nhân.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT, message);
-				}
-				if (body.systemRating < objDoctor.systemRating) {
-					let message = 'Bạn đã bị giảm chỉ số Rate do những báo cáo về chất lượng các cuộc tư vấn.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT, message);
-				}
-				if (body.role === '1') {
-					let message = 'Tài khoản của bạn đã được cập nhật thành Bệnh nhân.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE, message);
-				}
-				if (body.role === '3') {
-					let message = 'Tài khoản của bạn đã được cập nhật thành Admin.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE, message);
-				}
-				let finalRate = await calculateRate(body.id, body.systemRating);
-				objDoctor.set({ systemRating: body.systemRating, currentRating: finalRate });
+				objDoctor.set({ systemRating: body.systemRating, currentRating: body.systemRating });
 				let objDoctorReturn = await objDoctor.save();
-				objUser.set({ status: body.status, role: body.role });
-				let objUserReturn = objUser.save();
+				objUser.set({ status: body.status});
+				let objUserReturn = await objUser.save();
 				if (objDoctorReturn && objUserReturn) {
-					return ReS(res, { success: true }, 200);
+					return ReS(res, { success: true, message:'Update success'}, 200);
 				}
 				else {
-					return ReS(res, { success: false }, 503);
+					return ReE(res, { success: false, message:'Update failed' }, 503);
 				}
 			}
-			else if (objUser.role === '1') {
-				if (body.status === '3') {
-					let message = 'Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_REPORT, message);
-				}
-				if (body.role === '2') {
-					let message = 'Tài khoản của bạn đã được cập nhật thành Bác sỹ.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE, message);
-				}
-				if (body.role === '3') {
-					let message = 'Tài khoản của bạn đã được cập nhật thành Admin.';
-					await Notification(constants.ID_ADMIN, constants.NAME_ADMIN, objUser.id, constants.NOTIFICATION_TYPE_ROLE, message);
+			else if (objUser.role+'' === '1') {
+				if (body.status === 3) {
+					let message = 'Your Doctor! Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
+					let [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+					if(errors){
+						return ReE(res, { success: false, message:'Update user failed!' }, 503);
+					}
 				}
 				objUser.set({ status: body.status });
-				let objUserReturn = objUser.save();
+				let objUserReturn = await objUser.save();
 				if (objUserReturn) {
-					return ReS(res, { success: true }, 200);
+					return ReS(res, { success: true, message:'Update success'}, 200);
 				}
 				else {
-					return ReS(res, { success: false }, 503);
+					return ReE(res, { success: false, message:'Update failed' }, 503);
+				}
+			}
+			else if (objUser.role+'' === '3') {
+				if (body.status === 3) {
+					let message = 'Your Doctor! Tài khoản của bạn đã bị khóa do sai phạm trong quy chế và điều khoản sử dụng ứng dụng.';
+					let [errors, status] = await to(phoneService.adminSendSMS(objUser.phoneNumber, message));
+					if(errors){
+						return ReE(res, { success: false, message:'Update user failed!' }, 503);
+					}
+				}
+				objUser.set({ status: body.status });
+				let objUserReturn = await objUser.save();
+				if (objUserReturn) {
+					return ReS(res, { success: true, message:'Update success'}, 200);
+				}
+				else {
+					return ReE(res, { success: false, message:'Update failed' }, 503);
 				}
 			}
 		}
@@ -326,7 +328,7 @@ const updateUser = async function (req, res) {
 		}
 	}
 	catch (e) {
-
+		ReE(res, { message: 'ERROR' }, 503);
 	}
 };
 
@@ -368,11 +370,7 @@ const createNotification = async function (body) {
 			storageId: body.storageId,
 			message: body.message,
 		});
-		await notification.save(function (err, success) {
-			if (err) {
-				console.log(err);
-			}
-		});
+		await notification.save();
 	}
 	catch (e) {
 		console.log(e);
@@ -398,7 +396,7 @@ const deleteUserById = async function (req, res) {
 		if (results && results.length === 0) {
 			return ReE(res, 'Người dùng không tồn tại', 404);
 		}
-		user = results[0];
+		let user = results[0];
 		if (Number(user.updatedAt) !== Number(updateTime)) {
 			return ReE(res, 'Người dùng đã được chỉnh sửa, vui lòng refresh và thử lại', 400);
 		}
@@ -419,7 +417,7 @@ const deleteUserById = async function (req, res) {
 
 module.exports.deleteUserById = deleteUserById;
 
-const getUserById = async function (req, res) {
+const getUserById = async function (req, res, next) {
 	console.log('getUser');
 	const userId = req.params.userId;
 	if (!userId) {
@@ -439,7 +437,7 @@ const getUserById = async function (req, res) {
 		if (results && results.length === 0) {
 			return ReE(res, 'Người dùng không tồn tại', 404);
 		}
-		user = results[0];
+		let user = results[0];
 		if (user && user.role === constants.ROLE_DOCTOR) {
 			Doctor.find({ doctorId: user._id }, function (err, getDoctor) {
 				if (err) {
@@ -467,38 +465,5 @@ const getUserById = async function (req, res) {
 	});
 };
 module.exports.getUserById = getUserById;
-
-async function calculateRate (doctorId, newSystemRating) {
-	let averagePatientRate = 0;
-	let finalRate = 0;
-	// update to doctor table
-	await Rating.aggregate([
-		{
-			$match: { doctorId: { $eq: doctorId } },
-		},
-		{
-			$group: {
-				_id: '$doctorId',  //$doctorId is the column name in collection
-				totalRating: {
-					$sum: '$rating',
-				},
-				count: { $sum: 1 },
-			},
-		},
-	], function (err, result) {
-		if (err) {
-			console.log(err);
-		} else {
-			if (result[0].totalRating > 0) {
-				averagePatientRate = ((result[0].totalRating) / (result[0].count));
-				finalRate = ((averagePatientRate * (1 - constants.SYSTEM_RATE_PERCENT)) + (newSystemRating * constants.SYSTEM_RATE_PERCENT));
-			}
-			else {
-				finalRate = newSystemRating;
-			}
-		}
-	});
-	return finalRate.toFixed(2);
-}
 
 

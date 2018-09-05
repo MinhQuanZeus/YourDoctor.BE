@@ -20,7 +20,6 @@ const create = async function (req, res) {
 		}
 	}
 	catch (e) {
-		console.log(e);
 		return ReE(res, 'Failed', 503);
 	}
 };
@@ -38,7 +37,6 @@ const get = async function (req, res) {
 		}
 	}
 	catch (e) {
-		console.log(e);
 		return ReE(res, 'Failed', 503);
 	}
 };

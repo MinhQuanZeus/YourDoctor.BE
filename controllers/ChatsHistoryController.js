@@ -87,7 +87,7 @@ const create = async function (req, res) {
 				receiverId: chatHistory.patientId,
 				type: constants.NOTIFICATION_TYPE_PAYMENT,
 				storageId: objPayment.id,
-				message: 'Bạn vừa tạo một yêu cầu tư vấn với bác sỹ ' + fullNameDoctor + '. Bạn đã thanh toán: ' + objPayment.amount + 'VND. Số tiền bạn có hiện tại: ' + Math.round(newRemainMoney) + 'VND.',
+				message: 'Bạn đã thanh toán: ' + objPayment.amount + 'VND. Số dư hiện tại: ' + Math.round(newRemainMoney) + 'VND.',
 				createTime: Date.now().toString()
 			}
 		};
@@ -100,7 +100,7 @@ const create = async function (req, res) {
 			receiverId: chatHistory.patientId,
 			type: constants.NOTIFICATION_TYPE_PAYMENT,
 			storageId: objPayment.id,
-			message: 'Bạn vừa tạo một yêu cầu tư vấn ' + fullNameDoctor + '. Bạn đã thanh toán: ' + objPayment.amount + 'VND.Số tiền bạn có hiện tại: ' + Math.round(newRemainMoney) + 'VND.'
+			message: 'Bạn đã thanh toán: ' + objPayment.amount + 'VND.Số dư hiện tại: ' + Math.round(newRemainMoney) + 'VND.'
 		};
 		await  createNotification(notificationPatient);
 		return ReS(res, {message: 'Tạo cuộc tư vấn thành công', chatHistory: chatHistory}, 200);
@@ -113,7 +113,7 @@ module.exports.create = create;
 
 const updateRecord = async function (req, res) {
 	let data = req.body;
-	if (!data.id) TE(err.message);
+	if (!data.id) ReE(res, 'Vui lòng nhập Id', 503);
 	try {
 		// check limit record
 		let pushRecord = await ChatsHistory.findOne({_id: data.id});
@@ -139,7 +139,6 @@ const updateRecord = async function (req, res) {
 			});
 		}
 	} catch (e) {
-		console.log(e);
 	}
 };
 
@@ -287,7 +286,6 @@ const getAllConversationByDoctor = async function (req, res) {
 module.exports.getAllConversationByDoctor = getAllConversationByDoctor;
 
 const getConversationByID = async function (req, res) {
-	console.log(req.params.id);
 	try {
 		let objConversation = await ChatsHistory.findById({
 			_id: req.params.id
@@ -302,7 +300,6 @@ const getConversationByID = async function (req, res) {
 			return ReS(res, {message: 'Lấy thông tin cuộc tư vấn thành công', objConversation: objConversation}, 200);
 		}
 	} catch (e) {
-		console.log(e);
 	}
 };
 
@@ -427,7 +424,6 @@ const checkDoctorReply = async function (req, res) {
 								remainMoney: paymentIdDoctor.remainMoney+'',
 								message: 'Cuộc tư vấn với bệnh nhân ' + fullName + ' đã kết thúc. Bạn nhận được: ' + paymentIdDoctor.amount + ' VND.' + ' Số tiền bạn có hiện tại: ' + Math.round(paymentIdDoctor.remainMoney) + 'VND',
 							};
-							console.log(objNotificationToSave);
 							// save to notification table
 							await createNotification(objNotificationToSave);
 
@@ -523,7 +519,6 @@ const checkDoctorReply = async function (req, res) {
 			}
 		}
 		catch (e) {
-			console.log(e.toString());
 			arrayChatHistoryCheckFailed.push(body.listId[k]);
 		}
 	}
@@ -565,7 +560,6 @@ const getListConversationPending = async function (req, res) {
 		}
 	}
 	catch (e) {
-		console.log(e);
 		return ReE(res, 'Not found', 503);
 	}
 };
@@ -585,12 +579,11 @@ const createNotification = async function (body) {
 		});
 		await  notification.save(function (err, success) {
 			if (err) {
-				console.log(err);
+
 			}
 		});
 	}
 	catch (e) {
-		console.log(e);
 	}
 };
 
@@ -611,6 +604,7 @@ async function createPaymentForDoctor(conversationID) {
 				userID: objChatHistory.doctorId,
 				amount: objTypeAdvisory.price * 1 * constants.PERCENT_PAY_FOR_DOCTOR,
 				remainMoney: remainMoney,
+				fromUser: objChatHistory.patientId,
 				typeAdvisoryID: objChatHistory.typeAdvisoryID,
 				status: constants.PAYMENT_SUCCESS
 			});

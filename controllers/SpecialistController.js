@@ -5,6 +5,7 @@ const fileType = require('file-type');
 const multiparty = require('multiparty');
 const uuidv4 = require('uuid/v4');
 const awsServices = require('../services/AWSService');
+const uploadServices = require('./../services/UploadServices');
 
 const create = async function (req, res) {
 	res.setHeader('Content-Type', 'application/json');
@@ -14,14 +15,10 @@ const create = async function (req, res) {
 		try {
 			let image = '';
 			if (files && files.image) {
-				const path = files.image[0].path;
-				const buffer = fs.readFileSync(path);
-				const type = fileType(buffer);
-				const timestamp = uuidv4();
-				const fileName = `${timestamp}-lg`;
-				const data = await awsServices.uploadFile(buffer, fileName, type);
-				image = data.Location;
+				const imageUrl = await uploadServices.uploadService(files.image[0]);
+				image = imageUrl;
 			}
+			console.log(image);
 			// Insert database
 			const requestData = fields && fields.specialist && fields.specialist[0];
 			const body = JSON.parse(requestData);
@@ -48,7 +45,7 @@ module.exports.create = create;
 
 const getAllSpecialist = async function (req, res) {
 	try {
-		let listSpecialist = await Specialist.find({ deletionFlag: { $ne: true } });
+		let listSpecialist = await Specialist.find({ deletionFlag: false });
 		if (listSpecialist) {
 			return ReS(res, { message: 'Tạo danh sách chuyên khoa thành công', listSpecialist: listSpecialist }, 200);
 		}
@@ -66,7 +63,7 @@ module.exports.getAllSpecialist = getAllSpecialist;
 
 const getListSpecialist = async function (req, res) {
 	try {
-		let listSpecialist = await Specialist.find({}).select('name image');
+		let listSpecialist = await Specialist.find({deletionFlag: false}).select('name image');
 		if (listSpecialist) {
 			return ReS(res, { message: 'Tạo danh sách chuyên khoa thành công', listSpecialist: listSpecialist }, 200);
 		}
@@ -121,13 +118,8 @@ const update = async function (req, res) {
 			if(duplicateSpecialist) return ReE(res, 'Chuyên khoa này đã tồn tại',409);
 			let image = '';
 			if (files && files.image) {
-				const path = files.image[0].path;
-				const buffer = fs.readFileSync(path);
-				const type = fileType(buffer);
-				const timestamp = uuidv4();
-				const fileName = `${timestamp}-lg`;
-				const data = await uploadFile(buffer, fileName, type);
-				image = data.Location;
+				const imageUrl = await uploadServices.uploadService(files.image[0]);
+				image = imageUrl;
 			}
 			const data = {
 				name: body.name,
